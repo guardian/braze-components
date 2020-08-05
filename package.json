@@ -1,5 +1,5 @@
 {
-  "name": "braze-components",
+  "name": "@guardian/braze-components",
   "version": "0.0.1",
   "description": "React components to render messages from Braze",
   "repository": "https://github.com/guardian/braze-components",
