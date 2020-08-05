@@ -6,6 +6,7 @@ import commonjs from "@rollup/plugin-commonjs";
 import replace from "@rollup/plugin-replace";
 import alias from "@rollup/plugin-alias";
 import { terser } from "rollup-plugin-terser";
+import peerDepsExternal from "rollup-plugin-peer-deps-external";
 
 const extensions = [...DEFAULT_EXTENSIONS, ".ts", ".tsx"];
 
@@ -17,6 +18,7 @@ const configs = [["./index.ts", "./dist/index.js"]].map(([input, file]) => ({
     sourcemap: false,
   },
   plugins: [
+    peerDepsExternal(),
     alias({
       entries: [
         { find: "react", replacement: "preact/compat" },
