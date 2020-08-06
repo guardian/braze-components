@@ -53,5 +53,9 @@
     "@emotion/core": "10.0.x",
     "preact": "^10.3.x",
     "react": "16.13.x"
+  },
+  "dependencies": {
+    "@guardian/src-button": "^2.1.0",
+    "@guardian/src-foundations": "^2.1.0"
   }
 }

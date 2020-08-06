@@ -1139,6 +1139,25 @@
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.5.tgz#8eed982e2ee6f7f4e44c253e12962980791efd46"
   integrity sha512-6U71C2Wp7r5XtFtQzYrW5iKFT67OixrSxjI4MptCHzdSVlgabczzqLe0ZSgnub/5Kp4hSbpDB1tMytZY9pwxxA==
 
+"@guardian/src-button@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@guardian/src-button/-/src-button-2.1.0.tgz#59e4bec31dce699debcb2c49c128251e00e96ecc"
+  integrity sha512-9k/HudQOVePp4kjBd/NgZTR46X+VRQ2flWkaewxu1v8wcnBMC4Sm4wYgqsj6Jo7qAf1q3r4kLV/nG8rnd7BETQ==
+  dependencies:
+    "@guardian/src-helpers" "^2.1.0"
+
+"@guardian/src-foundations@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@guardian/src-foundations/-/src-foundations-2.1.0.tgz#7d4abd30c7cca6df02cd61b125e43f18ac9b801f"
+  integrity sha512-1ELb3CtDEhkhUWcv2zVwFqonokYg7pbizQqYMmRfNnHIzNp3+aJl48BHMRTd9Nqqcx+As9syUXPs09CeaAOMfg==
+
+"@guardian/src-helpers@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@guardian/src-helpers/-/src-helpers-2.1.0.tgz#1b2f5d243a8794105b887a1ae46fdf5ce23355f3"
+  integrity sha512-M3ShTyoYHcH6tyGsGEp7KgXaJbIpvzmFB9AVvzjs/Ozn9a1ii1F4/FBEBJAlDwijgrnUtASeSZ73ncSkvofdiw==
+  dependencies:
+    "@guardian/src-foundations" "^2.1.0"
+
 "@iarna/cli@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@iarna/cli/-/cli-1.2.0.tgz#0f7af5e851afe895104583c4ca07377a8094d641"
