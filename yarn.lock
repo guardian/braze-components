@@ -5032,7 +5032,12 @@ estraverse@^5.1.0:
   resolved "https://registry.yarnpkg.com/estraverse/-/estraverse-5.1.0.tgz#374309d39fd935ae500e7b92e8a6b4c720e59642"
   integrity sha512-FyohXK+R0vE+y1nHLoBM7ZTyqRpqAlhdZHCWIWEviFLiGB8b04H6bQs8G+XTthacvT8VuwvteiP7RJSxMs8UEw==
 
-estree-walker@^1.0.1:
+estree-walker@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/estree-walker/-/estree-walker-0.6.1.tgz#53049143f40c6eb918b23671d1fe3219f3a1b362"
+  integrity sha512-SqmZANLWS0mnatqbSfRP5g8OXZC12Fgg1IwNtLsyHDzJizORW4khDfjPqJZsemPWBB2uqykUah5YpQ6epsqC/w==
+
+estree-walker@^1.0.0, estree-walker@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/estree-walker/-/estree-walker-1.0.1.tgz#31bc5d612c96b704106b477e6dd5d8aa138cb700"
   integrity sha512-1fMXF3YP4pZZVozF8j/ZLfvnR8NSIljt56UhbZ5PeeDmmGHpgpdwQt7ITlGvYaQukCvuBRMLEiKiYC+oeIg4cg==
@@ -6772,7 +6777,7 @@ is-redirect@^1.0.0:
   resolved "https://registry.yarnpkg.com/is-redirect/-/is-redirect-1.0.0.tgz#1d03dded53bd8db0f30c26e4f95d36fc7c87dc24"
   integrity sha1-HQPd7VO9jbDzDCbk+V02/HyH3CQ=
 
-is-reference@^1.1.2:
+is-reference@^1.1.2, is-reference@^1.1.4:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/is-reference/-/is-reference-1.2.1.tgz#8b2dac0b371f4bc994fdeaba9eb542d03002d0b7"
   integrity sha512-U82MsXXiFIrjCK4otLT+o2NA2Cd2g5MLoOVXUZjIOhLurrRxpEXzI8O0KZHr3IjLvlAH1kTPYSuqer5T9ZVBKQ==
@@ -7541,7 +7546,7 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
-magic-string@^0.25.2, magic-string@^0.25.5:
+magic-string@^0.25.2, magic-string@^0.25.4, magic-string@^0.25.5:
   version "0.25.7"
   resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.25.7.tgz#3f497d6fd34c669c6798dcb821f2ef31f5445051"
   integrity sha512-4CrMT5DOHTDk4HYDlzmwu4FVCcIYI8gauveasrdCu2IKIFOJ3f0v/8MDGJCDL9oD2ppz/Av1b0Nj345H9M+XIA==
@@ -10129,6 +10134,16 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
     hash-base "^3.0.0"
     inherits "^2.0.1"
 
+rollup-plugin-external-globals@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-external-globals/-/rollup-plugin-external-globals-0.5.0.tgz#1662cacfb240a6e4e0618db2b79e9feae0134603"
+  integrity sha512-v3qjync/2wcqdSesNP3qPnYeOnnV39ydCU+2fTxjlmux8uA1VqM4cUVffkgzoDh3TBOEhN8JWAHrN7Hs9ZD0Sg==
+  dependencies:
+    estree-walker "^1.0.0"
+    is-reference "^1.1.4"
+    magic-string "^0.25.4"
+    rollup-pluginutils "^2.8.2"
+
 rollup-plugin-filesize@^9.0.2:
   version "9.0.2"
   resolved "https://registry.yarnpkg.com/rollup-plugin-filesize/-/rollup-plugin-filesize-9.0.2.tgz#1470bb93d40dd0c2a5381cae58b8b7106f13d185"
@@ -10157,6 +10172,13 @@ rollup-plugin-terser@^6.1.0:
     jest-worker "^26.0.0"
     serialize-javascript "^3.0.0"
     terser "^4.7.0"
+
+rollup-pluginutils@^2.8.2:
+  version "2.8.2"
+  resolved "https://registry.yarnpkg.com/rollup-pluginutils/-/rollup-pluginutils-2.8.2.tgz#72f2af0748b592364dbd3389e600e5a9444a351e"
+  integrity sha512-EEp9NhnUkwY8aif6bxgovPHMoMoNr2FulJziTndpt5H9RdwC47GSGuII9XxpSdzVGM0GWrNPHV6ie1LTNJPaLQ==
+  dependencies:
+    estree-walker "^0.6.1"
 
 rollup@^2.23.0:
   version "2.23.0"
