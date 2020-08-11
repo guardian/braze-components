@@ -7,7 +7,7 @@ export default {
 };
 
 export const defaultStory = (): ReactElement => {
-  return <ExampleComponent />;
+  return <ExampleComponent message="Test message" />;
 };
 
 defaultStory.story = { name: "Example Component" };
