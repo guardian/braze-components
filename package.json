@@ -51,12 +51,12 @@
     "typescript": "^3.9.7"
   },
   "peerDependencies": {
+    "@emotion/core": "10.0.x",
+    "preact-x": "npm:preact@10.3.1",
     "react": "16.13.x"
   },
   "dependencies": {
-    "@emotion/core": "^10.0.34",
     "@guardian/src-button": "^2.1.0",
-    "@guardian/src-foundations": "^2.1.0",
-    "preact": "^10.4.7"
+    "@guardian/src-foundations": "^2.1.0"
   }
 }
