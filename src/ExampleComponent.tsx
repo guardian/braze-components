@@ -5,6 +5,7 @@ import { Button } from "@guardian/src-button";
 
 type Props = {
   message: string;
+  onButtonClick: () => void;
 };
 
 export const wrapperStyles = css`
@@ -27,11 +28,14 @@ export const wrapperStyles = css`
   padding: 50px 0;
 `;
 
-export const ExampleComponent: React.FC<Props> = ({ message }: Props) => (
+export const ExampleComponent: React.FC<Props> = ({
+  message,
+  onButtonClick,
+}: Props) => (
   <div css={wrapperStyles}>
     <div>Hello from a Braze Banner!</div>
     <div>
-      <Button>Message: {message}</Button>
+      <Button onClick={onButtonClick}>Message: {message}</Button>
     </div>
   </div>
 );

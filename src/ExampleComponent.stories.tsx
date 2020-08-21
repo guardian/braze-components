@@ -7,7 +7,14 @@ export default {
 };
 
 export const defaultStory = (): ReactElement => {
-  return <ExampleComponent message="Test message" />;
+  return (
+    <ExampleComponent
+      onButtonClick={() => {
+        console.log("Button clicked!");
+      }}
+      message="Test message"
+    />
+  );
 };
 
 defaultStory.story = { name: "Example Component" };
