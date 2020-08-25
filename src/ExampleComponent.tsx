@@ -3,7 +3,7 @@ import { css } from "@emotion/core";
 import { palette } from "@guardian/src-foundations";
 import { Button } from "@guardian/src-button";
 
-type Props = {
+export type Props = {
   message: string;
   onButtonClick: () => void;
 };
