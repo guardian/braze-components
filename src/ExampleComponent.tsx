@@ -2,6 +2,7 @@ import React from "react";
 import { css } from "@emotion/core";
 import { palette } from "@guardian/src-foundations";
 import { Button } from "@guardian/src-button";
+import { GridRow, GridItem } from "@guardian/src-grid";
 
 export type Props = {
   message: string;
