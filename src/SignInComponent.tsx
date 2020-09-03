@@ -257,7 +257,7 @@ export const infoIcon = css`
     height: 60px;
     left: -60px;
     top: 10px;
-    
+    display: none;
 `;
 
 export const storeIcon = css`
@@ -273,8 +273,8 @@ export const storeIcon = css`
     
 `;
 
-//TODO: Add dynamic greeting and name
-//TODO: Add App Store icons
+//TODO: Remove message
+//TODO: Add negative and positive button click
 
 export const SignInComponent: React.FC<Props> = ({
   message,
