@@ -279,12 +279,9 @@ export const storeIcon = css`
     
 `;
 
-//TODO: Remove message
-//TODO: Add negative and positive button click
-
 export const SignInComponent: React.FC<Props> = ({
   message,
-  onButtonClick, // Exact implementation of braze tracking TBC
+  onButtonClick,
   firstName
 }: Props) => {
     const [showBanner, setShowBanner] = useState(true);
