@@ -33,7 +33,7 @@ export const ExampleComponent: React.FC<Props> = ({
   onButtonClick,
 }: Props) => (
   <div css={wrapperStyles}>
-    <div>Hello from a Braze Banner Yay!</div>
+    <div>Hello from a Braze Banner!</div>
     <div>
       <Button onClick={onButtonClick}>Message: {message}</Button>
     </div>
