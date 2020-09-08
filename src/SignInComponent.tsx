@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState } from 'react';
 import { css } from "@emotion/core";
-import { ThemeProvider } from 'emotion-theming';
-import { body, headline, textSans } from '@guardian/src-foundations/typography/cjs';
+import { body, headline } from '@guardian/src-foundations/typography/cjs';
 import { palette } from "@guardian/src-foundations";
 import { Button } from "@guardian/src-button";
 import { from, until } from '@guardian/src-foundations/mq';
@@ -11,9 +10,11 @@ import { SvgInfo } from '@guardian/src-icons';
 import { AppStore } from "./assets/app-store"
 import { PlayStore } from "./assets/play-store"
 
+const imgHeight = "300";
+
 export type Props = {
   message: string;
-  onButtonClick: () => void;
+  onButtonClick: (buttonType: string) => void;
   firstName?: string;
 };
 
@@ -46,6 +47,9 @@ export const contentContainer = css`
     max-width: 980px;
     ${from.tablet} {
         flex-direction: row;
+    }
+    ${from.desktop} {
+        min-height: ${imgHeight}px;
     }
     ${from.leftCol} {
         max-width: 1140px;
@@ -165,7 +169,7 @@ export const primaryButton = css `
 `
 
 export const secondaryButton = css `
-    color: #333
+    color: #333;
 `
 
 export const packShot = css`
@@ -250,7 +254,6 @@ export const infoIcon = css`
         width: 60px;
         height: 60px;
         fill: #CDCDCD;
-        viewbox: 4 4 28 28;
     }
     position: absolute;
     width: 60px;
@@ -258,6 +261,9 @@ export const infoIcon = css`
     left: -60px;
     top: 10px;
     display: none;
+    @media (min-width: 1430px){
+        display: block;
+    }
 `;
 
 export const storeIcon = css`
@@ -278,49 +284,62 @@ export const storeIcon = css`
 
 export const SignInComponent: React.FC<Props> = ({
   message,
-  onButtonClick,
+  onButtonClick, // Exact implementation of braze tracking TBC
   firstName
-}: Props) => (
+}: Props) => {
+    const [showBanner, setShowBanner] = useState(true);
 
-    <div css={wrapper}>
-        <div css={contentContainer}>
-            <div css={topLeftComponent}>
-                <div css={infoIcon}>
-                    <SvgInfo />
-                </div>
-                <div css={heading}><span css={smallInfoIcon}>
-                    <SvgInfo />
-                </span> A note to our digital subscribers</div>
-                <p css={paragraph}>
-                    {firstName ? "Hi " + firstName : "Hello"}, did you know that as a Guardian digital subscriber you can enjoy an enhanced experience of our quality, independent journalism on all your devices, including The Guardian Live app
-                    <br/>
-                    <strong css={strongSmallSpacer}>
-                        Search for "Guardian live news"
-                    </strong>
-                    <span css={storeIcon}>
-                        <AppStore />
-                        <PlayStore />
-                    </span>
-                </p>
-                <Button onClick={onButtonClick} css={primaryButton} theme={"buttonBrandAlt"}>Ok, got it</Button>
-                <Button onClick={onButtonClick} css={secondaryButton} priority="subdued">I'm not interested</Button>
-            </div>
-            <div css={bottomRightComponent}>
-                <div css={packShot}>
-                    <img
-                        src="https://via.placeholder.com/400x300"
-                        alt=""
-                    />
-                </div>
-                <div css={iconPanel}>
-                    <button
-                        aria-label="Close"
-                        css={closeButton}
-                    >
-                        <SvgCross />
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-);
+    const onCloseClick = (evt: React.MouseEvent<HTMLButtonElement, MouseEvent>, buttonId: string): void => {
+        evt.preventDefault();
+        onButtonClick(buttonId);
+        setShowBanner(false);
+    };
+
+    return (
+        <>
+            {showBanner ? (
+                <div css={wrapper}>
+                    <div css={contentContainer}>
+                        <div css={topLeftComponent}>
+                            <div css={infoIcon}>
+                                <SvgInfo />
+                            </div>
+                            <div css={heading}><span css={smallInfoIcon}>
+                                <SvgInfo />
+                            </span> A note to our digital subscribers</div>
+                            <p css={paragraph}>
+                                {firstName ? "Hi " + firstName : "Hello"}, did you know that as a Guardian digital subscriber you can enjoy an enhanced experience of our quality, independent journalism on all your devices, including The Guardian Live app
+                                <br/>
+                                <strong css={strongSmallSpacer}>
+                                    Search for "Guardian live news"
+                                </strong>
+                                <span css={storeIcon}>
+                                    <AppStore />
+                                    <PlayStore />
+                                </span>
+                            </p>
+                            <Button onClick={e => onCloseClick(e, '0')} css={primaryButton}>Ok, got it</Button>
+                            <Button onClick={e => onCloseClick(e, '1')} css={secondaryButton} priority="subdued">I'm not interested</Button>
+                        </div>
+                        <div css={bottomRightComponent}>
+                            <div css={packShot}>
+                                <img
+                                    src="https://via.placeholder.com/400x300"
+                                    alt=""
+                                />
+                            </div>
+                            <div css={iconPanel}>
+                                <button
+                                    aria-label="Close"
+                                    onClick={e => onCloseClick(e, '1')}
+                                    css={closeButton}
+                                >
+                                    <SvgCross />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+            </div> ) : null}
+        </>
+    );
+}
