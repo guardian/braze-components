@@ -271,7 +271,7 @@ export const storeIcon = css`
     
 `;
 
-export const SignInComponent: React.FC<Props> = ({
+export const DigitalSubscriberAppBanner: React.FC<Props> = ({
   message,
   onButtonClick,
   firstName

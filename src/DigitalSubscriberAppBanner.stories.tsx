@@ -1,16 +1,16 @@
 import React, { ReactElement } from "react";
-import { SignInComponent } from "./SignInComponent";
+import { DigitalSubscriberAppBanner } from "./DigitalSubscriberAppBanner";
 import { StorybookWrapper } from './utils/StorybookWrapper';
 
 export default {
-  component: SignInComponent,
-  title: "Components/SignInComponent",
+  component: DigitalSubscriberAppBanner,
+  title: "Components/DigitalSubscriberAppBanner",
 };
 
 export const defaultStory = (): ReactElement => {
   return (
     <StorybookWrapper>
-        <SignInComponent
+        <DigitalSubscriberAppBanner
             onButtonClick={() => {
                 console.log("Button clicked!");
             }}
