@@ -21,4 +21,4 @@ export const defaultStory = (): ReactElement => {
   );
 };
 
-defaultStory.story = { name: "Sign In Component" };
+defaultStory.story = { name: "Digital Subscriber App Banner" };

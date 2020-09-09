@@ -17,14 +17,6 @@ export type Props = {
 };
 
 export const wrapper = css`
-  html {
-    box-sizing: border-box;
-  }
-  *,
-  *:before,
-  *:after {
-    box-sizing: inherit;
-  }
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -33,6 +25,16 @@ export const wrapper = css`
   width: 100%;
   background-color: ${palette.background.secondary};
   color: ${palette.neutral[20]};
+
+  html {
+    box-sizing: border-box;
+  }
+
+  *,
+  *:before,
+  *:after {
+    box-sizing: inherit;
+  }
 `;
 
 export const contentContainer = css`
@@ -43,15 +45,19 @@ export const contentContainer = css`
     margin: 0 auto;
     width: 100%;
     max-width: 980px;
+
     ${from.tablet} {
         flex-direction: row;
     }
+
     ${from.desktop} {
         min-height: ${imgHeight}px;
     }
+
     ${from.leftCol} {
         max-width: 1140px;
     }
+
     ${from.wide} {
         max-width: 1300px;
     }
@@ -60,10 +66,12 @@ export const contentContainer = css`
 export const topLeftComponent = css`
     width: 93%;
     padding: ${space[4]}px;
+
     ${from.tablet} {
         width: 55%;
         padding-right: 0;
     }
+
     ${from.desktop} {
         width: 60%;
     }
@@ -78,7 +86,6 @@ export const bottomRightComponent = css`
     ${from.tablet} {
         align-self: flex-end;
         max-width: 40%;
-        padding-right: ${space[4]}px;
         padding-right: ${space[4]}px;
     }
 
@@ -155,6 +162,7 @@ export const primaryButton = css `
     margin-right: ${space[3]}px;
     background-color: ${palette.neutral[20]};
     color: ${palette.neutral[100]};
+
     &:hover {
         background-color: #111;
     }
@@ -171,11 +179,13 @@ export const packShot = css`
     justify-content: center;
     align-items: flex-end;
     margin-top: -20px;
+
     img {
         max-width: 100%;
         max-height: 100%;
         object-fit: contain;
     }
+
     ${until.tablet} {
         display: none;
     }
@@ -205,7 +215,11 @@ export const closeButton = css`
     background: transparent;
     cursor: pointer;
     width: 35px;
-    height: 35px;
+    height: 35px;    
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
     svg {
         width: 25px;
         height: 25px;
@@ -213,46 +227,46 @@ export const closeButton = css`
         transition: background-color 0.5s ease;
         border-radius: 50%;
     }
+
     :hover {
         cursor: pointer;
         background-color: rgba(237, 237, 237, 0.5);
     }
-    
-    position: absolute;
-    top: 10px;
-    right: 10px;
 `;
 
 export const smallInfoIcon = css`
+    left: -60px;
+    display: none;
+
     svg {
         width: 40px;
         height: 40px;
         vertical-align: -30%;
         fill: ${palette.neutral[86]};
     }
-    left: -60px;
-    display: none;
+
     ${until.tablet}{
         display: block;
         margin-left: -4px;
         margin-top: -4px;
         margin-bottom: 4px;
     }
-
 `;
 
 export const infoIcon = css`
-    svg {
-        width: 60px;
-        height: 60px;
-        fill: ${palette.neutral[86]};
-    }
     position: absolute;
     width: 60px;
     height: 60px;
     left: -60px;
     top: 10px;
     display: none;
+
+    svg {
+        width: 60px;
+        height: 60px;
+        fill: ${palette.neutral[86]};
+    }
+
     @media (min-width: 1430px){
         display: block;
     }
@@ -260,15 +274,15 @@ export const infoIcon = css`
 
 export const storeIcon = css`
     height: 10px;
+    display: inline-block;
+    vertical-align: -37.5%;
+
     svg {
         height: 30px;
         width: auto;
         margin-top: ${space[2]}px;
         padding-right: ${space[2]}px;
     }
-    display: inline-block;
-    vertical-align: -37.5%;
-    
 `;
 
 export const DigitalSubscriberAppBanner: React.FC<Props> = ({
