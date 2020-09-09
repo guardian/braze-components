@@ -11,9 +11,9 @@ import { PlayStore } from "./assets/play-store"
 const imgHeight = "300";
 
 export type Props = {
-  message: string;
   onButtonClick: (buttonType: string) => void;
-  firstName?: string;
+  header?: string;
+  body?: string;
 };
 
 export const wrapper = css`
@@ -286,9 +286,9 @@ export const storeIcon = css`
 `;
 
 export const DigitalSubscriberAppBanner: React.FC<Props> = ({
-  message,
   onButtonClick,
-  firstName
+  header,
+  body
 }: Props) => {
     const [showBanner, setShowBanner] = useState(true);
 
@@ -308,9 +308,9 @@ export const DigitalSubscriberAppBanner: React.FC<Props> = ({
                     </div>
                     <div css={heading}><span css={smallInfoIcon}>
                         <SvgInfo />
-                    </span> A note to our digital subscribers</div>
+                    </span>{header}</div>
                     <p css={paragraph}>
-                        {firstName ? "Hi " + firstName : "Hello"}, did you know that as a Guardian digital subscriber you can enjoy an enhanced experience of our quality, independent journalism on all your devices, including The Guardian Live app.
+                        {body}
                         <br/>
                         <strong css={strongSmallSpacer}>
                             Search for "Guardian live news"
