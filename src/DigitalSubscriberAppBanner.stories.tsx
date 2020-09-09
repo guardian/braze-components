@@ -17,7 +17,7 @@ export const defaultStory = (): ReactElement => {
           console.log(`Button ${buttonId} clicked`);
         }}
         header={text("Header", "A note to our digital subscribers")}
-        body={text("Body", "Hello John, did you know that as a Guardian digital subscriber you can enjoy an enhanced experience of our quality, independent journalism on all your devices, including The Guardian Live app.")}
+        body={text("Body", "Hi John, did you know that as a Guardian digital subscriber you can enjoy an enhanced experience of our quality, independent journalism on all your devices, including The Guardian Live app.")}
       />
     </StorybookWrapper>
   );
