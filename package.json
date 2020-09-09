@@ -18,6 +18,7 @@
     "tsc": "tsc  --noEmit",
     "publishToNPM": "yarn build && yarn publish --access public",
     "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
     "prepare": "install-peers"
   },
   "devDependencies": {
@@ -37,6 +38,7 @@
     "@typescript-eslint/eslint-plugin": "^3.8.0",
     "@typescript-eslint/parser": "^3.8.0",
     "babel-loader": "^8.1.0",
+    "chromatic": "^5.1.0",
     "eslint": "^7.6.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
