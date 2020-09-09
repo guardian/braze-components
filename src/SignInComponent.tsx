@@ -283,52 +283,50 @@ export const SignInComponent: React.FC<Props> = ({
         onButtonClick(buttonId);
         setShowBanner(false);
     };
-
-    return (
-        <>
-            {showBanner ? (
-                <div css={wrapper}>
-                    <div css={contentContainer}>
-                        <div css={topLeftComponent}>
-                            <div css={infoIcon}>
-                                <SvgInfo />
-                            </div>
-                            <div css={heading}><span css={smallInfoIcon}>
-                                <SvgInfo />
-                            </span> A note to our digital subscribers</div>
-                            <p css={paragraph}>
-                                {firstName ? "Hi " + firstName : "Hello"}, did you know that as a Guardian digital subscriber you can enjoy an enhanced experience of our quality, independent journalism on all your devices, including The Guardian Live app
-                                <br/>
-                                <strong css={strongSmallSpacer}>
-                                    Search for "Guardian live news"
-                                </strong>
-                                <span css={storeIcon}>
-                                    <AppStore />
-                                    <PlayStore />
-                                </span>
-                            </p>
-                            <Button onClick={e => onCloseClick(e, '0')} css={primaryButton}>Ok, got it</Button>
-                            <Button onClick={e => onCloseClick(e, '1')} css={secondaryButton} priority="subdued">I'm not interested</Button>
-                        </div>
-                        <div css={bottomRightComponent}>
-                            <div css={packShot}>
-                                <img
-                                    src="https://via.placeholder.com/400x300"
-                                    alt=""
-                                />
-                            </div>
-                            <div css={iconPanel}>
-                                <button
-                                    aria-label="Close"
-                                    onClick={e => onCloseClick(e, '1')}
-                                    css={closeButton}
-                                >
-                                    <SvgCross />
-                                </button>
-                            </div>
-                        </div>
+    
+    if (!showBanner) return null;
+    else return (
+        <div css={wrapper}>
+            <div css={contentContainer}>
+                <div css={topLeftComponent}>
+                    <div css={infoIcon}>
+                        <SvgInfo />
                     </div>
-            </div> ) : null}
-        </>
+                    <div css={heading}><span css={smallInfoIcon}>
+                        <SvgInfo />
+                    </span> A note to our digital subscribers</div>
+                    <p css={paragraph}>
+                        {firstName ? "Hi " + firstName : "Hello"}, did you know that as a Guardian digital subscriber you can enjoy an enhanced experience of our quality, independent journalism on all your devices, including The Guardian Live app.
+                        <br/>
+                        <strong css={strongSmallSpacer}>
+                            Search for "Guardian live news"
+                        </strong>
+                        <span css={storeIcon}>
+                            <AppStore />
+                            <PlayStore />
+                        </span>
+                    </p>
+                    <Button onClick={e => onCloseClick(e, '0')} css={primaryButton}>Ok, got it</Button>
+                    <Button onClick={e => onCloseClick(e, '1')} css={secondaryButton} priority="subdued">I'm not interested</Button>
+                </div>
+                <div css={bottomRightComponent}>
+                    <div css={packShot}>
+                        <img
+                            src="https://via.placeholder.com/400x300"
+                            alt=""
+                        />
+                    </div>
+                    <div css={iconPanel}>
+                        <button
+                            aria-label="Close"
+                            onClick={e => onCloseClick(e, '1')}
+                            css={closeButton}
+                        >
+                            <SvgCross />
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div> 
     );
 }
