@@ -11,8 +11,8 @@ export const defaultStory = (): ReactElement => {
   return (
     <StorybookWrapper>
         <DigitalSubscriberAppBanner
-            onButtonClick={() => {
-                console.log("Button clicked!");
+            onButtonClick={(buttonId) => {
+                console.log(`Button ${buttonId} clicked`);
             }}
             message="Test message"
             firstName="John"
