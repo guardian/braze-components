@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { css } from "@emotion/core";
-import { body, headline } from '@guardian/src-foundations/typography/cjs';
-import { palette } from "@guardian/src-foundations";
-import { Button } from "@guardian/src-button";
+import { palette, space } from "@guardian/src-foundations";
 import { from, until } from '@guardian/src-foundations/mq';
-import { space } from '@guardian/src-foundations';
-import { SvgCross } from '@guardian/src-icons';
-import { SvgInfo } from '@guardian/src-icons';
+import { body, headline } from '@guardian/src-foundations/typography/cjs';
+import { Button } from "@guardian/src-button";
+import { SvgCross, SvgInfo } from '@guardian/src-icons';
 import { AppStore } from "./assets/app-store"
 import { PlayStore } from "./assets/play-store"
 
@@ -34,7 +32,7 @@ export const wrapper = css`
   align-items: center;
   width: 100%;
   background-color: ${palette.background.secondary};
-  color: ${"#333"};
+  color: ${palette.neutral[20]};
 `;
 
 export const contentContainer = css`
@@ -67,9 +65,6 @@ export const topLeftComponent = css`
         padding-right: 0;
     }
     ${from.desktop} {
-        width: 60%;
-    }
-    ${from.wide} {
         width: 60%;
     }
 `;
@@ -107,9 +102,6 @@ export const heading = css`
     margin: 0;
     max-width: 100%;
 
-    @media (min-width: 740px) {
-        max-width: 90%;
-    }
     ${from.mobileLandscape} {
         ${headline.small({ fontWeight: 'bold' })};
     }
@@ -161,15 +153,15 @@ export const smallRightSpacer = css`
 
 export const primaryButton = css `
     margin-right: ${space[3]}px;
-    background-color: #333;
-    color: #fff;
+    background-color: ${palette.neutral[20]};
+    color: ${palette.neutral[100]};
     &:hover {
         background-color: #111;
     }
 `
 
 export const secondaryButton = css `
-    color: #333;
+    color: ${palette.neutral[20]};
 `
 
 export const packShot = css`
@@ -236,7 +228,7 @@ export const smallInfoIcon = css`
         width: 40px;
         height: 40px;
         vertical-align: -30%;
-        fill: #CDCDCD;
+        fill: ${palette.neutral[86]};
     }
     left: -60px;
     display: none;
@@ -253,7 +245,7 @@ export const infoIcon = css`
     svg {
         width: 60px;
         height: 60px;
-        fill: #CDCDCD;
+        fill: ${palette.neutral[86]};
     }
     position: absolute;
     width: 60px;
