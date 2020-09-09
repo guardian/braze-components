@@ -1,1 +1,1 @@
-export * from "./src/ExampleComponent";
+export * from "./src/DigitalSubscriberAppBanner";
