@@ -306,9 +306,12 @@ export const DigitalSubscriberAppBanner: React.FC<Props> = ({
                     <div css={infoIcon}>
                         <SvgInfo />
                     </div>
-                    <div css={heading}><span css={smallInfoIcon}>
-                        <SvgInfo />
-                    </span>{header}</div>
+                    <div css={heading}>
+                        <span css={smallInfoIcon}>
+                            <SvgInfo />
+                        </span>
+                        {header}
+                    </div>
                     <p css={paragraph}>
                         {body}
                         <br/>
