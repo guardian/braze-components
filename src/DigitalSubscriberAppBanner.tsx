@@ -12,8 +12,8 @@ const imgHeight = "300";
 
 export type Props = {
   onButtonClick: (buttonType: string) => void;
-  header: string;
-  body: string;
+  header?: string;
+  body?: string;
 };
 
 export const wrapper = css`
@@ -298,7 +298,7 @@ export const DigitalSubscriberAppBanner: React.FC<Props> = ({
         setShowBanner(false);
     };
     
-    if (!showBanner) return null;
+    if (!showBanner || !header || !body ) return null;
     else return (
         <div css={wrapper}>
             <div css={contentContainer}>
