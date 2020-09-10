@@ -11,7 +11,7 @@ import { PlayStore } from "./assets/play-store"
 const imgHeight = "300";
 
 export type Props = {
-  onButtonClick: (buttonType: string) => void;
+  onButtonClick: (buttonIndex: number) => void;
   header?: string;
   body?: string;
 };
@@ -292,7 +292,7 @@ export const DigitalSubscriberAppBanner: React.FC<Props> = ({
 }: Props) => {
     const [showBanner, setShowBanner] = useState(true);
 
-    const onCloseClick = (evt: React.MouseEvent<HTMLButtonElement, MouseEvent>, buttonId: string): void => {
+    const onCloseClick = (evt: React.MouseEvent<HTMLButtonElement, MouseEvent>, buttonId: number): void => {
         evt.preventDefault();
         onButtonClick(buttonId);
         setShowBanner(false);
@@ -323,8 +323,8 @@ export const DigitalSubscriberAppBanner: React.FC<Props> = ({
                             <PlayStore />
                         </span>
                     </p>
-                    <Button onClick={e => onCloseClick(e, '0')} css={primaryButton}>Ok, got it</Button>
-                    <Button onClick={e => onCloseClick(e, '1')} css={secondaryButton} priority="subdued">I'm not interested</Button>
+                    <Button onClick={e => onCloseClick(e, 0)} css={primaryButton}>Ok, got it</Button>
+                    <Button onClick={e => onCloseClick(e, 1)} css={secondaryButton} priority="subdued">I'm not interested</Button>
                 </div>
                 <div css={bottomRightComponent}>
                     <div css={packShot}>
@@ -336,7 +336,7 @@ export const DigitalSubscriberAppBanner: React.FC<Props> = ({
                     <div css={iconPanel}>
                         <button
                             aria-label="Close"
-                            onClick={e => onCloseClick(e, '1')}
+                            onClick={e => onCloseClick(e, 1)}
                             css={closeButton}
                         >
                             <SvgCross />
