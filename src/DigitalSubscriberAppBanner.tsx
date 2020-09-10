@@ -12,8 +12,8 @@ const imgHeight = "300";
 
 export type Props = {
   onButtonClick: (buttonType: string) => void;
-  header?: string;
-  body?: string;
+  header: string;
+  body: string;
 };
 
 export const wrapper = css`
