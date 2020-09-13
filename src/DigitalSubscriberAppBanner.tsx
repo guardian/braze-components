@@ -344,6 +344,7 @@ export const DigitalSubscriberAppBanner: React.FC<Props> = ({
                             aria-label="Close"
                             onClick={e => onCloseClick(e, 1)}
                             css={closeButton}
+                            tabIndex={1}
                         >
                             <SvgCross />
                         </button>
