@@ -5,8 +5,9 @@ import { from, until } from '@guardian/src-foundations/mq';
 import { body, headline } from '@guardian/src-foundations/typography/cjs';
 import { Button } from "@guardian/src-button";
 import { SvgCross, SvgInfo } from '@guardian/src-icons';
-import { AppStore } from "./assets/app-store"
-import { PlayStore } from "./assets/play-store"
+import { AppStore } from "./assets/app-store";
+import { PlayStore } from "./assets/play-store";
+import { focusHalo } from "@guardian/src-foundations/accessibility";
 
 const imgHeight = "300";
 
@@ -232,6 +233,11 @@ export const closeButton = css`
         cursor: pointer;
         background-color: rgba(237, 237, 237, 0.5);
     }
+
+    transition: box-shadow 0.3s;
+    :focus {
+        ${focusHalo};
+    }  
 `;
 
 export const smallInfoIcon = css`
@@ -338,6 +344,7 @@ export const DigitalSubscriberAppBanner: React.FC<Props> = ({
                             aria-label="Close"
                             onClick={e => onCloseClick(e, 1)}
                             css={closeButton}
+                            tabIndex={0}
                         >
                             <SvgCross />
                         </button>
