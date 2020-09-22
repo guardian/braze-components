@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const PlayStore = () => {
+export const PlayStore: React.FC = () => {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"

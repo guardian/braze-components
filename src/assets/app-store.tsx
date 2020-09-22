@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const AppStore = () => {
+export const AppStore: React.FC = () => {
     return (
         <svg
             id="livetype"
