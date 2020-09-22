@@ -1,1 +1,1 @@
-export * from "./src/DigitalSubscriberAppBanner";
+export * from './src/DigitalSubscriberAppBanner';
