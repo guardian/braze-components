@@ -1,44 +1,44 @@
 import React, { useState } from 'react';
-import { css } from "@emotion/core";
-import { ThemeProvider } from 'emotion-theming'
-import { palette, space } from "@guardian/src-foundations";
+import { css } from '@emotion/core';
+import { ThemeProvider } from 'emotion-theming';
+import { palette, space } from '@guardian/src-foundations';
 import { from, until } from '@guardian/src-foundations/mq';
 import { body, headline } from '@guardian/src-foundations/typography/cjs';
-import { Button, buttonReaderRevenueBrandAlt } from "@guardian/src-button";
+import { Button, buttonReaderRevenueBrandAlt } from '@guardian/src-button';
 import { SvgCross, SvgInfo } from '@guardian/src-icons';
-import { AppStore } from "./assets/app-store";
-import { PlayStore } from "./assets/play-store";
+import { AppStore } from './assets/app-store';
+import { PlayStore } from './assets/play-store';
 
-const imgHeight = "280";
-const bannerColor = "#ebe8e8";
-const infoColor = "#c4c4c4";
-const bodyColor = "#666";
+const imgHeight = '280';
+const bannerColor = '#ebe8e8';
+const infoColor = '#c4c4c4';
+const bodyColor = '#666';
 
 export type Props = {
-  onButtonClick: (buttonIndex: number) => void;
-  header?: string;
-  body?: string;
+    onButtonClick: (buttonIndex: number) => void;
+    header?: string;
+    body?: string;
 };
 
 export const wrapper = css`
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  background-color: ${bannerColor};
-  color: ${palette.neutral[20]};
-
-  html {
     box-sizing: border-box;
-  }
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: ${bannerColor};
+    color: ${palette.neutral[20]};
 
-  *,
-  *:before,
-  *:after {
-    box-sizing: inherit;
-  }
+    html {
+        box-sizing: border-box;
+    }
+
+    *,
+    *:before,
+    *:after {
+        box-sizing: inherit;
+    }
 `;
 
 export const contentContainer = css`
@@ -148,13 +148,13 @@ export const cta = css`
     margin-right: ${space[3]}px;
     display: inline-block;
     color: ${palette.neutral[20]};
-`
+`;
 
 export const smallRightSpacer = css`
     margin-right: ${space[3]}px;
-`
+`;
 
-export const primaryButton = css `
+export const primaryButton = css`
     margin-right: ${space[3]}px;
     background-color: ${palette.neutral[20]};
     color: ${palette.neutral[100]};
@@ -162,11 +162,11 @@ export const primaryButton = css `
     &:hover {
         background-color: #111;
     }
-`
+`;
 
-export const secondaryButton = css `
+export const secondaryButton = css`
     color: ${palette.neutral[20]};
-`
+`;
 
 export const packShot = css`
     max-width: 100%;
@@ -203,7 +203,6 @@ export const iconPanel = css`
     }
 `;
 
-
 export const closeButton = css`
     display: flex;
     align-items: center;
@@ -223,10 +222,16 @@ export const smallInfoIcon = css`
         height: 40px;
         vertical-align: -30%;
         fill: ${infoColor};
-        background: radial-gradient(circle at center, ${palette.background.primary} 0%, ${palette.background.primary} 50%, ${palette.background.primary} 52%, transparent 53%);
+        background: radial-gradient(
+            circle at center,
+            ${palette.background.primary} 0%,
+            ${palette.background.primary} 50%,
+            ${palette.background.primary} 52%,
+            transparent 53%
+        );
     }
 
-    ${until.phablet}{
+    ${until.phablet} {
         display: block;
         margin-left: -4px;
         margin-top: -4px;
@@ -241,16 +246,22 @@ export const infoIcon = css`
     left: -60px;
     top: 10px;
     display: none;
-    
+
     svg {
         width: 60px;
         height: 60px;
         fill: ${infoColor};
-        background: radial-gradient(circle at center, ${palette.background.primary} 0%, ${palette.background.primary} 50%, ${palette.background.primary} 52%, transparent 53%);
+        background: radial-gradient(
+            circle at center,
+            ${palette.background.primary} 0%,
+            ${palette.background.primary} 50%,
+            ${palette.background.primary} 52%,
+            transparent 53%
+        );
         border-radius: 50%;
     }
 
-    @media (min-width: 1430px){
+    @media (min-width: 1430px) {
         display: block;
     }
 `;
@@ -269,20 +280,26 @@ export const storeIcon = css`
 `;
 
 export const DigitalSubscriberAppBanner: React.FC<Props> = ({
-  onButtonClick,
-  header,
-  body
+    onButtonClick,
+    header,
+    body,
 }: Props) => {
     const [showBanner, setShowBanner] = useState(true);
 
-    const onCloseClick = (evt: React.MouseEvent<HTMLButtonElement, MouseEvent>, buttonId: number): void => {
+    const onCloseClick = (
+        evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+        buttonId: number,
+    ): void => {
         evt.preventDefault();
         onButtonClick(buttonId);
         setShowBanner(false);
     };
-    
-    if (!showBanner || !header || !body ) return null;
-    else return (
+
+    if (!showBanner || !header || !body) {
+        return null;
+    }
+
+    return (
         <div css={wrapper}>
             <div css={contentContainer}>
                 <div css={topLeftComponent}>
@@ -297,17 +314,23 @@ export const DigitalSubscriberAppBanner: React.FC<Props> = ({
                     </div>
                     <p css={paragraph}>
                         {body}
-                        <br/>
-                        <strong css={cta}>
-                            Search for "Guardian live news"
-                        </strong>
+                        <br />
+                        <strong css={cta}>Search for "Guardian live news"</strong>
                         <span css={storeIcon}>
                             <AppStore />
                             <PlayStore />
                         </span>
                     </p>
-                    <Button onClick={e => onCloseClick(e, 0)} css={primaryButton}>Ok, got it</Button>
-                    <Button onClick={e => onCloseClick(e, 1)} css={secondaryButton} priority="subdued">I'm not interested</Button>
+                    <Button onClick={(e) => onCloseClick(e, 0)} css={primaryButton}>
+                        Ok, got it
+                    </Button>
+                    <Button
+                        onClick={(e) => onCloseClick(e, 1)}
+                        css={secondaryButton}
+                        priority="subdued"
+                    >
+                        I'm not interested
+                    </Button>
                 </div>
                 <div css={bottomRightComponent}>
                     <div css={packShot}>
@@ -325,13 +348,15 @@ export const DigitalSubscriberAppBanner: React.FC<Props> = ({
                                 priority="tertiary"
                                 size="small"
                                 aria-label="Close"
-                                onClick={e => onCloseClick(e, 1)}
+                                onClick={(e) => onCloseClick(e, 1)}
                                 tabIndex={0}
-                            > </Button>
+                            >
+                                {' '}
+                            </Button>
                         </ThemeProvider>
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
     );
-}
+};
