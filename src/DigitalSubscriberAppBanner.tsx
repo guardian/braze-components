@@ -315,7 +315,7 @@ export const DigitalSubscriberAppBanner: React.FC<Props> = ({
                     <p css={paragraph}>
                         {body}
                         <br />
-                        <strong css={cta}>Search for "Guardian live news"</strong>
+                        <strong css={cta}>{'Search for "Guardian live news"'}</strong>
                         <span css={storeIcon}>
                             <AppStore />
                             <PlayStore />
@@ -329,7 +329,7 @@ export const DigitalSubscriberAppBanner: React.FC<Props> = ({
                         css={secondaryButton}
                         priority="subdued"
                     >
-                        I'm not interested
+                        {"I'm not interested"}
                     </Button>
                 </div>
                 <div css={bottomRightComponent}>
