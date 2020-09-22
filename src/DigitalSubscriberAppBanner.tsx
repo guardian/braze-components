@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { css } from "@emotion/core";
+import { ThemeProvider } from 'emotion-theming'
 import { palette, space } from "@guardian/src-foundations";
 import { from, until } from '@guardian/src-foundations/mq';
 import { body, headline } from '@guardian/src-foundations/typography/cjs';
-import { Button } from "@guardian/src-button";
+import { Button, buttonReaderRevenueBrandAlt } from "@guardian/src-button";
 import { SvgCross, SvgInfo } from '@guardian/src-icons';
 import { AppStore } from "./assets/app-store";
 import { PlayStore } from "./assets/play-store";
-import { focusHalo } from "@guardian/src-foundations/accessibility";
 
-const imgHeight = "300";
+const imgHeight = "280";
+const bannerColor = "#ebe8e8";
+const infoColor = "#c4c4c4";
+const bodyColor = "#666";
 
 export type Props = {
   onButtonClick: (buttonIndex: number) => void;
@@ -24,7 +27,7 @@ export const wrapper = css`
   justify-content: center;
   align-items: center;
   width: 100%;
-  background-color: ${palette.background.secondary};
+  background-color: ${bannerColor};
   color: ${palette.neutral[20]};
 
   html {
@@ -45,13 +48,11 @@ export const contentContainer = css`
     position: relative;
     margin: 0 auto;
     width: 100%;
-    max-width: 980px;
-
-    ${from.tablet} {
-        flex-direction: row;
-    }
+    max-width: 740px;
 
     ${from.desktop} {
+        max-width: 980px;
+        flex-direction: row;
         min-height: ${imgHeight}px;
     }
 
@@ -68,11 +69,6 @@ export const topLeftComponent = css`
     width: 93%;
     padding: ${space[4]}px;
 
-    ${from.tablet} {
-        width: 55%;
-        padding-right: 0;
-    }
-
     ${from.desktop} {
         width: 60%;
     }
@@ -84,13 +80,10 @@ export const bottomRightComponent = css`
     width: 100%;
     max-height: 100%;
 
-    ${from.tablet} {
+    ${from.desktop} {
         align-self: flex-end;
         max-width: 40%;
         padding-right: ${space[4]}px;
-    }
-
-    ${from.desktop} {
         max-width: 42%;
         justify-content: flex-end;
     }
@@ -106,7 +99,7 @@ export const bottomRightComponent = css`
 `;
 
 export const heading = css`
-    ${headline.xsmall({ fontWeight: 'bold' })};
+    ${headline.small({ fontWeight: 'bold' })};
     margin: 0;
     max-width: 100%;
 
@@ -124,6 +117,7 @@ export const paragraph = css`
     line-height: 135%;
     margin: ${space[5]}px 0 ${space[5]}px;
     max-width: 100%;
+    color: ${bodyColor};
 
     ${from.phablet} {
         max-width: 90%;
@@ -148,11 +142,12 @@ export const paragraph = css`
     }
 `;
 
-export const strongSmallSpacer = css`
+export const cta = css`
     font-weight: 700;
     margin-top: ${space[5]}px;
     margin-right: ${space[3]}px;
     display: inline-block;
+    color: ${palette.neutral[20]};
 `
 
 export const smallRightSpacer = css`
@@ -175,7 +170,7 @@ export const secondaryButton = css `
 
 export const packShot = css`
     max-width: 100%;
-    max-height: 100%;
+    max-height: 260px;
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -187,8 +182,12 @@ export const packShot = css`
         object-fit: contain;
     }
 
-    ${until.tablet} {
+    ${until.desktop} {
         display: none;
+    }
+
+    ${from.wide} {
+        margin-right: 100px;
     }
 `;
 
@@ -210,34 +209,9 @@ export const closeButton = css`
     align-items: center;
     justify-content: center;
     padding: 0;
-    border: 1px solid ${palette.text.primary};
-    border-radius: 50%;
-    outline: none;
-    background: transparent;
-    cursor: pointer;
-    width: 35px;
-    height: 35px;    
     position: absolute;
-    top: 10px;
+    top: 15px;
     right: 10px;
-
-    svg {
-        width: 25px;
-        height: 25px;
-        fill: ${palette.text.primary};
-        transition: background-color 0.5s ease;
-        border-radius: 50%;
-    }
-
-    :hover {
-        cursor: pointer;
-        background-color: rgba(237, 237, 237, 0.5);
-    }
-
-    transition: box-shadow 0.3s;
-    :focus {
-        ${focusHalo};
-    }  
 `;
 
 export const smallInfoIcon = css`
@@ -248,10 +222,11 @@ export const smallInfoIcon = css`
         width: 40px;
         height: 40px;
         vertical-align: -30%;
-        fill: ${palette.neutral[86]};
+        fill: ${infoColor};
+        background: radial-gradient(circle at center, ${palette.background.primary} 0%, ${palette.background.primary} 50%, ${palette.background.primary} 52%, transparent 53%);
     }
 
-    ${until.tablet}{
+    ${until.phablet}{
         display: block;
         margin-left: -4px;
         margin-top: -4px;
@@ -266,11 +241,13 @@ export const infoIcon = css`
     left: -60px;
     top: 10px;
     display: none;
-
+    
     svg {
         width: 60px;
         height: 60px;
-        fill: ${palette.neutral[86]};
+        fill: ${infoColor};
+        background: radial-gradient(circle at center, ${palette.background.primary} 0%, ${palette.background.primary} 50%, ${palette.background.primary} 52%, transparent 53%);
+        border-radius: 50%;
     }
 
     @media (min-width: 1430px){
@@ -321,7 +298,7 @@ export const DigitalSubscriberAppBanner: React.FC<Props> = ({
                     <p css={paragraph}>
                         {body}
                         <br/>
-                        <strong css={strongSmallSpacer}>
+                        <strong css={cta}>
                             Search for "Guardian live news"
                         </strong>
                         <span css={storeIcon}>
@@ -335,19 +312,23 @@ export const DigitalSubscriberAppBanner: React.FC<Props> = ({
                 <div css={bottomRightComponent}>
                     <div css={packShot}>
                         <img
-                            src="https://via.placeholder.com/400x300"
+                            src="https://i.guim.co.uk/img/media/de6813b4dd9b9805a2d14dd6af14ae2b48e2e19e/0_0_930_520/930.png?width=930&quality=60&s=a7d81978655765847246c8d4d0cd0e7f"
                             alt=""
                         />
                     </div>
                     <div css={iconPanel}>
-                        <button
-                            aria-label="Close"
-                            onClick={e => onCloseClick(e, 1)}
-                            css={closeButton}
-                            tabIndex={0}
-                        >
-                            <SvgCross />
-                        </button>
+                        <ThemeProvider theme={buttonReaderRevenueBrandAlt}>
+                            <Button
+                                icon={<SvgCross />}
+                                hideLabel={true}
+                                css={closeButton}
+                                priority="tertiary"
+                                size="small"
+                                aria-label="Close"
+                                onClick={e => onCloseClick(e, 1)}
+                                tabIndex={0}
+                            > </Button>
+                        </ThemeProvider>
                     </div>
                 </div>
             </div>
