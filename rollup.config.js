@@ -20,7 +20,7 @@ const configs = [['./index.ts', './dist/index.js']].map(([input, file]) => ({
     input: input,
     output: {
         file: file,
-        format: 'cjs',
+        format: 'module',
         sourcemap: false,
     },
     external: (id) => Object.keys(globals).some((key) => id == key),
