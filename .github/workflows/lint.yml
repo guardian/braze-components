@@ -1,0 +1,19 @@
+name: lint
+on: push
+
+jobs:
+    run:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v1
+
+            - name: Use Node.js
+              shell: bash -l {0}
+              run: nvm install
+
+            - name: Install dependencies
+              run: yarn install
+
+            - name: Lint
+              run: yarn lint

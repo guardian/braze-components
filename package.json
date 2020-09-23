@@ -19,7 +19,8 @@
     "publishToNPM": "yarn build && yarn publish --access public",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "prepare": "install-peers"
+    "prepare": "install-peers",
+    "lint": "eslint . --ext .ts,.tsx"
   },
   "devDependencies": {
     "@babel/core": "^7.11.1",
