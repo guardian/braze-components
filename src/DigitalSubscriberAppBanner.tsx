@@ -326,7 +326,7 @@ export const DigitalSubscriberAppBanner: React.FC<Props> = ({
                         Ok, got it
                     </Button>
                     <Button
-                        onClick={(e) => onCloseClick(e, 1)}
+                        onClick={(e) => onCloseClick(e, 0)}
                         css={secondaryButton}
                         priority="subdued"
                     >
