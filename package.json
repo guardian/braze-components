@@ -5,7 +5,7 @@
   "repository": "https://github.com/guardian/braze-components",
   "author": "The Guardian",
   "license": "MIT",
-  "main": "dist/index.js",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
