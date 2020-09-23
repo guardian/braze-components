@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { css } from '@emotion/core';
 import { ThemeProvider } from 'emotion-theming';
 import { palette, space } from '@guardian/src-foundations';
-import { from, until } from '@guardian/src-foundations/mq';
+import { from, until } from '@guardian/src-foundations/mq/cjs';
 import { body, headline } from '@guardian/src-foundations/typography/cjs';
 import { Button, buttonReaderRevenueBrandAlt } from '@guardian/src-button';
 import { SvgCross, SvgInfo } from '@guardian/src-icons';
@@ -16,8 +16,10 @@ const bodyColor = '#666';
 
 export type Props = {
     onButtonClick: (buttonIndex: number) => void;
-    header?: string;
-    body?: string;
+    brazeMessageProps: {
+        header?: string;
+        body?: string;
+    };
 };
 
 export const wrapper = css`
@@ -281,8 +283,7 @@ export const storeIcon = css`
 
 export const DigitalSubscriberAppBanner: React.FC<Props> = ({
     onButtonClick,
-    header,
-    body,
+    brazeMessageProps: { header, body },
 }: Props) => {
     const [showBanner, setShowBanner] = useState(true);
 
