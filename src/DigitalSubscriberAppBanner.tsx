@@ -185,7 +185,6 @@ export const packShot = css`
         object-fit: contain;
     }
 
-
     ${until.desktop} {
         display: none;
     }
