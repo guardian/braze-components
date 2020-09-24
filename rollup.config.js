@@ -8,6 +8,7 @@ import alias from '@rollup/plugin-alias';
 import { terser } from 'rollup-plugin-terser';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import externalGlobals from 'rollup-plugin-external-globals';
+import pkg from './package.json';
 
 const extensions = [...DEFAULT_EXTENSIONS, '.ts', '.tsx'];
 
@@ -18,11 +19,17 @@ const globals = {
 
 const configs = [['./index.ts', './dist/index.js']].map(([input, file]) => ({
     input: input,
-    output: {
-        file: file,
-        format: 'module',
-        sourcemap: false,
-    },
+    output: [
+        {
+            file: pkg.main,
+            format: 'cjs',
+        },
+        {
+            file: pkg.module,
+            format: 'esm',
+            sourcemap: false,
+        },
+    ],
     external: (id) => Object.keys(globals).some((key) => id == key),
     plugins: [
         peerDepsExternal(),
