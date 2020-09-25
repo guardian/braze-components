@@ -70,8 +70,8 @@ export const contentContainer = css`
 export const topLeftComponent = css`
     width: 93%;
     padding: ${space[4]}px;
-    min-height: ${imgHeight};
-    {from.desktop} {
+    min-height: ${imgHeight}px;
+    ${from.desktop} {
         width: 60%;
     }
 `;
@@ -81,7 +81,7 @@ export const bottomRightComponent = css`
     justify-content: center;
     width: 100%;
     max-height: 100%;
-    min-height: ${imgHeight};
+    min-height: ${imgHeight}px;
 
     ${from.desktop} {
         align-self: flex-end;
