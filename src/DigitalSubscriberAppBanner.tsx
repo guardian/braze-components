@@ -81,7 +81,6 @@ export const bottomRightComponent = css`
     justify-content: center;
     width: 100%;
     max-height: 100%;
-    min-height: ${imgHeight}px;
 
     ${from.desktop} {
         align-self: flex-end;
