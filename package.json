@@ -1,11 +1,12 @@
 {
   "name": "@guardian/braze-components",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "React components to render messages from Braze",
   "repository": "https://github.com/guardian/braze-components",
   "author": "The Guardian",
   "license": "MIT",
-  "module": "dist/index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
