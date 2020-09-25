@@ -8,6 +8,7 @@ import { terser } from 'rollup-plugin-terser';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import externalGlobals from 'rollup-plugin-external-globals';
 import pkg from './package.json';
+import visualizer from 'rollup-plugin-visualizer';
 
 const extensions = [...DEFAULT_EXTENSIONS, '.ts', '.tsx'];
 
@@ -43,6 +44,9 @@ const configs = [
             terser(),
             filesize(),
             externalGlobals(globals),
+            // Note, visualizer is useful for *relative* sizes, but reports
+            // pre-minification.
+            visualizer({ gzipSize: true }),
         ],
     },
 ];
