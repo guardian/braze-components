@@ -61,6 +61,6 @@ This will:
 - Interactively ask for a new version number (and create a commit for the
   version change in package.json)
 - Publish the new release to NPM
-- Push a single commit to your local version of this repository
+- Push a single commit to your local version of this repository, updating the version number in `package.json`
 
 Once a new version has been published, you can push the single commit straight to this repo's `main` branch. This should only update the `version` field in [package.json](https://github.com/guardian/braze-components/blob/main/package.json).
