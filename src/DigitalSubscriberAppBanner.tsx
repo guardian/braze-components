@@ -70,7 +70,7 @@ export const contentContainer = css`
 export const topLeftComponent = css`
     width: 93%;
     padding: ${space[4]}px;
-
+    min-height: ${imgHeight}px;
     ${from.desktop} {
         width: 60%;
     }
@@ -180,7 +180,8 @@ export const packShot = css`
 
     img {
         max-width: 100%;
-        max-height: 100%;
+        width: 100%;
+        height: 100%;
         object-fit: contain;
     }
 
@@ -276,6 +277,7 @@ export const storeIcon = css`
     svg {
         height: 30px;
         width: auto;
+        max-width: 110px;
         margin-top: ${space[2]}px;
         padding-right: ${space[2]}px;
     }
