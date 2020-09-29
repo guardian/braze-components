@@ -1,12 +1,18 @@
 import React from 'react';
-import { DigitalSubscriberAppBanner } from './DigitalSubscriberAppBanner';
+import { OphanComponentEvent } from '@guardian/types/ophan';
+import {
+    COMPONENT_NAME as DIGITAL_SUBSCRIBER_APP_BANNER_NAME,
+    DigitalSubscriberAppBanner,
+} from './DigitalSubscriberAppBanner';
+import { BrazeClickHandler } from './tracking';
 
 type BrazeMessageProps = {
     [key: string]: string | undefined;
 };
 
 type CommonComponentProps = {
-    onButtonClick: (buttonIndex: number) => void;
+    logButtonClickWithBraze: BrazeClickHandler;
+    submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
     brazeMessageProps: BrazeMessageProps;
 };
 
@@ -15,17 +21,23 @@ type ComponentMapping = {
 };
 
 const COMPONENT_MAPPINGS: ComponentMapping = {
-    DigitalSubscriberAppBanner,
+    [DIGITAL_SUBSCRIBER_APP_BANNER_NAME]: DigitalSubscriberAppBanner,
 };
 
 export type Props = {
-    onButtonClick: (buttonIndex: number) => void;
+    logButtonClickWithBraze: BrazeClickHandler;
+    submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
     componentName: string;
     brazeMessageProps: BrazeMessageProps;
 };
 
 export const buildBrazeMessageComponent = (mappings: ComponentMapping): React.FC<Props> => {
-    const BrazeMessageComponent = ({ onButtonClick, componentName, brazeMessageProps }: Props) => {
+    const BrazeMessageComponent = ({
+        logButtonClickWithBraze,
+        submitComponentEvent,
+        componentName,
+        brazeMessageProps,
+    }: Props) => {
         const ComponentToRender = mappings[componentName];
 
         if (!ComponentToRender) {
@@ -34,7 +46,8 @@ export const buildBrazeMessageComponent = (mappings: ComponentMapping): React.FC
 
         return (
             <ComponentToRender
-                onButtonClick={onButtonClick}
+                logButtonClickWithBraze={logButtonClickWithBraze}
+                submitComponentEvent={submitComponentEvent}
                 brazeMessageProps={brazeMessageProps}
             />
         );
