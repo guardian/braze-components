@@ -4,11 +4,11 @@ import filesize from 'rollup-plugin-filesize';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import replace from '@rollup/plugin-replace';
-import alias from '@rollup/plugin-alias';
 import { terser } from 'rollup-plugin-terser';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import externalGlobals from 'rollup-plugin-external-globals';
 import pkg from './package.json';
+import visualizer from 'rollup-plugin-visualizer';
 
 const extensions = [...DEFAULT_EXTENSIONS, '.ts', '.tsx'];
 
@@ -17,39 +17,38 @@ const globals = {
     '@emotion/core': 'guardian.automat.emotionCore',
 };
 
-const configs = [['./index.ts', './dist/index.js']].map(([input, file]) => ({
-    input: input,
-    output: [
-        {
-            file: pkg.main,
-            format: 'cjs',
-        },
-        {
-            file: pkg.module,
-            format: 'esm',
-            sourcemap: false,
-        },
-    ],
-    external: (id) => Object.keys(globals).some((key) => id == key),
-    plugins: [
-        peerDepsExternal(),
-        // alias({
-        //   entries: [
-        //     { find: "react", replacement: "preact-x/compat" },
-        //     { find: "react-dom", replacement: "preact-x/compat" },
-        //   ],
-        // }),
-        resolve({ extensions: extensions }),
-        commonjs(),
-        replace({ 'process.env.NODE_ENV': '"production"' }),
-        babel({
-            babelHelpers: 'bundled',
-            extensions: extensions,
-        }),
-        terser(),
-        filesize(),
-        externalGlobals(globals),
-    ],
-}));
+const configs = [
+    {
+        input: './index.ts',
+        output: [
+            {
+                file: pkg.main,
+                format: 'cjs',
+            },
+            {
+                file: pkg.module,
+                format: 'esm',
+                sourcemap: false,
+            },
+        ],
+        external: (id) => Object.keys(globals).some((key) => id == key),
+        plugins: [
+            peerDepsExternal(),
+            resolve({ extensions: extensions }),
+            commonjs(),
+            replace({ 'process.env.NODE_ENV': '"production"' }),
+            babel({
+                babelHelpers: 'bundled',
+                extensions: extensions,
+            }),
+            terser(),
+            filesize(),
+            externalGlobals(globals),
+            // Note, visualizer is useful for *relative* sizes, but reports
+            // pre-minification.
+            visualizer({ gzipSize: true }),
+        ],
+    },
+];
 
 export default configs;
