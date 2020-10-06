@@ -60,7 +60,7 @@
     "rollup-plugin-peer-deps-external": "^2.2.3",
     "rollup-plugin-terser": "^6.1.0",
     "rollup-plugin-visualizer": "^4.1.1",
-    "storybook": "^5.3.19",
+    "storybook": "^6.0.26",
     "ts-jest": "^26.4.0",
     "typescript": "^3.9.7"
   },
