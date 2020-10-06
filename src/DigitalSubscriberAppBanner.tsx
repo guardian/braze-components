@@ -6,8 +6,10 @@ import { from, until } from '@guardian/src-foundations/mq/cjs';
 import { body, headline } from '@guardian/src-foundations/typography/cjs';
 import { Button, buttonReaderRevenueBrandAlt } from '@guardian/src-button';
 import { SvgCross, SvgInfo } from '@guardian/src-icons';
+import { OphanComponentEvent } from '@guardian/types/ophan';
 import { AppStore } from './assets/app-store';
 import { PlayStore } from './assets/play-store';
+import { BrazeClickHandler } from './tracking';
 
 const imgHeight = '280';
 const bannerColor = '#ebe8e8';
@@ -15,7 +17,8 @@ const infoColor = '#c4c4c4';
 const bodyColor = '#666';
 
 export type Props = {
-    onButtonClick: (buttonIndex: number) => void;
+    logButtonClickWithBraze: BrazeClickHandler;
+    submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
     brazeMessageProps: {
         header?: string;
         body?: string;
@@ -283,19 +286,48 @@ export const storeIcon = css`
     }
 `;
 
+const catchAndLogErrors = (description: string, fn: () => void): void => {
+    try {
+        fn();
+    } catch (e) {
+        console.log(`Error (${description}): `, e.message);
+    }
+};
+
+export const COMPONENT_NAME = 'DigitalSubscriberAppBanner';
+
 export const DigitalSubscriberAppBanner: React.FC<Props> = ({
-    onButtonClick,
+    logButtonClickWithBraze,
+    submitComponentEvent,
     brazeMessageProps: { header, body },
 }: Props) => {
     const [showBanner, setShowBanner] = useState(true);
 
     const onCloseClick = (
         evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-        buttonId: number,
+        internalButtonId: number,
     ): void => {
         evt.preventDefault();
-        onButtonClick(buttonId);
+
         setShowBanner(false);
+
+        catchAndLogErrors('ophanButtonClick', () => {
+            // Braze displays button id from 1, but internal representation is numbered from 0
+            // This ensures that the Button ID in Braze and Ophan will be the same
+            const externalButtonId = internalButtonId + 1;
+            submitComponentEvent({
+                component: {
+                    componentType: 'RETENTION_ENGAGEMENT_BANNER',
+                    id: COMPONENT_NAME,
+                },
+                action: 'CLICK',
+                value: externalButtonId.toString(10),
+            });
+        });
+
+        catchAndLogErrors('brazeButtonClick', () => {
+            logButtonClickWithBraze(internalButtonId);
+        });
     };
 
     if (!showBanner || !header || !body) {

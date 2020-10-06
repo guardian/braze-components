@@ -17,7 +17,8 @@ describe('BrazeMessage', () => {
         render(
             <BrazeMessage
                 componentName={'ExampleComponent'}
-                onButtonClick={jest.fn}
+                logButtonClickWithBraze={jest.fn()}
+                submitComponentEvent={jest.fn()}
                 brazeMessageProps={{}}
             />,
         );
@@ -35,7 +36,8 @@ describe('BrazeMessage', () => {
         render(
             <BrazeMessage
                 componentName={'NoSuchComponent'}
-                onButtonClick={jest.fn}
+                logButtonClickWithBraze={jest.fn()}
+                submitComponentEvent={jest.fn()}
                 brazeMessageProps={{}}
             />,
         );

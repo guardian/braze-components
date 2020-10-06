@@ -17,8 +17,11 @@ export const defaultStory = (): ReactElement => {
         <StorybookWrapper>
             <BrazeMessage
                 componentName={text('componentName', 'DigitalSubscriberAppBanner')}
-                onButtonClick={(buttonId) => {
-                    console.log(`Button ${buttonId} clicked`);
+                logButtonClickWithBraze={(internalButtonId) => {
+                    console.log(`Button with internal ID ${internalButtonId} clicked`);
+                }}
+                submitComponentEvent={(componentEvent) => {
+                    console.log('submitComponentEvent called with: ', componentEvent);
                 }}
                 brazeMessageProps={{
                     header: text('header', 'A note to our digital subscribers'),
