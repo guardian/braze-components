@@ -6,7 +6,7 @@ const ADDON_ID = 'gupreview'
 
 addons.register(ADDON_ID, () => {
   addons.add(ADDON_ID, {
-    title: 'viewport / media-queries',
+    title: 'gu / gu-preview',
     type: types.TOOL,
     match: ({ viewMode }) => viewMode === 'story',
     render: () => <GuPreview />,

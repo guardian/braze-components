@@ -2,9 +2,8 @@
 import React, { Fragment, ReactElement } from 'react';
 
 import { styled } from '@storybook/theming';
-import { withKnobs, text } from '@storybook/addon-knobs';
-import { Icons, IconButton, WithTooltip, TooltipLinkList } from '@storybook/components';
-import { registry } from '../../src/utils/registerKnobs';
+import { Icons, IconButton } from '@storybook/components';
+import { knobsData } from '../../src/utils/knobsData';
 
 const IconButtonWithLabel = styled(IconButton)(() => ({
     display: 'inline-flex',
@@ -16,30 +15,11 @@ const IconButtonLabel = styled.div<{}>(({ theme }) => ({
     marginLeft: 10,
 }));
 
-// const allowedNames = [
-//     "componentName",
-//     "header",
-//     "body"
-// ]
-
 function constructPreviewUrl() {
     let baseUrl =
         'https://www.theguardian.com/sport/2019/jul/28/tour-de-france-key-moments-egan-bernal-yellow-jersey?dcr=false&';
 
-    const theKnobs = registry.getKnobs();
-    console.log('gupreview getKnobs', theKnobs);
-    // let urlParamsObject = {};
-    // let textareaList = document.getElementsByTagName("textarea");
-
-    // for(let i = 0; i < textareaList.length; i++){
-    //     let knob = textareaList[i];
-    //     let name = knob.id;
-    //     let value = knob.textContent
-
-    //     if (allowedNames.includes(name)){
-    //         urlParamsObject[name] = value;
-    //     }
-    // }
+    const theKnobs = knobsData.get();
 
     let fullUrl = baseUrl + 'force-braze-message=' + encodeURIComponent(JSON.stringify(theKnobs));
     window.open(fullUrl);

@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import { withKnobs, text } from '@storybook/addon-knobs';
 import { BrazeMessage } from './BrazeMessage';
 import { StorybookWrapper } from './utils/StorybookWrapper';
-import { registry } from './utils/registerKnobs';
+import { knobsData } from './utils/knobsData';
 
 export default {
     component: 'DigitalSubscriberAppBanner',
@@ -20,7 +20,7 @@ export const defaultStory = (): ReactElement => {
     );
     const componentName = text('componentName', 'DigitalSubscriberAppBanner');
 
-    registry.registerKnobs({ header, body, componentName });
+    knobsData.set({ header, body, componentName });
 
     return (
         <StorybookWrapper>
