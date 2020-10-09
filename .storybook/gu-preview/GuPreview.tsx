@@ -4,8 +4,7 @@ import React, { Fragment, ReactElement } from 'react';
 import { styled } from '@storybook/theming';
 import { withKnobs, text } from '@storybook/addon-knobs';
 import { Icons, IconButton, WithTooltip, TooltipLinkList } from '@storybook/components';
-import { Registry, getKnobs } from '../../src/utils/registerKnobs'
-
+import { registry } from '../../src/utils/registerKnobs';
 
 const IconButtonWithLabel = styled(IconButton)(() => ({
     display: 'inline-flex',
@@ -23,10 +22,11 @@ const IconButtonLabel = styled.div<{}>(({ theme }) => ({
 //     "body"
 // ]
 
-function constructPreviewUrl(){
-    let baseUrl = "https://www.theguardian.com/sport/2019/jul/28/tour-de-france-key-moments-egan-bernal-yellow-jersey?dcr=false&"
+function constructPreviewUrl() {
+    let baseUrl =
+        'https://www.theguardian.com/sport/2019/jul/28/tour-de-france-key-moments-egan-bernal-yellow-jersey?dcr=false&';
 
-    const theKnobs = Registry.getKnobs();
+    const theKnobs = registry.getKnobs();
     console.log('gupreview getKnobs', theKnobs);
     // let urlParamsObject = {};
     // let textareaList = document.getElementsByTagName("textarea");
@@ -41,7 +41,7 @@ function constructPreviewUrl(){
     //     }
     // }
 
-    let fullUrl = baseUrl + "force-braze-message=" +  encodeURIComponent(JSON.stringify(theKnobs))
+    let fullUrl = baseUrl + 'force-braze-message=' + encodeURIComponent(JSON.stringify(theKnobs));
     window.open(fullUrl);
 }
 
@@ -56,5 +56,5 @@ export const GuPreview = (): ReactElement => {
                 <Icons icon="browser" />
             </IconButtonWithLabel>
         </Fragment>
-    )
-}
+    );
+};
