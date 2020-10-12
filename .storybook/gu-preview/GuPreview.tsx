@@ -1,6 +1,4 @@
-/* eslint-disable no-fallthrough */
 import React, { Fragment, ReactElement } from 'react';
-
 import { styled } from '@storybook/theming';
 import { Icons, IconButton } from '@storybook/components';
 import { knobsData } from '../../src/utils/knobsData';
@@ -17,7 +15,7 @@ const IconButtonLabel = styled.div<{}>(({ theme }) => ({
 
 function constructPreviewUrl() {
     let baseUrl =
-        'https://www.theguardian.com/sport/2019/jul/28/tour-de-france-key-moments-egan-bernal-yellow-jersey?dcr=false&';
+        'https://www.theguardian.com/sport/2019/jul/28/tour-de-france-key-moments-egan-bernal-yellow-jersey?';
 
     const theKnobs = knobsData.get();
 
@@ -27,7 +25,7 @@ function constructPreviewUrl() {
 
 export const GuPreview = (): ReactElement => {
     return (
-        <Fragment>
+        <>
             <IconButtonWithLabel
                 key="gupreview"
                 title="Preview on the Guardian site"
@@ -35,6 +33,6 @@ export const GuPreview = (): ReactElement => {
             >
                 <Icons icon="browser" />
             </IconButtonWithLabel>
-        </Fragment>
+        </>
     );
 };
