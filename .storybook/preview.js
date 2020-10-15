@@ -1,6 +1,7 @@
 import { addParameters } from "@storybook/react";
 import { breakpoints } from "@guardian/src-foundations";
 
+
 const viewportMeta = {
   mobile: {
     name: "Mobile",
@@ -55,4 +56,5 @@ addParameters({
     viewports,
     defaultViewport: "responsive",
   },
+  layout: 'fullscreen'
 });
