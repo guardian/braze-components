@@ -72,10 +72,10 @@
     "react": "16.13.x"
   },
   "dependencies": {
-    "@guardian/src-button": "^2.1.0",
-    "@guardian/src-foundations": "^2.1.0",
-    "@guardian/src-grid": "^2.2.0",
-    "@guardian/src-icons": "^2.2.0",
+    "@guardian/src-button": "2.4.0",
+    "@guardian/src-foundations": "2.4.0",
+    "@guardian/src-grid": "2.4.0",
+    "@guardian/src-icons": "2.4.0",
     "emotion-theming": "^10.0.19"
   }
 }
