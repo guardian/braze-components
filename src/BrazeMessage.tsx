@@ -4,7 +4,8 @@ import {
     COMPONENT_NAME as DIGITAL_SUBSCRIBER_APP_BANNER_NAME,
     DigitalSubscriberAppBanner,
 } from './DigitalSubscriberAppBanner';
-import { BrazeClickHandler } from './tracking';
+import { COMPONENT_NAME as APP_BANNER_NAME, AppBanner } from './AppBanner';
+import { BrazeClickHandler } from './utils/tracking';
 
 type BrazeMessageProps = {
     [key: string]: string | undefined;
@@ -22,6 +23,7 @@ type ComponentMapping = {
 
 const COMPONENT_MAPPINGS: ComponentMapping = {
     [DIGITAL_SUBSCRIBER_APP_BANNER_NAME]: DigitalSubscriberAppBanner,
+    [APP_BANNER_NAME]: AppBanner,
 };
 
 export type Props = {
