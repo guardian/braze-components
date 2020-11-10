@@ -4,3 +4,4 @@ dist/
 /storybook-static/*
 build-storybook.log
 stats.html
+Brewfile.lock.json
