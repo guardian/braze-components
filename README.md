@@ -5,6 +5,12 @@ frontend.
 
 ## Development
 
+### Local Setup
+
+```
+$ bin/setup
+```
+
 ### Storybook
 
 We use Storybook when building components. Run Storybook with:

@@ -18,7 +18,7 @@
     "test": "jest",
     "tsc": "tsc  --noEmit",
     "publishToNPM": "yarn build && yarn publish --access public",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -p 6016",
     "build-storybook": "build-storybook",
     "prepare": "install-peers",
     "lint": "eslint . --ext .ts,.tsx"
