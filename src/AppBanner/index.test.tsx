@@ -4,26 +4,26 @@
 
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import { DigitalSubscriberAppBanner } from './DigitalSubscriberAppBanner';
+import { AppBanner } from '.';
 
-describe('DigitalSubscriberAppBanner', () => {
+describe('AppBanner', () => {
+    const baseProps = () => ({
+        logButtonClickWithBraze: jest.fn(),
+        submitComponentEvent: jest.fn(),
+        brazeMessageProps: {
+            header: 'A note to our digital subscribers',
+            body: 'Hi John, did you know...',
+            cta: 'Search for "Guardian"...',
+            imageUrl:
+                'https://i.guim.co.uk/img/media/de6813b4dd9b9805a2d14dd6af14ae2b48e2e19e/0_0_930_520/930.png?width=930&quality=60&s=a7d81978655765847246c8d4d0cd0e7f',
+        },
+    });
+
     describe('when a button is clicked', () => {
-        const baseProps = () => ({
-            logButtonClickWithBraze: jest.fn(),
-            submitComponentEvent: jest.fn(),
-            brazeMessageProps: {
-                header: 'A note to our digital subscribers',
-                body: 'Hi John, did you know...',
-            },
-        });
-
         it('invokes logButtonClickWithBraze with the internal button ID', () => {
             const logButtonClickWithBraze = jest.fn();
             const { getByText } = render(
-                <DigitalSubscriberAppBanner
-                    {...baseProps()}
-                    logButtonClickWithBraze={logButtonClickWithBraze}
-                />,
+                <AppBanner {...baseProps()} logButtonClickWithBraze={logButtonClickWithBraze} />,
             );
 
             fireEvent.click(getByText('Ok, got it'));
@@ -34,10 +34,7 @@ describe('DigitalSubscriberAppBanner', () => {
         it('invokes submitComponentEvent with correct data', () => {
             const logButtonClickWithOphan = jest.fn();
             const { getByText } = render(
-                <DigitalSubscriberAppBanner
-                    {...baseProps()}
-                    submitComponentEvent={logButtonClickWithOphan}
-                />,
+                <AppBanner {...baseProps()} submitComponentEvent={logButtonClickWithOphan} />,
             );
 
             fireEvent.click(getByText('Ok, got it'));
@@ -45,7 +42,7 @@ describe('DigitalSubscriberAppBanner', () => {
             expect(logButtonClickWithOphan).toHaveBeenCalledWith({
                 component: {
                     componentType: 'RETENTION_ENGAGEMENT_BANNER',
-                    id: 'DigitalSubscriberAppBanner',
+                    id: 'AppBanner',
                 },
                 action: 'CLICK',
                 value: '1',
@@ -54,7 +51,7 @@ describe('DigitalSubscriberAppBanner', () => {
 
         it('closes the banner', () => {
             const props = baseProps();
-            const { container, getByText } = render(<DigitalSubscriberAppBanner {...props} />);
+            const { container, getByText } = render(<AppBanner {...props} />);
 
             fireEvent.click(getByText('Ok, got it'));
 
@@ -68,10 +65,7 @@ describe('DigitalSubscriberAppBanner', () => {
                 throw new Error('Something went wrong');
             };
             const { container, getByText } = render(
-                <DigitalSubscriberAppBanner
-                    {...props}
-                    logButtonClickWithBraze={logButtonClickWithBraze}
-                />,
+                <AppBanner {...props} logButtonClickWithBraze={logButtonClickWithBraze} />,
             );
 
             fireEvent.click(getByText('Ok, got it'));
@@ -79,5 +73,21 @@ describe('DigitalSubscriberAppBanner', () => {
             // Closing the banner means nothing is rendered
             expect(container.firstChild).toBeNull();
         });
+    });
+
+    it('does not render the banner when a non-allowed image is provided', () => {
+        const { brazeMessageProps, ...props } = baseProps();
+        const badImageUrl = 'https://www.example.com/cat.png';
+        const invalidMessageProps = {
+            ...brazeMessageProps,
+            imageUrl: badImageUrl,
+        };
+
+        const { container } = render(
+            <AppBanner {...props} brazeMessageProps={invalidMessageProps} />,
+        );
+
+        // Nothing rendered as the imageUrl was not allowed
+        expect(container.firstChild).toBeNull();
     });
 });

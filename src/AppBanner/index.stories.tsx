@@ -1,13 +1,18 @@
 import React, { ReactElement } from 'react';
 import { withKnobs, text } from '@storybook/addon-knobs';
-import { BrazeMessage } from './BrazeMessage';
-import { StorybookWrapper } from './utils/StorybookWrapper';
-import { knobsData } from './utils/knobsData';
+import { BrazeMessage } from '../BrazeMessage';
+import { StorybookWrapper } from '../utils/StorybookWrapper';
+import { knobsData } from '../utils/knobsData';
 
 export default {
-    component: 'DigitalSubscriberAppBanner',
-    title: 'Components/DigitalSubscriberAppBanner',
+    component: 'AppBanner',
+    title: 'Components/AppBanner',
     decorators: [withKnobs],
+    parameters: {
+        knobs: {
+            escapeHTML: false, // Block HTML escaping, preventing double-escaping of imgUrl special characters in Storybook
+        },
+    },
 };
 
 export const defaultStory = (): ReactElement => {
@@ -18,9 +23,15 @@ export const defaultStory = (): ReactElement => {
         'body',
         'Hi John, did you know that as a Guardian digital subscriber you can enjoy an enhanced experience of our quality, independent journalism on all your devices, including The Guardian Live app.',
     );
-    const componentName = text('componentName', 'DigitalSubscriberAppBanner');
+    const componentName = text('componentName', 'AppBanner');
+    const imageUrl = text(
+        'imageUrl',
+        'https://i.guim.co.uk/img/media/de6813b4dd9b9805a2d14dd6af14ae2b48e2e19e/0_0_930_520/930.png?width=930&quality=60&s=a7d81978655765847246c8d4d0cd0e7f',
+    );
+    const cta = text('cta', 'Search for "Guardian live news"');
 
-    knobsData.set({ header, body, componentName });
+    // This is to make the data available to the guPreview add-on:
+    knobsData.set({ header, body, componentName, imageUrl, cta });
 
     return (
         <StorybookWrapper>
@@ -33,12 +44,14 @@ export const defaultStory = (): ReactElement => {
                     console.log('submitComponentEvent called with: ', componentEvent);
                 }}
                 brazeMessageProps={{
-                    header: header,
-                    body: body,
+                    header,
+                    body,
+                    imageUrl,
+                    cta,
                 }}
             />
         </StorybookWrapper>
     );
 };
 
-defaultStory.story = { name: 'Digital Subscriber App Banner' };
+defaultStory.story = { name: 'App Banner' };
