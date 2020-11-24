@@ -1,0 +1,11 @@
+stacks: [targeting]
+regions: [eu-west-1]
+deployments:
+    braze-components-storybook-static:
+        app: braze-components
+        type: aws-s3
+        parameters:
+            bucket: braze-components-storybook
+            prefixStack: false
+            cacheControl: public, max-age=3600
+            publicReadAcl: false
