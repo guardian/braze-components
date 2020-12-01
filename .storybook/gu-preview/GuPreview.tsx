@@ -15,7 +15,7 @@ const IconButtonLabel = styled.div<{}>(({ theme }) => ({
 
 function constructPreviewUrl() {
     let baseUrl =
-        'https://www.theguardian.com/sport/2019/jul/28/tour-de-france-key-moments-egan-bernal-yellow-jersey?';
+        'https://preview.gutools.co.uk/sport/2019/jul/28/tour-de-france-key-moments-egan-bernal-yellow-jersey?';
 
     const theKnobs = knobsData.get();
 
