@@ -24,7 +24,7 @@ Resources:
         Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
         Properties:
             CloudFrontOriginAccessIdentityConfig:
-                Comment: Braze Components Storybook webroot CDN access
+                Comment: !Sub Braze Components Storybook ${Stage} webroot CDN access
 
     WebrootBucketPolicy:
         Type: AWS::S3::BucketPolicy
