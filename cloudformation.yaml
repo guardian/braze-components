@@ -48,6 +48,7 @@ Resources:
                 Origins:
                     - Id: !Sub braze-components-${Stage}
                       DomainName: !Sub ${WebrootBucket}.s3.amazonaws.com
+                      OriginPath: !Sub /${Stage}/storybook-static
                       S3OriginConfig:
                           OriginAccessIdentity: !Sub origin-access-identity/cloudfront/${WebrootAccessIdentityID}
                 DefaultCacheBehavior:
