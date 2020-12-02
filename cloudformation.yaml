@@ -1,0 +1,79 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Braze Components Application
+
+Mappings:
+    Constants:
+        Stack:
+            Value: targeting
+        App:
+            Value: braze-components
+
+Parameters:
+    Stage:
+        Type: String
+    WebrootBucket:
+        Type: String
+    DomainName:
+        Type: String
+    TLSCert:
+        Type: String
+        Description: ARN of TLS certificate in US-EAST-1
+
+Resources:
+    WebrootAccessIdentityID:
+        Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+        Properties:
+            CloudFrontOriginAccessIdentityConfig:
+                Comment: Braze Components Storybook webroot CDN access
+
+    WebrootBucketPolicy:
+        Type: AWS::S3::BucketPolicy
+        Properties:
+            Bucket: !Ref WebrootBucket
+            PolicyDocument:
+                Statement:
+                    - Effect: Allow
+                      Action:
+                          - s3:GetObject
+                      Resource: !Sub arn:aws:s3:::${WebrootBucket}/${Stage}/*
+                      Principal:
+                          AWS: !Sub arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ${WebrootAccessIdentityID}
+
+    CDN:
+        Type: AWS::CloudFront::Distribution
+        Properties:
+            DistributionConfig:
+                Aliases:
+                    - !Ref DomainName
+                Origins:
+                    - Id: !Sub braze-components-${Stage}
+                      DomainName: !Sub ${WebrootBucket}.s3.amazonaws.com
+                      S3OriginConfig:
+                          OriginAccessIdentity: !Sub origin-access-identity/cloudfront/${WebrootAccessIdentityID}
+                DefaultCacheBehavior:
+                    AllowedMethods: [HEAD, GET]
+                    CachedMethods: [HEAD, GET]
+                    MinTTL: 3600
+                    Compress: true
+                    ForwardedValues:
+                        QueryString: false
+                    TargetOriginId: !Sub braze-components-${Stage}
+                    ViewerProtocolPolicy: redirect-to-https
+                DefaultRootObject: index.html
+                CustomErrorResponses:
+                    - ErrorCachingMinTTL: 5
+                      ErrorCode: 404
+                PriceClass: PriceClass_100
+                Enabled: true
+                ViewerCertificate:
+                    AcmCertificateArn: !Ref TLSCert
+                    MinimumProtocolVersion: TLSv1
+                    SslSupportMethod: sni-only
+                HttpVersion: http2
+            Tags:
+                - Key: app
+                  Value: !FindInMap [Constants, App, Value]
+                - Key: stack
+                  Value: !FindInMap [Constants, Stack, Value]
+                - Key: stage
+                  Value: !Ref Stage
