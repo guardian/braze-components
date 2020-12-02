@@ -25,19 +25,21 @@ export const defaultStory = (): ReactElement => {
 
     return (
         <StorybookWrapper>
-            <BrazeMessage
-                componentName={componentName}
-                logButtonClickWithBraze={(internalButtonId) => {
-                    console.log(`Button with internal ID ${internalButtonId} clicked`);
-                }}
-                submitComponentEvent={(componentEvent) => {
-                    console.log('submitComponentEvent called with: ', componentEvent);
-                }}
-                brazeMessageProps={{
-                    header: header,
-                    body: body,
-                }}
-            />
+            <>
+                <BrazeMessage
+                    componentName={componentName}
+                    logButtonClickWithBraze={(internalButtonId) => {
+                        console.log(`Button with internal ID ${internalButtonId} clicked`);
+                    }}
+                    submitComponentEvent={(componentEvent) => {
+                        console.log('submitComponentEvent called with: ', componentEvent);
+                    }}
+                    brazeMessageProps={{
+                        header: header,
+                        body: body,
+                    }}
+                />
+            </>
         </StorybookWrapper>
     );
 };
