@@ -10,7 +10,26 @@ Parameters:
         Default: braze-components
 
 Resources:
-    AppDataBucket:
+    WebrootAccessIdentityID:
+        Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+        Properties:
+            CloudFrontOriginAccessIdentityConfig:
+                Comment: !Sub Braze Components Storybook webroot CDN access
+
+    WebrootBucketPolicy:
+        Type: AWS::S3::BucketPolicy
+        Properties:
+            Bucket: !Ref StorybookAssetsBucket
+            PolicyDocument:
+                Statement:
+                    - Effect: Allow
+                      Action:
+                          - s3:GetObject
+                      Resource: !Sub arn:aws:s3:::${StorybookAssetsBucket}/*
+                      Principal:
+                          AWS: !Sub arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ${WebrootAccessIdentityID}
+
+    StorybookAssetsBucket:
         Type: AWS::S3::Bucket
         Properties:
             BucketName: braze-components-storybook
@@ -21,3 +40,8 @@ Resources:
                   Value: targeted-experiences
                 - Key: Stack
                   Value: !Ref Stack
+
+Outputs:
+    WebrootAccessIdentityID:
+        Description: ID of CloudFront origin access identity for webroot bucket access
+        Value: !Ref WebrootAccessIdentityID
