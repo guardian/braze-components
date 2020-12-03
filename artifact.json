@@ -1,0 +1,11 @@
+{
+  "projectName": "targeting:braze-components",
+  "vcsURL": "https://github.com/guardian/braze-components",
+  "actions": [
+    {
+      "action": "braze-components-storybook-static",
+      "path": "storybook-static",
+      "compress": false
+    }
+  ]
+}

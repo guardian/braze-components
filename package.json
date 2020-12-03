@@ -21,7 +21,8 @@
     "storybook": "start-storybook -p 6016",
     "build-storybook": "build-storybook",
     "prepare": "install-peers",
-    "lint": "eslint . --ext .ts,.tsx"
+    "lint": "eslint . --ext .ts,.tsx",
+    "upload-artifact": "node-riffraff-artifact"
   },
   "devDependencies": {
     "@babel/core": "^7.11.1",
@@ -30,6 +31,7 @@
     "@babel/preset-typescript": "^7.10.4",
     "@emotion/babel-preset-css-prop": "^10.0.27",
     "@guardian/grid-client": "^1.1.1",
+    "@guardian/node-riffraff-artifact": "^0.1.9",
     "@guardian/types": "^0.4.5",
     "@rollup/plugin-alias": "^3.1.1",
     "@rollup/plugin-babel": "^5.1.0",
