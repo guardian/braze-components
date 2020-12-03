@@ -18,27 +18,11 @@ Parameters:
     TLSCert:
         Type: String
         Description: ARN of TLS certificate in US-EAST-1
+    WebrootAccessIdentityID:
+        Type: String
+        Description: ID of CloudFront origin access identity for webroot bucket access (check output of static-s3 stack)
 
 Resources:
-    WebrootAccessIdentityID:
-        Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
-        Properties:
-            CloudFrontOriginAccessIdentityConfig:
-                Comment: !Sub Braze Components Storybook ${Stage} webroot CDN access
-
-    WebrootBucketPolicy:
-        Type: AWS::S3::BucketPolicy
-        Properties:
-            Bucket: !Ref WebrootBucket
-            PolicyDocument:
-                Statement:
-                    - Effect: Allow
-                      Action:
-                          - s3:GetObject
-                      Resource: !Sub arn:aws:s3:::${WebrootBucket}/${Stage}/*
-                      Principal:
-                          AWS: !Sub arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ${WebrootAccessIdentityID}
-
     CDN:
         Type: AWS::CloudFront::Distribution
         Properties:
