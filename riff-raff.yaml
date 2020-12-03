@@ -9,3 +9,9 @@ deployments:
             prefixStack: false
             cacheControl: public, max-age=3600
             publicReadAcl: false
+
+    braze-components-cfn:
+        type: cloud-formation
+        app: braze-components
+        parameters:
+            templatePath: cloudformation.yaml
