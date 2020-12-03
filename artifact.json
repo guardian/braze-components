@@ -6,6 +6,11 @@
       "action": "braze-components-storybook-static",
       "path": "storybook-static",
       "compress": false
+    },
+    {
+      "action": "braze-components-cfn",
+      "path": "cloudformation.yaml",
+      "compress": false
     }
   ]
 }

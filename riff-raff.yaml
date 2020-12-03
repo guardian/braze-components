@@ -2,10 +2,16 @@ stacks: [targeting]
 regions: [eu-west-1]
 deployments:
     braze-components-storybook-static:
-        app: braze-components
         type: aws-s3
+        app: braze-components
         parameters:
             bucket: braze-components-storybook
             prefixStack: false
             cacheControl: public, max-age=3600
             publicReadAcl: false
+
+    braze-components-cfn:
+        type: cloud-formation
+        app: braze-components
+        parameters:
+            templatePath: cloudformation.yaml
