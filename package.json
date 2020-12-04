@@ -88,6 +88,7 @@
     "@guardian/src-foundations": "2.4.0",
     "@guardian/src-grid": "2.4.0",
     "@guardian/src-icons": "2.4.0",
+    "ajv": "^7.0.0-beta.9",
     "aws-lambda": "^1.0.6",
     "aws-serverless-express": "^3.4.0-rc1",
     "emotion-theming": "^10.0.19",

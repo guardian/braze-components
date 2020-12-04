@@ -3,6 +3,8 @@ import awsServerlessExpress from 'aws-serverless-express';
 import { Context } from 'aws-lambda';
 import { format } from '@guardian/image';
 
+import { buildValidateImageRequestPayload } from './validators';
+
 const app = express();
 app.use(express.json());
 
@@ -12,17 +14,23 @@ app.get('/healthcheck', (req: express.Request, res: express.Response) => {
 });
 
 app.post('/signedImageUrl', (req: express.Request, res: express.Response) => {
-    const { imageUrl } = req.body;
+    const validate = buildValidateImageRequestPayload();
+    if (validate(req.body)) {
+        const { imageUrl } = req.body;
 
-    const profile = {
-        width: 600,
-        quality: 45,
-    };
+        const profile = {
+            width: 600,
+            quality: 45,
+        };
 
-    const salt: string = process.env.IMAGE_SALT as string;
-    const signedUrl = format(imageUrl, salt, profile);
+        const salt: string = process.env.IMAGE_SALT as string;
+        const signedUrl = format(imageUrl, salt, profile);
 
-    res.send({ signedUrl });
+        res.send({ signedUrl });
+    } else {
+        res.status(400);
+        res.send({ errors: validate.errors });
+    }
 });
 
 const PORT = process.env.PORT || 3030;

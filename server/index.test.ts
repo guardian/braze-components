@@ -21,4 +21,13 @@ describe('POST /signedImageUrl', () => {
             done();
         });
     });
+
+    it('returns 400 Bad Request given an invalid payload', async () => {
+        const payload = { foo: 'bar' };
+
+        const res = await request(app).post('/signedImageUrl').send(payload);
+
+        expect(res.status).toEqual(400);
+        expect(res.body).toHaveProperty('errors');
+    });
 });
