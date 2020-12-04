@@ -20,6 +20,7 @@ const signedImageUrl = (req: express.Request, res: express.Response) => {
     if (validate(req.body)) {
         const { imageUrl } = req.body;
 
+        // TODO: figure out the settings we want
         const profile = {
             width: 600,
             quality: 45,
