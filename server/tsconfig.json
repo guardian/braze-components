@@ -1,0 +1,8 @@
+
+{
+  "compilerOptions": {
+    "module": "CommonJS",
+  },
+  "extends": "../tsconfig",
+  "files": ["index.ts"]
+}
