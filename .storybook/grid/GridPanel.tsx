@@ -3,10 +3,10 @@ import { AddonPanel } from '@storybook/components';
 import { useChannel } from '@storybook/api';
 import { STORY_CHANGED } from '@storybook/core-events';
 import { API } from '@storybook/api';
-import type { IframePostMessage } from '@guardian/grid-client';
-import { styles } from './gridStyles';
+import type { IframePostMessage, Asset } from '@guardian/grid-client';
+import { nonEmotionStyles } from './gridStyles';
 import { INITIAL_IMAGE_EVENT, IMAGE_SELECTED_EVENT } from './withGrid';
-import { GRID_URL } from '../utils';
+import { getGridUrl, getImageSigningUrl } from '../utils';
 
 const isValidMessage = (data: IframePostMessage) =>
     data?.crop?.data && data?.image?.data && data?.crop?.data?.assets?.length > 0;
@@ -16,6 +16,36 @@ type Props = {
     api: API;
 };
 
+// We think these params are the best combination across both high dpi and
+// standard dpi screens while keeping the image size down. In future we should
+// switch to using the picture element end generate different images depending
+// on the user's screen/device.
+const imageProfile = {
+    width: 930,
+    quality: 45,
+    auto: 'format',
+};
+
+const signImageUrl = (unsignedImageUrl: URL): Promise<string> =>
+    fetch(`${getImageSigningUrl()}/signed-image-url`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+        },
+        body: JSON.stringify({
+            url: unsignedImageUrl,
+            profile: imageProfile,
+        }),
+        credentials: 'include',
+    })
+        .then((res) => {
+            return res.json();
+        })
+        .then((json) => {
+            return json.signedUrl;
+        });
+
 export const GridPanel = ({ api, active }: Props) => {
     const emit = useChannel({});
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -23,7 +53,7 @@ export const GridPanel = ({ api, active }: Props) => {
     const activeButton = useRef(null);
 
     const onMessage = (event) => {
-        if (event.origin !== GRID_URL) {
+        if (event.origin !== getGridUrl()) {
             return;
         }
 
@@ -34,16 +64,26 @@ export const GridPanel = ({ api, active }: Props) => {
             return;
         }
 
-        const cropAssets = data.crop.data.assets;
-        const cropUrl = cropAssets[cropAssets.length - 1]?.secureUrl;
+        console.log({ data });
+
+        // We concat with empty array here to get back a non-readonly Asset[] so
+        // that we don't break the type signature of getBestCrop.
+        const cropAsset = data.crop.data.master;
+        const cropUrl = cropAsset?.secureUrl;
 
         if (!cropUrl) {
             return null;
         }
-        setSelectedImage(cropUrl.toString());
-        emit(IMAGE_SELECTED_EVENT, cropUrl);
 
-        setIsModalOpen(false);
+        // Sign image cropped image using our Fastly image url signing service
+        signImageUrl(cropUrl)
+            .then((signedCropUrl) => {
+                setSelectedImage(signedCropUrl);
+                emit(IMAGE_SELECTED_EVENT, signedCropUrl);
+            })
+            .finally(() => {
+                setIsModalOpen(false);
+            });
     };
 
     useEffect(() => {
@@ -79,9 +119,11 @@ export const GridPanel = ({ api, active }: Props) => {
     return (
         <AddonPanel active={active}>
             <div>
-                <div css={styles.buttonRow}>
+                <div style={nonEmotionStyles.buttonRow}>
                     <button
-                        css={isModalOpen ? styles.inactiveButton : styles.activeButton}
+                        style={
+                            isModalOpen ? nonEmotionStyles.inactiveButton : nonEmotionStyles.activeButton
+                        }
                         ref={activeButton}
                         onClick={() => {
                             setIsModalOpen(true);
@@ -91,7 +133,9 @@ export const GridPanel = ({ api, active }: Props) => {
                         Select image
                     </button>
                     <button
-                        css={isModalOpen ? styles.activeButton : styles.inactiveButton}
+                        style={
+                            isModalOpen ? nonEmotionStyles.activeButton : nonEmotionStyles.inactiveButton
+                        }
                         ref={activeButton}
                         onClick={() => {
                             setIsModalOpen(false);
@@ -103,9 +147,13 @@ export const GridPanel = ({ api, active }: Props) => {
                 </div>
 
                 {selectedImage && (
-                    <div css={styles.resultRow}>
-                        <span css={styles.resultKey}>imageUrl:</span>
-                        <textarea css={styles.resultValue} value={selectedImage} readOnly={true} />
+                    <div style={nonEmotionStyles.resultRow}>
+                        <span style={nonEmotionStyles.resultKey}>imageUrl:</span>
+                        <textarea
+                            style={nonEmotionStyles.resultValue}
+                            value={selectedImage}
+                            readOnly={true}
+                        />
                     </div>
                 )}
 
@@ -116,7 +164,7 @@ export const GridPanel = ({ api, active }: Props) => {
 };
 
 const GridModal = () => (
-    <div css={styles.modal}>
-        <iframe css={styles.iframe} src={GRID_URL}></iframe>
+    <div style={nonEmotionStyles.modal}>
+        <iframe style={nonEmotionStyles.iframe} src={getGridUrl()}></iframe>
     </div>
 );

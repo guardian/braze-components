@@ -14,7 +14,7 @@ export default {
             escapeHTML: false, // Block HTML escaping, preventing double-escaping of imgUrl special characters in Storybook
         },
         grid: {
-            disabled: false,
+            disable: false,
         },
     },
 };
@@ -29,7 +29,7 @@ export const defaultStory = (): ReactElement => {
     );
     const componentName = text('componentName', 'AppBanner');
     const imageUrl = grid(
-        'https://i.guim.co.uk/img/media/de6813b4dd9b9805a2d14dd6af14ae2b48e2e19e/0_0_930_520/930.png?width=930&quality=60&s=a7d81978655765847246c8d4d0cd0e7f',
+        'https://i.guim.co.uk/img/media/de6813b4dd9b9805a2d14dd6af14ae2b48e2e19e/0_0_930_520/master/930.png?quality=45&width=930&s=0beb53509265d32e3d201aa3981323bb',
     );
     const cta = text('cta', 'Search for "Guardian live news"');
 
