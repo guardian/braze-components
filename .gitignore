@@ -5,3 +5,5 @@ dist/
 build-storybook.log
 stats.html
 Brewfile.lock.json
+.DS_Store
+.idea/
