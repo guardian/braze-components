@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import { isImageUrlAllowed } from './images';
 
 describe('isImageUrlValid', () => {
