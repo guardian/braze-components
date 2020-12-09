@@ -18,7 +18,7 @@
     "test": "jest",
     "tsc": "tsc  --noEmit",
     "publishToNPM": "yarn build && yarn publish --access public",
-    "storybook": "start-storybook -p 6016",
+    "storybook": "./bin/storybook",
     "build-storybook": "build-storybook",
     "prepare": "install-peers",
     "lint": "eslint . --ext .ts,.tsx",
@@ -67,7 +67,8 @@
     "rollup-plugin-visualizer": "^4.1.1",
     "storybook": "^6.0.21",
     "ts-jest": "^26.4.0",
-    "typescript": "^3.9.7"
+    "typescript": "^3.9.7",
+    "wait-on": "^5.2.0"
   },
   "peerDependencies": {
     "@emotion/core": "10.0.x",
