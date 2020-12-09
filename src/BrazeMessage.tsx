@@ -9,6 +9,10 @@ import {
     COMPONENT_NAME as SPECIAL_EDITION_BANNER_NAME,
     SpecialEditionBanner,
 } from './SpecialEditionBanner';
+import {
+    COMPONENT_NAME as THE_GUARDIAN_IN_2020_BANNER_NAME,
+    TheGuardianIn2020Banner,
+} from './TheGuardianIn2020Banner';
 import { BrazeClickHandler } from './utils/tracking';
 
 type BrazeMessageProps = {
@@ -29,6 +33,7 @@ const COMPONENT_MAPPINGS: ComponentMapping = {
     [DIGITAL_SUBSCRIBER_APP_BANNER_NAME]: DigitalSubscriberAppBanner,
     [APP_BANNER_NAME]: AppBanner,
     [SPECIAL_EDITION_BANNER_NAME]: SpecialEditionBanner,
+    [THE_GUARDIAN_IN_2020_BANNER_NAME]: TheGuardianIn2020Banner,
 };
 
 export type Props = {

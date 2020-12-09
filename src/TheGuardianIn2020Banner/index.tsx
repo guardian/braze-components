@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
 import { ThemeProvider } from 'emotion-theming';
-import { Button, buttonReaderRevenueBrandAlt } from '@guardian/src-button';
+import { Button, buttonReaderRevenueBrandAlt, LinkButton } from '@guardian/src-button';
 import { SvgCross, SvgInfo } from '@guardian/src-icons';
 import { OphanComponentEvent } from '@guardian/types/ophan';
 
-import { AppStore } from '../assets/app-store';
-import { PlayStore } from '../assets/play-store';
 import { BrazeClickHandler } from '../utils/tracking';
 import { styles as commonStyles } from '../styles/bannerCommon';
 import { styles } from './styles';
-import { isImageUrlAllowed } from '../utils/images';
 
 export type Props = {
     logButtonClickWithBraze: BrazeClickHandler;
@@ -18,8 +15,6 @@ export type Props = {
     brazeMessageProps: {
         header?: string;
         body?: string;
-        cta?: string;
-        imageUrl?: string;
     };
 };
 
@@ -31,13 +26,27 @@ const catchAndLogErrors = (description: string, fn: () => void): void => {
     }
 };
 
-export const COMPONENT_NAME = 'AppBanner';
+export const COMPONENT_NAME = 'TheGuardianIn2020Banner';
 
-export const AppBanner: React.FC<Props> = ({
+const urlObject = new URL(
+    'https://www.theguardian.com/info/ng-interactive/2020/dec/21/the-guardian-in-2020',
+);
+
+const urlParams = {
+    INTCMP: 'gdnwb_mrtn_banner_edtrl_MK_SU_WorkingReport2020Canvas',
+};
+
+for (const [key, value] of Object.entries(urlParams)) {
+    urlObject.searchParams.set(key, value);
+}
+
+const THE_GU_IN_2020_URL = urlObject.href;
+
+export const TheGuardianIn2020Banner: React.FC<Props> = ({
     logButtonClickWithBraze,
     submitComponentEvent,
     ophanComponentId = COMPONENT_NAME,
-    brazeMessageProps: { header, body, cta, imageUrl },
+    brazeMessageProps: { header, body },
 }: Props) => {
     const [showBanner, setShowBanner] = useState(true);
 
@@ -68,12 +77,7 @@ export const AppBanner: React.FC<Props> = ({
         });
     };
 
-    if (!showBanner || !header || !body || !cta || !imageUrl) {
-        return null;
-    }
-
-    if (!isImageUrlAllowed(imageUrl)) {
-        console.log(`Image URL ${imageUrl} is not allowed`);
+    if (!showBanner || !header || !body) {
         return null;
     }
 
@@ -90,29 +94,23 @@ export const AppBanner: React.FC<Props> = ({
                         </span>
                         {header}
                     </div>
-                    <p css={commonStyles.paragraph}>
+                    <p css={styles.paragraph}>
                         {body}
                         <br />
-                        <strong css={commonStyles.cta}>{cta}</strong>
-                        <span css={styles.storeIcon}>
-                            <AppStore />
-                            <PlayStore />
-                        </span>
+                        <strong css={styles.cta}>
+                            Read our look-back to see how Guardian journalism made a difference.
+                        </strong>
                     </p>
-                    <Button onClick={(e) => onCloseClick(e, 0)} css={commonStyles.primaryButton}>
-                        Ok, got it
-                    </Button>
-                    <Button
-                        onClick={(e) => onCloseClick(e, 0)}
-                        css={styles.secondaryButton}
-                        priority="subdued"
-                    >
-                        {"I'm not interested"}
-                    </Button>
+                    <LinkButton href={THE_GU_IN_2020_URL} css={commonStyles.primaryButton}>
+                        Take a look back
+                    </LinkButton>
                 </div>
                 <div css={commonStyles.bottomRightComponent}>
                     <div css={styles.image}>
-                        <img src={imageUrl} alt="" />
+                        <img
+                            src="https://i.guim.co.uk/img/media/c9ba78ef2b1a931aab5ca625ce49646e116b11b3/0_0_3200_1800/3200.png?quality=60&width=930&s=72ff133ea3e4516f5a353213e7a62e8a"
+                            alt=""
+                        />
                     </div>
                     <div css={commonStyles.iconPanel}>
                         <ThemeProvider theme={buttonReaderRevenueBrandAlt}>
