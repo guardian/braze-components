@@ -5,6 +5,10 @@ import {
     DigitalSubscriberAppBanner,
 } from './DigitalSubscriberAppBanner';
 import { COMPONENT_NAME as APP_BANNER_NAME, AppBanner } from './AppBanner';
+import {
+    COMPONENT_NAME as SPECIAL_EDITION_BANNER_NAME,
+    SpecialEditionBanner,
+} from './SpecialEditionBanner';
 import { BrazeClickHandler } from './utils/tracking';
 
 type BrazeMessageProps = {
@@ -24,6 +28,7 @@ type ComponentMapping = {
 const COMPONENT_MAPPINGS: ComponentMapping = {
     [DIGITAL_SUBSCRIBER_APP_BANNER_NAME]: DigitalSubscriberAppBanner,
     [APP_BANNER_NAME]: AppBanner,
+    [SPECIAL_EDITION_BANNER_NAME]: SpecialEditionBanner,
 };
 
 export type Props = {
