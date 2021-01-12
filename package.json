@@ -32,7 +32,7 @@
     "@emotion/babel-preset-css-prop": "^10.0.27",
     "@guardian/grid-client": "^1.1.1",
     "@guardian/node-riffraff-artifact": "^0.1.9",
-    "@guardian/types": "^0.4.5",
+    "@guardian/types": "^1.1.0",
     "@rollup/plugin-alias": "^3.1.1",
     "@rollup/plugin-babel": "^5.1.0",
     "@rollup/plugin-commonjs": "^14.0.0",

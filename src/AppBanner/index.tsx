@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ThemeProvider } from 'emotion-theming';
 import { Button, buttonReaderRevenueBrandAlt } from '@guardian/src-button';
 import { SvgCross, SvgInfo } from '@guardian/src-icons';
-import { OphanComponentEvent } from '@guardian/types/ophan';
+import { OphanComponentEvent } from '@guardian/types';
 
 import { AppStore } from '../assets/app-store';
 import { PlayStore } from '../assets/play-store';

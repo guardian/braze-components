@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppBanner } from '../AppBanner';
-import type { OphanComponentEvent } from '@guardian/types/ophan';
+import type { OphanComponentEvent } from '@guardian/types';
 import type { BrazeClickHandler } from '../utils/tracking';
 
 export type Props = {

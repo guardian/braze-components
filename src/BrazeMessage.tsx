@@ -1,5 +1,5 @@
 import React from 'react';
-import { OphanComponentEvent } from '@guardian/types/ophan';
+import { OphanComponentEvent } from '@guardian/types';
 import {
     COMPONENT_NAME as DIGITAL_SUBSCRIBER_APP_BANNER_NAME,
     DigitalSubscriberAppBanner,
