@@ -46,11 +46,12 @@ $ yarn install --force
 [`yarn link`]: https://classic.yarnpkg.com/en/docs/cli/link/
 
 NOTE:
-- Ensure you build this library before adding it locally to your project,
-by running `yarn build`. You can also use `yarn watch` to build automatically
-when the source code is changed.
 
-- The external project (e.g. DCR/frontend) may not be set up to watch changes from linked modules. Removing: `ignored: /node_modules/,` from [`watchOptions`](https://github.com/guardian/frontend/blob/main/dev/watch.js#L30) in frontend will enable `make watch` (in frontend) to also track changes to `braze-components`.
+-   Ensure you build this library before adding it locally to your project,
+    by running `yarn build`. You can also use `yarn watch` to build automatically
+    when the source code is changed.
+
+-   The external project (e.g. DCR/frontend) may not be set up to watch changes from linked modules. Removing: `ignored: /node_modules/,` from [`watchOptions`](https://github.com/guardian/frontend/blob/main/dev/watch.js#L30) in frontend will enable `make watch` (in frontend) to also track changes to `braze-components`.
 
 ## Publishing to NPM
 
@@ -63,8 +64,8 @@ $ yarn release
 
 This will:
 
-- Build the package
-- Interactively ask for a new version number (and create a commit for the
-  version change in package.json)
-- Publish the new release to NPM
-- Push new commits/tags to GitHub
+-   Build the package
+-   Interactively ask for a new version number (and create a commit for the
+    version change in package.json)
+-   Publish the new release to NPM
+-   Push new commits/tags to GitHub

@@ -13,42 +13,42 @@ import visualizer from 'rollup-plugin-visualizer';
 const extensions = [...DEFAULT_EXTENSIONS, '.ts', '.tsx'];
 
 const globals = {
-    react: 'guardian.automat.preact',
-    '@emotion/core': 'guardian.automat.emotionCore',
+	react: 'guardian.automat.preact',
+	'@emotion/core': 'guardian.automat.emotionCore',
 };
 
 const configs = [
-    {
-        input: './index.ts',
-        output: [
-            {
-                file: pkg.main,
-                format: 'cjs',
-            },
-            {
-                file: pkg.module,
-                format: 'esm',
-                sourcemap: false,
-            },
-        ],
-        external: (id) => Object.keys(globals).some((key) => id == key),
-        plugins: [
-            peerDepsExternal(),
-            resolve({ extensions: extensions }),
-            commonjs(),
-            replace({ 'process.env.NODE_ENV': '"production"' }),
-            babel({
-                babelHelpers: 'bundled',
-                extensions: extensions,
-            }),
-            terser(),
-            filesize(),
-            externalGlobals(globals),
-            // Note, visualizer is useful for *relative* sizes, but reports
-            // pre-minification.
-            visualizer({ gzipSize: true }),
-        ],
-    },
+	{
+		input: './index.ts',
+		output: [
+			{
+				file: pkg.main,
+				format: 'cjs',
+			},
+			{
+				file: pkg.module,
+				format: 'esm',
+				sourcemap: false,
+			},
+		],
+		external: (id) => Object.keys(globals).some((key) => id == key),
+		plugins: [
+			peerDepsExternal(),
+			resolve({ extensions: extensions }),
+			commonjs(),
+			replace({ 'process.env.NODE_ENV': '"production"' }),
+			babel({
+				babelHelpers: 'bundled',
+				extensions: extensions,
+			}),
+			terser(),
+			filesize(),
+			externalGlobals(globals),
+			// Note, visualizer is useful for *relative* sizes, but reports
+			// pre-minification.
+			visualizer({ gzipSize: true }),
+		],
+	},
 ];
 
 export default configs;

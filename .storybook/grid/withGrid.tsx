@@ -8,48 +8,48 @@ export const IMAGE_SELECTED_EVENT = 'IMAGE_SELECTED_EVENT';
 export const INITIAL_IMAGE_EVENT = 'INITIAL_IMAGE_EVENT';
 
 export const grid = (defaultValue) => {
-    if (!gridValue) {
-        addons.getChannel().emit(INITIAL_IMAGE_EVENT, defaultValue);
-    }
+	if (!gridValue) {
+		addons.getChannel().emit(INITIAL_IMAGE_EVENT, defaultValue);
+	}
 
-    return gridValue || defaultValue;
+	return gridValue || defaultValue;
 };
 
 const forceReRender = () => {
-    addons.getChannel().emit(FORCE_RE_RENDER);
+	addons.getChannel().emit(FORCE_RE_RENDER);
 };
 
 const onStoryChanged = () => {
-    gridValue = undefined;
+	gridValue = undefined;
 };
 
 const onImageSelected = (payload) => {
-    gridValue = payload;
-    forceReRender();
+	gridValue = payload;
+	forceReRender();
 };
 
 const disconnectEventListeners = () => {
-    const channel = addons.getChannel();
+	const channel = addons.getChannel();
 
-    channel.removeListener(IMAGE_SELECTED_EVENT, onImageSelected);
-    channel.removeListener(STORY_CHANGED, onStoryChanged);
+	channel.removeListener(IMAGE_SELECTED_EVENT, onImageSelected);
+	channel.removeListener(STORY_CHANGED, onStoryChanged);
 };
 
 const connectEventListeners = () => {
-    const channel = addons.getChannel();
+	const channel = addons.getChannel();
 
-    channel.on(IMAGE_SELECTED_EVENT, onImageSelected);
-    channel.on(STORY_CHANGED, onStoryChanged);
+	channel.on(IMAGE_SELECTED_EVENT, onImageSelected);
+	channel.on(STORY_CHANGED, onStoryChanged);
 
-    return disconnectEventListeners;
+	return disconnectEventListeners;
 };
 
 export const withGrid = makeDecorator({
-    name: 'withGrid',
-    parameterName: 'grid',
-    wrapper: (storyFn, context, { parameters }) => {
-        useEffect(connectEventListeners, []);
+	name: 'withGrid',
+	parameterName: 'grid',
+	wrapper: (storyFn, context, { parameters }) => {
+		useEffect(connectEventListeners, []);
 
-        return storyFn(context);
-    },
+		return storyFn(context);
+	},
 });

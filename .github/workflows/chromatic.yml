@@ -2,22 +2,22 @@ name: Chromatic
 on: push
 
 jobs:
-    run:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout repo
-              uses: actions/checkout@v1
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v1
 
-            - name: Use Node.js
-              shell: bash -l {0}
-              run: nvm install
+      - name: Use Node.js
+        shell: bash -l {0}
+        run: nvm install
 
-            - name: Install dependencies
-              run: |
-                  yarn install
+      - name: Install dependencies
+        run: |
+          yarn install
 
-            - name: Chromatic
-              uses: chromaui/action@v1
-              with:
-                  projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-                  token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Chromatic
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}

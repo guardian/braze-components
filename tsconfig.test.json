@@ -1,6 +1,6 @@
 {
-    "extends": "./tsconfig",
-    "compilerOptions": {
-        "target": "ES2019"
-    }
+  "extends": "./tsconfig",
+  "compilerOptions": {
+    "target": "ES2019"
+  }
 }
