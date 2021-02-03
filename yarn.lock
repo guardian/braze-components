@@ -1231,6 +1231,11 @@
     yaml "^1.7.2"
     yargs "^15.1.0"
 
+"@guardian/prettier@^0.4.2":
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/@guardian/prettier/-/prettier-0.4.2.tgz#2d08a8a50aad3911a88c9b53f92a37748694d551"
+  integrity sha512-f8MCY/s3rLNonqxITsqnqrPRt0r6hEyW6rGKqDexTt88fEQnA3BMtAlN2hqjuNfrOa9EQexEknZugRVdIpbijQ==
+
 "@guardian/src-button@2.7.1":
   version "2.7.1"
   resolved "https://registry.yarnpkg.com/@guardian/src-button/-/src-button-2.7.1.tgz#088eb57732c10516eb111692c68813713176f08f"
