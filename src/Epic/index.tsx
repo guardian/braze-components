@@ -4,7 +4,6 @@ import * as emotionCore from '@emotion/core';
 import * as emotionTheming from 'emotion-theming';
 import { css } from '@emotion/core';
 
-export const COMPONENT_NAME = 'Epic';
 const componentUrl = `https://contributions.code.dev-guardianapis.com/epic.js`;
 const epicWrapper = css`
     box-sizing: border-box;
