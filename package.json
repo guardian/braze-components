@@ -78,6 +78,7 @@
     "react": "16.13.x"
   },
   "dependencies": {
+    "@emotion/react": "^11.1.5",
     "@guardian/src-button": "2.7.1",
     "@guardian/src-foundations": "2.7.1",
     "@guardian/src-grid": "2.7.1",

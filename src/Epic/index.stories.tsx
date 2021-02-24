@@ -1,11 +1,8 @@
-import React, { useEffect, useState, ReactElement } from 'react';
-import * as emotion from '@emotion/react';
-import * as emotionCore from '@emotion/core';
-import { css } from '@emotion/core';
-import * as emotionTheming from 'emotion-theming';
+import React, { ReactElement } from 'react';
 import { withKnobs, text } from '@storybook/addon-knobs';
 import { Epic } from './index';
 import { StorybookWrapper } from '../utils/StorybookWrapper';
+import type { EpicProps } from './index';
 // import { knobsData } from '../utils/knobsData';
 
 export default {
@@ -19,16 +16,7 @@ export default {
     },
 };
 
-declare global {
-    interface Window {
-        guardian: Record<string, unknown>;
-    }
-}
-
-const TOTAL_PARAGRAPHS = 9;
-
 type DataFromKnobs = {
-    // componentName?: string;
     heading?: string;
     highlightedText?: string;
     buttonText?: string;
@@ -36,31 +24,7 @@ type DataFromKnobs = {
     paragraphs?: Array<string>;
 };
 
-type EpicProps = {
-    variant: Variant;
-    tracking: Tracking;
-    // numArticles: number;
-};
-
-type Variant = {
-    // name: string;
-    heading: string;
-    paragraphs: Array<string>;
-    highlightedText: string;
-    cta: {
-        text: string;
-        baseUrl: string;
-    };
-};
-
-type Tracking = {
-    // ophanPageId: string;
-    // platformId: string;
-    // clientName: string;
-    // referrerUrl: string;
-};
-
-const componentUrl = `https://contributions.code.dev-guardianapis.com/epic.js`;
+const TOTAL_PARAGRAPHS = 9;
 
 const content = {
     heading: 'Since you’re here...',
@@ -75,12 +39,6 @@ const content = {
     buttonText: 'Support The Guardian',
     buttonUrl: 'https://support.theguardian.com/contribute',
 };
-const epicWrapper = css`
-    box-sizing: border-box;
-    width: 100%;
-    max-width: 620px;
-    margin: 10px;
-`;
 
 const buildProps = (data: DataFromKnobs): EpicProps => {
     return {
@@ -103,6 +61,10 @@ const buildProps = (data: DataFromKnobs): EpicProps => {
 };
 
 export const defaultStory = (): ReactElement => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const slotName = text('slotName', 'Epic');
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const componentName = text('componentName', 'Epic');
     const heading = text('heading', content.heading);
     const highlightedText = text('highlightedText', content.highlightedText);
     const buttonText = text('buttonText', content.buttonText);
@@ -118,45 +80,18 @@ export const defaultStory = (): ReactElement => {
             paragraphs.push(text(name, ''));
         }
     }
-
-    const [Epic, setEpic] = useState<React.FC<EpicProps>>();
-    useEffect(() => {
-        window.guardian = {};
-        window.guardian.automat = {
-            react: React,
-            preact: React,
-            emotionCore,
-            emotionTheming,
-            emotion,
-        };
-        import(/*webpackIgnore: true*/ componentUrl)
-            .then((epicModule: { ContributionsEpic: React.FC<EpicProps> }) => {
-                setEpic(() => epicModule.ContributionsEpic);
-            })
-            // eslint-disable-next-line no-console
-            .catch((error) => console.log(`epic - error is: ${error}`));
-    }, []);
-
-    const props = buildProps({
+    const epicProps = buildProps({
         heading,
         highlightedText,
         buttonText,
         buttonUrl,
         paragraphs: paragraphs.filter((p) => p != ''),
     });
-
-    if (Epic) {
-        return (
-            <StorybookWrapper>
-                <div css={epicWrapper}>
-                    {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-                    <Epic {...props} />
-                </div>
-            </StorybookWrapper>
-        );
-    }
-
-    return null;
+    return (
+        <StorybookWrapper>
+            <Epic {...epicProps}></Epic>
+        </StorybookWrapper>
+    );
 };
 
 defaultStory.story = { name: 'Epic' };
