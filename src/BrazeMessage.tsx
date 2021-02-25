@@ -13,7 +13,6 @@ import {
     COMPONENT_NAME as THE_GUARDIAN_IN_2020_BANNER_NAME,
     TheGuardianIn2020Banner,
 } from './TheGuardianIn2020Banner';
-import { COMPONENT_NAME as EPIC_NAME, Epic } from './Epic';
 import { BrazeClickHandler } from './utils/tracking';
 
 type BrazeMessageProps = {

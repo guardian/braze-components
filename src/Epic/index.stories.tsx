@@ -3,7 +3,7 @@ import { withKnobs, text } from '@storybook/addon-knobs';
 import { Epic } from './index';
 import { StorybookWrapper } from '../utils/StorybookWrapper';
 import type { EpicProps } from './index';
-// import { knobsData } from '../utils/knobsData';
+import { knobsData } from '../utils/knobsData';
 
 export default {
     component: 'Epic',
@@ -17,11 +17,13 @@ export default {
 };
 
 type DataFromKnobs = {
-    heading?: string;
-    highlightedText?: string;
-    buttonText?: string;
-    buttonUrl?: string;
-    paragraphs?: Array<string>;
+    heading: string;
+    highlightedText: string;
+    buttonText: string;
+    buttonUrl: string;
+    paragraphs: Array<string>;
+    slotName?: string;
+    componentName?: string;
 };
 
 const TOTAL_PARAGRAPHS = 9;
@@ -51,12 +53,7 @@ const buildProps = (data: DataFromKnobs): EpicProps => {
                 baseUrl: data.buttonUrl,
             },
         },
-        tracking: {
-            // ophanPageId: '',
-            // platformId: '',
-            // clientName: '',
-            // referrerUrl: 'https://www.theguardian.com',
-        },
+        tracking: {},
     };
 };
 
@@ -80,13 +77,20 @@ export const defaultStory = (): ReactElement => {
             paragraphs.push(text(name, ''));
         }
     }
+
     const epicProps = buildProps({
         heading,
         highlightedText,
         buttonText,
         buttonUrl,
         paragraphs: paragraphs.filter((p) => p != ''),
+        slotName,
+        componentName,
     });
+
+    // This is to make the data available to the guPreview add-on:
+    knobsData.set({ ...epicProps });
+
     return (
         <StorybookWrapper>
             <Epic {...epicProps}></Epic>

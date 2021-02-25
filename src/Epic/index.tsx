@@ -20,12 +20,10 @@ declare global {
 
 export type EpicProps = {
     variant: Variant;
-    tracking: Tracking;
-    // numArticles: number;
+    tracking: Record<string, unknown>;
 };
 
 export type Variant = {
-    // name: string;
     heading: string;
     paragraphs: Array<string>;
     highlightedText: string;
@@ -33,13 +31,6 @@ export type Variant = {
         text: string;
         baseUrl: string;
     };
-};
-
-type Tracking = {
-    // ophanPageId: string;
-    // platformId: string;
-    // clientName: string;
-    // referrerUrl: string;
 };
 
 export const Epic: React.FC<EpicProps> = (props) => {
