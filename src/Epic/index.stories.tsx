@@ -1,19 +1,49 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { withKnobs, text } from '@storybook/addon-knobs';
-import { Epic } from './index';
 import { StorybookWrapper } from '../utils/StorybookWrapper';
-import type { EpicProps } from './index';
 import { knobsData } from '../utils/knobsData';
+import * as emotion from '@emotion/react';
+import * as emotionCore from '@emotion/core';
+import * as emotionTheming from 'emotion-theming';
+
+const css = emotionCore.css;
 
 export default {
     component: 'Epic',
     title: 'Components/Epic',
     decorators: [withKnobs],
     parameters: {
-        knobs: {
-            escapeHTML: false, // Block HTML escaping, preventing double-escaping of imgUrl special characters in Storybook
-        },
+        knobs: {},
     },
+};
+
+const componentUrl = `https://contributions.code.dev-guardianapis.com/epic.js`;
+const epicWrapper = css`
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 620px;
+    margin: 10px;
+`;
+
+declare global {
+    interface Window {
+        guardian: Record<string, unknown>;
+    }
+}
+
+type EpicProps = {
+    variant: Variant;
+    tracking: Record<string, unknown>;
+};
+
+type Variant = {
+    heading: string;
+    paragraphs: Array<string>;
+    highlightedText: string;
+    cta: {
+        text: string;
+        baseUrl: string;
+    };
 };
 
 type DataFromKnobs = {
@@ -26,9 +56,40 @@ type DataFromKnobs = {
     componentName?: string;
 };
 
+const Epic: React.FC<EpicProps> = (props) => {
+    const [EpicInner, setEpicInner] = useState<React.FC<EpicProps>>();
+    useEffect(() => {
+        window.guardian = {};
+        window.guardian.automat = {
+            react: React,
+            preact: React,
+            emotionCore,
+            emotionTheming,
+            emotion,
+        };
+        import(/*webpackIgnore: true*/ componentUrl)
+            .then((epicModule: { ContributionsEpic: React.FC<EpicProps> }) => {
+                setEpicInner(() => epicModule.ContributionsEpic);
+            })
+            // eslint-disable-next-line no-console
+            .catch((error) => console.log(`epic - error is: ${error}`));
+    }, []);
+
+    if (EpicInner) {
+        return (
+            <div css={epicWrapper}>
+                {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+                <EpicInner {...props} />
+            </div>
+        );
+    }
+
+    return null;
+};
+
 const TOTAL_PARAGRAPHS = 9;
 
-const content = {
+const defaultContent = {
     heading: 'Since you’re here...',
     paragraphs: [
         '... we have a small favour to ask. More people, like you, are reading and supporting the Guardian’s independent, investigative journalism than ever before. And unlike many news organisations, we made the choice to keep our reporting open for all, regardless of where they live or what they can afford to pay.',
@@ -62,17 +123,18 @@ export const defaultStory = (): ReactElement => {
     const slotName = text('slotName', 'Epic');
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const componentName = text('componentName', 'Epic');
-    const heading = text('heading', content.heading);
-    const highlightedText = text('highlightedText', content.highlightedText);
-    const buttonText = text('buttonText', content.buttonText);
-    const buttonUrl = text('buttonUrl', content.buttonUrl);
+    const heading = text('heading', defaultContent.heading);
+    const highlightedText = text('highlightedText', defaultContent.highlightedText);
+    const buttonText = text('buttonText', defaultContent.buttonText);
+    const buttonUrl = text('buttonUrl', defaultContent.buttonUrl);
     const paragraphs = [];
 
     // Add existing paragraphs as knobs, and then pad out with empty knobs
     for (let i = 0; i < TOTAL_PARAGRAPHS; i++) {
         const name = `paragraph${i + 1}`;
-        if (content.paragraphs[i]) {
-            paragraphs.push(text(name, content.paragraphs[i]));
+        const currentParagraph = defaultContent.paragraphs[i];
+        if (currentParagraph) {
+            paragraphs.push(text(name, currentParagraph));
         } else {
             paragraphs.push(text(name, ''));
         }
