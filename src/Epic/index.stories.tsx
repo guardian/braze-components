@@ -149,7 +149,7 @@ export const defaultStory = (): ReactElement => {
     });
 
     // This is to make the data available to the guPreview add-on:
-    knobsData.set({ ...epicProps });
+    knobsData.set(epicProps);
 
     return (
         <StorybookWrapper>
