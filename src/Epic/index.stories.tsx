@@ -2,7 +2,7 @@ import React, { ReactElement, useEffect, useState } from 'react';
 import { withKnobs, text } from '@storybook/addon-knobs';
 import { StorybookWrapper } from '../utils/StorybookWrapper';
 import { knobsData } from '../utils/knobsData';
-import * as emotion from '@emotion/react';
+import * as emotion from 'emotion';
 import * as emotionCore from '@emotion/core';
 import * as emotionTheming from 'emotion-theming';
 
