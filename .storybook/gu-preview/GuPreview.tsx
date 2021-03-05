@@ -19,7 +19,10 @@ function constructPreviewUrl() {
 
     const theKnobs = knobsData.get();
 
-    let fullUrl = baseUrl + 'force-braze-message=' + encodeURIComponent(JSON.stringify(theKnobs));
+    let fullUrl =
+        baseUrl +
+        'force-braze-message=' +
+        encodeURIComponent(JSON.stringify(theKnobs));
     window.open(fullUrl);
 }
 

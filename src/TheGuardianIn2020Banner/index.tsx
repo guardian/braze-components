@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { ThemeProvider } from 'emotion-theming';
-import { Button, buttonReaderRevenueBrandAlt, LinkButton } from '@guardian/src-button';
+import {
+    Button,
+    buttonReaderRevenueBrandAlt,
+    LinkButton,
+} from '@guardian/src-button';
 import { SvgCross, SvgInfo } from '@guardian/src-icons';
 import { OphanComponentEvent } from '@guardian/types';
 
@@ -98,10 +102,14 @@ export const TheGuardianIn2020Banner: React.FC<Props> = ({
                         {body}
                         <br />
                         <strong css={styles.cta}>
-                            Read our look-back to see how Guardian journalism made a difference.
+                            Read our look-back to see how Guardian journalism
+                            made a difference.
                         </strong>
                     </p>
-                    <LinkButton href={THE_GU_IN_2020_URL} css={commonStyles.primaryButton}>
+                    <LinkButton
+                        href={THE_GU_IN_2020_URL}
+                        css={commonStyles.primaryButton}
+                    >
                         Take a look back
                     </LinkButton>
                 </div>

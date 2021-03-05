@@ -99,7 +99,10 @@ export const AppBanner: React.FC<Props> = ({
                             <PlayStore />
                         </span>
                     </p>
-                    <Button onClick={(e) => onCloseClick(e, 0)} css={commonStyles.primaryButton}>
+                    <Button
+                        onClick={(e) => onCloseClick(e, 0)}
+                        css={commonStyles.primaryButton}
+                    >
                         Ok, got it
                     </Button>
                     <Button

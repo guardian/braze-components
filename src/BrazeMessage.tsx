@@ -43,7 +43,9 @@ export type Props = {
     brazeMessageProps: BrazeMessageProps;
 };
 
-export const buildBrazeMessageComponent = (mappings: ComponentMapping): React.FC<Props> => {
+export const buildBrazeMessageComponent = (
+    mappings: ComponentMapping,
+): React.FC<Props> => {
     const BrazeMessageComponent = ({
         logButtonClickWithBraze,
         submitComponentEvent,
@@ -68,4 +70,6 @@ export const buildBrazeMessageComponent = (mappings: ComponentMapping): React.FC
     return BrazeMessageComponent;
 };
 
-export const BrazeMessage: React.FC<Props> = buildBrazeMessageComponent(COMPONENT_MAPPINGS);
+export const BrazeMessage: React.FC<Props> = buildBrazeMessageComponent(
+    COMPONENT_MAPPINGS,
+);

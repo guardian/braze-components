@@ -9,7 +9,9 @@ import { INITIAL_IMAGE_EVENT, IMAGE_SELECTED_EVENT } from './withGrid';
 import { GRID_URL } from '../utils';
 
 const isValidMessage = (data: IframePostMessage) =>
-    data?.crop?.data && data?.image?.data && data?.crop?.data?.assets?.length > 0;
+    data?.crop?.data &&
+    data?.image?.data &&
+    data?.crop?.data?.assets?.length > 0;
 
 type Props = {
     active: boolean;
@@ -81,7 +83,11 @@ export const GridPanel = ({ api, active }: Props) => {
             <div>
                 <div css={styles.buttonRow}>
                     <button
-                        css={isModalOpen ? styles.inactiveButton : styles.activeButton}
+                        css={
+                            isModalOpen
+                                ? styles.inactiveButton
+                                : styles.activeButton
+                        }
                         ref={activeButton}
                         onClick={() => {
                             setIsModalOpen(true);
@@ -91,7 +97,11 @@ export const GridPanel = ({ api, active }: Props) => {
                         Select image
                     </button>
                     <button
-                        css={isModalOpen ? styles.activeButton : styles.inactiveButton}
+                        css={
+                            isModalOpen
+                                ? styles.activeButton
+                                : styles.inactiveButton
+                        }
                         ref={activeButton}
                         onClick={() => {
                             setIsModalOpen(false);
@@ -105,7 +115,11 @@ export const GridPanel = ({ api, active }: Props) => {
                 {selectedImage && (
                     <div css={styles.resultRow}>
                         <span css={styles.resultKey}>imageUrl:</span>
-                        <textarea css={styles.resultValue} value={selectedImage} readOnly={true} />
+                        <textarea
+                            css={styles.resultValue}
+                            value={selectedImage}
+                            readOnly={true}
+                        />
                     </div>
                 )}
 

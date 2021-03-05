@@ -23,7 +23,10 @@ describe('AppBanner', () => {
         it('invokes logButtonClickWithBraze with the internal button ID', () => {
             const logButtonClickWithBraze = jest.fn();
             const { getByText } = render(
-                <AppBanner {...baseProps()} logButtonClickWithBraze={logButtonClickWithBraze} />,
+                <AppBanner
+                    {...baseProps()}
+                    logButtonClickWithBraze={logButtonClickWithBraze}
+                />,
             );
 
             fireEvent.click(getByText('Ok, got it'));
@@ -34,7 +37,10 @@ describe('AppBanner', () => {
         it('invokes submitComponentEvent with correct data', () => {
             const logButtonClickWithOphan = jest.fn();
             const { getByText } = render(
-                <AppBanner {...baseProps()} submitComponentEvent={logButtonClickWithOphan} />,
+                <AppBanner
+                    {...baseProps()}
+                    submitComponentEvent={logButtonClickWithOphan}
+                />,
             );
 
             fireEvent.click(getByText('Ok, got it'));
@@ -65,7 +71,10 @@ describe('AppBanner', () => {
                 throw new Error('Something went wrong');
             };
             const { container, getByText } = render(
-                <AppBanner {...props} logButtonClickWithBraze={logButtonClickWithBraze} />,
+                <AppBanner
+                    {...props}
+                    logButtonClickWithBraze={logButtonClickWithBraze}
+                />,
             );
 
             fireEvent.click(getByText('Ok, got it'));

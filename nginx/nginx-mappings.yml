@@ -1,4 +1,4 @@
 name: braze-storybook
 mappings:
-    - prefix: braze-storybook
-      port: 6016
+  - prefix: braze-storybook
+    port: 6016

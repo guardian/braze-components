@@ -8,7 +8,9 @@ export const AppStore: React.FC = () => {
             viewBox="0 0 120 40"
             preserveAspectRatio="xMidYMid meet"
         >
-            <title>Download_on_the_App_Store_Badge_US-UK_RGB_blk_4SVG_092917</title>
+            <title>
+                Download_on_the_App_Store_Badge_US-UK_RGB_blk_4SVG_092917
+            </title>
             <g>
                 <g>
                     <g>
