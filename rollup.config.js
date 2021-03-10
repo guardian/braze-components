@@ -6,16 +6,10 @@ import commonjs from '@rollup/plugin-commonjs';
 import replace from '@rollup/plugin-replace';
 import { terser } from 'rollup-plugin-terser';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
-import externalGlobals from 'rollup-plugin-external-globals';
 import pkg from './package.json';
 import visualizer from 'rollup-plugin-visualizer';
 
 const extensions = [...DEFAULT_EXTENSIONS, '.ts', '.tsx'];
-
-const globals = {
-    react: 'guardian.automat.preact',
-    '@emotion/core': 'guardian.automat.emotionCore',
-};
 
 const configs = [
     {
@@ -31,7 +25,6 @@ const configs = [
                 sourcemap: false,
             },
         ],
-        external: (id) => Object.keys(globals).some((key) => id == key),
         plugins: [
             peerDepsExternal(),
             resolve({ extensions: extensions }),
@@ -43,7 +36,6 @@ const configs = [
             }),
             terser(),
             filesize(),
-            externalGlobals(globals),
             // Note, visualizer is useful for *relative* sizes, but reports
             // pre-minification.
             visualizer({ gzipSize: true }),
