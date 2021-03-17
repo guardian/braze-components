@@ -50,6 +50,28 @@ export const TheGuardianIn2020Banner: React.FC<Props> = ({
 }: Props) => {
     const [showBanner, setShowBanner] = useState(true);
 
+    const onClick = (internalButtonId: number): void => {
+        setShowBanner(false);
+
+        catchAndLogErrors('ophanButtonClick', () => {
+            // Braze displays button id from 1, but internal representation is numbered from 0
+            // This ensures that the Button ID in Braze and Ophan will be the same
+            const externalButtonId = internalButtonId + 1;
+            submitComponentEvent({
+                component: {
+                    componentType: 'RETENTION_ENGAGEMENT_BANNER',
+                    id: ophanComponentId,
+                },
+                action: 'CLICK',
+                value: externalButtonId.toString(10),
+            });
+        });
+
+        catchAndLogErrors('brazeButtonClick', () => {
+            logButtonClickWithBraze(internalButtonId);
+        });
+    };
+
     const onCloseClick = (
         evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
         internalButtonId: number,
@@ -80,7 +102,6 @@ export const TheGuardianIn2020Banner: React.FC<Props> = ({
     if (!showBanner || !header || !body) {
         return null;
     }
-
     return (
         <div css={commonStyles.wrapper}>
             <div css={commonStyles.contentContainer}>
@@ -101,7 +122,11 @@ export const TheGuardianIn2020Banner: React.FC<Props> = ({
                             Read our look-back to see how Guardian journalism made a difference.
                         </strong>
                     </p>
-                    <LinkButton href={THE_GU_IN_2020_URL} css={commonStyles.primaryButton}>
+                    <LinkButton
+                        href={THE_GU_IN_2020_URL}
+                        css={commonStyles.primaryButton}
+                        onClick={() => onClick(0)}
+                    >
                         Take a look back
                     </LinkButton>
                 </div>
