@@ -1,1 +1,1 @@
-export * from './src/BrazeMessage';
+export * from './src/BrazeMessageComponent';

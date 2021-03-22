@@ -87,7 +87,8 @@
     "@guardian/src-foundations": "2.7.1",
     "@guardian/src-grid": "2.7.1",
     "@guardian/src-icons": "2.7.1",
-    "emotion-theming": "^10.0.19"
+    "emotion-theming": "^10.0.19",
+    "nanoevents": "5.1.10"
   },
   "np": {
     "branch": "main"
