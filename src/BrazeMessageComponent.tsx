@@ -68,4 +68,6 @@ export const buildBrazeMessageComponent = (mappings: ComponentMapping): React.FC
     return BrazeMessageComponent;
 };
 
-export const BrazeMessage: React.FC<Props> = buildBrazeMessageComponent(COMPONENT_MAPPINGS);
+export const BrazeMessageComponent: React.FC<Props> = buildBrazeMessageComponent(
+    COMPONENT_MAPPINGS,
+);
