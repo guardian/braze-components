@@ -86,11 +86,12 @@ class BrazeMessages implements BrazeMessagesInterface {
 
     errorHandler: ErrorHandler;
 
-    constructor(appboyInstance: typeof appboy, cache: MessageCache) {
+    constructor(appboyInstance: typeof appboy, cache: MessageCache, errorHandler: ErrorHandler) {
         this.appboy = appboyInstance;
         this.cache = cache;
         this.freshBannerMessage = this.getFreshMessagesForSlot('Banner');
         this.freshEndOfArticleMessage = this.getFreshMessagesForSlot('EndOfArticle');
+        this.errorHandler = errorHandler;
     }
 
     // Generally we only expect a single message per slot max in a pageview. This method
