@@ -32,6 +32,7 @@
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-react": "^7.10.4",
     "@babel/preset-typescript": "^7.10.4",
+    "@braze/web-sdk-core": "^3.2.0",
     "@emotion/babel-preset-css-prop": "^10.0.27",
     "@guardian/grid-client": "^1.1.1",
     "@guardian/node-riffraff-artifact": "^0.1.9",
@@ -81,6 +82,7 @@
     "react": "16.13.x"
   },
   "dependencies": {
+    "@guardian/libs": "1.6.3",
     "@guardian/src-button": "2.7.1",
     "@guardian/src-foundations": "2.7.1",
     "@guardian/src-grid": "2.7.1",
