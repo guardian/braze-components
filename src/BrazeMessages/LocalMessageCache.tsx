@@ -1,6 +1,3 @@
-/* eslint-disable class-methods-use-this */
-/* eslint-disable max-classes-per-file */
-
 import type appboy from '@braze/web-sdk-core';
 import { storage } from '@guardian/libs';
 import { SlotName, SlotNames } from './types';
@@ -112,6 +109,7 @@ class LocalMessageCache {
                 message: hydrateMessage(topItem.message.message, appboyInstance),
             };
         }
+        return;
     }
 
     static remove(slotName: SlotName, id: string): boolean {

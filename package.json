@@ -63,6 +63,8 @@
     "eslint-plugin-react": "^7.20.6",
     "install-peers-cli": "^2.2.0",
     "jest": "^26.4.2",
+    "jest-environment-jsdom-sixteen": "^1.0.3",
+    "nanoevents": "5.1.10",
     "np": "^7.2.0",
     "prettier": "^2.0.5",
     "rollup": "^2.23.0",
@@ -78,17 +80,16 @@
   },
   "peerDependencies": {
     "@emotion/core": "10.0.x",
+    "@guardian/libs": "^1.7.0",
     "preact-x": "npm:preact@10.3.1",
     "react": "16.13.x"
   },
   "dependencies": {
-    "@guardian/libs": "1.6.3",
     "@guardian/src-button": "2.7.1",
     "@guardian/src-foundations": "2.7.1",
     "@guardian/src-grid": "2.7.1",
     "@guardian/src-icons": "2.7.1",
-    "emotion-theming": "^10.0.19",
-    "nanoevents": "5.1.10"
+    "emotion-theming": "^10.0.19"
   },
   "np": {
     "branch": "main"

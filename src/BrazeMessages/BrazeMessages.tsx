@@ -5,7 +5,7 @@ import { MessageCache } from './LocalMessageCache';
 import type { SlotName } from './types';
 
 type Extras = Record<string, string>;
-type ErrorHandler = (error: Error, description: string) => void;
+type ErrorHandler = (error: Error, identifier: string) => void;
 
 interface BrazeMessagesInterface {
     getMessageForBanner: () => Promise<BrazeMessage>;

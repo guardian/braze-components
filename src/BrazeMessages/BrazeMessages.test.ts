@@ -51,6 +51,7 @@ describe('BrazeMessages', () => {
                 const brazeMessages = new BrazeMessages(
                     (fakeAppBoy as unknown) as typeof appboy,
                     LocalMessageCache,
+                    (error, identifier) => console.log(identifier, error),
                 );
 
                 const bannerPromise = brazeMessages.getMessageForBanner();
@@ -81,6 +82,7 @@ describe('BrazeMessages', () => {
                 const brazeMessages = new BrazeMessages(
                     (fakeAppBoy as unknown) as typeof appboy,
                     LocalMessageCache,
+                    (error, identifier) => console.log(identifier, error),
                 );
 
                 const bannerPromise = brazeMessages.getMessageForBanner();
@@ -102,6 +104,7 @@ describe('BrazeMessages', () => {
                 const brazeMessages = new BrazeMessages(
                     (fakeAppBoy as unknown) as typeof appboy,
                     LocalMessageCache,
+                    (error, identifier) => console.log(identifier, error),
                 );
 
                 const bannerPromise = brazeMessages.getMessageForBanner();
@@ -128,6 +131,7 @@ describe('BrazeMessages', () => {
                 const brazeMessages = new BrazeMessages(
                     (fakeAppBoy as unknown) as typeof appboy,
                     LocalMessageCache,
+                    (error, identifier) => console.log(identifier, error),
                 );
                 fakeAppBoy.emit(freshMessage);
 
@@ -147,6 +151,7 @@ describe('BrazeMessages', () => {
                 const brazeMessages = new BrazeMessages(
                     (fakeAppBoy as unknown) as typeof appboy,
                     LocalMessageCache,
+                    (error, identifier) => console.log(identifier, error),
                 );
                 fakeAppBoy.emit(freshMessage);
 
@@ -168,6 +173,7 @@ describe('BrazeMessages', () => {
                 const brazeMessages = new BrazeMessages(
                     (fakeAppBoy as unknown) as typeof appboy,
                     LocalMessageCache,
+                    (error, identifier) => console.log(identifier, error),
                 );
                 fakeAppBoy.emit(freshMessage);
 
@@ -189,6 +195,7 @@ describe('BrazeMessages', () => {
                 const brazeMessages = new BrazeMessages(
                     (fakeAppBoy as unknown) as typeof appboy,
                     InMemoryCache,
+                    (error, identifier) => console.log(identifier, error),
                 );
 
                 const bannerPromise = brazeMessages.getMessageForBanner();
@@ -217,6 +224,7 @@ describe('BrazeMessages', () => {
                 const brazeMessages = new BrazeMessages(
                     (fakeAppBoy as unknown) as typeof appboy,
                     InMemoryCache,
+                    (error, identifier) => console.log(identifier, error),
                 );
 
                 const bannerPromise = brazeMessages.getMessageForBanner();
@@ -237,6 +245,7 @@ describe('BrazeMessages', () => {
                 const brazeMessages = new BrazeMessages(
                     (fakeAppBoy as unknown) as typeof appboy,
                     InMemoryCache,
+                    (error, identifier) => console.log(identifier, error),
                 );
 
                 const bannerPromise = brazeMessages.getMessageForBanner();
@@ -262,6 +271,7 @@ describe('BrazeMessages', () => {
                 const brazeMessages = new BrazeMessages(
                     (fakeAppBoy as unknown) as typeof appboy,
                     InMemoryCache,
+                    (error, identifier) => console.log(identifier, error),
                 );
                 fakeAppBoy.emit(freshMessage);
 
@@ -281,6 +291,7 @@ describe('BrazeMessages', () => {
                 const brazeMessages = new BrazeMessages(
                     (fakeAppBoy as unknown) as typeof appboy,
                     InMemoryCache,
+                    (error, identifier) => console.log(identifier, error),
                 );
                 fakeAppBoy.emit(freshMessage);
 
@@ -302,6 +313,7 @@ describe('BrazeMessages', () => {
                 const brazeMessages = new BrazeMessages(
                     (fakeAppBoy as unknown) as typeof appboy,
                     InMemoryCache,
+                    (error, identifier) => console.log(identifier, error),
                 );
                 fakeAppBoy.emit(freshMessage);
 
