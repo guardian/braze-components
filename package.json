@@ -9,10 +9,12 @@
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "logic/package.json"
   ],
   "scripts": {
     "watch": "rollup -cw",
+    "prebuild": "rm -rf dist",
     "build": "rollup -c",
     "postbuild": "tsc --project tsconfig.types.json",
     "test": "jest",
