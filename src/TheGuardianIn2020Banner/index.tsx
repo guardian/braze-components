@@ -26,26 +26,6 @@ const catchAndLogErrors = (description: string, fn: () => void): void => {
     }
 };
 
-const logToBrazeAndOphan = (internalButtonId: number): void => {
-    catchAndLogErrors('ophanButtonClick', () => {
-        // Braze displays button id from 1, but internal representation is numbered from 0
-        // This ensures that the Button ID in Braze and Ophan will be the same
-        const externalButtonId = internalButtonId + 1;
-        submitComponentEvent({
-            component: {
-                componentType: 'RETENTION_ENGAGEMENT_BANNER',
-                id: ophanComponentId,
-            },
-            action: 'CLICK',
-            value: externalButtonId.toString(10),
-        });
-    });
-
-    catchAndLogErrors('brazeButtonClick', () => {
-        logButtonClickWithBraze(internalButtonId);
-    });
-};
-
 export const COMPONENT_NAME = 'TheGuardianIn2020Banner';
 
 const urlObject = new URL(
@@ -70,6 +50,25 @@ export const TheGuardianIn2020Banner: React.FC<Props> = ({
 }: Props) => {
     const [showBanner, setShowBanner] = useState(true);
 
+    const logToBrazeAndOphan = (internalButtonId: number): void => {
+        catchAndLogErrors('ophanButtonClick', () => {
+            // Braze displays button id from 1, but internal representation is numbered from 0
+            // This ensures that the Button ID in Braze and Ophan will be the same
+            const externalButtonId = internalButtonId + 1;
+            submitComponentEvent({
+                component: {
+                    componentType: 'RETENTION_ENGAGEMENT_BANNER',
+                    id: ophanComponentId,
+                },
+                action: 'CLICK',
+                value: externalButtonId.toString(10),
+            });
+        });
+
+        catchAndLogErrors('brazeButtonClick', () => {
+            logButtonClickWithBraze(internalButtonId);
+        });
+    };
     const onClick = logToBrazeAndOphan;
 
     const onCloseClick = (
