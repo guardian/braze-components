@@ -9,5 +9,9 @@
     "allowJs": false,
     "emitDeclarationOnly": true
   },
-  "exclude": ["**/*.test.ts", "dist/**/*"]
+  "exclude": ["**/*.test.ts", "dist/**/*"],
+  "files": [
+    "./index.ts",
+    "./logic-index.ts"
+  ]
 }
