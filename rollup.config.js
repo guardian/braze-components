@@ -8,13 +8,35 @@ import { terser } from 'rollup-plugin-terser';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import externalGlobals from 'rollup-plugin-external-globals';
 import pkg from './package.json';
+import logicPkg from './logic/package.json';
 import visualizer from 'rollup-plugin-visualizer';
+import { resolve as resolvePath } from 'path';
 
 const extensions = [...DEFAULT_EXTENSIONS, '.ts', '.tsx'];
 
 const globals = {
     react: 'guardian.automat.preact',
     '@emotion/core': 'guardian.automat.emotionCore',
+};
+
+const commonConfig = {
+    external: (id) => Object.keys(globals).some((key) => id == key),
+    plugins: [
+        peerDepsExternal(),
+        resolve({ extensions: extensions }),
+        commonjs(),
+        replace({ 'process.env.NODE_ENV': '"production"' }),
+        babel({
+            babelHelpers: 'bundled',
+            extensions: extensions,
+        }),
+        terser(),
+        filesize(),
+        externalGlobals(globals),
+        // Note, visualizer is useful for *relative* sizes, but reports
+        // pre-minification.
+        visualizer({ gzipSize: true }),
+    ],
 };
 
 const configs = [
@@ -31,23 +53,22 @@ const configs = [
                 sourcemap: false,
             },
         ],
-        external: (id) => Object.keys(globals).some((key) => id == key),
-        plugins: [
-            peerDepsExternal(),
-            resolve({ extensions: extensions }),
-            commonjs(),
-            replace({ 'process.env.NODE_ENV': '"production"' }),
-            babel({
-                babelHelpers: 'bundled',
-                extensions: extensions,
-            }),
-            terser(),
-            filesize(),
-            externalGlobals(globals),
-            // Note, visualizer is useful for *relative* sizes, but reports
-            // pre-minification.
-            visualizer({ gzipSize: true }),
+        ...commonConfig,
+    },
+    {
+        input: './logic-index.ts',
+        output: [
+            {
+                file: resolvePath('./logic', logicPkg.main),
+                format: 'cjs',
+            },
+            {
+                file: resolvePath('./logic', logicPkg.module),
+                format: 'esm',
+                sourcemap: false,
+            },
         ],
+        ...commonConfig,
     },
 ];
 
