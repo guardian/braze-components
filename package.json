@@ -36,7 +36,8 @@
     "@babel/preset-typescript": "^7.10.4",
     "@braze/web-sdk-core": "3.1.0",
     "@emotion/babel-preset-css-prop": "^10.0.27",
-    "@emotion/core": "10.0.x",
+    "@emotion/eslint-plugin": "^11.2.0",
+    "@emotion/react": "^11.1.2",
     "@guardian/grid-client": "^1.1.1",
     "@guardian/libs": "^1.7.0",
     "@guardian/node-riffraff-artifact": "^0.1.9",
@@ -56,12 +57,11 @@
     "@testing-library/react": "^11.0.4",
     "@types/jest": "^26.0.14",
     "@types/react": "17.0.2",
+    "@types/node": "^14.14.35",
     "@typescript-eslint/eslint-plugin": "^3.8.0",
     "@typescript-eslint/parser": "^3.8.0",
     "babel-loader": "^8.1.0",
     "chromatic": "^5.1.0",
-    "emotion": "10.0.27",
-    "emotion-theming": "^10.0.19",
     "eslint": "^7.6.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
@@ -86,16 +86,14 @@
     "wait-on": "^5.2.0"
   },
   "peerDependencies": {
-    "@emotion/core": "10.0.x",
+    "@emotion/react": "^11.1.2",
     "@guardian/libs": "^1.7.0",
-    "emotion-theming": "^10.0.19",
     "react": "17.0.2"
   },
   "dependencies": {
-    "@guardian/src-button": "2.7.1",
-    "@guardian/src-foundations": "2.7.1",
-    "@guardian/src-grid": "2.7.1",
-    "@guardian/src-icons": "2.7.1"
+    "@guardian/src-button": "3.3.0",
+    "@guardian/src-foundations": "3.3.0",
+    "@guardian/src-icons": "3.3.0"
   },
   "np": {
     "branch": "main"

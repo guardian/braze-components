@@ -1,12 +1,8 @@
-import { css } from '@emotion/core';
-import { palette, space } from '@guardian/src-foundations';
-import { from, until } from '@guardian/src-foundations/mq/cjs';
+import { css } from '@emotion/react';
+import { space } from '@guardian/src-foundations';
+import { from, until } from '@guardian/src-foundations/mq';
 
 export const styles = {
-    secondaryButton: css`
-        color: ${palette.neutral[20]};
-    `,
-
     image: css`
         max-width: 100%;
         max-height: 260px;

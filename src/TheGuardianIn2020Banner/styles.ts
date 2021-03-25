@@ -1,6 +1,6 @@
-import { css } from '@emotion/core';
-import { from, until } from '@guardian/src-foundations/mq/cjs';
-import { body } from '@guardian/src-foundations/typography/cjs';
+import { css } from '@emotion/react';
+import { from, until } from '@guardian/src-foundations/mq';
+import { body } from '@guardian/src-foundations/typography';
 import { palette, space } from '@guardian/src-foundations';
 
 const bodyColor = '#666';

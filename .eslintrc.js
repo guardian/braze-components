@@ -5,6 +5,7 @@ module.exports = {
         'plugin:react/recommended',
         'plugin:prettier/recommended',
     ],
+    plugins: ['@emotion'],
     parserOptions: {
         ecmaVersion: 2020,
         sourceType: 'module',
@@ -28,6 +29,7 @@ module.exports = {
                 args: 'after-used',
             },
         ],
+        '@emotion/pkg-renaming': 'error',
     },
     settings: {
         react: {
