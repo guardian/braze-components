@@ -1249,7 +1249,7 @@
     "@emotion/utils" "0.11.3"
     "@emotion/weak-memoize" "0.2.5"
 
-"@emotion/core@^10.0.20", "@emotion/core@^10.0.9":
+"@emotion/core@10.0.x", "@emotion/core@^10.0.20", "@emotion/core@^10.0.9":
   version "10.0.35"
   resolved "https://registry.yarnpkg.com/@emotion/core/-/core-10.0.35.tgz#513fcf2e22cd4dfe9d3894ed138c9d7a859af9b3"
   integrity sha512-sH++vJCdk025fBlRZSAhkRlSUoqSqgCzYf5fMOmqqi3bM6how+sQpg3hkgJonj8GxXM4WbD7dRO+4tegDB9fUw==
@@ -1367,6 +1367,11 @@
     io-ts-types "^0.5.10"
     monocle-ts "^2.3.3"
     newtype-ts "^0.3.4"
+
+"@guardian/libs@^1.7.0":
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/@guardian/libs/-/libs-1.7.0.tgz#08de4a4cc10871e7c4e5fb32e7f777661c0a3cd8"
+  integrity sha512-U04Ln69YgEVCUFuDGTJt9IU962k1ahxlrFRZIIwcECwmYgyGw68Cm6lYXSEodLQBzmJPjhKpQUrTF7n0oo/j8w==
 
 "@guardian/node-riffraff-artifact@^0.1.9":
   version "0.1.9"
@@ -11973,6 +11978,11 @@ postcss@^7.0.0, postcss@^7.0.14, postcss@^7.0.26, postcss@^7.0.32, postcss@^7.0.
     source-map "^0.6.1"
     supports-color "^6.1.0"
 
+"preact-x@npm:preact@10.3.1":
+  version "10.3.1"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-10.3.1.tgz#70a2cc5484ca727c992216dfc528907d240e0a05"
+  integrity sha512-CaKtEY235GtuypRRvaMxM3PNy44OzQj8BO7plXbPwF+iJzNnUufgHtqRA6NbjeWnfy+cN1dP1MFTAGxJmCiPqQ==
+
 prelude-ls@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.2.1.tgz#debc6489d7a6e6b0e7611888cec880337d316396"
@@ -12555,7 +12565,7 @@ react-transition-group@^4.3.0:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react@^16.8.3:
+react@16.13.x, react@^16.8.3:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react/-/react-16.13.1.tgz#2e818822f1a9743122c063d6410d85c1e3afe48e"
   integrity sha512-YMZQQq32xHLX0bz5Mnibv1/LHb3Sqzngu7xstSM+vrkE5Kzr9xE0yMByK5kMoTK30YVJE61WfbxIFFvfeDKT1w==
