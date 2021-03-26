@@ -23,7 +23,6 @@
     "release": "np",
     "storybook": "./bin/storybook",
     "build-storybook": "build-storybook",
-    "prepare": "install-peers",
     "lint": "eslint . --ext .ts,.tsx",
     "upload-artifact": "node-riffraff-artifact"
   },
@@ -63,7 +62,6 @@
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.6",
-    "install-peers-cli": "^2.2.0",
     "jest": "^26.4.2",
     "jest-environment-jsdom-sixteen": "^1.0.3",
     "nanoevents": "5.1.10",
