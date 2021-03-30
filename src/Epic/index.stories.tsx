@@ -17,7 +17,7 @@ export default {
     },
 };
 
-const componentUrl = `https://contributions.code.dev-guardianapis.com/epic.js`;
+const componentUrl = `https://contributions.guardianapis.com/modules/v1/epics/ContributionsEpic.js`;
 const epicWrapper = css`
     box-sizing: border-box;
     width: 100%;
@@ -118,7 +118,7 @@ const buildProps = (data: DataFromKnobs): EpicProps => {
 
 export const defaultStory = (): ReactElement => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const slotName = text('slotName', 'Epic');
+    const slotName = text('slotName', 'EndOfArticle');
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const componentName = text('componentName', 'Epic');
     const heading = text('heading', defaultContent.heading);

@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { render } from '@testing-library/react';
-import { buildBrazeMessageComponent } from './BrazeMessage';
+import { buildBrazeMessageComponent } from './BrazeMessageComponent';
 
 describe('BrazeMessage', () => {
     it('renders the correct component when a valid componentName is passed', () => {
@@ -12,10 +12,10 @@ describe('BrazeMessage', () => {
         const mappings = {
             ExampleComponent,
         };
-        const BrazeMessage = buildBrazeMessageComponent(mappings);
+        const BrazeMessageComponent = buildBrazeMessageComponent(mappings);
 
         render(
-            <BrazeMessage
+            <BrazeMessageComponent
                 componentName={'ExampleComponent'}
                 logButtonClickWithBraze={jest.fn()}
                 submitComponentEvent={jest.fn()}
@@ -31,10 +31,10 @@ describe('BrazeMessage', () => {
         const mappings = {
             ExampleComponent,
         };
-        const BrazeMessage = buildBrazeMessageComponent(mappings);
+        const BrazeMessageComponent = buildBrazeMessageComponent(mappings);
 
         render(
-            <BrazeMessage
+            <BrazeMessageComponent
                 componentName={'NoSuchComponent'}
                 logButtonClickWithBraze={jest.fn()}
                 submitComponentEvent={jest.fn()}

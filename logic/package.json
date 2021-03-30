@@ -1,0 +1,5 @@
+{
+  "main": "../dist/logic/index.js",
+  "module": "../dist/logic/index.esm.js",
+  "types": "../dist/logic-index.d.ts"
+}

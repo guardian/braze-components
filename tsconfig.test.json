@@ -1,6 +1,7 @@
 {
     "extends": "./tsconfig",
     "compilerOptions": {
-        "target": "ES2019"
+        "target": "ES2019",
+        "allowJs": true
     }
 }
