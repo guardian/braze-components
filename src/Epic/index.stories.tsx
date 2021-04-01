@@ -116,6 +116,23 @@ const buildProps = (data: DataFromKnobs): EpicProps => {
     };
 };
 
+const guPreviewOutput = (data: DataFromKnobs) => {
+    return Object.assign(
+        {},
+        {
+            heading: data.heading,
+            highlightedText: data.highlightedText,
+            buttonText: data.buttonText,
+            buttonUrl: data.buttonUrl,
+            componentName: data.componentName,
+            slotName: data.slotName,
+        },
+        ...data.paragraphs.map((p, i) => {
+            return { [`paragraph${i}`]: p };
+        }),
+    );
+};
+
 export const defaultStory = (): ReactElement => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const slotName = text('slotName', 'EndOfArticle');
@@ -138,7 +155,7 @@ export const defaultStory = (): ReactElement => {
         }
     }
 
-    const epicProps = buildProps({
+    const knobs = {
         heading,
         highlightedText,
         buttonText,
@@ -146,10 +163,12 @@ export const defaultStory = (): ReactElement => {
         paragraphs: paragraphs.filter((p) => p != ''),
         slotName,
         componentName,
-    });
+    };
+
+    const epicProps = buildProps(knobs);
 
     // This is to make the data available to the guPreview add-on:
-    knobsData.set(epicProps);
+    knobsData.set(guPreviewOutput(knobs));
 
     return (
         <StorybookWrapper>
