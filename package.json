@@ -1,6 +1,6 @@
 {
   "name": "@guardian/braze-components",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React components to render messages from Braze",
   "repository": "https://github.com/guardian/braze-components",
   "author": "The Guardian",
@@ -84,8 +84,8 @@
   },
   "peerDependencies": {
     "@emotion/core": "10.0.x",
-    "emotion-theming": "^10.0.19",
     "@guardian/libs": "^1.7.0",
+    "emotion-theming": "^10.0.19",
     "react": "16.13.x"
   },
   "dependencies": {
