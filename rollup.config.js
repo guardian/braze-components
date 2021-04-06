@@ -6,7 +6,6 @@ import commonjs from '@rollup/plugin-commonjs';
 import replace from '@rollup/plugin-replace';
 import { terser } from 'rollup-plugin-terser';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
-import externalGlobals from 'rollup-plugin-external-globals';
 import pkg from './package.json';
 import logicPkg from './logic/package.json';
 import visualizer from 'rollup-plugin-visualizer';
@@ -20,7 +19,6 @@ const globals = {
 };
 
 const commonConfig = {
-    external: (id) => Object.keys(globals).some((key) => id == key),
     plugins: [
         peerDepsExternal(),
         resolve({ extensions: extensions }),
@@ -32,7 +30,6 @@ const commonConfig = {
         }),
         terser(),
         filesize(),
-        externalGlobals(globals),
         // Note, visualizer is useful for *relative* sizes, but reports
         // pre-minification.
         visualizer({ gzipSize: true }),
