@@ -13,11 +13,6 @@ import { resolve as resolvePath } from 'path';
 
 const extensions = [...DEFAULT_EXTENSIONS, '.ts', '.tsx'];
 
-const globals = {
-    react: 'guardian.automat.preact',
-    '@emotion/core': 'guardian.automat.emotionCore',
-};
-
 const commonConfig = {
     plugins: [
         peerDepsExternal(),
