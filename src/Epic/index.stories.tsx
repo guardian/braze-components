@@ -133,6 +133,16 @@ const guPreviewOutput = (data: DataFromKnobs) => {
     );
 };
 
+const componentMappings = {
+    Epic: Epic,
+};
+
+const NullComponent = () => null;
+
+const getComponentfromName = (name: string) => {
+    return componentMappings[name] || NullComponent;
+};
+
 export const defaultStory = (): ReactElement => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const slotName = text('slotName', 'EndOfArticle');
@@ -170,9 +180,11 @@ export const defaultStory = (): ReactElement => {
     // This is to make the data available to the guPreview add-on:
     knobsData.set(guPreviewOutput(knobs));
 
+    const Component = getComponentfromName(componentName);
+
     return (
         <StorybookWrapper>
-            <Epic {...epicProps}></Epic>
+            <Component {...epicProps} />
         </StorybookWrapper>
     );
 };
