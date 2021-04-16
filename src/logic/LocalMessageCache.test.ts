@@ -228,6 +228,34 @@ describe('LocalMessageCache', () => {
             expect(newQueue.map(({ message: m }) => m.message)).toEqual([message1, message2]);
         });
 
+        it('reports when a message cannot be added to a full queue', () => {
+            const message1 = JSON.parse(message1Json);
+            const errorHandler = jest.fn();
+            LocalMessageCache.errorHandler = errorHandler;
+            LocalMessageCache.push('EndOfArticle', {
+                message: message1,
+                id: '1',
+            });
+
+            const message2 = JSON.parse(message2Json);
+            LocalMessageCache.push('EndOfArticle', {
+                message: message2,
+                id: '2',
+            });
+
+            const message3 = JSON.parse(message3Json);
+            LocalMessageCache.push('EndOfArticle', {
+                message: message3,
+                id: '3',
+            });
+
+            expect(errorHandler).toHaveBeenCalledTimes(1);
+            expect(errorHandler).toHaveBeenCalledWith(
+                new Error('Failed to add message to queue - queue full'),
+                'LocalMessageCache',
+            );
+        });
+
         it('returns false when the push is unsuccessful', () => {
             const message1 = JSON.parse(message1Json);
             const message2 = JSON.parse(message2Json);

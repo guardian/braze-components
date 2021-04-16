@@ -163,7 +163,7 @@ class LocalMessageCache {
         }
         if (this.errorHandler) {
             this.errorHandler(
-                Error('Failed to add message to queue - queue full'),
+                new Error('Failed to add message to queue - queue full'),
                 'LocalMessageCache',
             );
         }
