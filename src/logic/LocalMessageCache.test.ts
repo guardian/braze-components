@@ -113,6 +113,26 @@ describe('LocalMessageCache', () => {
             expect(queueSize).toEqual(1);
         });
 
+        it('calls errorHandler when there are expired messages', () => {
+            const errorHandler = jest.fn();
+            LocalMessageCache.errorHandler = errorHandler;
+            const message1 = JSON.parse(message1Json);
+            const message2 = JSON.parse(message2Json);
+            const queue = [
+                buildExpiredMessage(message1, '1'),
+                buildUnexpiredMessage(message2, '2'),
+            ];
+            setQueue('EndOfArticle', queue);
+
+            LocalMessageCache.peek('EndOfArticle', appboy);
+
+            expect(errorHandler).toHaveBeenCalledTimes(1);
+            expect(errorHandler).toHaveBeenCalledWith(
+                new Error('Removed 1 expired message from queue'),
+                'LocalMessageCache',
+            );
+        });
+
         it('filters invalid items from the queue', () => {
             const nonsenseMessage = ('nonsense' as unknown) as CachedMessage;
             const anotherNonsenseMessage = ({

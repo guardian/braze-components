@@ -117,7 +117,7 @@ class LocalMessageCache {
     static errorHandler: ErrorHandler;
 
     static peek(slotName: SlotName, appboyInstance: typeof appboy): MessageWithId | undefined {
-        const queue = getQueue(slotName);
+        const queue = getQueue(slotName, this.errorHandler);
         const topItem = queue[0];
 
         if (topItem) {
@@ -130,7 +130,7 @@ class LocalMessageCache {
     }
 
     static remove(slotName: SlotName, id: string): boolean {
-        const queue = getQueue(slotName, this.errorHandler ? this.errorHandler : undefined);
+        const queue = getQueue(slotName, this.errorHandler);
         const idx = queue.findIndex((i) => i.message.id === id);
 
         if (idx >= 0) {
@@ -146,7 +146,7 @@ class LocalMessageCache {
     }
 
     static push(slotName: SlotName, message: MessageWithId): boolean {
-        const queue = getQueue(slotName);
+        const queue = getQueue(slotName, this.errorHandler);
 
         if (queue.length < MAX_QUEUE_SIZE) {
             const expires = Date.now() + millisecondsBeforeExpiry;
