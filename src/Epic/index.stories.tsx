@@ -68,6 +68,7 @@ type DataFromKnobs = {
     paragraphs: Array<string>;
     slotName?: string;
     componentName?: string;
+    ophanComponentId: string;
 };
 
 const Epic: React.FC<EpicProps> = (props) => {
@@ -144,10 +145,9 @@ const getComponentfromName = (name: string) => {
 };
 
 export const defaultStory = (): ReactElement => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const slotName = text('slotName', 'EndOfArticle');
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const componentName = text('componentName', 'Epic');
+    const ophanComponentId = text('ophanComponentId', 'example_ophan_component_id');
     const heading = text('heading', defaultContent.heading);
     const highlightedText = text('highlightedText', defaultContent.highlightedText);
     const buttonText = text('buttonText', defaultContent.buttonText);
@@ -173,6 +173,7 @@ export const defaultStory = (): ReactElement => {
         paragraphs: paragraphs.filter((p) => p != ''),
         slotName,
         componentName,
+        ophanComponentId,
     };
 
     const epicProps = buildProps(knobs);
