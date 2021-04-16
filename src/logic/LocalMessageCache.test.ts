@@ -11,6 +11,7 @@ type Message = appboy.InAppMessage;
 
 beforeEach(() => {
     storage.local.clear();
+    LocalMessageCache.errorHandler = undefined;
 });
 
 const getQueueSizeFor = (slotName: SlotName): number => {
