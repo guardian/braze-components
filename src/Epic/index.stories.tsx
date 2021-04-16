@@ -181,6 +181,21 @@ export const defaultStory = (): ReactElement => {
     // This is to make the data available to the guPreview add-on:
     knobsData.set(guPreviewOutput(knobs));
 
+    // It is unfortunate that here we're duplicating the checks that we do
+    // on-platform before rendering the Braze epic. This should be addressed
+    // properly, but in the meantime I'm keen to have Storybook reflect the
+    // platform behaviour so this doesn't cause confusion for marketing.
+    if (
+        !heading ||
+        !highlightedText ||
+        !buttonText ||
+        !buttonUrl ||
+        !ophanComponentId ||
+        paragraphs.length < 1
+    ) {
+        return null;
+    }
+
     const Component = getComponentfromName(componentName);
 
     return (
