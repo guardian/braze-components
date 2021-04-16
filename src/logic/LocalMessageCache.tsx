@@ -86,13 +86,13 @@ const getQueue = (slotName: SlotName, errorHandler?: ErrorHandler): CachedMessag
     const unexpiredQueue = validQueue.filter((i) => hasNotExpired(i));
 
     if (queue.length !== unexpiredQueue.length) {
-        const expiredMessages = queue.length - unexpiredQueue.length;
+        const expiredMessageCount = queue.length - unexpiredQueue.length;
 
         if (errorHandler) {
             errorHandler(
                 Error(
-                    `Removed ${expiredMessages} expired message${
-                        expiredMessages === 1 ? '' : 's'
+                    `Removed ${expiredMessageCount} expired message${
+                        expiredMessageCount === 1 ? '' : 's'
                     } from queue`,
                 ),
                 'LocalMessageCache',

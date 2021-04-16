@@ -11,7 +11,8 @@ type Message = appboy.InAppMessage;
 
 beforeEach(() => {
     storage.local.clear();
-    LocalMessageCache.errorHandler = undefined;
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    LocalMessageCache.errorHandler = () => {};
 });
 
 const getQueueSizeFor = (slotName: SlotName): number => {
