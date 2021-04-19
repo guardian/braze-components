@@ -80,7 +80,7 @@ const isValid = (m: CachedMessage): boolean => {
     );
 };
 
-const getQueue = (slotName: SlotName, errorHandler?: ErrorHandler): CachedMessage[] => {
+const getQueue = (slotName: SlotName, errorHandler: ErrorHandler): CachedMessage[] => {
     const queue = readQueue(slotName);
     const validQueue = queue.filter((i) => isValid(i));
     const unexpiredQueue = validQueue.filter((i) => hasNotExpired(i));
@@ -88,16 +88,14 @@ const getQueue = (slotName: SlotName, errorHandler?: ErrorHandler): CachedMessag
     if (queue.length !== unexpiredQueue.length) {
         const expiredMessageCount = queue.length - unexpiredQueue.length;
 
-        if (errorHandler) {
-            errorHandler(
-                Error(
-                    `Removed ${expiredMessageCount} expired message${
-                        expiredMessageCount === 1 ? '' : 's'
-                    } from queue`,
-                ),
-                'LocalMessageCache',
-            );
-        }
+        errorHandler(
+            Error(
+                `Removed ${expiredMessageCount} expired message${
+                    expiredMessageCount === 1 ? '' : 's'
+                } from queue`,
+            ),
+            'LocalMessageCache',
+        );
 
         setQueue(slotName, unexpiredQueue);
     }
@@ -106,18 +104,23 @@ const getQueue = (slotName: SlotName, errorHandler?: ErrorHandler): CachedMessag
 };
 
 interface MessageCache {
-    peek: (slotName: SlotName, appboyInstance: typeof appboy) => MessageWithId | undefined;
-    remove: (slotName: SlotName, id: string) => boolean;
-    push: (slotName: SlotName, message: MessageWithId) => boolean;
+    peek: (
+        slotName: SlotName,
+        appboyInstance: typeof appboy,
+        errorHandler: ErrorHandler,
+    ) => MessageWithId | undefined;
+    remove: (slotName: SlotName, id: string, errorHandler: ErrorHandler) => boolean;
+    push: (slotName: SlotName, message: MessageWithId, errorHandler: ErrorHandler) => boolean;
     clear: () => void;
-    errorHandler: ErrorHandler;
 }
 
 class LocalMessageCache {
-    static errorHandler: ErrorHandler;
-
-    static peek(slotName: SlotName, appboyInstance: typeof appboy): MessageWithId | undefined {
-        const queue = getQueue(slotName, this.errorHandler);
+    static peek(
+        slotName: SlotName,
+        appboyInstance: typeof appboy,
+        errorHandler: ErrorHandler,
+    ): MessageWithId | undefined {
+        const queue = getQueue(slotName, errorHandler);
         const topItem = queue[0];
 
         if (topItem) {
@@ -129,8 +132,8 @@ class LocalMessageCache {
         return;
     }
 
-    static remove(slotName: SlotName, id: string): boolean {
-        const queue = getQueue(slotName, this.errorHandler);
+    static remove(slotName: SlotName, id: string, errorHandler: ErrorHandler): boolean {
+        const queue = getQueue(slotName, errorHandler);
         const idx = queue.findIndex((i) => i.message.id === id);
 
         if (idx >= 0) {
@@ -145,8 +148,8 @@ class LocalMessageCache {
         return false;
     }
 
-    static push(slotName: SlotName, message: MessageWithId): boolean {
-        const queue = getQueue(slotName, this.errorHandler);
+    static push(slotName: SlotName, message: MessageWithId, errorHandler: ErrorHandler): boolean {
+        const queue = getQueue(slotName, errorHandler);
 
         if (queue.length < MAX_QUEUE_SIZE) {
             const expires = Date.now() + millisecondsBeforeExpiry;
@@ -161,12 +164,8 @@ class LocalMessageCache {
             setQueue(slotName, queue);
             return true;
         }
-        if (this.errorHandler) {
-            this.errorHandler(
-                new Error('Failed to add message to queue - queue full'),
-                'LocalMessageCache',
-            );
-        }
+        errorHandler(new Error('Failed to add message to queue - queue full'), 'LocalMessageCache');
+
         return false;
     }
 
@@ -192,8 +191,6 @@ const inMemoryQueue: Record<SlotName, InMemoryCachedMessage[]> = {
 // Until we're ready to turn caching on we can use this as a swap in replacement
 // for LocalMessageCache.
 class InMemoryCache {
-    static errorHandler: ErrorHandler;
-
     static peek(slotName: SlotName): MessageWithId | undefined {
         const unexpiredMessages = inMemoryQueue[slotName].filter((i) => hasNotExpired(i));
         return unexpiredMessages[0]?.message;

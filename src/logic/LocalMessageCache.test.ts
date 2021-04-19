@@ -12,7 +12,6 @@ type Message = appboy.InAppMessage;
 beforeEach(() => {
     storage.local.clear();
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    LocalMessageCache.errorHandler = () => {};
 });
 
 const getQueueSizeFor = (slotName: SlotName): number => {
@@ -47,6 +46,9 @@ const buildExpiredMessage = (message: Message, id: string): CachedMessage => ({
     expires: anHourAgo(),
 });
 
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const noopErrorHandler = () => {};
+
 describe('LocalMessageCache', () => {
     describe('peek', () => {
         it('returns the first item on the queue', () => {
@@ -58,7 +60,7 @@ describe('LocalMessageCache', () => {
             ];
             setQueue('EndOfArticle', queue);
 
-            const m = LocalMessageCache.peek('EndOfArticle', appboy);
+            const m = LocalMessageCache.peek('EndOfArticle', appboy, noopErrorHandler);
 
             expect(m?.message).toEqual(hydrateMessage(message1, appboy));
         });
@@ -72,7 +74,7 @@ describe('LocalMessageCache', () => {
             ];
             setQueue('EndOfArticle', queue);
 
-            LocalMessageCache.peek('EndOfArticle', appboy);
+            LocalMessageCache.peek('EndOfArticle', appboy, noopErrorHandler);
 
             const newQueueLength = getQueueSizeFor('EndOfArticle');
             expect(newQueueLength).toEqual(queue.length);
@@ -81,7 +83,7 @@ describe('LocalMessageCache', () => {
         it('returns undefined if the queue is empty', () => {
             setQueue('EndOfArticle', []);
 
-            const m = LocalMessageCache.peek('EndOfArticle', appboy);
+            const m = LocalMessageCache.peek('EndOfArticle', appboy, noopErrorHandler);
 
             expect(m).toBeUndefined();
         });
@@ -95,7 +97,7 @@ describe('LocalMessageCache', () => {
             ];
             setQueue('EndOfArticle', queue);
 
-            const m = LocalMessageCache.peek('EndOfArticle', appboy);
+            const m = LocalMessageCache.peek('EndOfArticle', appboy, noopErrorHandler);
 
             expect(m?.message).toEqual(hydrateMessage(message2, appboy));
         });
@@ -109,7 +111,7 @@ describe('LocalMessageCache', () => {
             ];
             setQueue('EndOfArticle', queue);
 
-            LocalMessageCache.peek('EndOfArticle', appboy);
+            LocalMessageCache.peek('EndOfArticle', appboy, noopErrorHandler);
 
             const queueSize = getQueueSizeFor('EndOfArticle');
             expect(queueSize).toEqual(1);
@@ -117,7 +119,6 @@ describe('LocalMessageCache', () => {
 
         it('calls errorHandler when there are expired messages', () => {
             const errorHandler = jest.fn();
-            LocalMessageCache.errorHandler = errorHandler;
             const message1 = JSON.parse(message1Json);
             const message2 = JSON.parse(message2Json);
             const queue = [
@@ -126,7 +127,7 @@ describe('LocalMessageCache', () => {
             ];
             setQueue('EndOfArticle', queue);
 
-            LocalMessageCache.peek('EndOfArticle', appboy);
+            LocalMessageCache.peek('EndOfArticle', appboy, errorHandler);
 
             expect(errorHandler).toHaveBeenCalledTimes(1);
             expect(errorHandler).toHaveBeenCalledWith(
@@ -160,7 +161,7 @@ describe('LocalMessageCache', () => {
             ];
             setQueue('EndOfArticle', queue);
 
-            const gotMessage = LocalMessageCache.peek('EndOfArticle', appboy);
+            const gotMessage = LocalMessageCache.peek('EndOfArticle', appboy, noopErrorHandler);
 
             expect(gotMessage?.message).toEqual(hydrateMessage(validMessage, appboy));
         });
@@ -173,7 +174,7 @@ describe('LocalMessageCache', () => {
             const queue = [message1, message2];
             setQueue('EndOfArticle', queue);
 
-            LocalMessageCache.remove('EndOfArticle', '1');
+            LocalMessageCache.remove('EndOfArticle', '1', noopErrorHandler);
 
             const newQueue = storage.local.get(
                 'gu.brazeMessageCache.EndOfArticle',
@@ -186,16 +187,24 @@ describe('LocalMessageCache', () => {
     describe('push', () => {
         it('adds an item to the end of the queue', () => {
             const message1 = JSON.parse(message1Json);
-            LocalMessageCache.push('EndOfArticle', {
-                message: message1,
-                id: '1',
-            });
+            LocalMessageCache.push(
+                'EndOfArticle',
+                {
+                    message: message1,
+                    id: '1',
+                },
+                noopErrorHandler,
+            );
 
             const message2 = JSON.parse(message2Json);
-            LocalMessageCache.push('EndOfArticle', {
-                message: message2,
-                id: '2',
-            });
+            LocalMessageCache.push(
+                'EndOfArticle',
+                {
+                    message: message2,
+                    id: '2',
+                },
+                noopErrorHandler,
+            );
 
             const newQueue = storage.local.get(
                 'gu.brazeMessageCache.EndOfArticle',
@@ -206,10 +215,14 @@ describe('LocalMessageCache', () => {
         it('returns true when the push is successful', () => {
             const message1 = JSON.parse(message1Json);
 
-            const result = LocalMessageCache.push('EndOfArticle', {
-                message: message1,
-                id: '1',
-            });
+            const result = LocalMessageCache.push(
+                'EndOfArticle',
+                {
+                    message: message1,
+                    id: '1',
+                },
+                noopErrorHandler,
+            );
 
             expect(result).toEqual(true);
         });
@@ -217,7 +230,7 @@ describe('LocalMessageCache', () => {
         it('lazily creates the queue if not already defined', () => {
             const message = JSON.parse(message1Json);
 
-            LocalMessageCache.push('EndOfArticle', { message, id: '1' });
+            LocalMessageCache.push('EndOfArticle', { message, id: '1' }, noopErrorHandler);
 
             const newQueue = storage.local.get(
                 'gu.brazeMessageCache.EndOfArticle',
@@ -227,22 +240,34 @@ describe('LocalMessageCache', () => {
 
         it('enforces a two item limit', () => {
             const message1 = JSON.parse(message1Json);
-            LocalMessageCache.push('EndOfArticle', {
-                message: message1,
-                id: '1',
-            });
+            LocalMessageCache.push(
+                'EndOfArticle',
+                {
+                    message: message1,
+                    id: '1',
+                },
+                noopErrorHandler,
+            );
 
             const message2 = JSON.parse(message2Json);
-            LocalMessageCache.push('EndOfArticle', {
-                message: message2,
-                id: '2',
-            });
+            LocalMessageCache.push(
+                'EndOfArticle',
+                {
+                    message: message2,
+                    id: '2',
+                },
+                noopErrorHandler,
+            );
 
             const message3 = JSON.parse(message3Json);
-            LocalMessageCache.push('EndOfArticle', {
-                message: message3,
-                id: '3',
-            });
+            LocalMessageCache.push(
+                'EndOfArticle',
+                {
+                    message: message3,
+                    id: '3',
+                },
+                noopErrorHandler,
+            );
 
             const newQueue = storage.local.get(
                 'gu.brazeMessageCache.EndOfArticle',
@@ -253,23 +278,34 @@ describe('LocalMessageCache', () => {
         it('reports when a message cannot be added to a full queue', () => {
             const message1 = JSON.parse(message1Json);
             const errorHandler = jest.fn();
-            LocalMessageCache.errorHandler = errorHandler;
-            LocalMessageCache.push('EndOfArticle', {
-                message: message1,
-                id: '1',
-            });
+            LocalMessageCache.push(
+                'EndOfArticle',
+                {
+                    message: message1,
+                    id: '1',
+                },
+                errorHandler,
+            );
 
             const message2 = JSON.parse(message2Json);
-            LocalMessageCache.push('EndOfArticle', {
-                message: message2,
-                id: '2',
-            });
+            LocalMessageCache.push(
+                'EndOfArticle',
+                {
+                    message: message2,
+                    id: '2',
+                },
+                errorHandler,
+            );
 
             const message3 = JSON.parse(message3Json);
-            LocalMessageCache.push('EndOfArticle', {
-                message: message3,
-                id: '3',
-            });
+            LocalMessageCache.push(
+                'EndOfArticle',
+                {
+                    message: message3,
+                    id: '3',
+                },
+                errorHandler,
+            );
 
             expect(errorHandler).toHaveBeenCalledTimes(1);
             expect(errorHandler).toHaveBeenCalledWith(
@@ -288,10 +324,14 @@ describe('LocalMessageCache', () => {
             setQueue('Banner', queue);
 
             const message3 = JSON.parse(message2Json);
-            const result = LocalMessageCache.push('Banner', {
-                message: message3,
-                id: '3',
-            });
+            const result = LocalMessageCache.push(
+                'Banner',
+                {
+                    message: message3,
+                    id: '3',
+                },
+                noopErrorHandler,
+            );
 
             expect(result).toEqual(false);
         });
@@ -307,8 +347,10 @@ describe('LocalMessageCache', () => {
 
             LocalMessageCache.clear();
 
-            expect(LocalMessageCache.peek('EndOfArticle', appboy)).toBeUndefined();
-            expect(LocalMessageCache.peek('Banner', appboy)).toBeUndefined();
+            expect(
+                LocalMessageCache.peek('EndOfArticle', appboy, noopErrorHandler),
+            ).toBeUndefined();
+            expect(LocalMessageCache.peek('Banner', appboy, noopErrorHandler)).toBeUndefined();
         });
     });
 });

@@ -122,10 +122,14 @@ describe('BrazeMessages', () => {
 
             it('returns a cached message if one is available', async () => {
                 const cachedMessage = buildMessage(JSON.parse(message1Json));
-                LocalMessageCache.push('EndOfArticle', {
-                    message: cachedMessage,
-                    id: '1',
-                });
+                LocalMessageCache.push(
+                    'EndOfArticle',
+                    {
+                        message: cachedMessage,
+                        id: '1',
+                    },
+                    (e) => console.log(e),
+                );
                 const freshMessage = buildMessage(JSON.parse(message2Json));
                 const fakeAppBoy = new FakeAppBoy();
                 const brazeMessages = new BrazeMessages(
@@ -142,10 +146,14 @@ describe('BrazeMessages', () => {
 
             it('logging an impression results in the message being removed from the cache', async () => {
                 const cachedMessage = buildMessage(JSON.parse(message1Json));
-                LocalMessageCache.push('EndOfArticle', {
-                    message: cachedMessage,
-                    id: '1',
-                });
+                LocalMessageCache.push(
+                    'EndOfArticle',
+                    {
+                        message: cachedMessage,
+                        id: '1',
+                    },
+                    (e) => console.log(e),
+                );
                 const freshMessage = buildMessage(JSON.parse(message2Json));
                 const fakeAppBoy = new FakeAppBoy();
                 const brazeMessages = new BrazeMessages(
@@ -164,10 +172,14 @@ describe('BrazeMessages', () => {
 
             it('returns the same cached message multiple times if an impression is not logged', async () => {
                 const cachedMessage = buildMessage(JSON.parse(message1Json));
-                LocalMessageCache.push('EndOfArticle', {
-                    message: cachedMessage,
-                    id: '1',
-                });
+                LocalMessageCache.push(
+                    'EndOfArticle',
+                    {
+                        message: cachedMessage,
+                        id: '1',
+                    },
+                    (e) => console.log(e),
+                );
                 const freshMessage = buildMessage(JSON.parse(message2Json));
                 const fakeAppBoy = new FakeAppBoy();
                 const brazeMessages = new BrazeMessages(
