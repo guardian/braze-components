@@ -127,6 +127,7 @@ const guPreviewOutput = (data: DataFromKnobs) => {
             buttonUrl: data.buttonUrl,
             componentName: data.componentName,
             slotName: data.slotName,
+            ophanComponentId: data.ophanComponentId,
         },
         ...data.paragraphs.map((p, i) => {
             return { [`paragraph${i}`]: p };
