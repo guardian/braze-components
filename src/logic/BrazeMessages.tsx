@@ -5,7 +5,7 @@ import { MessageCache } from './LocalMessageCache';
 import type { SlotName } from './types';
 
 type Extras = Record<string, string>;
-type ErrorHandler = (error: Error, identifier: string) => void;
+export type ErrorHandler = (error: Error, identifier: string) => void;
 
 interface BrazeMessagesInterface {
     getMessageForBanner: () => Promise<BrazeMessage>;
@@ -50,7 +50,7 @@ class BrazeMessage {
             this.errorHandler(error, 'BrazeMessage.logImpression');
         }
 
-        this.cache.remove(this.slotName, this.id);
+        this.cache.remove(this.slotName, this.id, this.errorHandler);
     }
 
     logButtonClick(internalButtonId: number): void {
@@ -104,10 +104,14 @@ class BrazeMessages implements BrazeMessagesInterface {
                 const { extras } = message;
 
                 if (extras && extras.slotName && extras.slotName === targetSlotName) {
-                    this.cache.push(targetSlotName, {
-                        message,
-                        id: generateId(),
-                    });
+                    this.cache.push(
+                        targetSlotName,
+                        {
+                            message,
+                            id: generateId(),
+                        },
+                        this.errorHandler,
+                    );
 
                     resolve(message);
                 }
@@ -119,7 +123,7 @@ class BrazeMessages implements BrazeMessagesInterface {
 
     getMessageForBanner(): Promise<BrazeMessage> {
         // If there's already a message in the cache, return it
-        const messageFromCache = this.cache.peek('Banner', this.appboy);
+        const messageFromCache = this.cache.peek('Banner', this.appboy, this.errorHandler);
 
         if (messageFromCache) {
             return Promise.resolve(
@@ -137,7 +141,7 @@ class BrazeMessages implements BrazeMessagesInterface {
         // Otherwise we'll wait for a fresh message to arrive, returning the
         // data from the cache (where it will have already been added)
         return this.freshBannerMessage.then(() => {
-            const freshMessageFromCache = this.cache.peek('Banner', this.appboy);
+            const freshMessageFromCache = this.cache.peek('Banner', this.appboy, this.errorHandler);
 
             if (freshMessageFromCache) {
                 return new BrazeMessage(
@@ -157,7 +161,7 @@ class BrazeMessages implements BrazeMessagesInterface {
 
     getMessageForEndOfArticle(): Promise<BrazeMessage> {
         // If there's already a message in the cache, return it
-        const messageFromCache = this.cache.peek('EndOfArticle', this.appboy);
+        const messageFromCache = this.cache.peek('EndOfArticle', this.appboy, this.errorHandler);
 
         if (messageFromCache) {
             return Promise.resolve(
@@ -175,7 +179,11 @@ class BrazeMessages implements BrazeMessagesInterface {
         // Otherwise we'll wait for a fresh message to arrive, returning the
         // data from the cache (where it will have already been added)
         return this.freshEndOfArticleMessage.then(() => {
-            const freshMessageFromCache = this.cache.peek('EndOfArticle', this.appboy);
+            const freshMessageFromCache = this.cache.peek(
+                'EndOfArticle',
+                this.appboy,
+                this.errorHandler,
+            );
 
             if (freshMessageFromCache) {
                 return new BrazeMessage(
