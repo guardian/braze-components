@@ -68,6 +68,7 @@ type DataFromKnobs = {
     paragraphs: Array<string>;
     slotName?: string;
     componentName?: string;
+    ophanComponentId: string;
 };
 
 const Epic: React.FC<EpicProps> = (props) => {
@@ -133,11 +134,20 @@ const guPreviewOutput = (data: DataFromKnobs) => {
     );
 };
 
+const componentMappings = {
+    Epic: Epic,
+};
+
+const NullComponent = () => null;
+
+const getComponentfromName = (name: string) => {
+    return componentMappings[name] || NullComponent;
+};
+
 export const defaultStory = (): ReactElement => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const slotName = text('slotName', 'EndOfArticle');
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const componentName = text('componentName', 'Epic');
+    const ophanComponentId = text('ophanComponentId', 'example_ophan_component_id');
     const heading = text('heading', defaultContent.heading);
     const highlightedText = text('highlightedText', defaultContent.highlightedText);
     const buttonText = text('buttonText', defaultContent.buttonText);
@@ -163,6 +173,7 @@ export const defaultStory = (): ReactElement => {
         paragraphs: paragraphs.filter((p) => p != ''),
         slotName,
         componentName,
+        ophanComponentId,
     };
 
     const epicProps = buildProps(knobs);
@@ -170,9 +181,26 @@ export const defaultStory = (): ReactElement => {
     // This is to make the data available to the guPreview add-on:
     knobsData.set(guPreviewOutput(knobs));
 
+    // It is unfortunate that here we're duplicating the checks that we do
+    // on-platform before rendering the Braze epic. This should be addressed
+    // properly, but in the meantime I'm keen to have Storybook reflect the
+    // platform behaviour so this doesn't cause confusion for marketing.
+    if (
+        !heading ||
+        !highlightedText ||
+        !buttonText ||
+        !buttonUrl ||
+        !ophanComponentId ||
+        paragraphs.length < 1
+    ) {
+        return null;
+    }
+
+    const Component = getComponentfromName(componentName);
+
     return (
         <StorybookWrapper>
-            <Epic {...epicProps}></Epic>
+            <Component {...epicProps} />
         </StorybookWrapper>
     );
 };
