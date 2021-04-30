@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, ReactElement } from 'react';
 import { ThemeProvider } from 'emotion-theming';
 import { Button, buttonReaderRevenueBrandAlt } from '@guardian/src-button';
 import { SvgCross, SvgInfo } from '@guardian/src-icons';
@@ -33,12 +33,17 @@ const catchAndLogErrors = (description: string, fn: () => void): void => {
 
 export const COMPONENT_NAME = 'AppBanner';
 
-export const AppBanner: React.FC<Props> = ({
+const canRender = (props: Props) => {
+    console.log(props);
+    return true;
+};
+
+const AppBanner = ({
     logButtonClickWithBraze,
     submitComponentEvent,
     ophanComponentId = COMPONENT_NAME,
     brazeMessageProps: { header, body, cta, imageUrl },
-}: Props) => {
+}: Props): ReactElement | null => {
     const [showBanner, setShowBanner] = useState(true);
 
     const onCloseClick = (
@@ -135,3 +140,7 @@ export const AppBanner: React.FC<Props> = ({
         </div>
     );
 };
+
+AppBanner.canRender = canRender;
+
+export { AppBanner };
