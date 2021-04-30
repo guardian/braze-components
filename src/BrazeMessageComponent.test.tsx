@@ -18,10 +18,9 @@ describe('BrazeMessage', () => {
 
         render(
             <BrazeMessageComponent
-                componentName={'ExampleComponent'}
                 logButtonClickWithBraze={jest.fn()}
                 submitComponentEvent={jest.fn()}
-                brazeMessageProps={{}}
+                candidates={[{ componentName: 'ExampleComponent', brazeMessageProps: {} }]}
             />,
         );
 
@@ -38,10 +37,9 @@ describe('BrazeMessage', () => {
 
         render(
             <BrazeMessageComponent
-                componentName={'NoSuchComponent'}
                 logButtonClickWithBraze={jest.fn()}
                 submitComponentEvent={jest.fn()}
-                brazeMessageProps={{}}
+                candidates={[{ componentName: 'NoSuchComponent', brazeMessageProps: {} }]}
             />,
         );
 
@@ -58,13 +56,39 @@ describe('BrazeMessage', () => {
 
         render(
             <BrazeMessageComponent
-                componentName={'ExampleComponent'}
                 logButtonClickWithBraze={jest.fn()}
                 submitComponentEvent={jest.fn()}
-                brazeMessageProps={{}}
+                candidates={[{ componentName: 'ExampleComponent', brazeMessageProps: {} }]}
             />,
         );
 
         expect(ExampleComponent).not.toHaveBeenCalled();
+    });
+
+    it('renders the first renderable component', () => {
+        const ExampleComponent = jest.fn(() => null) as BrazeComponent<unknown> & jest.Mock;
+        ExampleComponent.canRender = () => false;
+        const AnotherExampleComponent = jest.fn(() => null) as BrazeComponent<unknown> & jest.Mock;
+        AnotherExampleComponent.canRender = () => true;
+
+        const mappings = {
+            ExampleComponent,
+            AnotherExampleComponent,
+        };
+        const BrazeMessageComponent = buildBrazeMessageComponent(mappings);
+
+        render(
+            <BrazeMessageComponent
+                logButtonClickWithBraze={jest.fn()}
+                submitComponentEvent={jest.fn()}
+                candidates={[
+                    { componentName: 'ExampleComponent', brazeMessageProps: {} },
+                    { componentName: 'AnotherExampleComponent', brazeMessageProps: {} },
+                ]}
+            />,
+        );
+
+        expect(ExampleComponent).not.toHaveBeenCalled();
+        expect(AnotherExampleComponent).toHaveBeenCalled();
     });
 });

@@ -40,33 +40,41 @@ const COMPONENT_MAPPINGS: ComponentMapping = {
     // [THE_GUARDIAN_IN_2020_BANNER_NAME]: TheGuardianIn2020Banner,
 };
 
+type Candidate = {
+    componentName: string;
+    brazeMessageProps: BrazeMessageProps;
+};
 export type Props = {
     logButtonClickWithBraze: BrazeClickHandler;
     submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
-    componentName: string;
-    brazeMessageProps: BrazeMessageProps;
+    candidates: Candidate[];
 };
 
 export const buildBrazeMessageComponent = (mappings: ComponentMapping): React.FC<Props> => {
     const BrazeMessageComponent = (props: Props) => {
-        const {
-            logButtonClickWithBraze,
-            submitComponentEvent,
-            componentName,
-            brazeMessageProps,
-        } = props;
+        const { logButtonClickWithBraze, submitComponentEvent, candidates } = props;
 
-        const ComponentToRender = mappings[componentName];
+        const candidateToRender = candidates.find((candidate): boolean => {
+            return Boolean(
+                mappings[candidate.componentName] &&
+                    mappings[candidate.componentName].canRender({
+                        ...props,
+                        brazeMessageProps: candidate.brazeMessageProps,
+                    }),
+            );
+        });
 
-        if (!ComponentToRender || !ComponentToRender.canRender(props)) {
+        if (!candidateToRender) {
             return null;
         }
+
+        const ComponentToRender = mappings[candidateToRender.componentName];
 
         return (
             <ComponentToRender
                 logButtonClickWithBraze={logButtonClickWithBraze}
                 submitComponentEvent={submitComponentEvent}
-                brazeMessageProps={brazeMessageProps}
+                brazeMessageProps={candidateToRender.brazeMessageProps}
             />
         );
     };
