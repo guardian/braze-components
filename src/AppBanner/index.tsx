@@ -34,17 +34,36 @@ const catchAndLogErrors = (description: string, fn: () => void): void => {
 export const COMPONENT_NAME = 'AppBanner';
 
 const canRender = (props: Props) => {
-    console.log(props);
+    const {
+        brazeMessageProps: { header, body, cta, imageUrl },
+    } = props;
+    if (!header || !body || !cta || !imageUrl) {
+        return false;
+    }
+    if (!isImageUrlAllowed(imageUrl)) {
+        console.log(`Image URL ${imageUrl} is not allowed`);
+        return false;
+    }
     return true;
 };
 
-const AppBanner = ({
-    logButtonClickWithBraze,
-    submitComponentEvent,
-    ophanComponentId = COMPONENT_NAME,
-    brazeMessageProps: { header, body, cta, imageUrl },
-}: Props): ReactElement | null => {
+const AppBanner = (props: Props): ReactElement | null => {
+    const {
+        logButtonClickWithBraze,
+        submitComponentEvent,
+        ophanComponentId = COMPONENT_NAME,
+        brazeMessageProps: { header, body, cta, imageUrl },
+    } = props;
+
+    if (!canRender(props)) {
+        return null;
+    }
+
     const [showBanner, setShowBanner] = useState(true);
+
+    if (!showBanner) {
+        return null;
+    }
 
     const onCloseClick = (
         evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -73,14 +92,10 @@ const AppBanner = ({
         });
     };
 
-    if (!showBanner || !header || !body || !cta || !imageUrl) {
-        return null;
-    }
-
-    if (!isImageUrlAllowed(imageUrl)) {
-        console.log(`Image URL ${imageUrl} is not allowed`);
-        return null;
-    }
+    // if (!isImageUrlAllowed(imageUrl)) {
+    //     console.log(`Image URL ${imageUrl} is not allowed`);
+    //     return null;
+    // }
 
     return (
         <div css={commonStyles.wrapper}>

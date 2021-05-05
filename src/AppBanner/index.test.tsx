@@ -90,4 +90,49 @@ describe('AppBanner', () => {
         // Nothing rendered as the imageUrl was not allowed
         expect(container.firstChild).toBeNull();
     });
+
+    it('does not render the banner when no body text provided', () => {
+        const { brazeMessageProps, ...props } = baseProps();
+        const invalidMessageProps = {
+            ...brazeMessageProps,
+            body: undefined,
+        };
+
+        const { container } = render(
+            <AppBanner {...props} brazeMessageProps={invalidMessageProps} />,
+        );
+
+        // Nothing rendered as the imageUrl was not allowed
+        expect(container.firstChild).toBeNull();
+    });
+
+    it('does not render the banner when no cta (call to action) text provided', () => {
+        const { brazeMessageProps, ...props } = baseProps();
+        const invalidMessageProps = {
+            ...brazeMessageProps,
+            cta: undefined,
+        };
+
+        const { container } = render(
+            <AppBanner {...props} brazeMessageProps={invalidMessageProps} />,
+        );
+
+        // Nothing rendered as the imageUrl was not allowed
+        expect(container.firstChild).toBeNull();
+    });
+
+    it('does not render the banner when no header text provided', () => {
+        const { brazeMessageProps, ...props } = baseProps();
+        const invalidMessageProps = {
+            ...brazeMessageProps,
+            header: undefined,
+        };
+
+        const { container } = render(
+            <AppBanner {...props} brazeMessageProps={invalidMessageProps} />,
+        );
+
+        // Nothing rendered as the imageUrl was not allowed
+        expect(container.firstChild).toBeNull();
+    });
 });
