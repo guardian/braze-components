@@ -7,6 +7,7 @@ import { OphanComponentEvent } from '@guardian/types';
 import { BrazeClickHandler } from '../utils/tracking';
 import { styles as commonStyles } from '../styles/bannerCommon';
 import { styles } from './styles';
+import { BrazeComponent } from '../BrazeMessageComponent';
 
 export type Props = {
     logButtonClickWithBraze: BrazeClickHandler;
@@ -42,13 +43,30 @@ for (const [key, value] of Object.entries(urlParams)) {
 
 const THE_GU_IN_2020_URL = urlObject.href;
 
-export const TheGuardianIn2020Banner: React.FC<Props> = ({
-    logButtonClickWithBraze,
-    submitComponentEvent,
-    ophanComponentId = COMPONENT_NAME,
-    brazeMessageProps: { header, body },
-}: Props) => {
+const canRender = (props: Props) => {
+    const {
+        brazeMessageProps: { header, body },
+    } = props;
+    return Boolean(header && body);
+};
+
+const TheGuardianIn2020Banner: BrazeComponent<Props> = (props: Props) => {
+    const {
+        logButtonClickWithBraze,
+        submitComponentEvent,
+        ophanComponentId = COMPONENT_NAME,
+        brazeMessageProps: { header, body },
+    } = props;
+
     const [showBanner, setShowBanner] = useState(true);
+
+    if (!canRender(props)) {
+        return null;
+    }
+
+    if (!showBanner) {
+        return null;
+    }
 
     const logToBrazeAndOphan = (internalButtonId: number): void => {
         catchAndLogErrors('ophanButtonClick', () => {
@@ -82,9 +100,6 @@ export const TheGuardianIn2020Banner: React.FC<Props> = ({
         logToBrazeAndOphan(internalButtonId);
     };
 
-    if (!showBanner || !header || !body) {
-        return null;
-    }
     return (
         <div css={commonStyles.wrapper}>
             <div css={commonStyles.contentContainer}>
@@ -141,3 +156,7 @@ export const TheGuardianIn2020Banner: React.FC<Props> = ({
         </div>
     );
 };
+
+TheGuardianIn2020Banner.canRender = canRender;
+
+export { TheGuardianIn2020Banner };
