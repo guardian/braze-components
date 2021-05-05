@@ -91,4 +91,78 @@ describe('BrazeMessage', () => {
         expect(ExampleComponent).not.toHaveBeenCalled();
         expect(AnotherExampleComponent).toHaveBeenCalled();
     });
+
+    describe('.canRender', () => {
+        it('returns false if no valid candidates', () => {
+            const ExampleComponent = jest.fn(() => null) as BrazeComponent<unknown> & jest.Mock;
+            ExampleComponent.canRender = () => false;
+            const AnotherExampleComponent = jest.fn(() => null) as BrazeComponent<unknown> &
+                jest.Mock;
+            AnotherExampleComponent.canRender = () => false;
+            const mappings = {
+                ExampleComponent,
+                AnotherExampleComponent,
+            };
+            const BrazeMessageComponent = buildBrazeMessageComponent(mappings);
+
+            const canRender = BrazeMessageComponent.canRender({
+                logButtonClickWithBraze: jest.fn(),
+                submitComponentEvent: jest.fn(),
+                candidates: [
+                    { componentName: 'ExampleComponent', brazeMessageProps: {} },
+                    { componentName: 'AnotherExampleComponent', brazeMessageProps: {} },
+                ],
+            });
+
+            expect(canRender).toEqual(false);
+        });
+
+        it('returns true if one valid candidate', () => {
+            const ExampleComponent = jest.fn(() => null) as BrazeComponent<unknown> & jest.Mock;
+            ExampleComponent.canRender = () => false;
+            const AnotherExampleComponent = jest.fn(() => null) as BrazeComponent<unknown> &
+                jest.Mock;
+            AnotherExampleComponent.canRender = () => true;
+            const mappings = {
+                ExampleComponent,
+                AnotherExampleComponent,
+            };
+            const BrazeMessageComponent = buildBrazeMessageComponent(mappings);
+
+            const canRender = BrazeMessageComponent.canRender({
+                logButtonClickWithBraze: jest.fn(),
+                submitComponentEvent: jest.fn(),
+                candidates: [
+                    { componentName: 'ExampleComponent', brazeMessageProps: {} },
+                    { componentName: 'AnotherExampleComponent', brazeMessageProps: {} },
+                ],
+            });
+
+            expect(canRender).toEqual(true);
+        });
+
+        it('returns true if two valid candidate', () => {
+            const ExampleComponent = jest.fn(() => null) as BrazeComponent<unknown> & jest.Mock;
+            ExampleComponent.canRender = () => true;
+            const AnotherExampleComponent = jest.fn(() => null) as BrazeComponent<unknown> &
+                jest.Mock;
+            AnotherExampleComponent.canRender = () => true;
+            const mappings = {
+                ExampleComponent,
+                AnotherExampleComponent,
+            };
+            const BrazeMessageComponent = buildBrazeMessageComponent(mappings);
+
+            const canRender = BrazeMessageComponent.canRender({
+                logButtonClickWithBraze: jest.fn(),
+                submitComponentEvent: jest.fn(),
+                candidates: [
+                    { componentName: 'ExampleComponent', brazeMessageProps: {} },
+                    { componentName: 'AnotherExampleComponent', brazeMessageProps: {} },
+                ],
+            });
+
+            expect(canRender).toEqual(true);
+        });
+    });
 });
