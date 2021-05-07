@@ -11,16 +11,18 @@ import { styles as commonStyles } from '../styles/bannerCommon';
 import { styles } from './styles';
 import { isImageUrlAllowed } from '../utils/images';
 
+type BrazeMessageProps = {
+    header?: string;
+    body?: string;
+    cta?: string;
+    imageUrl?: string;
+};
+
 export type Props = {
     logButtonClickWithBraze: BrazeClickHandler;
     submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
     ophanComponentId?: string;
-    brazeMessageProps: {
-        header?: string;
-        body?: string;
-        cta?: string;
-        imageUrl?: string;
-    };
+    brazeMessageProps: BrazeMessageProps;
 };
 
 const catchAndLogErrors = (description: string, fn: () => void): void => {
@@ -33,10 +35,8 @@ const catchAndLogErrors = (description: string, fn: () => void): void => {
 
 export const COMPONENT_NAME = 'AppBanner';
 
-const canRender = (props: Props) => {
-    const {
-        brazeMessageProps: { header, body, cta, imageUrl },
-    } = props;
+const canRender = (brazeMessageProps: BrazeMessageProps): boolean => {
+    const { header, body, cta, imageUrl } = brazeMessageProps;
     if (!header || !body || !cta || !imageUrl) {
         return false;
     }
@@ -55,7 +55,7 @@ const AppBanner = (props: Props): ReactElement | null => {
         brazeMessageProps: { header, body, cta, imageUrl },
     } = props;
 
-    if (!canRender(props)) {
+    if (!canRender(props.brazeMessageProps)) {
         return null;
     }
 
@@ -158,4 +158,4 @@ const AppBanner = (props: Props): ReactElement | null => {
 
 AppBanner.canRender = canRender;
 
-export { AppBanner };
+export { AppBanner, canRender };

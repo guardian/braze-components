@@ -4,7 +4,11 @@ import {
     COMPONENT_NAME as DIGITAL_SUBSCRIBER_APP_BANNER_NAME,
     DigitalSubscriberAppBanner,
 } from './DigitalSubscriberAppBanner';
-import { COMPONENT_NAME as APP_BANNER_NAME, AppBanner } from './AppBanner';
+import {
+    COMPONENT_NAME as APP_BANNER_NAME,
+    AppBanner,
+    canRender as appBannerCanRender,
+} from './AppBanner';
 import {
     COMPONENT_NAME as SPECIAL_EDITION_BANNER_NAME,
     SpecialEditionBanner,
@@ -14,6 +18,8 @@ import {
     TheGuardianIn2020Banner,
 } from './TheGuardianIn2020Banner';
 import { BrazeClickHandler } from './utils/tracking';
+
+import type { Extras } from './logic/BrazeMessages';
 
 type BrazeMessageProps = {
     [key: string]: string | undefined;
@@ -26,7 +32,7 @@ type CommonComponentProps = {
 };
 
 export type BrazeComponent<P> = React.FC<P> & {
-    canRender: (props: P) => boolean;
+    canRender: (brazeMessageProps: BrazeMessageProps) => boolean;
 };
 
 type ComponentMapping = {
@@ -40,56 +46,55 @@ const COMPONENT_MAPPINGS: ComponentMapping = {
     [THE_GUARDIAN_IN_2020_BANNER_NAME]: TheGuardianIn2020Banner,
 };
 
-type Candidate = {
-    componentName: string;
-    brazeMessageProps: BrazeMessageProps;
+const COMPONENT_CAN_RENDER_MAPPINGS: Record<
+    string,
+    (brazeMessageProps: BrazeMessageProps) => boolean
+> = {
+    [APP_BANNER_NAME]: appBannerCanRender,
 };
+
+export const canRenderBrazeMsg = (msgExtras: Extras | undefined): boolean => {
+    if (!msgExtras) {
+        return false;
+    }
+    if (!COMPONENT_CAN_RENDER_MAPPINGS[msgExtras.componentName]) {
+        return false;
+    }
+    return COMPONENT_CAN_RENDER_MAPPINGS[msgExtras.componentName](msgExtras);
+};
+
 export type Props = {
     logButtonClickWithBraze: BrazeClickHandler;
     submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
-    candidates: Candidate[];
+    componentName: string;
+    brazeMessageProps: BrazeMessageProps;
 };
 
-const canRenderCandidate = (mappings: ComponentMapping, props: Props, candidate: Candidate) => {
-    return Boolean(
-        mappings[candidate.componentName] &&
-            mappings[candidate.componentName].canRender({
-                ...props,
-                brazeMessageProps: candidate.brazeMessageProps,
-            }),
-    );
-};
-
-export const buildBrazeMessageComponent = (mappings: ComponentMapping): BrazeComponent<Props> => {
+export const buildBrazeMessageComponent = (mappings: ComponentMapping): React.FC<Props> => {
     const BrazeMessageComponent = (props: Props) => {
-        const { logButtonClickWithBraze, submitComponentEvent, candidates } = props;
+        const {
+            logButtonClickWithBraze,
+            submitComponentEvent,
+            brazeMessageProps,
+            componentName,
+        } = props;
 
-        const candidateToRender = candidates.find((candidate): boolean =>
-            canRenderCandidate(mappings, props, candidate),
-        );
+        const ComponentToRender = mappings[componentName];
 
-        if (!candidateToRender) {
+        if (!ComponentToRender) {
             return null;
         }
-
-        const ComponentToRender = mappings[candidateToRender.componentName];
 
         return (
             <ComponentToRender
                 logButtonClickWithBraze={logButtonClickWithBraze}
                 submitComponentEvent={submitComponentEvent}
-                brazeMessageProps={candidateToRender.brazeMessageProps}
+                brazeMessageProps={brazeMessageProps}
             />
         );
-    };
-
-    BrazeMessageComponent.canRender = (props: Props) => {
-        return props.candidates.some((candidate) => canRenderCandidate(mappings, props, candidate));
     };
 
     return BrazeMessageComponent;
 };
 
-export const BrazeMessageComponent: BrazeComponent<Props> = buildBrazeMessageComponent(
-    COMPONENT_MAPPINGS,
-);
+export const BrazeMessageComponent = buildBrazeMessageComponent(COMPONENT_MAPPINGS);

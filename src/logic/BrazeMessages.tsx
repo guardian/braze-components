@@ -3,8 +3,9 @@
 import type appboy from '@braze/web-sdk-core';
 import { MessageCache } from './LocalMessageCache';
 import type { SlotName } from './types';
+import { canRenderBrazeMsg } from '../BrazeMessageComponent';
 
-type Extras = Record<string, string>;
+export type Extras = Record<string, string>;
 export type ErrorHandler = (error: Error, identifier: string) => void;
 
 interface BrazeMessagesInterface {
@@ -123,13 +124,17 @@ class BrazeMessages implements BrazeMessagesInterface {
 
     getMessageForBanner(): Promise<BrazeMessage> {
         // If there's already a message in the cache, return it
-        const messageFromCache = this.cache.peek('Banner', this.appboy, this.errorHandler);
+        const messagesFromCache = this.cache.all('Banner', this.appboy, this.errorHandler);
 
-        if (messageFromCache) {
+        const [firstValidMessage] = messagesFromCache.filter((msg) =>
+            canRenderBrazeMsg(msg.message.extras),
+        );
+
+        if (firstValidMessage) {
             return Promise.resolve(
                 new BrazeMessage(
-                    messageFromCache.id,
-                    messageFromCache.message,
+                    firstValidMessage.id,
+                    firstValidMessage.message,
                     this.appboy,
                     'Banner',
                     this.cache,
@@ -141,12 +146,16 @@ class BrazeMessages implements BrazeMessagesInterface {
         // Otherwise we'll wait for a fresh message to arrive, returning the
         // data from the cache (where it will have already been added)
         return this.freshBannerMessage.then(() => {
-            const freshMessageFromCache = this.cache.peek('Banner', this.appboy, this.errorHandler);
+            const messagesFromCache = this.cache.all('Banner', this.appboy, this.errorHandler);
 
-            if (freshMessageFromCache) {
+            const [firstValidMessage] = messagesFromCache.filter((msg) =>
+                canRenderBrazeMsg(msg.message.extras),
+            );
+
+            if (firstValidMessage) {
                 return new BrazeMessage(
-                    freshMessageFromCache.id,
-                    freshMessageFromCache.message,
+                    firstValidMessage.id,
+                    firstValidMessage.message,
                     this.appboy,
                     'Banner',
                     this.cache,
