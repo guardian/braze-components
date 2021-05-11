@@ -3,29 +3,27 @@
   "version": "1.1.0",
   "description": "React components to render messages from Braze",
   "repository": "https://github.com/guardian/braze-components",
-  "author": "The Guardian",
   "license": "MIT",
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "logic/package.json"
-  ],
+  "author": "The Guardian",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "files": ["dist", "logic/package.json"],
+  "sideEffects": false,
   "scripts": {
-    "watch": "rollup -cw",
     "prebuild": "rm -rf dist",
-    "build": "rollup -c",
-    "postbuild": "tsc --project tsconfig.types.json",
-    "test": "jest",
-    "tsc": "tsc  --noEmit",
+    "build": "pkgu build",
+    "build-storybook": "build-storybook",
+    "lint": "eslint . --ext .ts,.tsx",
     "prerelease": "yarn build",
     "release": "np",
     "storybook": "./bin/storybook",
-    "build-storybook": "build-storybook",
-    "lint": "eslint . --ext .ts,.tsx",
-    "upload-artifact": "node-riffraff-artifact"
+    "test": "jest",
+    "tsc": "tsc  --noEmit",
+    "upload-artifact": "node-riffraff-artifact",
+    "watch": "rollup -cw"
   },
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.11.1",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
@@ -39,6 +37,11 @@
     "@guardian/grid-client": "^1.1.1",
     "@guardian/libs": "^1.7.0",
     "@guardian/node-riffraff-artifact": "^0.1.9",
+    "@guardian/pkgu": "^0.5.0",
+    "@guardian/src-button": "2.7.1",
+    "@guardian/src-foundations": "2.7.1",
+    "@guardian/src-grid": "2.7.1",
+    "@guardian/src-icons": "2.7.1",
     "@guardian/types": "^2.0.0",
     "@rollup/plugin-alias": "^3.1.1",
     "@rollup/plugin-babel": "^5.1.0",
@@ -85,20 +88,16 @@
   "peerDependencies": {
     "@emotion/core": "10.0.x",
     "@guardian/libs": "^1.7.0",
-    "emotion-theming": "^10.0.19",
-    "react": "16.13.x"
-  },
-  "dependencies": {
     "@guardian/src-button": "2.7.1",
     "@guardian/src-foundations": "2.7.1",
     "@guardian/src-grid": "2.7.1",
-    "@guardian/src-icons": "2.7.1"
-  },
-  "np": {
-    "branch": "main"
+    "@guardian/src-icons": "2.7.1",
+    "emotion-theming": "^10.0.19",
+    "react": "16.13.x"
   },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org"
-  }
+  },
+  "np": { "branch": "main" }
 }
