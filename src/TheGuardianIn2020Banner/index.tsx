@@ -157,6 +157,4 @@ const TheGuardianIn2020Banner: BrazeComponent<Props> = (props: Props) => {
     );
 };
 
-TheGuardianIn2020Banner.canRender = canRender;
-
 export { TheGuardianIn2020Banner };

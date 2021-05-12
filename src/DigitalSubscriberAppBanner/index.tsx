@@ -36,6 +36,4 @@ const DigitalSubscriberAppBanner: BrazeComponent<Props> = ({
     />
 );
 
-DigitalSubscriberAppBanner.canRender = AppBanner.canRender;
-
 export { DigitalSubscriberAppBanner };

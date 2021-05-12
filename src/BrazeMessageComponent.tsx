@@ -31,9 +31,7 @@ type CommonComponentProps = {
     brazeMessageProps: BrazeMessageProps;
 };
 
-export type BrazeComponent<P> = React.FC<P> & {
-    canRender: (brazeMessageProps: BrazeMessageProps) => boolean;
-};
+export type BrazeComponent<P> = React.FC<P>;
 
 type ComponentMapping = {
     [key: string]: BrazeComponent<CommonComponentProps>;

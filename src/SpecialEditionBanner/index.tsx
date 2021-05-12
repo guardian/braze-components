@@ -35,6 +35,5 @@ const SpecialEditionBanner: BrazeComponent<Props> = ({
         }}
     />
 );
-SpecialEditionBanner.canRender = AppBanner.canRender;
 
 export { SpecialEditionBanner };
