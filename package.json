@@ -5,11 +5,11 @@
   "repository": "https://github.com/guardian/braze-components",
   "license": "MIT",
   "author": "The Guardian",
+  "sideEffects": false,
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
   "files": ["dist", "logic/package.json"],
-  "sideEffects": false,
   "scripts": {
     "prebuild": "rm -rf dist",
     "build": "pkgu build",
