@@ -9,9 +9,11 @@ import { PlayStore } from '../assets/play-store';
 import { BrazeClickHandler } from '../utils/tracking';
 import { styles as commonStyles } from '../styles/bannerCommon';
 import { styles } from './styles';
-import { isImageUrlAllowed } from '../utils/images';
 
-type BrazeMessageProps = {
+import { canRender, COMPONENT_NAME } from './canRender';
+export { COMPONENT_NAME };
+
+export type BrazeMessageProps = {
     header?: string;
     body?: string;
     cta?: string;
@@ -31,20 +33,6 @@ const catchAndLogErrors = (description: string, fn: () => void): void => {
     } catch (e) {
         console.log(`Error (${description}): `, e.message);
     }
-};
-
-export const COMPONENT_NAME = 'AppBanner';
-
-const canRender = (brazeMessageProps: BrazeMessageProps): boolean => {
-    const { header, body, cta, imageUrl } = brazeMessageProps;
-    if (!header || !body || !cta || !imageUrl) {
-        return false;
-    }
-    if (!isImageUrlAllowed(imageUrl)) {
-        console.log(`Image URL ${imageUrl} is not allowed`);
-        return false;
-    }
-    return true;
 };
 
 const AppBanner = (props: Props): ReactElement | null => {
@@ -156,6 +144,4 @@ const AppBanner = (props: Props): ReactElement | null => {
     );
 };
 
-AppBanner.canRender = canRender;
-
-export { AppBanner, canRender };
+export { AppBanner };

@@ -4,11 +4,8 @@ import {
     COMPONENT_NAME as DIGITAL_SUBSCRIBER_APP_BANNER_NAME,
     DigitalSubscriberAppBanner,
 } from './DigitalSubscriberAppBanner';
-import {
-    COMPONENT_NAME as APP_BANNER_NAME,
-    AppBanner,
-    canRender as appBannerCanRender,
-} from './AppBanner';
+import { COMPONENT_NAME as APP_BANNER_NAME, AppBanner } from './AppBanner';
+
 import {
     COMPONENT_NAME as SPECIAL_EDITION_BANNER_NAME,
     SpecialEditionBanner,
@@ -18,8 +15,6 @@ import {
     TheGuardianIn2020Banner,
 } from './TheGuardianIn2020Banner';
 import { BrazeClickHandler } from './utils/tracking';
-
-import type { Extras } from './logic/BrazeMessages';
 
 type BrazeMessageProps = {
     [key: string]: string | undefined;
@@ -42,23 +37,6 @@ const COMPONENT_MAPPINGS: ComponentMapping = {
     [APP_BANNER_NAME]: AppBanner,
     [SPECIAL_EDITION_BANNER_NAME]: SpecialEditionBanner,
     [THE_GUARDIAN_IN_2020_BANNER_NAME]: TheGuardianIn2020Banner,
-};
-
-const COMPONENT_CAN_RENDER_MAPPINGS: Record<
-    string,
-    (brazeMessageProps: BrazeMessageProps) => boolean
-> = {
-    [APP_BANNER_NAME]: appBannerCanRender,
-};
-
-export const canRenderBrazeMsg = (msgExtras: Extras | undefined): boolean => {
-    if (!msgExtras) {
-        return false;
-    }
-    if (!COMPONENT_CAN_RENDER_MAPPINGS[msgExtras.componentName]) {
-        return false;
-    }
-    return COMPONENT_CAN_RENDER_MAPPINGS[msgExtras.componentName](msgExtras);
 };
 
 export type Props = {

@@ -8,15 +8,19 @@ import { BrazeClickHandler } from '../utils/tracking';
 import { styles as commonStyles } from '../styles/bannerCommon';
 import { styles } from './styles';
 import { BrazeComponent } from '../BrazeMessageComponent';
+import { canRender, COMPONENT_NAME } from './canRender';
+export { COMPONENT_NAME };
+
+export type BrazeMessageProps = {
+    header?: string;
+    body?: string;
+};
 
 export type Props = {
     logButtonClickWithBraze: BrazeClickHandler;
     submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
     ophanComponentId?: string;
-    brazeMessageProps: {
-        header?: string;
-        body?: string;
-    };
+    brazeMessageProps: BrazeMessageProps;
 };
 
 const catchAndLogErrors = (description: string, fn: () => void): void => {
@@ -26,8 +30,6 @@ const catchAndLogErrors = (description: string, fn: () => void): void => {
         console.log(`Error (${description}): `, e.message);
     }
 };
-
-export const COMPONENT_NAME = 'TheGuardianIn2020Banner';
 
 const urlObject = new URL(
     'https://www.theguardian.com/info/ng-interactive/2020/dec/21/the-guardian-in-2020',
@@ -43,13 +45,6 @@ for (const [key, value] of Object.entries(urlParams)) {
 
 const THE_GU_IN_2020_URL = urlObject.href;
 
-const canRender = (props: Props) => {
-    const {
-        brazeMessageProps: { header, body },
-    } = props;
-    return Boolean(header && body);
-};
-
 const TheGuardianIn2020Banner: BrazeComponent<Props> = (props: Props) => {
     const {
         logButtonClickWithBraze,
@@ -60,7 +55,7 @@ const TheGuardianIn2020Banner: BrazeComponent<Props> = (props: Props) => {
 
     const [showBanner, setShowBanner] = useState(true);
 
-    if (!canRender(props)) {
+    if (!canRender(props.brazeMessageProps)) {
         return null;
     }
 

@@ -27,15 +27,11 @@ export const defaultStory = (): ReactElement => {
         <StorybookWrapper>
             <>
                 <BrazeMessageComponent
-                    candidates={[
-                        {
-                            componentName: componentName,
-                            brazeMessageProps: {
-                                header: header,
-                                body: body,
-                            },
-                        },
-                    ]}
+                    componentName={componentName}
+                    brazeMessageProps={{
+                        header: header,
+                        body: body,
+                    }}
                     logButtonClickWithBraze={(internalButtonId) => {
                         console.log(`Button with internal ID ${internalButtonId} clicked`);
                     }}
