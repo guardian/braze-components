@@ -90,20 +90,6 @@ describe('LocalMessageCache', () => {
             expect(messages.length).toEqual(0);
         });
 
-        it('returns the first unexpired message', () => {
-            const message1 = JSON.parse(message1Json);
-            const message2 = JSON.parse(message2Json);
-            const queue = [
-                buildExpiredMessage(message1, '1'),
-                buildUnexpiredMessage(message2, '2'),
-            ];
-            setQueue('EndOfArticle', queue);
-
-            const messages = LocalMessageCache.all('EndOfArticle', appboy, noopErrorHandler);
-
-            expect(messages[0].message).toEqual(hydrateMessage(message2, appboy));
-        });
-
         it('returns the only unexpired messages', () => {
             const message1 = JSON.parse(message1Json);
             const message2 = JSON.parse(message2Json);
