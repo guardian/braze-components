@@ -6,13 +6,15 @@ import { BrazeComponent } from '../BrazeMessageComponent';
 import { COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
 
+export type BrazeMessageProps = {
+    header?: string;
+    body?: string;
+};
+
 export type Props = {
     logButtonClickWithBraze: BrazeClickHandler;
     submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
-    brazeMessageProps: {
-        header?: string;
-        body?: string;
-    };
+    brazeMessageProps: BrazeMessageProps;
 };
 
 const cta = 'Search for "Guardian live news"';

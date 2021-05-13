@@ -11,8 +11,14 @@ import {
     COMPONENT_NAME as G_IN_2020_BANNER_NAME,
     canRender as gIn2020BannerCanRender,
 } from '../TheGuardianIn2020Banner/canRender';
-import { COMPONENT_NAME as DIGITAL_SUBSCRIBER_APP_BANNER } from '../DigitalSubscriberAppBanner/canRender';
-import { COMPONENT_NAME as SPECIAL_EDITION_BANNER } from '../SpecialEditionBanner/canRender';
+import {
+    COMPONENT_NAME as DIGITAL_SUBSCRIBER_APP_BANNER,
+    canRender as digitialSubCanRender,
+} from '../DigitalSubscriberAppBanner/canRender';
+import {
+    COMPONENT_NAME as SPECIAL_EDITION_BANNER,
+    canRender as specialEdCanRender,
+} from '../SpecialEditionBanner/canRender';
 
 export type Extras = Record<string, string>;
 export type ErrorHandler = (error: Error, identifier: string) => void;
@@ -27,8 +33,8 @@ const COMPONENT_CAN_RENDER_MAPPINGS: Record<
     (brazeMessageProps: Record<string, unknown>) => boolean
 > = {
     [APP_BANNER_NAME]: appBannerCanRender,
-    [DIGITAL_SUBSCRIBER_APP_BANNER]: appBannerCanRender,
-    [SPECIAL_EDITION_BANNER]: appBannerCanRender,
+    [DIGITAL_SUBSCRIBER_APP_BANNER]: digitialSubCanRender,
+    [SPECIAL_EDITION_BANNER]: specialEdCanRender,
     [G_IN_2020_BANNER_NAME]: gIn2020BannerCanRender,
 };
 
