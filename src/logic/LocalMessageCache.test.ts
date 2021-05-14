@@ -50,6 +50,126 @@ const buildExpiredMessage = (message: Message, id: string): CachedMessage => ({
 const noopErrorHandler = () => {};
 
 describe('LocalMessageCache', () => {
+    describe('all', () => {
+        it('returns the all items on the queue', () => {
+            const message1 = JSON.parse(message1Json);
+            const message2 = JSON.parse(message2Json);
+            const queue = [
+                buildUnexpiredMessage(message1, '1'),
+                buildUnexpiredMessage(message2, '2'),
+            ];
+            setQueue('EndOfArticle', queue);
+
+            const messages = LocalMessageCache.all('EndOfArticle', appboy, noopErrorHandler);
+
+            expect(messages[0].message).toEqual(hydrateMessage(message1, appboy));
+            expect(messages[1].message).toEqual(hydrateMessage(message2, appboy));
+            expect(messages.length).toEqual(2);
+        });
+
+        it('does not remove items from the queue', () => {
+            const message1 = JSON.parse(message1Json);
+            const message2 = JSON.parse(message2Json);
+            const queue = [
+                buildUnexpiredMessage(message1, '1'),
+                buildUnexpiredMessage(message2, '2'),
+            ];
+            setQueue('EndOfArticle', queue);
+
+            LocalMessageCache.all('EndOfArticle', appboy, noopErrorHandler);
+
+            const newQueueLength = getQueueSizeFor('EndOfArticle');
+            expect(newQueueLength).toEqual(queue.length);
+        });
+
+        it('returns empty list if the queue is empty', () => {
+            setQueue('EndOfArticle', []);
+
+            const messages = LocalMessageCache.all('EndOfArticle', appboy, noopErrorHandler);
+
+            expect(messages.length).toEqual(0);
+        });
+
+        it('returns the only unexpired messages', () => {
+            const message1 = JSON.parse(message1Json);
+            const message2 = JSON.parse(message2Json);
+            const queue = [
+                buildExpiredMessage(message1, '1'),
+                buildUnexpiredMessage(message2, '2'),
+            ];
+            setQueue('EndOfArticle', queue);
+
+            const messages = LocalMessageCache.all('EndOfArticle', appboy, noopErrorHandler);
+
+            expect(messages.length).toEqual(1);
+            expect(messages[0].message).toEqual(hydrateMessage(message2, appboy));
+        });
+
+        it('removes expired items from the queue', () => {
+            const message1 = JSON.parse(message1Json);
+            const message2 = JSON.parse(message2Json);
+            const queue = [
+                buildExpiredMessage(message1, '1'),
+                buildUnexpiredMessage(message2, '2'),
+            ];
+            setQueue('EndOfArticle', queue);
+
+            LocalMessageCache.all('EndOfArticle', appboy, noopErrorHandler);
+
+            const queueSize = getQueueSizeFor('EndOfArticle');
+            expect(queueSize).toEqual(1);
+        });
+
+        it('calls errorHandler when there are expired messages', () => {
+            const errorHandler = jest.fn();
+            const message1 = JSON.parse(message1Json);
+            const message2 = JSON.parse(message2Json);
+            const queue = [
+                buildExpiredMessage(message1, '1'),
+                buildUnexpiredMessage(message2, '2'),
+            ];
+            setQueue('EndOfArticle', queue);
+
+            LocalMessageCache.all('EndOfArticle', appboy, errorHandler);
+
+            expect(errorHandler).toHaveBeenCalledTimes(1);
+            expect(errorHandler).toHaveBeenCalledWith(
+                new Error('Removed 1 expired message from queue'),
+                'LocalMessageCache',
+            );
+        });
+
+        it('filters invalid items from the queue', () => {
+            const nonsenseMessage = ('nonsense' as unknown) as CachedMessage;
+            const anotherNonsenseMessage = ({
+                expires: anHourFromNow(),
+                message: {
+                    id: '1',
+                    message: 'more nonsense',
+                },
+            } as unknown) as CachedMessage;
+            const messageWithBadExpiration = ({
+                expires: '9999999999999999',
+                message: {
+                    id: '1',
+                    message: 'more nonsense',
+                },
+            } as unknown) as CachedMessage;
+            const validMessage = JSON.parse(message1Json);
+            const queue = [
+                nonsenseMessage,
+                anotherNonsenseMessage,
+                messageWithBadExpiration,
+                buildUnexpiredMessage(validMessage, '2'),
+            ];
+            setQueue('EndOfArticle', queue);
+
+            const gotMessage = LocalMessageCache.peek('EndOfArticle', appboy, noopErrorHandler);
+
+            expect(gotMessage?.message).toEqual(hydrateMessage(validMessage, appboy));
+        });
+    });
+
     describe('peek', () => {
         it('returns the first item on the queue', () => {
             const message1 = JSON.parse(message1Json);

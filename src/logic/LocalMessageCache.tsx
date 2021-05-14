@@ -109,6 +109,11 @@ interface MessageCache {
         appboyInstance: typeof appboy,
         errorHandler: ErrorHandler,
     ) => MessageWithId | undefined;
+    all: (
+        slotName: SlotName,
+        appboyInstance: typeof appboy,
+        errorHandler: ErrorHandler,
+    ) => MessageWithId[];
     remove: (slotName: SlotName, id: string, errorHandler: ErrorHandler) => boolean;
     push: (slotName: SlotName, message: MessageWithId, errorHandler: ErrorHandler) => boolean;
     clear: () => void;
@@ -130,6 +135,19 @@ class LocalMessageCache {
             };
         }
         return;
+    }
+
+    static all(
+        slotName: SlotName,
+        appboyInstance: typeof appboy,
+        errorHandler: ErrorHandler,
+    ): MessageWithId[] {
+        const queue = getQueue(slotName, errorHandler);
+
+        return queue.map((item) => ({
+            id: item.message.id,
+            message: hydrateMessage(item.message.message, appboyInstance),
+        }));
     }
 
     static remove(slotName: SlotName, id: string, errorHandler: ErrorHandler): boolean {
@@ -194,6 +212,13 @@ class InMemoryCache {
     static peek(slotName: SlotName): MessageWithId | undefined {
         const unexpiredMessages = inMemoryQueue[slotName].filter((i) => hasNotExpired(i));
         return unexpiredMessages[0]?.message;
+    }
+
+    static all(slotName: SlotName): MessageWithId[] {
+        const unexpiredMessages = inMemoryQueue[slotName]
+            .filter((i) => hasNotExpired(i))
+            .map((i) => i.message);
+        return unexpiredMessages;
     }
 
     static remove(slotName: SlotName, id: string): boolean {
