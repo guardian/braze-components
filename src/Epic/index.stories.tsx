@@ -50,6 +50,12 @@ type EpicProps = {
     tracking: Record<string, unknown>;
 };
 
+export type BrazeMessageProps = {
+    buttonText?: string;
+    buttonUrl?: string;
+    ophanComponentId?: string;
+};
+
 type Variant = {
     heading: string;
     paragraphs: Array<string>;
