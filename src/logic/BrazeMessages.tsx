@@ -3,22 +3,7 @@
 import type appboy from '@braze/web-sdk-core';
 import { MessageCache } from './LocalMessageCache';
 import type { SlotName } from './types';
-import {
-    COMPONENT_NAME as APP_BANNER_NAME,
-    canRender as appBannerCanRender,
-} from '../AppBanner/canRender';
-import {
-    COMPONENT_NAME as G_IN_2020_BANNER_NAME,
-    canRender as gIn2020BannerCanRender,
-} from '../TheGuardianIn2020Banner/canRender';
-import {
-    COMPONENT_NAME as DIGITAL_SUBSCRIBER_APP_BANNER,
-    canRender as digitialSubCanRender,
-} from '../DigitalSubscriberAppBanner/canRender';
-import {
-    COMPONENT_NAME as SPECIAL_EDITION_BANNER,
-    canRender as specialEdCanRender,
-} from '../SpecialEditionBanner/canRender';
+import { canRenderBrazeMsg } from '../canRender';
 
 export type Extras = Record<string, string>;
 export type ErrorHandler = (error: Error, identifier: string) => void;
@@ -27,26 +12,6 @@ interface BrazeMessagesInterface {
     getMessageForBanner: () => Promise<BrazeMessage>;
     getMessageForEndOfArticle: () => Promise<BrazeMessage>;
 }
-
-const COMPONENT_CAN_RENDER_MAPPINGS: Record<
-    string,
-    (brazeMessageProps: Record<string, unknown>) => boolean
-> = {
-    [APP_BANNER_NAME]: appBannerCanRender,
-    [DIGITAL_SUBSCRIBER_APP_BANNER]: digitialSubCanRender,
-    [SPECIAL_EDITION_BANNER]: specialEdCanRender,
-    [G_IN_2020_BANNER_NAME]: gIn2020BannerCanRender,
-};
-
-export const canRenderBrazeMsg = (msgExtras: Extras | undefined): boolean => {
-    if (!msgExtras) {
-        return false;
-    }
-    if (!COMPONENT_CAN_RENDER_MAPPINGS[msgExtras.componentName]) {
-        return false;
-    }
-    return COMPONENT_CAN_RENDER_MAPPINGS[msgExtras.componentName](msgExtras);
-};
 
 const generateId = (): string => `${Math.random().toString(16).slice(2)}-${new Date().getTime()}`;
 
@@ -161,15 +126,15 @@ class BrazeMessages implements BrazeMessagesInterface {
         // If there's already a message in the cache, return it
         const messagesFromCache = this.cache.all('Banner', this.appboy, this.errorHandler);
 
-        const [firstValidMessage] = messagesFromCache.filter((msg) =>
+        const [firstRenderableMessage] = messagesFromCache.filter((msg) =>
             canRenderBrazeMsg(msg.message.extras),
         );
 
-        if (firstValidMessage) {
+        if (firstRenderableMessage) {
             return Promise.resolve(
                 new BrazeMessage(
-                    firstValidMessage.id,
-                    firstValidMessage.message,
+                    firstRenderableMessage.id,
+                    firstRenderableMessage.message,
                     this.appboy,
                     'Banner',
                     this.cache,
