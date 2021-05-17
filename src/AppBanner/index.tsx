@@ -35,7 +35,7 @@ const catchAndLogErrors = (description: string, fn: () => void): void => {
     }
 };
 
-const AppBanner = (props: Props): ReactElement | null => {
+export const AppBanner = (props: Props): ReactElement | null => {
     const {
         logButtonClickWithBraze,
         submitComponentEvent,
@@ -79,11 +79,6 @@ const AppBanner = (props: Props): ReactElement | null => {
             logButtonClickWithBraze(internalButtonId);
         });
     };
-
-    // if (!isImageUrlAllowed(imageUrl)) {
-    //     console.log(`Image URL ${imageUrl} is not allowed`);
-    //     return null;
-    // }
 
     return (
         <div css={commonStyles.wrapper}>
@@ -143,5 +138,3 @@ const AppBanner = (props: Props): ReactElement | null => {
         </div>
     );
 };
-
-export { AppBanner };
