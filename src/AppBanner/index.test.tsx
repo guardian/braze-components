@@ -87,7 +87,6 @@ describe('AppBanner', () => {
             <AppBanner {...props} brazeMessageProps={invalidMessageProps} />,
         );
 
-        // Nothing rendered as the imageUrl was not allowed
         expect(container.firstChild).toBeNull();
     });
 
@@ -102,7 +101,6 @@ describe('AppBanner', () => {
             <AppBanner {...props} brazeMessageProps={invalidMessageProps} />,
         );
 
-        // Nothing rendered as the imageUrl was not allowed
         expect(container.firstChild).toBeNull();
     });
 
@@ -117,7 +115,6 @@ describe('AppBanner', () => {
             <AppBanner {...props} brazeMessageProps={invalidMessageProps} />,
         );
 
-        // Nothing rendered as the imageUrl was not allowed
         expect(container.firstChild).toBeNull();
     });
 
@@ -132,7 +129,6 @@ describe('AppBanner', () => {
             <AppBanner {...props} brazeMessageProps={invalidMessageProps} />,
         );
 
-        // Nothing rendered as the imageUrl was not allowed
         expect(container.firstChild).toBeNull();
     });
 });
