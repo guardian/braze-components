@@ -5,5 +5,22 @@ import { BrazeMessageProps } from './index.stories';
  */
 export const canRenderEpic = (brazeMessageProps: BrazeMessageProps): boolean => {
     const { buttonText, buttonUrl, ophanComponentId } = brazeMessageProps;
-    return Boolean(buttonText && buttonUrl && ophanComponentId);
+    const paragraphs = parseParagraphs(brazeMessageProps);
+    return Boolean(buttonText && buttonUrl && ophanComponentId && paragraphs.length > 0);
+};
+
+const parseParagraphs = (brazeMessageProps: BrazeMessageProps): string[] => {
+    const isParagraphKey = (k: string): boolean => /^paragraph\d$/.test(k);
+    const orderedParagraphKeys = Object.keys(brazeMessageProps).filter(isParagraphKey).sort();
+
+    const paragraphs = [];
+
+    for (const key of orderedParagraphKeys) {
+        const value = brazeMessageProps[key as keyof BrazeMessageProps];
+        if (value) {
+            paragraphs.push(value);
+        }
+    }
+
+    return paragraphs;
 };
