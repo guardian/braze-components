@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ThemeProvider } from 'emotion-theming';
+import { ThemeProvider } from '@emotion/react';
 import { Button, buttonReaderRevenueBrandAlt } from '@guardian/src-button';
 import { SvgCross, SvgInfo } from '@guardian/src-icons';
 import { OphanComponentEvent } from '@guardian/types';
@@ -10,6 +10,7 @@ import { BrazeClickHandler } from '../utils/tracking';
 import { styles as commonStyles } from '../styles/bannerCommon';
 import { styles } from './styles';
 import { isImageUrlAllowed } from '../utils/images';
+import { ButtonTheme } from '@guardian/src-foundations/dist/types/themes';
 
 export type Props = {
     logButtonClickWithBraze: BrazeClickHandler;
@@ -77,6 +78,23 @@ export const AppBanner: React.FC<Props> = ({
         return null;
     }
 
+    // This is to keep button colors the same as before
+    // https://github.com/guardian/braze-components/pull/123
+    // Probably should be removed later
+    const overrridenReaderRevenueTheme: { button: ButtonTheme } = {
+        button: {
+            ...buttonReaderRevenueBrandAlt.button,
+            backgroundPrimary: 'rgb(51, 51, 51)',
+            backgroundPrimaryHover: 'black',
+        },
+    };
+    const notInterestedTheme: { button: ButtonTheme } = {
+        button: {
+            ...buttonReaderRevenueBrandAlt.button,
+            textSubdued: 'rgb(51, 51, 51)',
+        },
+    };
+
     return (
         <div css={commonStyles.wrapper}>
             <div css={commonStyles.contentContainer}>
@@ -99,23 +117,26 @@ export const AppBanner: React.FC<Props> = ({
                             <PlayStore />
                         </span>
                     </p>
-                    <Button onClick={(e) => onCloseClick(e, 0)} css={commonStyles.primaryButton}>
-                        Ok, got it
-                    </Button>
-                    <Button
-                        onClick={(e) => onCloseClick(e, 0)}
-                        css={styles.secondaryButton}
-                        priority="subdued"
-                    >
-                        {"I'm not interested"}
-                    </Button>
+                    <ThemeProvider theme={overrridenReaderRevenueTheme}>
+                        <Button
+                            onClick={(e) => onCloseClick(e, 0)}
+                            css={commonStyles.primaryButton}
+                        >
+                            Ok, got it
+                        </Button>
+                    </ThemeProvider>
+                    <ThemeProvider theme={notInterestedTheme}>
+                        <Button onClick={(e) => onCloseClick(e, 0)} priority="subdued">
+                            {"I'm not interested"}
+                        </Button>
+                    </ThemeProvider>
                 </div>
                 <div css={commonStyles.bottomRightComponent}>
                     <div css={styles.image}>
                         <img src={imageUrl} alt="" />
                     </div>
                     <div css={commonStyles.iconPanel}>
-                        <ThemeProvider theme={buttonReaderRevenueBrandAlt}>
+                        <ThemeProvider theme={overrridenReaderRevenueTheme}>
                             <Button
                                 icon={<SvgCross />}
                                 hideLabel={true}

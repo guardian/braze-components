@@ -1,7 +1,7 @@
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { palette, space } from '@guardian/src-foundations';
-import { from, until } from '@guardian/src-foundations/mq/cjs';
-import { body, headline } from '@guardian/src-foundations/typography/cjs';
+import { from, until } from '@guardian/src-foundations/mq';
+import { body, headline } from '@guardian/src-foundations/typography';
 
 const imgHeight = '280';
 const bannerColor = '#ebe8e8';
@@ -145,12 +145,6 @@ export const styles = {
 
     primaryButton: css`
         margin-right: ${space[3]}px;
-        background-color: ${palette.neutral[20]};
-        color: ${palette.neutral[100]};
-
-        &:hover {
-            background-color: #111;
-        }
     `,
 
     iconPanel: css`

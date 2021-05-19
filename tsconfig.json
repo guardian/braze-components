@@ -14,7 +14,8 @@
     "outDir": "dist",
     "sourceMap": true,
     "strictNullChecks": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "types": ["@emotion/react/types/css-prop", "node", "jest"]
   },
 
   "include": ["index.ts"],
