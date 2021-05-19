@@ -35,7 +35,7 @@
     "@babel/preset-react": "^7.10.4",
     "@babel/preset-typescript": "^7.10.4",
     "@braze/web-sdk-core": "3.1.0",
-    "@emotion/babel-preset-css-prop": "^10.0.27",
+    "@emotion/babel-preset-css-prop": "^11.1.2",
     "@emotion/eslint-plugin": "^11.2.0",
     "@emotion/react": "^11.1.2",
     "@guardian/grid-client": "^1.1.1",
