@@ -26,10 +26,8 @@ type CommonComponentProps = {
     brazeMessageProps: BrazeMessageProps;
 };
 
-export type BrazeComponent<P> = React.FC<P>;
-
 type ComponentMapping = {
-    [key: string]: BrazeComponent<CommonComponentProps>;
+    [key: string]: React.FC<CommonComponentProps>;
 };
 
 const COMPONENT_MAPPINGS: ComponentMapping = {

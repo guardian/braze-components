@@ -7,7 +7,6 @@ import { OphanComponentEvent } from '@guardian/types';
 import { BrazeClickHandler } from '../utils/tracking';
 import { styles as commonStyles } from '../styles/bannerCommon';
 import { styles } from './styles';
-import { BrazeComponent } from '../BrazeMessageComponent';
 import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
 
@@ -45,7 +44,7 @@ for (const [key, value] of Object.entries(urlParams)) {
 
 const THE_GU_IN_2020_URL = urlObject.href;
 
-const TheGuardianIn2020Banner: BrazeComponent<Props> = (props: Props) => {
+const TheGuardianIn2020Banner: React.FC<Props> = (props: Props) => {
     const {
         logButtonClickWithBraze,
         submitComponentEvent,

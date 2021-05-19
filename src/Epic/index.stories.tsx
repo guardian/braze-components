@@ -150,7 +150,7 @@ const guPreviewOutput = (data: DataFromKnobs) => {
     );
 };
 
-const componentMappings = {
+const componentMappings: { [name: string]: React.FC<EpicProps> } = {
     Epic: Epic,
 };
 
@@ -160,7 +160,7 @@ const getComponentfromName = (name: string) => {
     return componentMappings[name] || NullComponent;
 };
 
-export const defaultStory = (): ReactElement => {
+export const defaultStory = (): ReactElement | null => {
     const slotName = text('slotName', 'EndOfArticle');
     const componentName = text('componentName', 'Epic');
     const ophanComponentId = text('ophanComponentId', 'example_ophan_component_id');

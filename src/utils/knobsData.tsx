@@ -13,7 +13,7 @@ class KnobsData {
         return this.getWindow().knobsData;
     }
 
-    set(knobs): void {
+    set(knobs: { [key: string]: string }): void {
         this.getWindow().knobsData = knobs;
     }
 
