@@ -144,14 +144,10 @@ class LocalMessageCache {
     ): MessageWithId[] {
         const queue = getQueue(slotName, errorHandler);
 
-        if (queue) {
-            return queue.map((item) => ({
-                id: item.message.id,
-                message: hydrateMessage(item.message.message, appboyInstance),
-            }));
-        }
-
-        return [];
+        return queue.map((item) => ({
+            id: item.message.id,
+            message: hydrateMessage(item.message.message, appboyInstance),
+        }));
     }
 
     static remove(slotName: SlotName, id: string, errorHandler: ErrorHandler): boolean {
