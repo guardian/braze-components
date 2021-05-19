@@ -24,6 +24,7 @@ const epicExtras = {
     buttonUrl: 'https://guardian.com/uk',
     slotName: 'EndOfArticle',
     title: 'Example',
+    paragraph1: 'This is paragraph 1',
 };
 
 class FakeAppBoy {
