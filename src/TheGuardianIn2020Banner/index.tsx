@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ThemeProvider } from 'emotion-theming';
+import { ThemeProvider } from '@emotion/react';
 import { Button, buttonReaderRevenueBrandAlt, LinkButton } from '@guardian/src-button';
 import { SvgCross, SvgInfo } from '@guardian/src-icons';
 import { OphanComponentEvent } from '@guardian/types';
@@ -14,6 +14,7 @@ export type BrazeMessageProps = {
     header?: string;
     body?: string;
 };
+import { ButtonTheme } from '@guardian/src-foundations/dist/types/themes/button';
 
 export type Props = {
     logButtonClickWithBraze: BrazeClickHandler;
@@ -94,6 +95,17 @@ const TheGuardianIn2020Banner: React.FC<Props> = (props: Props) => {
         logToBrazeAndOphan(internalButtonId);
     };
 
+    // This is to keep button colors the same as before
+    // https://github.com/guardian/braze-components/pull/123
+    // Probably should be removed later
+    const overrridenReaderRevenueTheme: { button: ButtonTheme } = {
+        button: {
+            ...buttonReaderRevenueBrandAlt.button,
+            backgroundPrimary: 'rgb(51, 51, 51)',
+            backgroundPrimaryHover: 'black',
+        },
+    };
+
     return (
         <div css={commonStyles.wrapper}>
             <div css={commonStyles.contentContainer}>
@@ -114,13 +126,15 @@ const TheGuardianIn2020Banner: React.FC<Props> = (props: Props) => {
                             Read our look-back to see how Guardian journalism made a difference.
                         </strong>
                     </p>
-                    <LinkButton
-                        href={THE_GU_IN_2020_URL}
-                        css={commonStyles.primaryButton}
-                        onClick={() => onClick(0)}
-                    >
-                        Take a look back
-                    </LinkButton>
+                    <ThemeProvider theme={overrridenReaderRevenueTheme}>
+                        <LinkButton
+                            href={THE_GU_IN_2020_URL}
+                            css={commonStyles.primaryButton}
+                            onClick={() => onClick(0)}
+                        >
+                            Take a look back
+                        </LinkButton>
+                    </ThemeProvider>
                 </div>
                 <div css={commonStyles.bottomRightComponent}>
                     <div css={styles.image}>
