@@ -68,3 +68,5 @@ This will:
   version change in package.json)
 - Publish the new release to NPM
 - Push new commits/tags to GitHub
+
+Test
