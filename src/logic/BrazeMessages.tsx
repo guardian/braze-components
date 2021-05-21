@@ -79,9 +79,7 @@ class BrazeMessage {
 class BrazeMessages implements BrazeMessagesInterface {
     appboy: typeof appboy;
 
-    freshBannerMessage: Promise<appboy.InAppMessage>;
-
-    freshEndOfArticleMessage: Promise<appboy.InAppMessage>;
+    freshMessageBySlot: Record<SlotName, Promise<appboy.InAppMessage>>;
 
     cache: MessageCache;
 
@@ -90,8 +88,10 @@ class BrazeMessages implements BrazeMessagesInterface {
     constructor(appboyInstance: typeof appboy, cache: MessageCache, errorHandler: ErrorHandler) {
         this.appboy = appboyInstance;
         this.cache = cache;
-        this.freshBannerMessage = this.getFreshMessagesForSlot('Banner');
-        this.freshEndOfArticleMessage = this.getFreshMessagesForSlot('EndOfArticle');
+        this.freshMessageBySlot = {
+            Banner: this.getFreshMessagesForSlot('Banner'),
+            EndOfArticle: this.getFreshMessagesForSlot('EndOfArticle'),
+        };
         this.errorHandler = errorHandler;
     }
 
@@ -153,7 +153,7 @@ class BrazeMessages implements BrazeMessagesInterface {
 
         // Otherwise we'll wait for a fresh message to arrive, returning the
         // data from the cache (where it will have already been added)
-        return this.freshBannerMessage.then(() => {
+        return this.freshMessageBySlot[slotName].then(() => {
             const messagesFromCache = this.cache.all(slotName, this.appboy, this.errorHandler);
 
             const [firstValidMessage] = messagesFromCache.filter((msg) =>
