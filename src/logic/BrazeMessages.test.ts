@@ -93,6 +93,36 @@ describe('BrazeMessages', () => {
                 expect(data[1].extras).toEqual(endOfArticleMessage.extras);
             });
 
+            it('returns a promise which resolves with message data for the correct slot when queried in different order', async () => {
+                const fakeAppBoy = new FakeAppBoy();
+                const brazeMessages = new BrazeMessages(
+                    (fakeAppBoy as unknown) as typeof appboy,
+                    LocalMessageCache,
+                    (error, identifier) => console.log(identifier, error),
+                );
+
+                const bannerPromise = brazeMessages.getMessageForBanner();
+                const endOfArticlePromise = brazeMessages.getMessageForEndOfArticle();
+
+                const bannerMessage = buildMessage({
+                    ...JSON.parse(message1Json),
+                    extras: bannerExtras,
+                });
+                fakeAppBoy.emit(bannerMessage);
+
+                const data1 = await bannerPromise;
+                expect(data1.extras).toEqual(bannerMessage.extras);
+
+                const endOfArticleMessage = buildMessage({
+                    ...JSON.parse(message2Json),
+                    extras: epicExtras,
+                });
+                fakeAppBoy.emit(endOfArticleMessage);
+
+                const data2 = await endOfArticlePromise;
+                expect(data2.extras).toEqual(endOfArticleMessage.extras);
+            });
+
             it('returns a message which is capable of logging an impression', async () => {
                 const fakeAppBoy = new FakeAppBoy();
                 const brazeMessages = new BrazeMessages(
