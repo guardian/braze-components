@@ -1,6 +1,8 @@
 export type BrazeMessageProps = {
     buttonText?: string;
     buttonUrl?: string;
+    heading?: string;
+    highlightedText?: string;
     ophanComponentId?: string;
     paragraph1?: string;
     paragraph2?: string;
