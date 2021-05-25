@@ -2,9 +2,10 @@ import React, { ReactElement, useEffect, useState } from 'react';
 import { withKnobs, text } from '@storybook/addon-knobs';
 import { StorybookWrapper } from '../utils/StorybookWrapper';
 import { knobsData } from '../utils/knobsData';
-import * as emotionCore from '@emotion/react';
+import * as emotionReact from '@emotion/react';
+import * as emotionReactJsxRuntime from '@emotion/react/jsx-runtime';
 
-const css = emotionCore.css;
+const css = emotionReact.css;
 
 export default {
     component: 'Epic',
@@ -15,7 +16,7 @@ export default {
     },
 };
 
-const componentUrl = `https://contributions.guardianapis.com/modules/v1/epics/ContributionsEpic.js`;
+const componentUrl = `https://contributions.guardianapis.com/modules/v2/epics/ContributionsEpic.js`;
 const epicWrapper = css`
     box-sizing: border-box;
     width: 100%;
@@ -75,7 +76,9 @@ const Epic: React.FC<EpicProps> = (props) => {
         window.guardian = {};
         window.guardian.automat = {
             preact: React,
-            emotionCore,
+            react: React,
+            emotionReact,
+            emotionReactJsxRuntime,
         };
         import(/*webpackIgnore: true*/ componentUrl)
             .then((epicModule: { ContributionsEpic: React.FC<EpicProps> }) => {
