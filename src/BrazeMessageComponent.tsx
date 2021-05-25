@@ -5,7 +5,6 @@ import {
     DigitalSubscriberAppBanner,
 } from './DigitalSubscriberAppBanner';
 import { COMPONENT_NAME as APP_BANNER_NAME, AppBanner } from './AppBanner';
-
 import {
     COMPONENT_NAME as SPECIAL_EDITION_BANNER_NAME,
     SpecialEditionBanner,
@@ -45,14 +44,12 @@ export type Props = {
 };
 
 export const buildBrazeMessageComponent = (mappings: ComponentMapping): React.FC<Props> => {
-    const BrazeMessageComponent = (props: Props) => {
-        const {
-            logButtonClickWithBraze,
-            submitComponentEvent,
-            brazeMessageProps,
-            componentName,
-        } = props;
-
+    const BrazeMessageComponent = ({
+        logButtonClickWithBraze,
+        submitComponentEvent,
+        componentName,
+        brazeMessageProps,
+    }: Props) => {
         const ComponentToRender = mappings[componentName];
 
         if (!ComponentToRender) {
@@ -71,4 +68,6 @@ export const buildBrazeMessageComponent = (mappings: ComponentMapping): React.FC
     return BrazeMessageComponent;
 };
 
-export const BrazeMessageComponent = buildBrazeMessageComponent(COMPONENT_MAPPINGS);
+export const BrazeMessageComponent: React.FC<Props> = buildBrazeMessageComponent(
+    COMPONENT_MAPPINGS,
+);
