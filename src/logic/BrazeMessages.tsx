@@ -172,7 +172,7 @@ class BrazeMessages implements BrazeMessagesInterface {
             }
 
             // Generally we don't expect to reach this point
-            throw new Error(`No messages for ${slotName} slot`);
+            throw new Error(`No valid messages for ${slotName} slot`);
         });
     }
 }
