@@ -3,8 +3,9 @@
 import type appboy from '@braze/web-sdk-core';
 import { MessageCache } from './LocalMessageCache';
 import type { SlotName } from './types';
+import { canRenderBrazeMsg } from '../canRender';
 
-type Extras = Record<string, string>;
+export type Extras = Record<string, string>;
 export type ErrorHandler = (error: Error, identifier: string) => void;
 
 interface BrazeMessagesInterface {
@@ -78,9 +79,7 @@ class BrazeMessage {
 class BrazeMessages implements BrazeMessagesInterface {
     appboy: typeof appboy;
 
-    freshBannerMessage: Promise<appboy.InAppMessage>;
-
-    freshEndOfArticleMessage: Promise<appboy.InAppMessage>;
+    freshMessageBySlot: Record<SlotName, Promise<appboy.InAppMessage>>;
 
     cache: MessageCache;
 
@@ -89,8 +88,10 @@ class BrazeMessages implements BrazeMessagesInterface {
     constructor(appboyInstance: typeof appboy, cache: MessageCache, errorHandler: ErrorHandler) {
         this.appboy = appboyInstance;
         this.cache = cache;
-        this.freshBannerMessage = this.getFreshMessagesForSlot('Banner');
-        this.freshEndOfArticleMessage = this.getFreshMessagesForSlot('EndOfArticle');
+        this.freshMessageBySlot = {
+            Banner: this.getFreshMessagesForSlot('Banner'),
+            EndOfArticle: this.getFreshMessagesForSlot('EndOfArticle'),
+        };
         this.errorHandler = errorHandler;
     }
 
@@ -122,54 +123,28 @@ class BrazeMessages implements BrazeMessagesInterface {
     }
 
     getMessageForBanner(): Promise<BrazeMessage> {
-        // If there's already a message in the cache, return it
-        const messageFromCache = this.cache.peek('Banner', this.appboy, this.errorHandler);
-
-        if (messageFromCache) {
-            return Promise.resolve(
-                new BrazeMessage(
-                    messageFromCache.id,
-                    messageFromCache.message,
-                    this.appboy,
-                    'Banner',
-                    this.cache,
-                    this.errorHandler,
-                ),
-            );
-        }
-
-        // Otherwise we'll wait for a fresh message to arrive, returning the
-        // data from the cache (where it will have already been added)
-        return this.freshBannerMessage.then(() => {
-            const freshMessageFromCache = this.cache.peek('Banner', this.appboy, this.errorHandler);
-
-            if (freshMessageFromCache) {
-                return new BrazeMessage(
-                    freshMessageFromCache.id,
-                    freshMessageFromCache.message,
-                    this.appboy,
-                    'Banner',
-                    this.cache,
-                    this.errorHandler,
-                );
-            }
-
-            // Generally we don't expect to reach this point
-            throw new Error('No messages for Banner slot');
-        });
+        return this.getMessageForSlot('Banner');
     }
 
     getMessageForEndOfArticle(): Promise<BrazeMessage> {
-        // If there's already a message in the cache, return it
-        const messageFromCache = this.cache.peek('EndOfArticle', this.appboy, this.errorHandler);
+        return this.getMessageForSlot('EndOfArticle');
+    }
 
-        if (messageFromCache) {
+    private getMessageForSlot(slotName: SlotName) {
+        // If there's already a message in the cache, return it
+        const messagesFromCache = this.cache.all(slotName, this.appboy, this.errorHandler);
+
+        const [firstRenderableMessage] = messagesFromCache.filter((msg) =>
+            canRenderBrazeMsg(msg.message.extras),
+        );
+
+        if (firstRenderableMessage) {
             return Promise.resolve(
                 new BrazeMessage(
-                    messageFromCache.id,
-                    messageFromCache.message,
+                    firstRenderableMessage.id,
+                    firstRenderableMessage.message,
                     this.appboy,
-                    'EndOfArticle',
+                    slotName,
                     this.cache,
                     this.errorHandler,
                 ),
@@ -178,26 +153,26 @@ class BrazeMessages implements BrazeMessagesInterface {
 
         // Otherwise we'll wait for a fresh message to arrive, returning the
         // data from the cache (where it will have already been added)
-        return this.freshEndOfArticleMessage.then(() => {
-            const freshMessageFromCache = this.cache.peek(
-                'EndOfArticle',
-                this.appboy,
-                this.errorHandler,
+        return this.freshMessageBySlot[slotName].then(() => {
+            const messagesFromCache = this.cache.all(slotName, this.appboy, this.errorHandler);
+
+            const [firstValidMessage] = messagesFromCache.filter((msg) =>
+                canRenderBrazeMsg(msg.message.extras),
             );
 
-            if (freshMessageFromCache) {
+            if (firstValidMessage) {
                 return new BrazeMessage(
-                    freshMessageFromCache.id,
-                    freshMessageFromCache.message,
+                    firstValidMessage.id,
+                    firstValidMessage.message,
                     this.appboy,
-                    'EndOfArticle',
+                    slotName,
                     this.cache,
                     this.errorHandler,
                 );
             }
 
             // Generally we don't expect to reach this point
-            throw new Error('No messages for EndOfArticle slot');
+            throw new Error(`No valid messages for ${slotName} slot`);
         });
     }
 }

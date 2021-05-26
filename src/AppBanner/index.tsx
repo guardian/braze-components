@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, ReactElement } from 'react';
 import { ThemeProvider } from '@emotion/react';
 import { Button, buttonReaderRevenueBrandAlt } from '@guardian/src-button';
 import { SvgCross, SvgInfo } from '@guardian/src-icons';
@@ -9,19 +9,24 @@ import { PlayStore } from '../assets/play-store';
 import { BrazeClickHandler } from '../utils/tracking';
 import { styles as commonStyles } from '../styles/bannerCommon';
 import { styles } from './styles';
-import { isImageUrlAllowed } from '../utils/images';
+
+import { canRender, COMPONENT_NAME } from './canRender';
+export { COMPONENT_NAME };
+
+export type BrazeMessageProps = {
+    header?: string;
+    body?: string;
+    cta?: string;
+    imageUrl?: string;
+};
+
 import { ButtonTheme } from '@guardian/src-foundations/dist/types/themes';
 
 export type Props = {
     logButtonClickWithBraze: BrazeClickHandler;
     submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
     ophanComponentId?: string;
-    brazeMessageProps: {
-        header?: string;
-        body?: string;
-        cta?: string;
-        imageUrl?: string;
-    };
+    brazeMessageProps: BrazeMessageProps;
 };
 
 const catchAndLogErrors = (description: string, fn: () => void): void => {
@@ -32,15 +37,23 @@ const catchAndLogErrors = (description: string, fn: () => void): void => {
     }
 };
 
-export const COMPONENT_NAME = 'AppBanner';
+export const AppBanner = (props: Props): ReactElement | null => {
+    const {
+        logButtonClickWithBraze,
+        submitComponentEvent,
+        ophanComponentId = COMPONENT_NAME,
+        brazeMessageProps: { header, body, cta, imageUrl },
+    } = props;
 
-export const AppBanner: React.FC<Props> = ({
-    logButtonClickWithBraze,
-    submitComponentEvent,
-    ophanComponentId = COMPONENT_NAME,
-    brazeMessageProps: { header, body, cta, imageUrl },
-}: Props) => {
+    if (!canRender(props.brazeMessageProps)) {
+        return null;
+    }
+
     const [showBanner, setShowBanner] = useState(true);
+
+    if (!showBanner) {
+        return null;
+    }
 
     const onCloseClick = (
         evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -68,15 +81,6 @@ export const AppBanner: React.FC<Props> = ({
             logButtonClickWithBraze(internalButtonId);
         });
     };
-
-    if (!showBanner || !header || !body || !cta || !imageUrl) {
-        return null;
-    }
-
-    if (!isImageUrlAllowed(imageUrl)) {
-        console.log(`Image URL ${imageUrl} is not allowed`);
-        return null;
-    }
 
     // This is to keep button colors the same as before
     // https://github.com/guardian/braze-components/pull/123

@@ -7,16 +7,20 @@ import { OphanComponentEvent } from '@guardian/types';
 import { BrazeClickHandler } from '../utils/tracking';
 import { styles as commonStyles } from '../styles/bannerCommon';
 import { styles } from './styles';
+import { canRender, COMPONENT_NAME } from './canRender';
+export { COMPONENT_NAME };
+
+export type BrazeMessageProps = {
+    header?: string;
+    body?: string;
+};
 import { ButtonTheme } from '@guardian/src-foundations/dist/types/themes/button';
 
 export type Props = {
     logButtonClickWithBraze: BrazeClickHandler;
     submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
     ophanComponentId?: string;
-    brazeMessageProps: {
-        header?: string;
-        body?: string;
-    };
+    brazeMessageProps: BrazeMessageProps;
 };
 
 const catchAndLogErrors = (description: string, fn: () => void): void => {
@@ -26,8 +30,6 @@ const catchAndLogErrors = (description: string, fn: () => void): void => {
         console.log(`Error (${description}): `, e.message);
     }
 };
-
-export const COMPONENT_NAME = 'TheGuardianIn2020Banner';
 
 const urlObject = new URL(
     'https://www.theguardian.com/info/ng-interactive/2020/dec/21/the-guardian-in-2020',
@@ -43,13 +45,23 @@ for (const [key, value] of Object.entries(urlParams)) {
 
 const THE_GU_IN_2020_URL = urlObject.href;
 
-export const TheGuardianIn2020Banner: React.FC<Props> = ({
-    logButtonClickWithBraze,
-    submitComponentEvent,
-    ophanComponentId = COMPONENT_NAME,
-    brazeMessageProps: { header, body },
-}: Props) => {
+const TheGuardianIn2020Banner: React.FC<Props> = (props: Props) => {
+    const {
+        logButtonClickWithBraze,
+        submitComponentEvent,
+        ophanComponentId = COMPONENT_NAME,
+        brazeMessageProps: { header, body },
+    } = props;
+
     const [showBanner, setShowBanner] = useState(true);
+
+    if (!canRender(props.brazeMessageProps)) {
+        return null;
+    }
+
+    if (!showBanner) {
+        return null;
+    }
 
     const logToBrazeAndOphan = (internalButtonId: number): void => {
         catchAndLogErrors('ophanButtonClick', () => {
@@ -82,10 +94,6 @@ export const TheGuardianIn2020Banner: React.FC<Props> = ({
 
         logToBrazeAndOphan(internalButtonId);
     };
-
-    if (!showBanner || !header || !body) {
-        return null;
-    }
 
     // This is to keep button colors the same as before
     // https://github.com/guardian/braze-components/pull/123
@@ -156,3 +164,5 @@ export const TheGuardianIn2020Banner: React.FC<Props> = ({
         </div>
     );
 };
+
+export { TheGuardianIn2020Banner };
