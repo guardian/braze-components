@@ -124,7 +124,7 @@ describe('canRenderEpic', () => {
         expect(got).toEqual(false);
     });
 
-    it('returns the correct error message when multiple fields missing', () => {
+    it('returns false when multiple fields missing', () => {
         const dataFromBraze: BrazeMessageProps = {
             heading: 'Example Heading',
             paragraph1: 'Paragraph 1',
