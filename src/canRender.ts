@@ -15,6 +15,10 @@ import {
     canRender as specialEdCanRender,
 } from './SpecialEditionBanner/canRender';
 import { canRenderEpic } from './Epic/canRender';
+import {
+    COMPONENT_NAME as US_NEWSLETTER_EPIC_NAME,
+    canRender as usNewsletterEpicCanRender,
+} from './USNewsletterEpic/canRender';
 
 /** These are in a seperate file to enable tree shaking of the logic deciding if a Braze message can be rendered
  * this means the user won't download the Braze components bundle when the component can't be shown.
@@ -31,6 +35,7 @@ const COMPONENT_CAN_RENDER_MAPPINGS: Record<
     [SPECIAL_EDITION_BANNER_NAME]: specialEdCanRender,
     [THE_GUARDIAN_IN_2020_BANNER_NAME]: gIn2020BannerCanRender,
     Epic: canRenderEpic,
+    [US_NEWSLETTER_EPIC_NAME]: usNewsletterEpicCanRender,
 };
 
 export const canRenderBrazeMsg = (msgExtras: Extras | undefined): boolean => {
