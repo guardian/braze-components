@@ -4,6 +4,7 @@ import { brand } from '@guardian/src-foundations';
 import { Button, buttonBrandAlt } from '@guardian/src-button';
 import { styles as commonStyles } from '../styles/bannerCommon';
 import { COMPONENT_NAME } from './canRender';
+import { body, textSans } from '@guardian/src-foundations/typography';
 export { COMPONENT_NAME };
 
 const IMAGE_URL =
@@ -31,11 +32,20 @@ const styles = {
         padding: 4px;
     `,
     frequencyClock: css`
-        margin: 2px;
+        position: relative;
+        top: 2px;
+        margin-right: 4px;
     `,
     frequencyText: css`
         color: #333333;
-        font-family: sans-serif;
+        ${textSans.medium()}
+        margin-left: 4px;
+    `,
+    button: css`
+        ${body.medium()}
+        background-color: #C70000;
+        color: #ffffff;
+        max-width: 100px;
     `,
 };
 
@@ -61,7 +71,7 @@ export const USNewsletterEpic: React.FC = () => {
                         Guardian products and services.
                     </p>
                     <ThemeProvider theme={buttonBrandAlt}>
-                        <Button css={commonStyles.primaryButton}>Sign up</Button>
+                        <Button css={styles.button}>Sign up</Button>
                     </ThemeProvider>
                 </div>
             </section>
