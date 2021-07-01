@@ -57,6 +57,6 @@ addParameters({
     },
     layout: 'fullscreen',
     grid: {
-        disabled: true,
+        disable: true,
     },
 });

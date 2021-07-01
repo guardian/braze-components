@@ -1,108 +1,94 @@
-import { css } from '@emotion/core';
+import React from 'react';
 
-const barHeight = "48px"
+const barHeight = '48px';
 
-export const styles = {
-    modal: css`
-        position: absolute;
-        top: ${barHeight};
-        left: 0;
-        width: 100%;
-        height: calc(100% - ${barHeight});
-    `,
-    iframe: css`
-        width: 100%;
-        height: 100%;
-    `,
-    buttonRow: css`
-        display: flex;
-        border-bottom: 1px solid rgba(0,0,0,.1);
-        margin: 0 15px;
-        padding: 8px 0;
-        justify-content: space-between;
-    `,
-    activeButton: css`
-        border: 0;
-        cursor: pointer;
-        position: relative;
-        text-align: center;
-        text-decoration: none;
-        transition: all 150ms ease-out;
-        transform: translate3d(0,0,0);
-        vertical-align: top;
-        white-space: nowrap;
-        margin: 0;
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 1;
-        background: #fafafa;
-        color: #333333;
-        box-shadow: rgba(0,0,0,.1) 0 0 0 1px inset;
-        border-radius: 4px;
-        padding: 10px 16px;
-        display: inline;
-        overflow: visible;
-    `,
-    resultRow: css`
-        display: flex;
-        border-bottom: 1px solid rgba(0,0,0,.1);
-        margin: 0 15px;
-        padding: 8px 0;
-    `,
-    resultKey: css`
-        min-width: 100px;
-        font-weight: 700;
-        margin-right: 15px;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        line-height: 16px;
-        box-sizing: border-box;
-    `,
-    resultValue: css`
-        appearance: none;
-        border: 0 none;
-        box-sizing: inherit;
-        display: block;
-        margin: 0;
-        background: #FFFFFF;
-        padding: 6px 10px;
-        font-size: 13px;
-        position: relative;
-        transition: all 200ms ease-out;
-        color: #333333;
-        box-shadow: rgba(0,0,0,.1) 0 0 0 1px inset;
-        border-radius: 4px;
-        line-height: 20px;
-        flex: 1;
-        text-align: left;
-        overflow: visible;
-        height: 52px;
-    `,
-    inactiveButton: css`
-        border: 0;
-        cursor: no-drop;
-        position: relative;
-        text-align: center;
-        text-decoration: none;
-        transition: all 150ms ease-out;
-        transform: translate3d(0,0,0);
-        vertical-align: top;
-        white-space: nowrap;
-        margin: 0;
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 1;
-        background: #dddddd;
-        color: #aaaaaa;
-        box-shadow: rgba(0,0,0,.1) 0 0 0 1px inset;
-        border-radius: 4px;
-        border-bottom-style: none;
-        padding: 10px 16px;
-        display: inline;
-        overflow: visible;
-        &:focus {
-            outline: none !important;
-        }
-    `,
+export const nonEmotionStyles: Record<string, React.CSSProperties> = {
+    modal: {
+        position: 'absolute',
+        top: barHeight,
+        left: 0,
+        width: '100%',
+        height: `calc(100% - ${barHeight}`,
+    },
+    iframe: {
+        width: '100%',
+        height: '100%',
+    },
+    buttonRow: {
+        display: 'flex',
+        borderBottom: '1px solid rgba(0,0,0,.1)',
+        margin: '0 15px',
+        padding: '8px 0',
+        justifyContent: 'space-between',
+    },
+    activeButton: {
+        border: '0',
+        cursor: 'pointer',
+        position: 'relative',
+        textAlign: 'center',
+        textDecoration: 'none',
+        transition: 'all 150ms ease-out',
+        transform: 'translate3d(0,0,0)',
+        verticalAlign: 'top',
+        whiteSpace: 'nowrap',
+        margin: '0',
+        fontSize: '12px',
+        fontWeight: 'bold',
+        lineHeight: '1',
+        background: '#fafafa',
+        color: '#333333',
+        boxShadow: 'rgba(0,0,0,.1) 0 0 0 1px inset',
+        borderRadius: '4px',
+        padding: '10px 16px',
+        display: 'inline',
+        overflow: 'visible',
+    },
+    inactiveButton: {
+        border: '0',
+        cursor: 'no-drop',
+        position: 'relative',
+        textAlign: 'center',
+        textDecoration: 'none',
+        transition: 'all 150ms ease-out',
+        transform: 'translate3d(0,0,0)',
+        verticalAlign: 'top',
+        whiteSpace: 'nowrap',
+        margin: '0',
+        fontSize: '12px',
+        fontWeight: 'bold',
+        lineHeight: '1',
+        background: '#dddddd',
+        color: '#aaaaaa',
+        boxShadow: 'rgba(0,0,0,.1) 0 0 0 1px inset',
+        borderRadius: '4px',
+        padding: '10px 16px',
+        display: 'inline',
+        overflow: 'visible',
+    },
+    resultRow: {
+        display: 'flex',
+        borderBottom: '1px solid rgba(0,0,0,.1)',
+        margin: '0 15px',
+        padding: '8px 0',
+    },
+    resultValue: {
+        appearance: 'none',
+        border: '0 none',
+        boxSizing: 'inherit',
+        display: 'block',
+        margin: '0',
+        background: '#ffffff',
+        padding: '6px 10px',
+        fontSize: '13px',
+        position: 'relative',
+        transition: 'all 200ms ease-out',
+        color: '#333333',
+        boxShadow: 'rgba(0, 0, 0, 0.1) 0 0 0 1px inset',
+        borderRadius: '4px',
+        lineHeight: '20px',
+        flex: '1',
+        textAlign: 'left',
+        overflow: 'visible',
+        height: '52px',
+    },
 };

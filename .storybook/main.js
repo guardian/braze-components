@@ -1,13 +1,11 @@
 const path = require('path');
 
 module.exports = {
-    stories:
-        process.env.NODE_ENV === 'development'
-            ? ['../src/**/*.stories.tsx']
-            : ['../src/!(AppBanner)/*.stories.tsx'],
+    stories: ['../src/**/*.stories.tsx'],
     addons: [
         '@storybook/addon-knobs',
         '@storybook/addon-viewport',
+        './gu-auth/register.js',
         './gu-preview/register.js',
         './grid/register.js',
     ],
