@@ -9,7 +9,7 @@ const css = emotionReact.css;
 
 export default {
     component: 'Epic',
-    title: 'Components/Epic',
+    title: 'EndOfArticle/Epic',
     decorators: [withKnobs],
     parameters: {
         knobs: {},

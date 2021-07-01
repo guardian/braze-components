@@ -6,7 +6,7 @@ import { knobsData } from '../utils/knobsData';
 
 export default {
     component: 'TheGuardianIn2020Banner',
-    title: 'Components/TheGuardianIn2020Banner',
+    title: 'Banner/TheGuardianIn2020Banner',
     decorators: [withKnobs],
     parameters: {
         knobs: {
@@ -46,3 +46,5 @@ export const defaultStory = (): ReactElement => {
         </StorybookWrapper>
     );
 };
+
+defaultStory.story = { name: 'TheGuardianIn2020Banner' };
