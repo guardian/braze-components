@@ -54,6 +54,8 @@ const styles = {
 export type BrazeMessageProps = {
     header?: string;
     frequency?: string;
+    paragraph1?: string;
+    paragraph2?: string;
 };
 
 export type Props = {
@@ -68,7 +70,7 @@ export const USNewsletterEpic: React.FC<Props> = (props: Props) => {
         // logButtonClickWithBraze,
         // submitComponentEvent,
         // ophanComponentId = COMPONENT_NAME,
-        brazeMessageProps: { header, frequency },
+        brazeMessageProps: { header, frequency, paragraph1, paragraph2 },
     } = props;
 
     if (!canRender(props.brazeMessageProps)) {
@@ -87,14 +89,8 @@ export const USNewsletterEpic: React.FC<Props> = (props: Props) => {
                         <span css={styles.frequencyClock}>{clockSVG}</span>
                         <span css={styles.frequencyText}>{frequency}</span>
                     </div>
-                    <p css={commonStyles.paragraph}>
-                        Start your day with a global perspective on America. Get the Guardian’s top
-                        stories and must reads in one hit – every weekday.
-                    </p>
-                    <p css={commonStyles.paragraph}>
-                        We thought you should know this newsletter may contain information about
-                        Guardian products and services.
-                    </p>
+                    <p css={commonStyles.paragraph}>{paragraph1}</p>
+                    {paragraph2 ? <p css={commonStyles.paragraph}>{paragraph2}</p> : null}
                     <ThemeProvider theme={buttonBrandAlt}>
                         <Button css={styles.button}>Sign up</Button>
                     </ThemeProvider>
