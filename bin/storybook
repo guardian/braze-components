@@ -3,7 +3,7 @@
 set -e # exit on error
 set -m # enable job control
 
-STORYBOOK_HOST=https://braze-storybook.local.dev-gutools.co.uk
+STORYBOOK_HOST=https://braze-components.local.dev-gutools.co.uk
 
 start-storybook -p 6016 --ci --no-manager-cache &
 yarn wait-on $STORYBOOK_HOST
