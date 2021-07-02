@@ -14,6 +14,7 @@ export const defaultStory = (): ReactElement | null => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const slotName = text('slotName', 'EndOfArticle');
     const header = text('header', 'First Thing');
+    const frequency = text('frequency', 'Daily');
     const componentName = text('componentName', 'USNewsletterEpic');
 
     return (
@@ -28,6 +29,7 @@ export const defaultStory = (): ReactElement | null => {
                 }}
                 brazeMessageProps={{
                     header,
+                    frequency,
                 }}
             />
         </StorybookWrapper>

@@ -53,6 +53,7 @@ const styles = {
 
 export type BrazeMessageProps = {
     header?: string;
+    frequency?: string;
 };
 
 export type Props = {
@@ -67,7 +68,7 @@ export const USNewsletterEpic: React.FC<Props> = (props: Props) => {
         // logButtonClickWithBraze,
         // submitComponentEvent,
         // ophanComponentId = COMPONENT_NAME,
-        brazeMessageProps: { header },
+        brazeMessageProps: { header, frequency },
     } = props;
 
     if (!canRender(props.brazeMessageProps)) {
@@ -84,7 +85,7 @@ export const USNewsletterEpic: React.FC<Props> = (props: Props) => {
                     <span css={commonStyles.heading}>{header}</span>
                     <div css={styles.frequencySection}>
                         <span css={styles.frequencyClock}>{clockSVG}</span>
-                        <span css={styles.frequencyText}>Daily</span>
+                        <span css={styles.frequencyText}>{frequency}</span>
                     </div>
                     <p css={commonStyles.paragraph}>
                         Start your day with a global perspective on America. Get the Guardian’s top
