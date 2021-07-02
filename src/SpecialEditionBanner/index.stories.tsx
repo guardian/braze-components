@@ -6,7 +6,7 @@ import { knobsData } from '../utils/knobsData';
 
 export default {
     component: 'SpecialEditionBanner',
-    title: 'Components/SpecialEditionBanner',
+    title: 'Banner/SpecialEditionBanner',
     decorators: [withKnobs],
     parameters: {
         knobs: {
@@ -49,4 +49,4 @@ export const defaultStory = (): ReactElement => {
     );
 };
 
-defaultStory.story = { name: 'Special Edition Banner' };
+defaultStory.story = { name: 'SpecialEditionBanner' };

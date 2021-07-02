@@ -7,7 +7,7 @@ import { withGrid, grid } from '../../.storybook/grid/withGrid';
 
 export default {
     component: 'AppBanner',
-    title: 'Components/AppBanner',
+    title: 'Banner/AppBanner',
     decorators: [withGrid, withKnobs],
     parameters: {
         knobs: {
@@ -56,3 +56,5 @@ export const defaultStory = (): ReactElement => {
         </StorybookWrapper>
     );
 };
+
+defaultStory.story = { name: 'AppBanner' };

@@ -6,7 +6,7 @@ import { knobsData } from '../utils/knobsData';
 
 export default {
     component: 'DigitalSubscriberAppBanner',
-    title: 'Components/DigitalSubscriberAppBanner',
+    title: 'Banner/DigitalSubscriberAppBanner',
     decorators: [withKnobs],
 };
 
@@ -44,4 +44,4 @@ export const defaultStory = (): ReactElement => {
     );
 };
 
-defaultStory.story = { name: 'Digital Subscriber App Banner' };
+defaultStory.story = { name: 'DigitalSubscriberAppBanner' };
