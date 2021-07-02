@@ -5,7 +5,7 @@ import { withKnobs, text } from '@storybook/addon-knobs';
 
 export default {
     component: 'USNewsletterEpic',
-    title: 'Components/USNewsletterEpic',
+    title: 'EndOfArticle/USNewsletterEpic',
     decorators: [withKnobs],
     parameters: {},
 };
@@ -33,3 +33,5 @@ export const defaultStory = (): ReactElement | null => {
         </StorybookWrapper>
     );
 };
+
+defaultStory.storyName = 'USNewsletterEpic';
