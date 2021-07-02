@@ -1,13 +1,35 @@
 import React, { ReactElement } from 'react';
-import { USNewsletterEpic } from '.';
+import { BrazeMessageComponent } from '../BrazeMessageComponent';
+import { StorybookWrapper } from '../utils/StorybookWrapper';
+import { withKnobs, text } from '@storybook/addon-knobs';
 
 export default {
     component: 'USNewsletterEpic',
     title: 'Components/USNewsletterEpic',
-    decorators: [],
+    decorators: [withKnobs],
     parameters: {},
 };
 
 export const defaultStory = (): ReactElement | null => {
-    return <USNewsletterEpic></USNewsletterEpic>;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const slotName = text('slotName', 'EndOfArticle');
+    const header = text('header', 'First Thing');
+    const componentName = text('componentName', 'USNewsletterEpic');
+
+    return (
+        <StorybookWrapper>
+            <BrazeMessageComponent
+                componentName={componentName}
+                logButtonClickWithBraze={(internalButtonId) => {
+                    console.log(`Button with internal ID ${internalButtonId} clicked`);
+                }}
+                submitComponentEvent={(componentEvent) => {
+                    console.log('submitComponentEvent called with: ', componentEvent);
+                }}
+                brazeMessageProps={{
+                    header,
+                }}
+            />
+        </StorybookWrapper>
+    );
 };

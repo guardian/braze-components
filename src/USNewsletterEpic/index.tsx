@@ -5,7 +5,9 @@ import { Button, buttonBrandAlt } from '@guardian/src-button';
 import { styles as commonStyles } from '../styles/bannerCommon';
 import { COMPONENT_NAME } from './canRender';
 import { body, textSans } from '@guardian/src-foundations/typography';
-export { COMPONENT_NAME };
+import { canRender } from './canRender';
+import { OphanComponentEvent } from '@guardian/types';
+import { BrazeClickHandler } from '../utils/tracking';
 
 const IMAGE_URL =
     'https://i.guim.co.uk/img/media/d0944e021b1cc7426f515fecc8034f12b7862041/0_0_784_784/784.png?width=196&s=fbdead3f454e1ceeeab260ffde71100a';
@@ -49,7 +51,29 @@ const styles = {
     `,
 };
 
-export const USNewsletterEpic: React.FC = () => {
+export type BrazeMessageProps = {
+    header?: string;
+};
+
+export type Props = {
+    logButtonClickWithBraze: BrazeClickHandler;
+    submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
+    ophanComponentId?: string;
+    brazeMessageProps: BrazeMessageProps;
+};
+
+export const USNewsletterEpic: React.FC<Props> = (props: Props) => {
+    const {
+        // logButtonClickWithBraze,
+        // submitComponentEvent,
+        // ophanComponentId = COMPONENT_NAME,
+        brazeMessageProps: { header },
+    } = props;
+
+    if (!canRender(props.brazeMessageProps)) {
+        return null;
+    }
+
     return (
         <ThemeProvider theme={brand}>
             <section css={styles.epicContainer}>
@@ -57,7 +81,7 @@ export const USNewsletterEpic: React.FC = () => {
                     <img src={IMAGE_URL}></img>
                 </div>
                 <div css={styles.rightSection}>
-                    <span css={commonStyles.heading}>First Thing</span>
+                    <span css={commonStyles.heading}>{header}</span>
                     <div css={styles.frequencySection}>
                         <span css={styles.frequencyClock}>{clockSVG}</span>
                         <span css={styles.frequencyText}>Daily</span>
@@ -99,3 +123,5 @@ const clockSVG = (
         </defs>
     </svg>
 );
+
+export { COMPONENT_NAME };
