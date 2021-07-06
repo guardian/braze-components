@@ -41,11 +41,6 @@ const styles = {
     leftSection: css`
         width: 200px;
     `,
-    rightSection: css`
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-    `,
     frequencySection: css`
         padding: 4px;
     `,
@@ -66,10 +61,8 @@ const styles = {
         margin-left: 4px;
     `,
     button: css`
-        ${body.medium()}
         background-color: #C70000;
         color: #ffffff;
-        max-width: 100px;
     `,
 };
 
@@ -105,7 +98,7 @@ export const USNewsletterEpic: React.FC<Props> = (props: Props) => {
                 <div css={styles.leftSection}>
                     <img src={IMAGE_URL}></img>
                 </div>
-                <div css={styles.rightSection}>
+                <div>
                     <span css={commonStyles.heading}>{header}</span>
                     <div css={styles.frequencySection}>
                         <span css={styles.frequencyClock}>
