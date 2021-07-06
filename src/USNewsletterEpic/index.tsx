@@ -4,10 +4,11 @@ import { brand } from '@guardian/src-foundations';
 import { Button, buttonBrandAlt } from '@guardian/src-button';
 import { styles as commonStyles } from '../styles/bannerCommon';
 import { COMPONENT_NAME } from './canRender';
-import { body, textSans } from '@guardian/src-foundations/typography';
+import { textSans } from '@guardian/src-foundations/typography';
 import { canRender } from './canRender';
 import { OphanComponentEvent } from '@guardian/types';
 import { BrazeClickHandler } from '../utils/tracking';
+import { until } from '@guardian/src-foundations/mq';
 
 // Once https://github.com/guardian/source/pull/843 is merged and in a
 // @guardian/src-icons release we'll be able to bump the version on this project
@@ -64,6 +65,13 @@ const styles = {
         background-color: #C70000;
         color: #ffffff;
     `,
+    image: css`
+        width: 196px;
+
+        ${until.desktop} {
+            width: 96px;
+        }
+    `
 };
 
 export type BrazeMessageProps = {
@@ -96,7 +104,7 @@ export const USNewsletterEpic: React.FC<Props> = (props: Props) => {
         <ThemeProvider theme={brand}>
             <section css={styles.epicContainer}>
                 <div css={styles.leftSection}>
-                    <img src={IMAGE_URL}></img>
+                    <img css={styles.image} src={IMAGE_URL}></img>
                 </div>
                 <div>
                     <span css={commonStyles.heading}>{header}</span>
