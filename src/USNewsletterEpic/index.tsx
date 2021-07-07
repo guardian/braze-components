@@ -42,6 +42,9 @@ const styles = {
     leftSection: css`
         width: 200px;
     `,
+    rightSection: css`
+        padding-left: 12px;
+    `,
     frequencySection: css`
         padding: 4px;
     `,
@@ -106,7 +109,7 @@ export const USNewsletterEpic: React.FC<Props> = (props: Props) => {
                 <div css={styles.leftSection}>
                     <img css={styles.image} src={IMAGE_URL}></img>
                 </div>
-                <div>
+                <div css={styles.rightSection}>
                     <span css={commonStyles.heading}>{header}</span>
                     <div css={styles.frequencySection}>
                         <span css={styles.frequencyClock}>
