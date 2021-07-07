@@ -67,6 +67,9 @@ const styles = {
     button: css`
         background-color: #c70000;
         color: #ffffff;
+        &:hover {
+            background-color: #c70000;
+        }
     `,
     image: css`
         width: 196px;
