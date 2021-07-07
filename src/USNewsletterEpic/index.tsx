@@ -62,7 +62,7 @@ const styles = {
         margin-left: 4px;
     `,
     button: css`
-        background-color: #C70000;
+        background-color: #c70000;
         color: #ffffff;
     `,
     image: css`
@@ -71,7 +71,7 @@ const styles = {
         ${until.desktop} {
             width: 96px;
         }
-    `
+    `,
 };
 
 export type BrazeMessageProps = {
