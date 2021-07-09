@@ -5,7 +5,7 @@ import { withKnobs, text } from '@storybook/addon-knobs';
 
 export default {
     component: 'USNewsletterEpic',
-    title: 'EndOfArticle/USNewsletterEpic',
+    title: 'WorkInProgress/EndOfArticle/USNewsletterEpic',
     decorators: [withKnobs],
     parameters: {},
 };
