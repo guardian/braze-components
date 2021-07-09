@@ -14,8 +14,8 @@ export default {
 export const defaultStory = (): ReactElement | null => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const slotName = text('slotName', 'EndOfArticle');
-    const header = text('header', 'First Thing');
-    const frequency = text('frequency', 'Every day');
+    const header = text('header', `Guardian Australia's Morning Mail`);
+    const frequency = text('frequency', 'Every weekday');
     const paragraph1 = text(
         'paragraph1',
         'Get early morning news from Guardian Australia straight to your inbox.',
