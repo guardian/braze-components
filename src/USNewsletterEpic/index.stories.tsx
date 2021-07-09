@@ -2,11 +2,10 @@ import React, { ReactElement } from 'react';
 import { BrazeMessageComponent } from '../BrazeMessageComponent';
 import { StorybookWrapper } from '../utils/StorybookWrapper';
 import { withKnobs, text } from '@storybook/addon-knobs';
-import { COMPONENT_NAME } from '.';
 
 export default {
-    component: 'NewsletterEpic',
-    title: 'WorkInProgress/EndOfArticle/NewsletterEpic',
+    component: 'USNewsletterEpic',
+    title: 'WorkInProgress/EndOfArticle/USNewsletterEpic',
     decorators: [withKnobs],
     parameters: {},
 };
@@ -25,11 +24,7 @@ export const defaultStory = (): ReactElement | null => {
         'paragraph2',
         'We thought you should know this newsletter may contain information about Guardian products and services.',
     );
-    const imageUrl = text(
-        'imageUrl',
-        'https://i.guim.co.uk/img/media/9f9f9c06ed5a323b13be816d5c160728c81d1bf9/0_0_784_784/784.png?width=196&s=4c4d5ff2c20821a6e6ff4d25f8ebcc16',
-    ).replace('amp;', '&'); // To deal with Storybook escaping
-    const componentName = text('componentName', COMPONENT_NAME);
+    const componentName = text('componentName', 'USNewsletterEpic');
 
     return (
         <StorybookWrapper>
@@ -46,11 +41,10 @@ export const defaultStory = (): ReactElement | null => {
                     frequency,
                     paragraph1,
                     paragraph2,
-                    imageUrl,
                 }}
             />
         </StorybookWrapper>
     );
 };
 
-defaultStory.storyName = 'NewsletterEpic';
+defaultStory.storyName = 'USNewsletterEpic';

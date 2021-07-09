@@ -26,9 +26,6 @@ export const SvgClock = (): ReactElement => {
     );
 };
 
-const IMAGE_URL =
-    'https://i.guim.co.uk/img/media/d0944e021b1cc7426f515fecc8034f12b7862041/0_0_784_784/784.png?width=196&s=fbdead3f454e1ceeeab260ffde71100a';
-
 const styles = {
     epicContainer: css`
         margin: 8px;
@@ -85,6 +82,7 @@ export type BrazeMessageProps = {
     frequency?: string;
     paragraph1?: string;
     paragraph2?: string;
+    imageUrl?: string;
 };
 
 export type Props = {
@@ -94,23 +92,22 @@ export type Props = {
     brazeMessageProps: BrazeMessageProps;
 };
 
-export const USNewsletterEpic: React.FC<Props> = (props: Props) => {
+export const NewsletterEpic: React.FC<Props> = (props: Props) => {
     const {
         // logButtonClickWithBraze,
         // submitComponentEvent,
         // ophanComponentId = COMPONENT_NAME,
-        brazeMessageProps: { header, frequency, paragraph1, paragraph2 },
+        brazeMessageProps: { header, frequency, paragraph1, paragraph2, imageUrl },
     } = props;
 
-    if (!canRender(props.brazeMessageProps)) {
+    /*if (!canRender(props.brazeMessageProps)) {
         return null;
-    }
-
+    }*/
     return (
         <ThemeProvider theme={brand}>
             <section css={styles.epicContainer}>
                 <div css={styles.leftSection}>
-                    <img css={styles.image} src={IMAGE_URL}></img>
+                    <img css={styles.image} src={imageUrl}></img>
                 </div>
                 <div css={styles.rightSection}>
                     <span css={commonStyles.heading}>{header}</span>

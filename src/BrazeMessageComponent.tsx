@@ -15,6 +15,8 @@ import {
 } from './TheGuardianIn2020Banner';
 import { BrazeClickHandler } from './utils/tracking';
 
+import { COMPONENT_NAME as NEWSLETTER_EPIC_NAME, NewsletterEpic } from './NewsletterEpic';
+
 import { COMPONENT_NAME as US_NEWSLETTER_EPIC_NAME, USNewsletterEpic } from './USNewsletterEpic';
 
 type BrazeMessageProps = {
@@ -36,6 +38,7 @@ const COMPONENT_MAPPINGS: ComponentMapping = {
     [APP_BANNER_NAME]: AppBanner,
     [SPECIAL_EDITION_BANNER_NAME]: SpecialEditionBanner,
     [THE_GUARDIAN_IN_2020_BANNER_NAME]: TheGuardianIn2020Banner,
+    [NEWSLETTER_EPIC_NAME]: NewsletterEpic,
     [US_NEWSLETTER_EPIC_NAME]: USNewsletterEpic,
 };
 
