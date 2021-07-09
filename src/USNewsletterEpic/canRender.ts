@@ -5,6 +5,5 @@ export const COMPONENT_NAME = 'USNewsletterEpic';
 export const canRender = (props: BrazeMessageProps): boolean => {
     const { header, frequency, paragraph1 } = props;
 
-    return true;
     return Boolean(header && frequency && paragraph1);
 };
