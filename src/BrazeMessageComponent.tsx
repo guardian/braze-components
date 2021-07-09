@@ -19,6 +19,8 @@ import { COMPONENT_NAME as NEWSLETTER_EPIC_NAME, NewsletterEpic } from './Newsle
 
 import { COMPONENT_NAME as US_NEWSLETTER_EPIC_NAME, USNewsletterEpic } from './USNewsletterEpic';
 
+import { COMPONENT_NAME as AU_NEWSLETTER_EPIC_NAME, AUNewsletterEpic } from './AUNewsletterEpic';
+
 type BrazeMessageProps = {
     [key: string]: string | undefined;
 };
@@ -40,6 +42,7 @@ const COMPONENT_MAPPINGS: ComponentMapping = {
     [THE_GUARDIAN_IN_2020_BANNER_NAME]: TheGuardianIn2020Banner,
     [NEWSLETTER_EPIC_NAME]: NewsletterEpic,
     [US_NEWSLETTER_EPIC_NAME]: USNewsletterEpic,
+    [AU_NEWSLETTER_EPIC_NAME]: AUNewsletterEpic,
 };
 
 export type Props = {
