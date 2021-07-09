@@ -15,9 +15,9 @@ export type Props = {
 };
 
 export const USNewsletterEpic: React.FC<Props> = (props: Props) => {
-    /* if (!canRender(props.brazeMessageProps)) {
+    if (!canRender(props.brazeMessageProps)) {
         return null;
-    } */
+    }
 
     return (
         <NewsletterEpic

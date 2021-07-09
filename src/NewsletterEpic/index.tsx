@@ -100,9 +100,9 @@ export const NewsletterEpic: React.FC<Props> = (props: Props) => {
         brazeMessageProps: { header, frequency, paragraph1, paragraph2, imageUrl },
     } = props;
 
-    /*if (!canRender(props.brazeMessageProps)) {
+    if (!canRender(props.brazeMessageProps)) {
         return null;
-    }*/
+    }
     return (
         <ThemeProvider theme={brand}>
             <section css={styles.epicContainer}>
