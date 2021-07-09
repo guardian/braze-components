@@ -36,9 +36,6 @@ const styles = {
         flex-direction: row;
         max-width: 620px;
     `,
-    leftSection: css`
-        width: 200px;
-    `,
     rightSection: css`
         padding-left: 12px;
     `,
@@ -106,7 +103,7 @@ export const NewsletterEpic: React.FC<Props> = (props: Props) => {
     return (
         <ThemeProvider theme={brand}>
             <section css={styles.epicContainer}>
-                <div css={styles.leftSection}>
+                <div>
                     <img css={styles.image} src={imageUrl}></img>
                 </div>
                 <div css={styles.rightSection}>
