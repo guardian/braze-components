@@ -6,7 +6,11 @@ import { withKnobs, text } from '@storybook/addon-knobs';
 export default {
     component: 'USNewsletterEpic',
     title: 'WorkInProgress/EndOfArticle/USNewsletterEpic',
-    decorators: [withKnobs],
+    decorators: [
+        withKnobs({
+            escapeHTML: false,
+        }),
+    ],
     parameters: {},
 };
 // https://i.guim.co.uk/img/media/9f9f9c06ed5a323b13be816d5c160728c81d1bf9/0_0_784_784/784.png?width=196&auto=format&s=6dea015c4c7566a968403bdea56430af
