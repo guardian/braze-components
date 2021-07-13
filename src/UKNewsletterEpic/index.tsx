@@ -5,7 +5,7 @@ import { BrazeClickHandler } from '../utils/tracking';
 import { OphanComponentEvent } from '@guardian/types';
 
 const IMAGE_URL =
-    'https://i.guim.co.uk/img/media/d0944e021b1cc7426f515fecc8034f12b7862041/0_0_784_784/784.png?width=196&s=fbdead3f454e1ceeeab260ffde71100a';
+    'https://i.guim.co.uk/img/media/568c6031be78dab6f6c28336010884f3ebd0f97c/0_0_1936_1936/1936.png?width=196&s=b8925f3e3a96a5b4f807e421b8a44906';
 
 export type Props = {
     logButtonClickWithBraze: BrazeClickHandler;
@@ -14,7 +14,7 @@ export type Props = {
     brazeMessageProps: BrazeMessageProps;
 };
 
-export const USNewsletterEpic: React.FC<Props> = (props: Props) => {
+export const UKNewsletterEpic: React.FC<Props> = (props: Props) => {
     if (!canRender(props.brazeMessageProps)) {
         return null;
     }

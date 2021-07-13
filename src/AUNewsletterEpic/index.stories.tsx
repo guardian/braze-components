@@ -4,30 +4,26 @@ import { StorybookWrapper } from '../utils/StorybookWrapper';
 import { withKnobs, text } from '@storybook/addon-knobs';
 
 export default {
-    component: 'USNewsletterEpic',
-    title: 'WorkInProgress/EndOfArticle/USNewsletterEpic',
-    decorators: [
-        withKnobs({
-            escapeHTML: false,
-        }),
-    ],
+    component: 'AUNewsletterEpic',
+    title: 'WorkInProgress/EndOfArticle/AUNewsletterEpic',
+    decorators: [withKnobs({ escapeHTML: false })],
     parameters: {},
 };
 
 export const defaultStory = (): ReactElement | null => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const slotName = text('slotName', 'EndOfArticle');
-    const header = text('header', 'First Thing');
-    const frequency = text('frequency', 'Daily');
+    const header = text('header', `Guardian Australia's Morning Mail`);
+    const frequency = text('frequency', 'Every weekday');
     const paragraph1 = text(
         'paragraph1',
-        'Start your day with a global perspective on America. Get the Guardian’s top stories and must reads in one hit – every weekday.',
+        'Get early morning news from Guardian Australia straight to your inbox.',
     );
     const paragraph2 = text(
         'paragraph2',
         'We thought you should know this newsletter may contain information about Guardian products and services.',
     );
-    const componentName = text('componentName', 'USNewsletterEpic');
+    const componentName = text('componentName', 'AUNewsletterEpic');
 
     return (
         <StorybookWrapper>
@@ -50,4 +46,4 @@ export const defaultStory = (): ReactElement | null => {
     );
 };
 
-defaultStory.storyName = 'USNewsletterEpic';
+defaultStory.storyName = 'AUNewsletterEpic';
