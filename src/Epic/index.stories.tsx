@@ -47,9 +47,14 @@ declare global {
 type EpicProps = {
     variant: Variant;
     tracking: Record<string, unknown>;
+    articleCounts: {
+        for52Weeks: number;
+        forTargetedWeeks: number;
+    };
 };
 
 type Variant = {
+    name: string;
     heading: string;
     paragraphs: Array<string>;
     highlightedText: string;
@@ -103,6 +108,7 @@ const Epic: React.FC<EpicProps> = (props) => {
 const buildProps = (data: DataFromKnobs): EpicProps => {
     return {
         variant: {
+            name: 'CONTROL',
             heading: data.heading,
             paragraphs: data.paragraphs,
             highlightedText: data.highlightedText,
@@ -111,7 +117,20 @@ const buildProps = (data: DataFromKnobs): EpicProps => {
                 baseUrl: data.buttonUrl,
             },
         },
-        tracking: {},
+        tracking: {
+            ophanPageId: 'xxxxxxxx',
+            platformId: 'GUARDIAN_WEB',
+            clientName: 'storybook',
+            referrerUrl: window.location.origin + window.location.pathname,
+            abTestName: '',
+            abTestVariant: '',
+            campaignCode: '',
+            componentType: 'ACQUISITIONS_EPIC',
+        },
+        articleCounts: {
+            for52Weeks: 0,
+            forTargetedWeeks: 0,
+        },
     };
 };
 
