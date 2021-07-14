@@ -1,5 +1,5 @@
 import { css, ThemeProvider } from '@emotion/react';
-import React, { ReactElement } from 'react';
+import React, { useState, ReactElement } from 'react';
 import { brand } from '@guardian/src-foundations';
 import { Button, buttonBrandAlt } from '@guardian/src-button';
 import { styles as commonStyles } from '../styles/bannerCommon';
@@ -94,6 +94,7 @@ export type Props = {
 };
 
 export const NewsletterEpic: React.FC<Props> = (props: Props) => {
+    const [hasSuccessfullySubscribed, setHasSuccessfullySubscribed] = useState<boolean>();
     const {
         brazeMessageProps: { header, frequency, paragraph1, paragraph2, imageUrl, newsletterId },
         subscribeToNewsletter,
@@ -119,14 +120,22 @@ export const NewsletterEpic: React.FC<Props> = (props: Props) => {
                     </div>
                     <p css={commonStyles.paragraph}>{paragraph1}</p>
                     {paragraph2 ? <p css={commonStyles.paragraph}>{paragraph2}</p> : null}
-                    <ThemeProvider theme={buttonBrandAlt}>
-                        <Button
-                            css={styles.button}
-                            onClick={() => subscribeToNewsletter(newsletterId as string)}
-                        >
-                            Sign up
-                        </Button>
-                    </ThemeProvider>
+                    {hasSuccessfullySubscribed ? (
+                        <span>Thank you</span>
+                    ) : (
+                        <ThemeProvider theme={buttonBrandAlt}>
+                            <Button
+                                css={styles.button}
+                                onClick={() =>
+                                    subscribeToNewsletter(newsletterId as string).then(() =>
+                                        setHasSuccessfullySubscribed(true),
+                                    )
+                                }
+                            >
+                                Sign up
+                            </Button>
+                        </ThemeProvider>
+                    )}
                 </div>
             </section>
         </ThemeProvider>
