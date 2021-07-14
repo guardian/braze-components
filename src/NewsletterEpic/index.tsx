@@ -80,6 +80,7 @@ export type BrazeMessageProps = {
     paragraph1?: string;
     paragraph2?: string;
     imageUrl?: string;
+    newsletterId?: string;
 };
 
 export type Props = {
@@ -94,12 +95,29 @@ export const NewsletterEpic: React.FC<Props> = (props: Props) => {
         // logButtonClickWithBraze,
         // submitComponentEvent,
         // ophanComponentId = COMPONENT_NAME,
-        brazeMessageProps: { header, frequency, paragraph1, paragraph2, imageUrl },
+        brazeMessageProps: { header, frequency, paragraph1, paragraph2, imageUrl, newsletterId },
     } = props;
 
     if (!canRender(props.brazeMessageProps)) {
         return null;
     }
+
+    const onSignUpClick = () => {
+        if (newsletterId) {
+            fetch('https://idapi.theguardian.com/users/me/newsletters', {
+                headers: {
+                    accept: '*/*',
+                    'accept-language': 'en-GB,en-US;q=0.9,en;q=0.8',
+                    'content-type': 'application/json',
+                },
+                body: JSON.stringify({ id: newsletterId, subscribed: true }),
+                method: 'PATCH',
+                mode: 'cors',
+                credentials: 'include',
+            });
+        }
+    };
+
     return (
         <ThemeProvider theme={brand}>
             <section css={styles.epicContainer}>
@@ -117,7 +135,9 @@ export const NewsletterEpic: React.FC<Props> = (props: Props) => {
                     <p css={commonStyles.paragraph}>{paragraph1}</p>
                     {paragraph2 ? <p css={commonStyles.paragraph}>{paragraph2}</p> : null}
                     <ThemeProvider theme={buttonBrandAlt}>
-                        <Button css={styles.button}>Sign up</Button>
+                        <Button css={styles.button} onClick={onSignUpClick}>
+                            Sign up
+                        </Button>
                     </ThemeProvider>
                 </div>
             </section>

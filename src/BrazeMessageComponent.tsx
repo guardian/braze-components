@@ -31,6 +31,7 @@ type CommonComponentProps = {
     logButtonClickWithBraze: BrazeClickHandler;
     submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
     brazeMessageProps: BrazeMessageProps;
+    onSignUpClick?: (newsletterId: string) => Promise<void>;
 };
 
 type ComponentMapping = {
