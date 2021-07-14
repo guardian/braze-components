@@ -20,6 +20,7 @@ describe('BrazeMessage', () => {
                 logButtonClickWithBraze={jest.fn()}
                 submitComponentEvent={jest.fn()}
                 brazeMessageProps={{}}
+                subscribeToNewsletter={() => Promise.resolve()}
             />,
         );
 
@@ -39,6 +40,7 @@ describe('BrazeMessage', () => {
                 logButtonClickWithBraze={jest.fn()}
                 submitComponentEvent={jest.fn()}
                 brazeMessageProps={{}}
+                subscribeToNewsletter={() => Promise.resolve()}
             />,
         );
 
