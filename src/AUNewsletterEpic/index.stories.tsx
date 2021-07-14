@@ -41,6 +41,10 @@ export const defaultStory = (): ReactElement | null => {
                     paragraph1,
                     paragraph2,
                 }}
+                subscribeToNewsletter={(newsletterId) => {
+                    console.log(`subscribeToNewsletter invoked with id ${newsletterId}`);
+                    return Promise.resolve();
+                }}
             />
         </StorybookWrapper>
     );

@@ -74,6 +74,8 @@ const styles = {
     `,
 };
 
+export type NewsletterSubscribeCallback = (id: string) => Promise<void>;
+
 export type BrazeMessageProps = {
     header?: string;
     frequency?: string;
@@ -88,35 +90,18 @@ export type Props = {
     submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
     ophanComponentId?: string;
     brazeMessageProps: BrazeMessageProps;
+    subscribeToNewsletter: NewsletterSubscribeCallback;
 };
 
 export const NewsletterEpic: React.FC<Props> = (props: Props) => {
     const {
-        // logButtonClickWithBraze,
-        // submitComponentEvent,
-        // ophanComponentId = COMPONENT_NAME,
         brazeMessageProps: { header, frequency, paragraph1, paragraph2, imageUrl, newsletterId },
+        subscribeToNewsletter,
     } = props;
 
     if (!canRender(props.brazeMessageProps)) {
         return null;
     }
-
-    const onSignUpClick = () => {
-        if (newsletterId) {
-            fetch('https://idapi.theguardian.com/users/me/newsletters', {
-                headers: {
-                    accept: '*/*',
-                    'accept-language': 'en-GB,en-US;q=0.9,en;q=0.8',
-                    'content-type': 'application/json',
-                },
-                body: JSON.stringify({ id: newsletterId, subscribed: true }),
-                method: 'PATCH',
-                mode: 'cors',
-                credentials: 'include',
-            });
-        }
-    };
 
     return (
         <ThemeProvider theme={brand}>
@@ -135,7 +120,10 @@ export const NewsletterEpic: React.FC<Props> = (props: Props) => {
                     <p css={commonStyles.paragraph}>{paragraph1}</p>
                     {paragraph2 ? <p css={commonStyles.paragraph}>{paragraph2}</p> : null}
                     <ThemeProvider theme={buttonBrandAlt}>
-                        <Button css={styles.button} onClick={onSignUpClick}>
+                        <Button
+                            css={styles.button}
+                            onClick={() => subscribeToNewsletter(newsletterId as string)}
+                        >
                             Sign up
                         </Button>
                     </ThemeProvider>
