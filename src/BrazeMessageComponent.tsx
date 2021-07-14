@@ -15,7 +15,11 @@ import {
 } from './TheGuardianIn2020Banner';
 import { BrazeClickHandler } from './utils/tracking';
 
-import { COMPONENT_NAME as NEWSLETTER_EPIC_NAME, NewsletterEpic } from './NewsletterEpic';
+import {
+    COMPONENT_NAME as NEWSLETTER_EPIC_NAME,
+    NewsletterEpic,
+    NewsletterSubscribeCallback,
+} from './NewsletterEpic';
 
 import { COMPONENT_NAME as US_NEWSLETTER_EPIC_NAME, USNewsletterEpic } from './USNewsletterEpic';
 
@@ -31,6 +35,7 @@ type CommonComponentProps = {
     logButtonClickWithBraze: BrazeClickHandler;
     submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
     brazeMessageProps: BrazeMessageProps;
+    subscribeToNewsletter: NewsletterSubscribeCallback;
 };
 
 type ComponentMapping = {
@@ -49,10 +54,11 @@ const COMPONENT_MAPPINGS: ComponentMapping = {
 };
 
 export type Props = {
+    componentName: string;
     logButtonClickWithBraze: BrazeClickHandler;
     submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
-    componentName: string;
     brazeMessageProps: BrazeMessageProps;
+    subscribeToNewsletter: (newsletterId: string) => Promise<void>;
 };
 
 export const buildBrazeMessageComponent = (mappings: ComponentMapping): React.FC<Props> => {
@@ -61,6 +67,7 @@ export const buildBrazeMessageComponent = (mappings: ComponentMapping): React.FC
         submitComponentEvent,
         componentName,
         brazeMessageProps,
+        subscribeToNewsletter,
     }: Props) => {
         const ComponentToRender = mappings[componentName];
 
@@ -72,6 +79,7 @@ export const buildBrazeMessageComponent = (mappings: ComponentMapping): React.FC
             <ComponentToRender
                 logButtonClickWithBraze={logButtonClickWithBraze}
                 submitComponentEvent={submitComponentEvent}
+                subscribeToNewsletter={subscribeToNewsletter}
                 brazeMessageProps={brazeMessageProps}
             />
         );
