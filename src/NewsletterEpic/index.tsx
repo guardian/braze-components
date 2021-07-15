@@ -93,8 +93,55 @@ export type Props = {
     subscribeToNewsletter: NewsletterSubscribeCallback;
 };
 
+type CTAProps = {
+    subscribeToNewsletter: NewsletterSubscribeCallback;
+    newsletterId: string;
+};
+
+type SubscribeClickStatus = 'DEFAULT' | 'IN_PROGRESS' | 'SUCCESS' | 'FAILURE';
+
+const CTA: React.FC<CTAProps> = (props: CTAProps) => {
+    const { subscribeToNewsletter, newsletterId } = props;
+
+    const [subscribeClickStatus, setSubscribeClickStatus] = useState<SubscribeClickStatus>(
+        'DEFAULT',
+    );
+
+    switch (subscribeClickStatus) {
+        case 'DEFAULT':
+        case 'FAILURE':
+            return (
+                <ThemeProvider theme={buttonBrandAlt}>
+                    <Button
+                        css={styles.button}
+                        onClick={() => {
+                            setSubscribeClickStatus('IN_PROGRESS');
+
+                            subscribeToNewsletter(newsletterId as string)
+                                .then(() => setSubscribeClickStatus('SUCCESS'))
+                                .catch(() => setSubscribeClickStatus('FAILURE'));
+                        }}
+                    >
+                        Sign up
+                    </Button>
+                </ThemeProvider>
+            );
+        case 'IN_PROGRESS':
+            return (
+                <ThemeProvider theme={buttonBrandAlt}>
+                    <Button css={styles.button}>Loading...</Button>
+                </ThemeProvider>
+            );
+        case 'SUCCESS':
+            return (
+                <ThemeProvider theme={buttonBrandAlt}>
+                    <span>Thank you</span>
+                </ThemeProvider>
+            );
+    }
+};
+
 export const NewsletterEpic: React.FC<Props> = (props: Props) => {
-    const [hasSuccessfullySubscribed, setHasSuccessfullySubscribed] = useState<boolean>();
     const {
         brazeMessageProps: { header, frequency, paragraph1, paragraph2, imageUrl, newsletterId },
         subscribeToNewsletter,
@@ -120,22 +167,10 @@ export const NewsletterEpic: React.FC<Props> = (props: Props) => {
                     </div>
                     <p css={commonStyles.paragraph}>{paragraph1}</p>
                     {paragraph2 ? <p css={commonStyles.paragraph}>{paragraph2}</p> : null}
-                    {hasSuccessfullySubscribed ? (
-                        <span>Thank you</span>
-                    ) : (
-                        <ThemeProvider theme={buttonBrandAlt}>
-                            <Button
-                                css={styles.button}
-                                onClick={() =>
-                                    subscribeToNewsletter(newsletterId as string).then(() =>
-                                        setHasSuccessfullySubscribed(true),
-                                    )
-                                }
-                            >
-                                Sign up
-                            </Button>
-                        </ThemeProvider>
-                    )}
+                    <CTA
+                        subscribeToNewsletter={subscribeToNewsletter}
+                        newsletterId={newsletterId as string}
+                    />
                 </div>
             </section>
         </ThemeProvider>
