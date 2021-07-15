@@ -145,7 +145,9 @@ const CTA: React.FC<CTAProps> = (props: CTAProps) => {
         case 'IN_PROGRESS':
             return (
                 <ThemeProvider theme={buttonBrandAlt}>
-                    <Button css={styles.button}>Loading...</Button>
+                    <Button css={styles.button} disabled={true}>
+                        Loading...
+                    </Button>
                 </ThemeProvider>
             );
         case 'SUCCESS':
