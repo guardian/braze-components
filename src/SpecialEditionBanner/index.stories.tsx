@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import { withKnobs, text } from '@storybook/addon-knobs';
-import { BrazeMessageComponent } from '../BrazeMessageComponent';
+import { BrazeBannerComponent } from '../BrazeMessageComponent';
 import { StorybookWrapper } from '../utils/StorybookWrapper';
 import { knobsData } from '../utils/knobsData';
 
@@ -31,7 +31,7 @@ export const defaultStory = (): ReactElement => {
     return (
         <StorybookWrapper>
             <>
-                <BrazeMessageComponent
+                <BrazeBannerComponent
                     componentName={componentName}
                     logButtonClickWithBraze={(internalButtonId) => {
                         console.log(`Button with internal ID ${internalButtonId} clicked`);
@@ -43,7 +43,6 @@ export const defaultStory = (): ReactElement => {
                         header: header,
                         body: body,
                     }}
-                    subscribeToNewsletter={() => Promise.resolve()}
                 />
             </>
         </StorybookWrapper>

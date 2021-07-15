@@ -6,8 +6,6 @@ import { styles as commonStyles } from '../styles/bannerCommon';
 import { COMPONENT_NAME } from './canRender';
 import { body, textSans } from '@guardian/src-foundations/typography';
 import { canRender } from './canRender';
-import { OphanComponentEvent } from '@guardian/types';
-import { BrazeClickHandler } from '../utils/tracking';
 import { until } from '@guardian/src-foundations/mq';
 
 // Once https://github.com/guardian/source/pull/843 is merged and in a
@@ -86,9 +84,6 @@ export type BrazeMessageProps = {
 };
 
 export type Props = {
-    logButtonClickWithBraze: BrazeClickHandler;
-    submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
-    ophanComponentId?: string;
     brazeMessageProps: BrazeMessageProps;
     subscribeToNewsletter: NewsletterSubscribeCallback;
 };
