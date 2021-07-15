@@ -1,8 +1,6 @@
 import { css, ThemeProvider } from '@emotion/react';
 import React from 'react';
 import { brand, palette, space } from '@guardian/src-foundations';
-import { OphanComponentEvent } from '@guardian/types';
-import { BrazeClickHandler } from '../utils/tracking';
 import { ContributionsEpicButtons } from './ContributionsEpicButtons';
 import { body, headline } from '@guardian/src-foundations/typography';
 import { COMPONENT_NAME, canRenderEpic, parseParagraphs } from './canRender';
@@ -67,8 +65,6 @@ export type BrazeMessageProps = {
 };
 
 export type EpicProps = {
-    logButtonClickWithBraze: BrazeClickHandler;
-    submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
     ophanComponentId?: string;
     brazeMessageProps: BrazeMessageProps;
     countryCode?: string;
@@ -76,9 +72,6 @@ export type EpicProps = {
 
 export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
     const {
-        // logButtonClickWithBraze,
-        // submitComponentEvent,
-        // ophanComponentId = COMPONENT_NAME,
         brazeMessageProps: { heading, buttonText, buttonUrl, highlightedText },
         countryCode,
     } = props;

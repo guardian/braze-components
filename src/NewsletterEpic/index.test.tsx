@@ -8,12 +8,6 @@ import { NewsletterEpic } from '.';
 
 describe('NewsletterEpic', () => {
     describe('when the sign up button is clicked', () => {
-        const logButtonClickWithOphan = () => {
-            return;
-        };
-        const logButtonClickWithBraze = () => {
-            return;
-        };
         const newsletterId = '4156';
         const brazeMessageProps = {
             header: 'First Thing',
@@ -29,8 +23,6 @@ describe('NewsletterEpic', () => {
 
             render(
                 <NewsletterEpic
-                    submitComponentEvent={logButtonClickWithOphan}
-                    logButtonClickWithBraze={logButtonClickWithBraze}
                     brazeMessageProps={brazeMessageProps}
                     subscribeToNewsletter={subscribeToNewsletter}
                 />,
@@ -47,8 +39,6 @@ describe('NewsletterEpic', () => {
 
             render(
                 <NewsletterEpic
-                    submitComponentEvent={logButtonClickWithOphan}
-                    logButtonClickWithBraze={logButtonClickWithBraze}
                     brazeMessageProps={brazeMessageProps}
                     subscribeToNewsletter={subscribeToNewsletter}
                 />,

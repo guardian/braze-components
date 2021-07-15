@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { withKnobs, text } from '@storybook/addon-knobs';
 import { StorybookWrapper } from '../utils/StorybookWrapper';
-import { BrazeMessageComponent } from '../BrazeMessageComponent';
+import { BrazeEndOfArticleComponent } from '../BrazeMessageComponent';
 
 export default {
     component: 'Epic',
@@ -58,7 +58,7 @@ export const defaultStory = (): ReactElement | null => {
 
     return (
         <StorybookWrapper>
-            <BrazeMessageComponent
+            <BrazeEndOfArticleComponent
                 brazeMessageProps={{
                     slotName,
                     ophanComponentId,
@@ -69,13 +69,8 @@ export const defaultStory = (): ReactElement | null => {
                     ...paragraphMap,
                 }}
                 componentName={componentName}
-                logButtonClickWithBraze={(internalButtonId) => {
-                    console.log(`Button with internal ID ${internalButtonId} clicked`);
-                }}
-                submitComponentEvent={(componentEvent) => {
-                    console.log('submitComponentEvent called with: ', componentEvent);
-                }}
-            ></BrazeMessageComponent>
+                subscribeToNewsletter={() => Promise.resolve()}
+            />
         </StorybookWrapper>
     );
 };

@@ -33,23 +33,32 @@ type BrazeMessageProps = {
     [key: string]: string | undefined;
 };
 
-type CommonComponentProps = {
+type CommonBannerComponentProps = {
+    componentName: string;
     logButtonClickWithBraze: BrazeClickHandler;
     submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
     brazeMessageProps: BrazeMessageProps;
-    countryCode?: string;
+};
+
+type CommonEndOfArticleComponentProps = {
+    componentName: string;
+    brazeMessageProps: BrazeMessageProps;
     subscribeToNewsletter: NewsletterSubscribeCallback;
+    countryCode?: string;
 };
 
-type ComponentMapping = {
-    [key: string]: React.FC<CommonComponentProps>;
+type ComponentMapping<A> = {
+    [key: string]: React.FC<A>;
 };
 
-const COMPONENT_MAPPINGS: ComponentMapping = {
+const BANNER_MAPPINGS: ComponentMapping<CommonBannerComponentProps> = {
     [DIGITAL_SUBSCRIBER_APP_BANNER_NAME]: DigitalSubscriberAppBanner,
     [APP_BANNER_NAME]: AppBanner,
     [SPECIAL_EDITION_BANNER_NAME]: SpecialEditionBanner,
     [THE_GUARDIAN_IN_2020_BANNER_NAME]: TheGuardianIn2020Banner,
+};
+
+const END_OF_ARTICLE_MAPPINGS: ComponentMapping<CommonEndOfArticleComponentProps> = {
     [NEWSLETTER_EPIC_NAME]: NewsletterEpic,
     [US_NEWSLETTER_EPIC_NAME]: USNewsletterEpic,
     [AU_NEWSLETTER_EPIC_NAME]: AUNewsletterEpic,
@@ -57,41 +66,30 @@ const COMPONENT_MAPPINGS: ComponentMapping = {
     [EPIC_NAME]: Epic,
 };
 
-export type Props = {
+interface HasComponentName {
     componentName: string;
-    logButtonClickWithBraze: BrazeClickHandler;
-    submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
-    brazeMessageProps: BrazeMessageProps;
-    subscribeToNewsletter: (newsletterId: string) => Promise<void>;
-};
+}
 
-export const buildBrazeMessageComponent = (mappings: ComponentMapping): React.FC<Props> => {
-    const BrazeMessageComponent = ({
-        logButtonClickWithBraze,
-        submitComponentEvent,
-        componentName,
-        brazeMessageProps,
-        subscribeToNewsletter,
-    }: Props) => {
-        const ComponentToRender = mappings[componentName];
+export function buildBrazeMessageComponent<A extends HasComponentName>(
+    mappings: ComponentMapping<A>,
+): React.FC<A> {
+    const BrazeMessageComponent = (props: A) => {
+        const ComponentToRender = mappings[props.componentName];
 
         if (!ComponentToRender) {
             return null;
         }
 
-        return (
-            <ComponentToRender
-                logButtonClickWithBraze={logButtonClickWithBraze}
-                submitComponentEvent={submitComponentEvent}
-                subscribeToNewsletter={subscribeToNewsletter}
-                brazeMessageProps={brazeMessageProps}
-            />
-        );
+        return <ComponentToRender {...props} />;
     };
 
     return BrazeMessageComponent;
-};
+}
 
-export const BrazeMessageComponent: React.FC<Props> = buildBrazeMessageComponent(
-    COMPONENT_MAPPINGS,
-);
+export const BrazeBannerComponent: React.FC<CommonBannerComponentProps> = buildBrazeMessageComponent<
+    CommonBannerComponentProps
+>(BANNER_MAPPINGS);
+
+export const BrazeEndOfArticleComponent: React.FC<CommonEndOfArticleComponentProps> = buildBrazeMessageComponent<
+    CommonEndOfArticleComponentProps
+>(END_OF_ARTICLE_MAPPINGS);
