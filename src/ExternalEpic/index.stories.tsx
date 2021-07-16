@@ -1,18 +1,28 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { withKnobs, text } from '@storybook/addon-knobs';
 import { StorybookWrapper } from '../utils/StorybookWrapper';
 import { knobsData } from '../utils/knobsData';
-import { Epic, EpicProps } from '.';
+import * as emotionReact from '@emotion/react';
+import * as emotionReactJsxRuntime from '@emotion/react/jsx-runtime';
+
+const css = emotionReact.css;
 
 export default {
-    component: 'Epic',
-    title: 'EndOfArticle/Epic',
+    component: 'ExternalEpic',
+    title: 'EndOfArticle/ExternalEpic',
     decorators: [withKnobs],
     parameters: {
         knobs: {},
     },
 };
 
+const componentUrl = `https://contributions.guardianapis.com/modules/v2/epics/ContributionsEpic.js`;
+const epicWrapper = css`
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 620px;
+    margin: 10px;
+`;
 const TOTAL_PARAGRAPHS = 9;
 const defaultContent = {
     heading: 'Since you’re here...',
@@ -34,6 +44,26 @@ declare global {
     }
 }
 
+type EpicProps = {
+    variant: Variant;
+    tracking: Record<string, unknown>;
+    articleCounts: {
+        for52Weeks: number;
+        forTargetedWeeks: number;
+    };
+};
+
+type Variant = {
+    name: string;
+    heading: string;
+    paragraphs: Array<string>;
+    highlightedText: string;
+    cta: {
+        text: string;
+        baseUrl: string;
+    };
+};
+
 type DataFromKnobs = {
     heading: string;
     highlightedText: string;
@@ -45,25 +75,63 @@ type DataFromKnobs = {
     ophanComponentId: string;
 };
 
+const Epic: React.FC<EpicProps> = (props) => {
+    const [EpicInner, setEpicInner] = useState<React.FC<EpicProps>>();
+    useEffect(() => {
+        window.guardian = {};
+        window.guardian.automat = {
+            preact: React,
+            react: React,
+            emotionReact,
+            emotionReactJsxRuntime,
+        };
+        import(/*webpackIgnore: true*/ componentUrl)
+            .then((epicModule: { ContributionsEpic: React.FC<EpicProps> }) => {
+                setEpicInner(() => epicModule.ContributionsEpic);
+            })
+            // eslint-disable-next-line no-console
+            .catch((error) => console.log(`epic - error is: ${error}`));
+    }, []);
+
+    if (EpicInner) {
+        return (
+            <div css={epicWrapper}>
+                {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+                <EpicInner {...props} />
+            </div>
+        );
+    }
+
+    return null;
+};
+
 const buildProps = (data: DataFromKnobs): EpicProps => {
-    const props: EpicProps = {
-        brazeMessageProps: {
+    return {
+        variant: {
+            name: 'CONTROL',
             heading: data.heading,
+            paragraphs: data.paragraphs,
             highlightedText: data.highlightedText,
-            buttonText: data.buttonText,
-            buttonUrl: data.buttonUrl,
-            ophanComponentId: data.ophanComponentId,
+            cta: {
+                text: data.buttonText,
+                baseUrl: data.buttonUrl,
+            },
         },
-        ophanComponentId: data.ophanComponentId,
-        countryCode: 'GB',
-        submitComponentEvent: () => console.log('Submit component event'),
-        logButtonClickWithBraze: () => console.log('Log button click with Braze'),
+        tracking: {
+            ophanPageId: 'xxxxxxxx',
+            platformId: 'GUARDIAN_WEB',
+            clientName: 'storybook',
+            referrerUrl: window.location.origin + window.location.pathname,
+            abTestName: '',
+            abTestVariant: '',
+            campaignCode: '',
+            componentType: 'ACQUISITIONS_EPIC',
+        },
+        articleCounts: {
+            for52Weeks: 0,
+            forTargetedWeeks: 0,
+        },
     };
-    data.paragraphs.forEach((paragraph, index) => {
-        props.brazeMessageProps[`paragraph${index + 1}`] = paragraph;
-    });
-    console.log(data.paragraphs, props.brazeMessageProps);
-    return props;
 };
 
 const guPreviewOutput = (data: DataFromKnobs) => {
@@ -82,6 +150,16 @@ const guPreviewOutput = (data: DataFromKnobs) => {
             return { [`paragraph${i}`]: p };
         }),
     );
+};
+
+const componentMappings: { [name: string]: React.FC<EpicProps> } = {
+    Epic: Epic,
+};
+
+const NullComponent = () => null;
+
+const getComponentfromName = (name: string) => {
+    return componentMappings[name] || NullComponent;
 };
 
 export const defaultStory = (): ReactElement | null => {
@@ -129,11 +207,13 @@ export const defaultStory = (): ReactElement | null => {
         return null;
     }
 
+    const Component = getComponentfromName(componentName);
+
     return (
         <StorybookWrapper>
-            <Epic {...epicProps}></Epic>
+            <Component {...epicProps} />
         </StorybookWrapper>
     );
 };
 
-defaultStory.story = { name: 'Epic' };
+defaultStory.story = { name: 'ExternalEpic' };

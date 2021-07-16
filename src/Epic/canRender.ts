@@ -6,10 +6,11 @@ import { BrazeMessageProps } from './index';
 export const canRenderEpic = (brazeMessageProps: BrazeMessageProps): boolean => {
     const { buttonText, buttonUrl, ophanComponentId } = brazeMessageProps;
     const paragraphs = parseParagraphs(brazeMessageProps);
+    console.log(buttonText, buttonUrl, ophanComponentId, paragraphs);
     return Boolean(buttonText && buttonUrl && ophanComponentId && paragraphs.length > 0);
 };
 
-const parseParagraphs = (brazeMessageProps: BrazeMessageProps): string[] => {
+export const parseParagraphs = (brazeMessageProps: BrazeMessageProps): string[] => {
     const isParagraphKey = (k: string): boolean => /^paragraph\d$/.test(k);
     const orderedParagraphKeys = Object.keys(brazeMessageProps).filter(isParagraphKey).sort();
 
