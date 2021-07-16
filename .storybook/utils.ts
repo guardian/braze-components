@@ -45,4 +45,17 @@ const getLoginUrl = () => {
     }
 };
 
-export { getGridUrl, getImageSigningUrl, getLoginUrl };
+const skipAuth = async () => {
+    if (getEnvironment() === 'LOCAL') {
+        try {
+            const res = await fetch(getLoginUrl(), { method: 'HEAD' });
+            return res.status !== 200;
+        } catch (ex) {
+            console.log("Error calling local login.", ex);
+            return true;
+        }
+    }
+    return false;
+}
+
+export { getGridUrl, getImageSigningUrl, getLoginUrl, skipAuth };
