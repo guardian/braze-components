@@ -38,6 +38,7 @@ export const defaultStory = (): ReactElement => {
                         header: header,
                         body: body,
                     }}
+                    subscribeToNewsletter={() => Promise.resolve()}
                 />
             </>
         </StorybookWrapper>
