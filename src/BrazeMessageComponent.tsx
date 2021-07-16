@@ -23,6 +23,8 @@ import { COMPONENT_NAME as AU_NEWSLETTER_EPIC_NAME, AUNewsletterEpic } from './A
 
 import { COMPONENT_NAME as UK_NEWSLETTER_EPIC_NAME, UKNewsletterEpic } from './UKNewsletterEpic';
 
+import { Epic } from './BrazeEpic';
+
 type BrazeMessageProps = {
     [key: string]: string | undefined;
 };
@@ -46,6 +48,7 @@ const COMPONENT_MAPPINGS: ComponentMapping = {
     [US_NEWSLETTER_EPIC_NAME]: USNewsletterEpic,
     [AU_NEWSLETTER_EPIC_NAME]: AUNewsletterEpic,
     [UK_NEWSLETTER_EPIC_NAME]: UKNewsletterEpic,
+    Epic: Epic,
 };
 
 export type Props = {
