@@ -33,14 +33,14 @@ type BrazeMessageProps = {
     [key: string]: string | undefined;
 };
 
-type CommonBannerComponentProps = {
+export type CommonBannerComponentProps = {
     componentName: string;
     logButtonClickWithBraze: BrazeClickHandler;
     submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
     brazeMessageProps: BrazeMessageProps;
 };
 
-type CommonEndOfArticleComponentProps = {
+export type CommonEndOfArticleComponentProps = {
     componentName: string;
     brazeMessageProps: BrazeMessageProps;
     subscribeToNewsletter: NewsletterSubscribeCallback;
