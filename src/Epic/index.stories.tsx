@@ -24,7 +24,7 @@ const defaultContent = {
         'We hope you will consider supporting us today. We need your support to keep delivering quality journalism that’s open and independent. Every reader contribution, however big or small, is so valuable. ',
     ],
     highlightedText:
-        'Support The Guardian from as little as %%CURRENCY_SYMBOL%%1 - and it only takes a minute. Thank you.',
+        'Support The Guardian from as little as £1 - and it only takes a minute. Thank you.',
     buttonText: 'Support The Guardian',
     buttonUrl: 'https://support.theguardian.com/contribute',
 };

@@ -5,7 +5,6 @@ import { OphanComponentEvent } from '@guardian/types';
 import { BrazeClickHandler } from '../utils/tracking';
 import { ContributionsEpicButtons } from './ContributionsEpicButtons';
 import { body, headline } from '@guardian/src-foundations/typography';
-import { replaceNonArticleCountPlaceholders } from './placeholders';
 import { canRenderEpic, parseParagraphs } from './canRender';
 
 // Custom styles for <a> tags in the Epic content
@@ -80,18 +79,13 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
         // submitComponentEvent,
         // ophanComponentId = COMPONENT_NAME,
         brazeMessageProps: { heading, buttonText, buttonUrl, highlightedText },
-        countryCode,
     } = props;
 
     if (!canRenderEpic(props.brazeMessageProps)) {
         return null;
     }
 
-    const paragraphs = parseParagraphs(props.brazeMessageProps).map((paragraph) =>
-        replaceNonArticleCountPlaceholders(paragraph, countryCode),
-    );
-
-    const highlightTextClean = replaceNonArticleCountPlaceholders(highlightedText, countryCode);
+    const paragraphs = parseParagraphs(props.brazeMessageProps);
 
     return (
         <ThemeProvider theme={brand}>
@@ -102,7 +96,7 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
                         <p key={'paragraph' + index} css={styles.paragraph}>
                             {text}
                             {index === paragraphs.length - 1 ? (
-                                <span css={styles.highlightText}>{highlightTextClean}</span>
+                                <span css={styles.highlightText}>{highlightedText}</span>
                             ) : null}
                         </p>
                     ))}
