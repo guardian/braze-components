@@ -6,7 +6,6 @@ import { BrazeMessageProps } from './index';
 export const canRenderEpic = (brazeMessageProps: BrazeMessageProps): boolean => {
     const { buttonText, buttonUrl, ophanComponentId } = brazeMessageProps;
     const paragraphs = parseParagraphs(brazeMessageProps);
-    console.log(buttonText, buttonUrl, ophanComponentId, paragraphs);
     return Boolean(buttonText && buttonUrl && ophanComponentId && paragraphs.length > 0);
 };
 

@@ -1,8 +1,7 @@
 import React, { ReactElement } from 'react';
 import { withKnobs, text } from '@storybook/addon-knobs';
 import { StorybookWrapper } from '../utils/StorybookWrapper';
-import { knobsData } from '../utils/knobsData';
-import { Epic, EpicProps } from '.';
+import { BrazeMessageComponent } from '../BrazeMessageComponent';
 
 export default {
     component: 'Epic',
@@ -34,56 +33,6 @@ declare global {
     }
 }
 
-type DataFromKnobs = {
-    heading: string;
-    highlightedText: string;
-    buttonText: string;
-    buttonUrl: string;
-    paragraphs: Array<string>;
-    slotName?: string;
-    componentName?: string;
-    ophanComponentId: string;
-};
-
-const buildProps = (data: DataFromKnobs): EpicProps => {
-    const props: EpicProps = {
-        brazeMessageProps: {
-            heading: data.heading,
-            highlightedText: data.highlightedText,
-            buttonText: data.buttonText,
-            buttonUrl: data.buttonUrl,
-            ophanComponentId: data.ophanComponentId,
-        },
-        ophanComponentId: data.ophanComponentId,
-        countryCode: 'GB',
-        submitComponentEvent: () => console.log('Submit component event'),
-        logButtonClickWithBraze: () => console.log('Log button click with Braze'),
-    };
-    data.paragraphs.forEach((paragraph, index) => {
-        props.brazeMessageProps[`paragraph${index + 1}`] = paragraph;
-    });
-    console.log(data.paragraphs, props.brazeMessageProps);
-    return props;
-};
-
-const guPreviewOutput = (data: DataFromKnobs) => {
-    return Object.assign(
-        {},
-        {
-            heading: data.heading,
-            highlightedText: data.highlightedText,
-            buttonText: data.buttonText,
-            buttonUrl: data.buttonUrl,
-            componentName: data.componentName,
-            slotName: data.slotName,
-            ophanComponentId: data.ophanComponentId,
-        },
-        ...data.paragraphs.map((p, i) => {
-            return { [`paragraph${i}`]: p };
-        }),
-    );
-};
-
 export const defaultStory = (): ReactElement | null => {
     const slotName = text('slotName', 'EndOfArticle');
     const componentName = text('componentName', 'Epic');
@@ -92,46 +41,39 @@ export const defaultStory = (): ReactElement | null => {
     const highlightedText = text('highlightedText', defaultContent.highlightedText);
     const buttonText = text('buttonText', defaultContent.buttonText);
     const buttonUrl = text('buttonUrl', defaultContent.buttonUrl);
-    const paragraphs = [];
+    const paragraphMap: { [key: string]: string } = {};
 
     // Add existing paragraphs as knobs, and then pad out with empty knobs
     for (let i = 0; i < TOTAL_PARAGRAPHS; i++) {
         const name = `paragraph${i + 1}`;
         const currentParagraph = defaultContent.paragraphs[i];
         if (currentParagraph) {
-            paragraphs.push(text(name, currentParagraph));
+            paragraphMap[name] = text(name, currentParagraph);
         } else {
-            paragraphs.push(text(name, ''));
+            paragraphMap[name] = text(name, '');
         }
-    }
-
-    const knobs = {
-        heading,
-        highlightedText,
-        buttonText,
-        buttonUrl,
-        paragraphs: paragraphs.filter((p) => p != ''),
-        slotName,
-        componentName,
-        ophanComponentId,
-    };
-
-    const epicProps = buildProps(knobs);
-
-    // This is to make the data available to the guPreview add-on:
-    knobsData.set(guPreviewOutput(knobs));
-
-    // It is unfortunate that here we're duplicating the checks that we do
-    // on-platform before rendering the Braze epic. This should be addressed
-    // properly, but in the meantime I'm keen to have Storybook reflect the
-    // platform behaviour so this doesn't cause confusion for marketing.
-    if (!buttonText || !buttonUrl || !ophanComponentId || paragraphs.length < 1) {
-        return null;
     }
 
     return (
         <StorybookWrapper>
-            <Epic {...epicProps}></Epic>
+            <BrazeMessageComponent
+                brazeMessageProps={{
+                    slotName,
+                    ophanComponentId,
+                    heading,
+                    highlightedText,
+                    buttonText,
+                    buttonUrl,
+                    ...paragraphMap,
+                }}
+                componentName={componentName}
+                logButtonClickWithBraze={(internalButtonId) => {
+                    console.log(`Button with internal ID ${internalButtonId} clicked`);
+                }}
+                submitComponentEvent={(componentEvent) => {
+                    console.log('submitComponentEvent called with: ', componentEvent);
+                }}
+            ></BrazeMessageComponent>
         </StorybookWrapper>
     );
 };
