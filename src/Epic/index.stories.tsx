@@ -8,7 +8,9 @@ export default {
     title: 'EndOfArticle/Epic',
     decorators: [withKnobs],
     parameters: {
-        knobs: {},
+        knobs: {
+            escapeHTML: false,
+        },
     },
 };
 
