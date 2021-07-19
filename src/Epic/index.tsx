@@ -5,7 +5,8 @@ import { OphanComponentEvent } from '@guardian/types';
 import { BrazeClickHandler } from '../utils/tracking';
 import { ContributionsEpicButtons } from './ContributionsEpicButtons';
 import { body, headline } from '@guardian/src-foundations/typography';
-import { canRenderEpic, parseParagraphs } from './canRender';
+import { COMPONENT_NAME, canRenderEpic, parseParagraphs } from './canRender';
+export { COMPONENT_NAME };
 
 // Custom styles for <a> tags in the Epic content
 const linkStyles = css`
