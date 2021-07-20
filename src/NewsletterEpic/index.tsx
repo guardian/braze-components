@@ -1,10 +1,10 @@
 import { css, ThemeProvider } from '@emotion/react';
-import React, { ReactElement } from 'react';
-import { brand } from '@guardian/src-foundations';
+import React, { useState, ReactElement } from 'react';
+import { brand, palette } from '@guardian/src-foundations';
 import { Button, buttonBrandAlt } from '@guardian/src-button';
 import { styles as commonStyles } from '../styles/bannerCommon';
 import { COMPONENT_NAME } from './canRender';
-import { textSans } from '@guardian/src-foundations/typography';
+import { body, textSans } from '@guardian/src-foundations/typography';
 import { canRender } from './canRender';
 import { OphanComponentEvent } from '@guardian/types';
 import { BrazeClickHandler } from '../utils/tracking';
@@ -74,12 +74,15 @@ const styles = {
     `,
 };
 
+export type NewsletterSubscribeCallback = (id: string) => Promise<void>;
+
 export type BrazeMessageProps = {
     header?: string;
     frequency?: string;
     paragraph1?: string;
     paragraph2?: string;
     imageUrl?: string;
+    newsletterId?: string;
 };
 
 export type Props = {
@@ -87,19 +90,93 @@ export type Props = {
     submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
     ophanComponentId?: string;
     brazeMessageProps: BrazeMessageProps;
+    subscribeToNewsletter: NewsletterSubscribeCallback;
+};
+
+type CTAProps = {
+    subscribeToNewsletter: NewsletterSubscribeCallback;
+    newsletterId: string;
+};
+
+type SubscribeClickStatus = 'DEFAULT' | 'IN_PROGRESS' | 'SUCCESS' | 'FAILURE';
+
+const ctaStyles = {
+    thankYouText: css`
+        ${body.medium({ fontWeight: 'bold' })}
+        color: ${palette.neutral[0]}
+    `,
+    newslettersLink: css`
+        ${body.medium()}
+        border-bottom: 1px solid ${palette.neutral[60]};
+        color: ${palette.news[400]};
+        padding-bottom: 2px;
+        text-decoration: none;
+    `,
+    newslettersLinkPeriod: css`
+        color: ${palette.neutral[0]};
+    `,
+};
+const CTA: React.FC<CTAProps> = (props: CTAProps) => {
+    const { subscribeToNewsletter, newsletterId } = props;
+
+    const [subscribeClickStatus, setSubscribeClickStatus] = useState<SubscribeClickStatus>(
+        'DEFAULT',
+    );
+
+    switch (subscribeClickStatus) {
+        case 'DEFAULT':
+        case 'FAILURE':
+            return (
+                <ThemeProvider theme={buttonBrandAlt}>
+                    <Button
+                        css={styles.button}
+                        onClick={() => {
+                            setSubscribeClickStatus('IN_PROGRESS');
+
+                            subscribeToNewsletter(newsletterId as string)
+                                .then(() => setSubscribeClickStatus('SUCCESS'))
+                                .catch(() => setSubscribeClickStatus('FAILURE'));
+                        }}
+                    >
+                        Sign up
+                    </Button>
+                </ThemeProvider>
+            );
+        case 'IN_PROGRESS':
+            return (
+                <ThemeProvider theme={buttonBrandAlt}>
+                    <Button css={styles.button} disabled={true}>
+                        Loading...
+                    </Button>
+                </ThemeProvider>
+            );
+        case 'SUCCESS':
+            return (
+                <>
+                    <div css={ctaStyles.thankYouText}>Thank you.</div>
+                    <div>
+                        <a
+                            href="https://www.theguardian.com/email-newsletters"
+                            css={ctaStyles.newslettersLink}
+                        >
+                            View all newsletters<span css={ctaStyles.newslettersLinkPeriod}>.</span>
+                        </a>
+                    </div>
+                </>
+            );
+    }
 };
 
 export const NewsletterEpic: React.FC<Props> = (props: Props) => {
     const {
-        // logButtonClickWithBraze,
-        // submitComponentEvent,
-        // ophanComponentId = COMPONENT_NAME,
-        brazeMessageProps: { header, frequency, paragraph1, paragraph2, imageUrl },
+        brazeMessageProps: { header, frequency, paragraph1, paragraph2, imageUrl, newsletterId },
+        subscribeToNewsletter,
     } = props;
 
     if (!canRender(props.brazeMessageProps)) {
         return null;
     }
+
     return (
         <ThemeProvider theme={brand}>
             <section css={styles.epicContainer}>
@@ -116,9 +193,10 @@ export const NewsletterEpic: React.FC<Props> = (props: Props) => {
                     </div>
                     <p css={commonStyles.paragraph}>{paragraph1}</p>
                     {paragraph2 ? <p css={commonStyles.paragraph}>{paragraph2}</p> : null}
-                    <ThemeProvider theme={buttonBrandAlt}>
-                        <Button css={styles.button}>Sign up</Button>
-                    </ThemeProvider>
+                    <CTA
+                        subscribeToNewsletter={subscribeToNewsletter}
+                        newsletterId={newsletterId as string}
+                    />
                 </div>
             </section>
         </ThemeProvider>

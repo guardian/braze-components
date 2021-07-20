@@ -52,6 +52,7 @@ export const defaultStory = (): ReactElement => {
                     imageUrl,
                     cta,
                 }}
+                subscribeToNewsletter={() => Promise.resolve()}
             />
         </StorybookWrapper>
     );
