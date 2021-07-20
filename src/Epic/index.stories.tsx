@@ -5,7 +5,7 @@ import { BrazeMessageComponent } from '../BrazeMessageComponent';
 
 export default {
     component: 'Epic',
-    title: 'EndOfArticle/Epic',
+    title: 'WorkInProgress/EndOfArticle/Epic',
     decorators: [withKnobs],
     parameters: {
         knobs: {
