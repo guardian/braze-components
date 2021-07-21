@@ -1,4 +1,5 @@
 import { BrazeMessageProps } from './index';
+import { containsNonAllowedPlaceholder } from './placeholders';
 
 export const COMPONENT_NAME = 'Epic';
 
@@ -6,9 +7,17 @@ export const COMPONENT_NAME = 'Epic';
  * this means the user won't download the Braze components bundle when the component can't be shown.
  */
 export const canRenderEpic = (brazeMessageProps: BrazeMessageProps): boolean => {
-    const { buttonText, buttonUrl, ophanComponentId } = brazeMessageProps;
+    const { heading, buttonText, buttonUrl, ophanComponentId } = brazeMessageProps;
     const paragraphs = parseParagraphs(brazeMessageProps);
-    return Boolean(buttonText && buttonUrl && ophanComponentId && paragraphs.length > 0);
+    const allText = heading + ' ' + buttonText + ' ' + paragraphs.join(' ');
+    const invalidPlaceholders = containsNonAllowedPlaceholder(allText);
+    return Boolean(
+        buttonText &&
+            buttonUrl &&
+            ophanComponentId &&
+            paragraphs.length > 0 &&
+            !invalidPlaceholders,
+    );
 };
 
 export const parseParagraphs = (brazeMessageProps: BrazeMessageProps): string[] => {

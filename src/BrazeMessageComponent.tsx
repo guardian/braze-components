@@ -33,6 +33,7 @@ type CommonComponentProps = {
     logButtonClickWithBraze: BrazeClickHandler;
     submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
     brazeMessageProps: BrazeMessageProps;
+    countryCode?: string;
 };
 
 type ComponentMapping = {
