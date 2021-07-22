@@ -52,7 +52,7 @@ const styles = {
         }
     `,
     frequencyText: css`
-        color: #333333;
+        color: ${palette.neutral[20]};
         ${textSans.medium()}
         margin-left: 4px;
     `,
