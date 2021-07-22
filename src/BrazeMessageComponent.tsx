@@ -27,6 +27,8 @@ import { COMPONENT_NAME as AU_NEWSLETTER_EPIC_NAME, AUNewsletterEpic } from './A
 
 import { COMPONENT_NAME as UK_NEWSLETTER_EPIC_NAME, UKNewsletterEpic } from './UKNewsletterEpic';
 
+import { COMPONENT_NAME as EPIC_NAME, Epic } from './Epic';
+
 type BrazeMessageProps = {
     [key: string]: string | undefined;
 };
@@ -35,6 +37,7 @@ type CommonComponentProps = {
     logButtonClickWithBraze: BrazeClickHandler;
     submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
     brazeMessageProps: BrazeMessageProps;
+    countryCode?: string;
     subscribeToNewsletter: NewsletterSubscribeCallback;
 };
 
@@ -51,6 +54,7 @@ const COMPONENT_MAPPINGS: ComponentMapping = {
     [US_NEWSLETTER_EPIC_NAME]: USNewsletterEpic,
     [AU_NEWSLETTER_EPIC_NAME]: AUNewsletterEpic,
     [UK_NEWSLETTER_EPIC_NAME]: UKNewsletterEpic,
+    [EPIC_NAME]: Epic,
 };
 
 export type Props = {

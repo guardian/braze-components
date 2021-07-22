@@ -1,26 +1,15 @@
 import { BrazeMessageProps } from './index';
-import { containsNonAllowedPlaceholder } from './placeholders';
-
-export const COMPONENT_NAME = 'Epic';
 
 /** These are in a seperate file to enable tree shaking of the logic deciding if a Braze message can be rendered
  * this means the user won't download the Braze components bundle when the component can't be shown.
  */
 export const canRenderEpic = (brazeMessageProps: BrazeMessageProps): boolean => {
-    const { heading, buttonText, buttonUrl, ophanComponentId } = brazeMessageProps;
+    const { buttonText, buttonUrl, ophanComponentId } = brazeMessageProps;
     const paragraphs = parseParagraphs(brazeMessageProps);
-    const allText = heading + ' ' + buttonText + ' ' + paragraphs.join(' ');
-    const invalidPlaceholders = containsNonAllowedPlaceholder(allText);
-    return Boolean(
-        buttonText &&
-            buttonUrl &&
-            ophanComponentId &&
-            paragraphs.length > 0 &&
-            !invalidPlaceholders,
-    );
+    return Boolean(buttonText && buttonUrl && ophanComponentId && paragraphs.length > 0);
 };
 
-export const parseParagraphs = (brazeMessageProps: BrazeMessageProps): string[] => {
+const parseParagraphs = (brazeMessageProps: BrazeMessageProps): string[] => {
     const isParagraphKey = (k: string): boolean => /^paragraph\d$/.test(k);
     const orderedParagraphKeys = Object.keys(brazeMessageProps).filter(isParagraphKey).sort();
 

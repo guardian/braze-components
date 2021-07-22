@@ -1,28 +1,19 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement } from 'react';
 import { withKnobs, text } from '@storybook/addon-knobs';
 import { StorybookWrapper } from '../utils/StorybookWrapper';
-import { knobsData } from '../utils/knobsData';
-import * as emotionReact from '@emotion/react';
-import * as emotionReactJsxRuntime from '@emotion/react/jsx-runtime';
-
-const css = emotionReact.css;
+import { BrazeMessageComponent } from '../BrazeMessageComponent';
 
 export default {
     component: 'Epic',
-    title: 'EndOfArticle/Epic',
+    title: 'WorkInProgress/EndOfArticle/Epic',
     decorators: [withKnobs],
     parameters: {
-        knobs: {},
+        knobs: {
+            escapeHTML: false,
+        },
     },
 };
 
-const componentUrl = `https://contributions.guardianapis.com/modules/v2/epics/ContributionsEpic.js`;
-const epicWrapper = css`
-    box-sizing: border-box;
-    width: 100%;
-    max-width: 620px;
-    margin: 10px;
-`;
 const TOTAL_PARAGRAPHS = 9;
 const defaultContent = {
     heading: 'Since you’re here...',
@@ -44,124 +35,6 @@ declare global {
     }
 }
 
-type EpicProps = {
-    variant: Variant;
-    tracking: Record<string, unknown>;
-    articleCounts: {
-        for52Weeks: number;
-        forTargetedWeeks: number;
-    };
-};
-
-type Variant = {
-    name: string;
-    heading: string;
-    paragraphs: Array<string>;
-    highlightedText: string;
-    cta: {
-        text: string;
-        baseUrl: string;
-    };
-};
-
-type DataFromKnobs = {
-    heading: string;
-    highlightedText: string;
-    buttonText: string;
-    buttonUrl: string;
-    paragraphs: Array<string>;
-    slotName?: string;
-    componentName?: string;
-    ophanComponentId: string;
-};
-
-const Epic: React.FC<EpicProps> = (props) => {
-    const [EpicInner, setEpicInner] = useState<React.FC<EpicProps>>();
-    useEffect(() => {
-        window.guardian = {};
-        window.guardian.automat = {
-            preact: React,
-            react: React,
-            emotionReact,
-            emotionReactJsxRuntime,
-        };
-        import(/*webpackIgnore: true*/ componentUrl)
-            .then((epicModule: { ContributionsEpic: React.FC<EpicProps> }) => {
-                setEpicInner(() => epicModule.ContributionsEpic);
-            })
-            // eslint-disable-next-line no-console
-            .catch((error) => console.log(`epic - error is: ${error}`));
-    }, []);
-
-    if (EpicInner) {
-        return (
-            <div css={epicWrapper}>
-                {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-                <EpicInner {...props} />
-            </div>
-        );
-    }
-
-    return null;
-};
-
-const buildProps = (data: DataFromKnobs): EpicProps => {
-    return {
-        variant: {
-            name: 'CONTROL',
-            heading: data.heading,
-            paragraphs: data.paragraphs,
-            highlightedText: data.highlightedText,
-            cta: {
-                text: data.buttonText,
-                baseUrl: data.buttonUrl,
-            },
-        },
-        tracking: {
-            ophanPageId: 'xxxxxxxx',
-            platformId: 'GUARDIAN_WEB',
-            clientName: 'storybook',
-            referrerUrl: window.location.origin + window.location.pathname,
-            abTestName: '',
-            abTestVariant: '',
-            campaignCode: '',
-            componentType: 'ACQUISITIONS_EPIC',
-        },
-        articleCounts: {
-            for52Weeks: 0,
-            forTargetedWeeks: 0,
-        },
-    };
-};
-
-const guPreviewOutput = (data: DataFromKnobs) => {
-    return Object.assign(
-        {},
-        {
-            heading: data.heading,
-            highlightedText: data.highlightedText,
-            buttonText: data.buttonText,
-            buttonUrl: data.buttonUrl,
-            componentName: data.componentName,
-            slotName: data.slotName,
-            ophanComponentId: data.ophanComponentId,
-        },
-        ...data.paragraphs.map((p, i) => {
-            return { [`paragraph${i}`]: p };
-        }),
-    );
-};
-
-const componentMappings: { [name: string]: React.FC<EpicProps> } = {
-    Epic: Epic,
-};
-
-const NullComponent = () => null;
-
-const getComponentfromName = (name: string) => {
-    return componentMappings[name] || NullComponent;
-};
-
 export const defaultStory = (): ReactElement | null => {
     const slotName = text('slotName', 'EndOfArticle');
     const componentName = text('componentName', 'Epic');
@@ -170,48 +43,39 @@ export const defaultStory = (): ReactElement | null => {
     const highlightedText = text('highlightedText', defaultContent.highlightedText);
     const buttonText = text('buttonText', defaultContent.buttonText);
     const buttonUrl = text('buttonUrl', defaultContent.buttonUrl);
-    const paragraphs = [];
+    const paragraphMap: { [key: string]: string } = {};
 
     // Add existing paragraphs as knobs, and then pad out with empty knobs
     for (let i = 0; i < TOTAL_PARAGRAPHS; i++) {
         const name = `paragraph${i + 1}`;
         const currentParagraph = defaultContent.paragraphs[i];
         if (currentParagraph) {
-            paragraphs.push(text(name, currentParagraph));
+            paragraphMap[name] = text(name, currentParagraph);
         } else {
-            paragraphs.push(text(name, ''));
+            paragraphMap[name] = text(name, '');
         }
     }
 
-    const knobs = {
-        heading,
-        highlightedText,
-        buttonText,
-        buttonUrl,
-        paragraphs: paragraphs.filter((p) => p != ''),
-        slotName,
-        componentName,
-        ophanComponentId,
-    };
-
-    const epicProps = buildProps(knobs);
-
-    // This is to make the data available to the guPreview add-on:
-    knobsData.set(guPreviewOutput(knobs));
-
-    // It is unfortunate that here we're duplicating the checks that we do
-    // on-platform before rendering the Braze epic. This should be addressed
-    // properly, but in the meantime I'm keen to have Storybook reflect the
-    // platform behaviour so this doesn't cause confusion for marketing.
-    if (!buttonText || !buttonUrl || !ophanComponentId || paragraphs.length < 1) {
-        return null;
-    }
-
-    const Component = getComponentfromName(componentName);
-
     return (
         <StorybookWrapper>
-            <Component {...epicProps} />
+            <BrazeMessageComponent
+                brazeMessageProps={{
+                    slotName,
+                    ophanComponentId,
+                    heading,
+                    highlightedText,
+                    buttonText,
+                    buttonUrl,
+                    ...paragraphMap,
+                }}
+                componentName={componentName}
+                logButtonClickWithBraze={(internalButtonId) => {
+                    console.log(`Button with internal ID ${internalButtonId} clicked`);
+                }}
+                submitComponentEvent={(componentEvent) => {
+                    console.log('submitComponentEvent called with: ', componentEvent);
+                }}
+            ></BrazeMessageComponent>
         </StorybookWrapper>
     );
 };
