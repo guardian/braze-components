@@ -25,8 +25,6 @@ export const SvgClock = (): ReactElement => {
     );
 };
 
-const bodyColor = '#666';
-
 const styles = {
     epicContainer: css`
         padding: 4px 8px 12px;
@@ -84,7 +82,7 @@ const styles = {
         line-height: 135%;
         margin: ${space[5]}px 0 ${space[5]}px;
         max-width: 100%;
-        color: ${bodyColor};
+        color: ${palette.neutral[0]};
 
         ${from.phablet} {
             max-width: 90%;
