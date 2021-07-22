@@ -59,10 +59,10 @@ const styles = {
         margin-left: 4px;
     `,
     button: css`
-        background-color: #c70000;
-        color: #ffffff;
+        background-color: ${palette.news[400]};
+        color: ${palette.neutral[100]};
         &:hover {
-            background-color: #c70000;
+            background-color: ${palette.news[400]};
         }
     `,
     image: css`
