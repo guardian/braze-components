@@ -58,13 +58,6 @@ const styles = {
         ${textSans.medium()}
         margin-left: 4px;
     `,
-    button: css`
-        background-color: ${palette.news[400]};
-        color: ${palette.neutral[100]};
-        &:hover {
-            background-color: ${palette.news[400]};
-        }
-    `,
     image: css`
         width: 196px;
 
@@ -101,6 +94,13 @@ type CTAProps = {
 type SubscribeClickStatus = 'DEFAULT' | 'IN_PROGRESS' | 'SUCCESS' | 'FAILURE';
 
 const ctaStyles = {
+    button: css`
+        background-color: ${palette.news[400]};
+        color: ${palette.neutral[100]};
+        &:hover {
+            background-color: ${palette.news[400]};
+        }
+    `,
     thankYouText: css`
         ${body.medium({ fontWeight: 'bold' })}
         color: ${palette.neutral[0]}
@@ -129,7 +129,7 @@ const CTA: React.FC<CTAProps> = (props: CTAProps) => {
             return (
                 <ThemeProvider theme={buttonBrandAlt}>
                     <Button
-                        css={styles.button}
+                        css={ctaStyles.button}
                         onClick={() => {
                             setSubscribeClickStatus('IN_PROGRESS');
 
@@ -145,7 +145,7 @@ const CTA: React.FC<CTAProps> = (props: CTAProps) => {
         case 'IN_PROGRESS':
             return (
                 <ThemeProvider theme={buttonBrandAlt}>
-                    <Button css={styles.button} disabled={true}>
+                    <Button css={ctaStyles.button} disabled={true}>
                         Loading...
                     </Button>
                 </ThemeProvider>
