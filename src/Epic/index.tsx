@@ -23,7 +23,6 @@ const linkStyles = css`
 const styles = {
     epicWrapper: css`
         max-width: 620px;
-        margin: 10px;
     `,
     epicContainer: css`
         padding: 4px 8px 12px;

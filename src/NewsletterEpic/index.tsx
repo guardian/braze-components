@@ -28,7 +28,6 @@ export const SvgClock = (): ReactElement => {
 
 const styles = {
     epicContainer: css`
-        margin: 8px;
         padding: 4px 8px 12px;
         border-top: 1px solid ${palette.news[400]};
         background-color: ${palette.neutral[97]};
