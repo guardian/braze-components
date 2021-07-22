@@ -31,7 +31,7 @@ const styles = {
         margin: 8px;
         padding: 4px 8px 12px;
         border-top: 1px solid ${palette.news[400]};
-        background-color: #f6f6f6;
+        background-color: ${palette.neutral[97]};
         display: flex;
         flex-direction: row;
         max-width: 620px;
