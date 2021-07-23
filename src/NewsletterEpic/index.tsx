@@ -1,14 +1,13 @@
 import { css, ThemeProvider } from '@emotion/react';
 import React, { useState, ReactElement } from 'react';
-import { brand, palette } from '@guardian/src-foundations';
+import { brand, palette, space } from '@guardian/src-foundations';
 import { Button, buttonBrandAlt } from '@guardian/src-button';
-import { styles as commonStyles } from '../styles/bannerCommon';
 import { COMPONENT_NAME } from './canRender';
-import { body, textSans } from '@guardian/src-foundations/typography';
+import { body, headline, textSans } from '@guardian/src-foundations/typography';
 import { canRender } from './canRender';
 import { OphanComponentEvent } from '@guardian/types';
 import { BrazeClickHandler } from '../utils/tracking';
-import { until } from '@guardian/src-foundations/mq';
+import { from, until } from '@guardian/src-foundations/mq';
 
 // Once https://github.com/guardian/source/pull/843 is merged and in a
 // @guardian/src-icons release we'll be able to bump the version on this project
@@ -53,7 +52,7 @@ const styles = {
         }
     `,
     frequencyText: css`
-        color: #333333;
+        color: ${palette.neutral[20]};
         ${textSans.medium()}
         margin-left: 4px;
     `,
@@ -62,6 +61,47 @@ const styles = {
 
         ${until.desktop} {
             width: 96px;
+        }
+    `,
+    heading: css`
+        ${headline.small({ fontWeight: 'bold' })};
+        margin: 0;
+        max-width: 100%;
+
+        ${from.mobileLandscape} {
+            ${headline.small({ fontWeight: 'bold' })};
+        }
+
+        ${from.tablet} {
+            max-width: 100%;
+        }
+    `,
+    paragraph: css`
+        ${body.medium()}
+        line-height: 135%;
+        margin: ${space[5]}px 0 ${space[5]}px;
+        max-width: 100%;
+        color: ${palette.neutral[0]};
+
+        ${from.phablet} {
+            max-width: 90%;
+        }
+
+        ${from.tablet} {
+            max-width: 100%;
+        }
+
+        ${from.desktop} {
+            margin: ${space[3]}px 0 ${space[4]}px;
+            max-width: 42rem;
+        }
+
+        ${from.leftCol} {
+            max-width: 37rem;
+        }
+
+        ${from.wide} {
+            max-width: 42rem;
         }
     `,
 };
@@ -183,15 +223,15 @@ export const NewsletterEpic: React.FC<Props> = (props: Props) => {
                     <img css={styles.image} src={imageUrl}></img>
                 </div>
                 <div css={styles.rightSection}>
-                    <span css={commonStyles.heading}>{header}</span>
+                    <span css={styles.heading}>{header}</span>
                     <div css={styles.frequencySection}>
                         <span css={styles.frequencyClock}>
                             <SvgClock />
                         </span>
                         <span css={styles.frequencyText}>{frequency}</span>
                     </div>
-                    <p css={commonStyles.paragraph}>{paragraph1}</p>
-                    {paragraph2 ? <p css={commonStyles.paragraph}>{paragraph2}</p> : null}
+                    <p css={styles.paragraph}>{paragraph1}</p>
+                    {paragraph2 ? <p css={styles.paragraph}>{paragraph2}</p> : null}
                     <CTA
                         subscribeToNewsletter={subscribeToNewsletter}
                         newsletterId={newsletterId as string}
