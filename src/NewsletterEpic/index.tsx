@@ -76,7 +76,6 @@ const styles = {
             max-width: 100%;
         }
     `,
-
     paragraph: css`
         ${body.medium()}
         line-height: 135%;
@@ -93,7 +92,6 @@ const styles = {
         }
 
         ${from.desktop} {
-            font-size: 20px;
             margin: ${space[3]}px 0 ${space[4]}px;
             max-width: 42rem;
         }
