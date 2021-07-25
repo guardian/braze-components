@@ -1,12 +1,17 @@
 import { BrazeMessageProps } from './index';
+import { isImageUrlAllowed } from '../utils/images';
 
 export const COMPONENT_NAME = 'NewsletterEpic';
 
 export const canRender = (props: BrazeMessageProps): boolean => {
     const { header, frequency, paragraph1, imageUrl, newsletterId, ophanComponentId } = props;
 
-    // TODO: validate the image URL as in AppBanner?
-    return Boolean(
-        header && frequency && paragraph1 && imageUrl && newsletterId && ophanComponentId,
-    );
+    if (!(header && frequency && paragraph1 && imageUrl && newsletterId && ophanComponentId)) {
+        return false;
+    }
+    if (!isImageUrlAllowed(imageUrl)) {
+        console.log(`Image URL ${imageUrl} is not allowed`);
+        return false;
+    }
+    return true;
 };
