@@ -1,9 +1,9 @@
-import { BrazeMessageProps } from '../NewsletterEpic';
+import { BrazeMessageProps } from '../USNewsletterEpic';
 
 export const COMPONENT_NAME = 'USNewsletterEpic';
 
 export const canRender = (props: BrazeMessageProps): boolean => {
-    const { header, frequency, paragraph1 } = props;
+    const { header, frequency, paragraph1, ophanComponentId } = props;
 
-    return Boolean(header && frequency && paragraph1);
+    return Boolean(header && frequency && paragraph1 && ophanComponentId);
 };
