@@ -24,6 +24,7 @@ export const defaultStory = (): ReactElement | null => {
         'We thought you should know this newsletter may contain information about Guardian products and services.',
     );
     const componentName = text('componentName', 'UKNewsletterEpic');
+    const ophanComponentId = text('ophanComponentId', 'example_ophan_component_id');
 
     return (
         <StorybookWrapper>
@@ -40,6 +41,7 @@ export const defaultStory = (): ReactElement | null => {
                     frequency,
                     paragraph1,
                     paragraph2,
+                    ophanComponentId,
                 }}
                 subscribeToNewsletter={(newsletterId) => {
                     console.log(`subscribeToNewsletter invoked with id ${newsletterId}`);
