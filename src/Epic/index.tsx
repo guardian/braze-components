@@ -94,7 +94,7 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
                     {paragraphs.map((text, index) => (
                         <p key={'paragraph' + index} css={styles.paragraph}>
                             {text}
-                            {index === paragraphs.length - 1 ? (
+                            {highlightTextClean.length > 0 && index === paragraphs.length - 1 ? (
                                 <span css={styles.highlightText}>{highlightTextClean}</span>
                             ) : null}
                         </p>
