@@ -7,11 +7,12 @@ const IMAGE_URL =
 
 const newsletterId = '4148';
 
-type BrazeMessageProps = {
+export type BrazeMessageProps = {
     header?: string;
     frequency?: string;
     paragraph1?: string;
     paragraph2?: string;
+    ophanComponentId?: string;
 };
 
 export type Props = {

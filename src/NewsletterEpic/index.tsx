@@ -113,6 +113,7 @@ export type BrazeMessageProps = {
     paragraph2?: string;
     imageUrl?: string;
     newsletterId?: string;
+    ophanComponentId?: string;
 };
 
 export type Props = {

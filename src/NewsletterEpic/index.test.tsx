@@ -16,6 +16,7 @@ describe('NewsletterEpic', () => {
             imageUrl:
                 'https://i.guim.co.uk/img/media/d0944e021b1cc7426f515fecc8034f12b7862041/0_0_784_784/784.png?width=196&s=fbdead3f454e1ceeeab260ffde71100a',
             newsletterId,
+            ophanComponentId: 'ophan_component_id',
         };
 
         it('calls subscribeToNewsletter with the correct id', async () => {
