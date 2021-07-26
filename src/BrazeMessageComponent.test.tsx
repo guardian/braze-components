@@ -14,15 +14,7 @@ describe('BrazeMessage', () => {
         };
         const BrazeMessageComponent = buildBrazeMessageComponent(mappings);
 
-        render(
-            <BrazeMessageComponent
-                componentName={'ExampleComponent'}
-                logButtonClickWithBraze={jest.fn()}
-                submitComponentEvent={jest.fn()}
-                brazeMessageProps={{}}
-                subscribeToNewsletter={() => Promise.resolve()}
-            />,
-        );
+        render(<BrazeMessageComponent componentName={'ExampleComponent'} />);
 
         expect(ExampleComponent).toHaveBeenCalled();
     });
@@ -34,15 +26,7 @@ describe('BrazeMessage', () => {
         };
         const BrazeMessageComponent = buildBrazeMessageComponent(mappings);
 
-        render(
-            <BrazeMessageComponent
-                componentName={'NoSuchComponent'}
-                logButtonClickWithBraze={jest.fn()}
-                submitComponentEvent={jest.fn()}
-                brazeMessageProps={{}}
-                subscribeToNewsletter={() => Promise.resolve()}
-            />,
-        );
+        render(<BrazeMessageComponent componentName={'NoSuchComponent'} />);
 
         expect(ExampleComponent).not.toHaveBeenCalled();
     });
