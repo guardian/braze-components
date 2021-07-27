@@ -1,0 +1,5 @@
+{
+  "main": "../dist/end-of-article/index.js",
+  "module": "../dist/end-of-article/index.esm.js",
+  "types": "../dist/end-of-article-index.d.ts"
+}

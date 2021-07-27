@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import { BrazeEndOfArticleComponent } from '../BrazeMessageComponent';
+import { BrazeEndOfArticleComponent } from '../BrazeEndOfArticleComponent';
 import { StorybookWrapper } from '../utils/StorybookWrapper';
 import { withKnobs, text } from '@storybook/addon-knobs';
 

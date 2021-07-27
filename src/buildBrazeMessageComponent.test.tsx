@@ -4,9 +4,9 @@
 
 import React from 'react';
 import { render } from '@testing-library/react';
-import { buildBrazeMessageComponent } from './BrazeMessageComponent';
+import { buildBrazeMessageComponent } from './buildBrazeMessageComponent';
 
-describe('BrazeMessage', () => {
+describe('buildBrazeMessageComponent', () => {
     it('renders the correct component when a valid componentName is passed', () => {
         const ExampleComponent = jest.fn(() => null);
         const mappings = {

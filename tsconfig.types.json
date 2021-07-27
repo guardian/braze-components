@@ -12,6 +12,5 @@
   "exclude": ["**/*.test.ts", "dist/**/*"],
   "files": [
     "./index.ts",
-    "./logic-index.ts"
   ]
 }

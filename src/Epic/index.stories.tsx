@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { withKnobs, text } from '@storybook/addon-knobs';
 import { StorybookWrapper } from '../utils/StorybookWrapper';
-import { BrazeEndOfArticleComponent } from '../BrazeMessageComponent';
+import { BrazeEndOfArticleComponent } from '../BrazeEndOfArticleComponent';
 
 export default {
     component: 'Epic',
