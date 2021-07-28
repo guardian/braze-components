@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import { withKnobs, text } from '@storybook/addon-knobs';
-import { BrazeBannerComponent } from '../BrazeMessageComponent';
+import { BrazeBannerComponent } from '../BrazeBannerComponent';
 import { StorybookWrapper } from '../utils/StorybookWrapper';
 import { knobsData } from '../utils/knobsData';
 

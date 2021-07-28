@@ -8,6 +8,8 @@ import { terser } from 'rollup-plugin-terser';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import pkg from './package.json';
 import logicPkg from './logic/package.json';
+import endOfArticlePkg from './end-of-article/package.json';
+import bannerPkg from './banner/package.json';
 import visualizer from 'rollup-plugin-visualizer';
 import { resolve as resolvePath } from 'path';
 
@@ -41,6 +43,36 @@ const configs = [
             },
             {
                 file: pkg.module,
+                format: 'esm',
+                sourcemap: false,
+            },
+        ],
+        ...commonConfig,
+    },
+    {
+        input: './banner-index.ts',
+        output: [
+            {
+                file: resolvePath('./banner', bannerPkg.main),
+                format: 'cjs',
+            },
+            {
+                file: resolvePath('./banner', bannerPkg.module),
+                format: 'esm',
+                sourcemap: false,
+            },
+        ],
+        ...commonConfig,
+    },
+    {
+        input: './end-of-article-index.ts',
+        output: [
+            {
+                file: resolvePath('./end-of-article', endOfArticlePkg.main),
+                format: 'cjs',
+            },
+            {
+                file: resolvePath('./end-of-article', endOfArticlePkg.module),
                 format: 'esm',
                 sourcemap: false,
             },

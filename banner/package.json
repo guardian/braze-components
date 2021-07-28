@@ -1,0 +1,5 @@
+{
+  "main": "../dist/banner/index.js",
+  "module": "../dist/banner/index.esm.js",
+  "types": "../dist/banner-index.d.ts"
+}
