@@ -2386,30 +2386,6 @@
     yaml "^1.7.2"
     yargs "^15.1.0"
 
-"@guardian/src-button@3.3.0":
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/@guardian/src-button/-/src-button-3.3.0.tgz#eccbb3232089a3729254187cea391759c24a477d"
-  integrity sha512-piSU+o5JCjLG8DOC3mWBvZJHio93Xhn3Zzxo9KKZb5/mI9G0YcV8OAqh6I93uhKMz5xrnPXMyKYyBKCdN3tL9A==
-  dependencies:
-    "@guardian/src-helpers" "^3.3.0"
-
-"@guardian/src-foundations@3.3.0", "@guardian/src-foundations@^3.3.0":
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/@guardian/src-foundations/-/src-foundations-3.3.0.tgz#729eb05649c68f295ea174a3f1ae2056ffeb6772"
-  integrity sha512-ephhrEZ2aDQYkc4FM5g1OQju5C2oMS/QCRaSUw58SHNsU1br0Sh3q/KUaTsxO/aJrtk2w9oRMqX2EceRsDdz5Q==
-
-"@guardian/src-helpers@^3.3.0":
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/@guardian/src-helpers/-/src-helpers-3.3.0.tgz#b94e3b09b14bb1dfbc6169792175e221900ae2e0"
-  integrity sha512-7c9k1a7ODBHF3m7WyhqUhLSDMBF1hEbOSs6hhGX/fKd3njkQzHcNM4+s2ZWcA6oUWKnyPICdUdQVCXPMaqfA7w==
-  dependencies:
-    "@guardian/src-foundations" "^3.3.0"
-
-"@guardian/src-icons@3.3.0":
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/@guardian/src-icons/-/src-icons-3.3.0.tgz#795933179be040feba0a58b995d76701cc954dcf"
-  integrity sha512-sUFGSm0emuE8MM+/fqcCBPOgo+nOlcCmGxt9Za4SI34ujzmr78ossPfpLjaW+2+hAVeTA9+/DOEFdVvA11vaFg==
-
 "@guardian/types@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@guardian/types/-/types-2.0.0.tgz#9567ee7638bae058799cb97b48a4078b48033d1c"
