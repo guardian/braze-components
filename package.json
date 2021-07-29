@@ -85,7 +85,10 @@
     "storybook": "^6.2.9",
     "ts-jest": "^26.4.0",
     "typescript": "^4.2.4",
-    "wait-on": "^5.2.0"
+    "wait-on": "^5.2.0",
+    "@guardian/src-button": "3.3.0",
+    "@guardian/src-foundations": "3.3.0",
+    "@guardian/src-icons": "3.3.0"
   },
   "peerDependencies": {
     "@guardian/src-button": "3.3.0",
