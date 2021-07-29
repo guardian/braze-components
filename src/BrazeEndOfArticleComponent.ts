@@ -34,6 +34,5 @@ const END_OF_ARTICLE_MAPPINGS: ComponentMapping<CommonEndOfArticleComponentProps
     [EPIC_NAME]: Epic,
 };
 
-export const BrazeEndOfArticleComponent: React.FC<CommonEndOfArticleComponentProps> = buildBrazeMessageComponent<
-    CommonEndOfArticleComponentProps
->(END_OF_ARTICLE_MAPPINGS);
+export const BrazeEndOfArticleComponent: React.FC<CommonEndOfArticleComponentProps> =
+    buildBrazeMessageComponent<CommonEndOfArticleComponentProps>(END_OF_ARTICLE_MAPPINGS);

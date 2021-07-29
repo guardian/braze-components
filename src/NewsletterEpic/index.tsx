@@ -154,9 +154,8 @@ const ctaStyles = {
 const CTA: React.FC<CTAProps> = (props: CTAProps) => {
     const { subscribeToNewsletter, newsletterId } = props;
 
-    const [subscribeClickStatus, setSubscribeClickStatus] = useState<SubscribeClickStatus>(
-        'DEFAULT',
-    );
+    const [subscribeClickStatus, setSubscribeClickStatus] =
+        useState<SubscribeClickStatus>('DEFAULT');
 
     switch (subscribeClickStatus) {
         case 'DEFAULT':

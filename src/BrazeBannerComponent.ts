@@ -34,6 +34,5 @@ const BANNER_MAPPINGS: ComponentMapping<CommonBannerComponentProps> = {
     [THE_GUARDIAN_IN_2020_BANNER_NAME]: TheGuardianIn2020Banner,
 };
 
-export const BrazeBannerComponent: React.FC<CommonBannerComponentProps> = buildBrazeMessageComponent<
-    CommonBannerComponentProps
->(BANNER_MAPPINGS);
+export const BrazeBannerComponent: React.FC<CommonBannerComponentProps> =
+    buildBrazeMessageComponent<CommonBannerComponentProps>(BANNER_MAPPINGS);

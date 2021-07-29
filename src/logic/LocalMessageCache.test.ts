@@ -140,21 +140,21 @@ describe('LocalMessageCache', () => {
         });
 
         it('filters invalid items from the queue', () => {
-            const nonsenseMessage = ('nonsense' as unknown) as CachedMessage;
-            const anotherNonsenseMessage = ({
+            const nonsenseMessage = 'nonsense' as unknown as CachedMessage;
+            const anotherNonsenseMessage = {
                 expires: anHourFromNow(),
                 message: {
                     id: '1',
                     message: 'more nonsense',
                 },
-            } as unknown) as CachedMessage;
-            const messageWithBadExpiration = ({
+            } as unknown as CachedMessage;
+            const messageWithBadExpiration = {
                 expires: '9999999999999999',
                 message: {
                     id: '1',
                     message: 'more nonsense',
                 },
-            } as unknown) as CachedMessage;
+            } as unknown as CachedMessage;
             const validMessage = JSON.parse(message1Json);
             const queue = [
                 nonsenseMessage,
@@ -257,21 +257,21 @@ describe('LocalMessageCache', () => {
         });
 
         it('filters invalid items from the queue', () => {
-            const nonsenseMessage = ('nonsense' as unknown) as CachedMessage;
-            const anotherNonsenseMessage = ({
+            const nonsenseMessage = 'nonsense' as unknown as CachedMessage;
+            const anotherNonsenseMessage = {
                 expires: anHourFromNow(),
                 message: {
                     id: '1',
                     message: 'more nonsense',
                 },
-            } as unknown) as CachedMessage;
-            const messageWithBadExpiration = ({
+            } as unknown as CachedMessage;
+            const messageWithBadExpiration = {
                 expires: '9999999999999999',
                 message: {
                     id: '1',
                     message: 'more nonsense',
                 },
-            } as unknown) as CachedMessage;
+            } as unknown as CachedMessage;
             const validMessage = JSON.parse(message1Json);
             const queue = [
                 nonsenseMessage,

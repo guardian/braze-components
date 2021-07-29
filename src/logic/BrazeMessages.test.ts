@@ -68,7 +68,7 @@ describe('BrazeMessages', () => {
             it('returns a promise which resolves with message data for the correct slot', async () => {
                 const fakeAppBoy = new FakeAppBoy();
                 const brazeMessages = new BrazeMessages(
-                    (fakeAppBoy as unknown) as typeof appboy,
+                    fakeAppBoy as unknown as typeof appboy,
                     LocalMessageCache,
                     (error, identifier) => console.log(identifier, error),
                 );
@@ -96,7 +96,7 @@ describe('BrazeMessages', () => {
             it('returns a promise which resolves with message data for the correct slot when queried in different order', async () => {
                 const fakeAppBoy = new FakeAppBoy();
                 const brazeMessages = new BrazeMessages(
-                    (fakeAppBoy as unknown) as typeof appboy,
+                    fakeAppBoy as unknown as typeof appboy,
                     LocalMessageCache,
                     (error, identifier) => console.log(identifier, error),
                 );
@@ -126,7 +126,7 @@ describe('BrazeMessages', () => {
             it('returns a message which is capable of logging an impression', async () => {
                 const fakeAppBoy = new FakeAppBoy();
                 const brazeMessages = new BrazeMessages(
-                    (fakeAppBoy as unknown) as typeof appboy,
+                    fakeAppBoy as unknown as typeof appboy,
                     LocalMessageCache,
                     (error, identifier) => console.log(identifier, error),
                 );
@@ -148,7 +148,7 @@ describe('BrazeMessages', () => {
             it('returns a message with an id', async () => {
                 const fakeAppBoy = new FakeAppBoy();
                 const brazeMessages = new BrazeMessages(
-                    (fakeAppBoy as unknown) as typeof appboy,
+                    fakeAppBoy as unknown as typeof appboy,
                     LocalMessageCache,
                     (error, identifier) => console.log(identifier, error),
                 );
@@ -179,7 +179,7 @@ describe('BrazeMessages', () => {
                 const freshMessage = buildMessage(JSON.parse(message2Json));
                 const fakeAppBoy = new FakeAppBoy();
                 const brazeMessages = new BrazeMessages(
-                    (fakeAppBoy as unknown) as typeof appboy,
+                    fakeAppBoy as unknown as typeof appboy,
                     LocalMessageCache,
                     (error, identifier) => console.log(identifier, error),
                 );
@@ -203,7 +203,7 @@ describe('BrazeMessages', () => {
                 const freshMessage = buildMessage(JSON.parse(message2Json));
                 const fakeAppBoy = new FakeAppBoy();
                 const brazeMessages = new BrazeMessages(
-                    (fakeAppBoy as unknown) as typeof appboy,
+                    fakeAppBoy as unknown as typeof appboy,
                     LocalMessageCache,
                     (error, identifier) => console.log(identifier, error),
                 );
@@ -229,7 +229,7 @@ describe('BrazeMessages', () => {
                 const freshMessage = buildMessage(JSON.parse(message2Json));
                 const fakeAppBoy = new FakeAppBoy();
                 const brazeMessages = new BrazeMessages(
-                    (fakeAppBoy as unknown) as typeof appboy,
+                    fakeAppBoy as unknown as typeof appboy,
                     LocalMessageCache,
                     (error, identifier) => console.log(identifier, error),
                 );
@@ -251,7 +251,7 @@ describe('BrazeMessages', () => {
             it('returns a promise which resolves with message data for the correct slot', async () => {
                 const fakeAppBoy = new FakeAppBoy();
                 const brazeMessages = new BrazeMessages(
-                    (fakeAppBoy as unknown) as typeof appboy,
+                    fakeAppBoy as unknown as typeof appboy,
                     InMemoryCache,
                     (error, identifier) => console.log(identifier, error),
                 );
@@ -277,7 +277,7 @@ describe('BrazeMessages', () => {
             it('returns a message which is capable of logging an impression', async () => {
                 const fakeAppBoy = new FakeAppBoy();
                 const brazeMessages = new BrazeMessages(
-                    (fakeAppBoy as unknown) as typeof appboy,
+                    fakeAppBoy as unknown as typeof appboy,
                     InMemoryCache,
                     (error, identifier) => console.log(identifier, error),
                 );
@@ -298,7 +298,7 @@ describe('BrazeMessages', () => {
             it('returns a message with an id', async () => {
                 const fakeAppBoy = new FakeAppBoy();
                 const brazeMessages = new BrazeMessages(
-                    (fakeAppBoy as unknown) as typeof appboy,
+                    fakeAppBoy as unknown as typeof appboy,
                     InMemoryCache,
                     (error, identifier) => console.log(identifier, error),
                 );
@@ -324,7 +324,7 @@ describe('BrazeMessages', () => {
                 const freshMessage = buildMessage(JSON.parse(message2Json));
                 const fakeAppBoy = new FakeAppBoy();
                 const brazeMessages = new BrazeMessages(
-                    (fakeAppBoy as unknown) as typeof appboy,
+                    fakeAppBoy as unknown as typeof appboy,
                     InMemoryCache,
                     (error, identifier) => console.log(identifier, error),
                 );
@@ -344,7 +344,7 @@ describe('BrazeMessages', () => {
                 const freshMessage = buildMessage(JSON.parse(message2Json));
                 const fakeAppBoy = new FakeAppBoy();
                 const brazeMessages = new BrazeMessages(
-                    (fakeAppBoy as unknown) as typeof appboy,
+                    fakeAppBoy as unknown as typeof appboy,
                     InMemoryCache,
                     (error, identifier) => console.log(identifier, error),
                 );
@@ -366,7 +366,7 @@ describe('BrazeMessages', () => {
                 const freshMessage = buildMessage(JSON.parse(message2Json));
                 const fakeAppBoy = new FakeAppBoy();
                 const brazeMessages = new BrazeMessages(
-                    (fakeAppBoy as unknown) as typeof appboy,
+                    fakeAppBoy as unknown as typeof appboy,
                     InMemoryCache,
                     (error, identifier) => console.log(identifier, error),
                 );
