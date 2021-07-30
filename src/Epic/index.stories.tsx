@@ -5,7 +5,7 @@ import { BrazeEndOfArticleComponent } from '../BrazeEndOfArticleComponent';
 
 export default {
     component: 'Epic',
-    title: 'WorkInProgress/EndOfArticle/Epic',
+    title: 'EndOfArticle/Epic',
     decorators: [withKnobs],
     parameters: {
         knobs: {
