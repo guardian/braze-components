@@ -46,7 +46,7 @@
     "@guardian/src-button": "3.3.0",
     "@guardian/src-foundations": "3.3.0",
     "@guardian/src-icons": "3.3.0",
-    "@guardian/types": "^2.0.0",
+    "@guardian/types": "^7.0.0",
     "@rollup/plugin-alias": "^3.1.1",
     "@rollup/plugin-babel": "^5.1.0",
     "@rollup/plugin-commonjs": "^14.0.0",
