@@ -7,9 +7,9 @@ export const COMPONENT_NAME = 'Epic';
  * this means the user won't download the Braze components bundle when the component can't be shown.
  */
 export const canRenderEpic = (brazeMessageProps: BrazeMessageProps): boolean => {
-    const { heading, buttonText, buttonUrl, ophanComponentId } = brazeMessageProps;
+    const { buttonText, buttonUrl, ophanComponentId, highlightedText } = brazeMessageProps;
     const paragraphs = parseParagraphs(brazeMessageProps);
-    const allText = heading + ' ' + buttonText + ' ' + paragraphs.join(' ');
+    const allText = (highlightedText || '') + ' ' + paragraphs.join(' ');
     const invalidPlaceholders = containsNonAllowedPlaceholder(allText);
     return Boolean(
         buttonText &&

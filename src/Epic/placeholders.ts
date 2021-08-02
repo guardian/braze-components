@@ -1,6 +1,6 @@
 import { getCountryName, getLocalCurrencySymbol } from './geolocation';
 
-const ALLOWED_PLACEHOLDERS = ['CURRENCY_SYMBOL', 'COUNTRY_NAME'];
+const ALLOWED_PLACEHOLDERS = ['%%CURRENCY_SYMBOL%%', '%%COUNTRY_NAME%%'];
 
 // we have to treat %%ARTICLE_COUNT%% placeholders specially as they are replaced
 // with react components, not a simple text substitution
@@ -25,6 +25,6 @@ const PLACEHOLDER_RE = /%%.*?%%/g;
 export const containsNonAllowedPlaceholder = (text: string): boolean => {
     const matches = text
         .match(PLACEHOLDER_RE)
-        ?.filter((str) => ALLOWED_PLACEHOLDERS.includes(`%%${str}%%`));
+        ?.filter((str) => !ALLOWED_PLACEHOLDERS.includes(`${str}`));
     return !!matches && matches.length > 0;
 };
