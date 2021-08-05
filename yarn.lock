@@ -1422,10 +1422,10 @@
   resolved "https://registry.yarnpkg.com/@guardian/src-icons/-/src-icons-3.3.0.tgz#795933179be040feba0a58b995d76701cc954dcf"
   integrity sha512-sUFGSm0emuE8MM+/fqcCBPOgo+nOlcCmGxt9Za4SI34ujzmr78ossPfpLjaW+2+hAVeTA9+/DOEFdVvA11vaFg==
 
-"@guardian/types@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@guardian/types/-/types-2.0.0.tgz#9567ee7638bae058799cb97b48a4078b48033d1c"
-  integrity sha512-0jR2FgTQVG9gO2a1IZwxFWi6UKxteBWPob5+zErbOrznN0u4Mf+9KgigMaNMWpZvkEdDhPAQl7ot5f6wW0wU5A==
+"@guardian/types@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@guardian/types/-/types-8.0.0.tgz#5fa80b3a56e4ef997514e3a1e3e5b3da6e0a6d9b"
+  integrity sha512-axy50QarWbinGJ1jz0I2Npk4U/OTSGu39PRZuFYNlFNbZrIP2CoG+DI5Ruq7ydrLxhBqXGiS2EjAGMAA3BdlCQ==
 
 "@hapi/hoek@^9.0.0":
   version "9.2.0"
