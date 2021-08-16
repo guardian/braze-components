@@ -141,6 +141,10 @@ const ctaStyles = {
         ${body.medium({ fontWeight: 'bold' })};
         color: ${palette.neutral[0]};
     `,
+    errorText: css`
+        ${body.medium({ fontWeight: 'bold' })};
+        color: ${palette.neutral[0]};
+    `,
     newslettersLink: css`
         ${body.medium()}
         border-bottom: 1px solid ${palette.neutral[60]};
@@ -161,7 +165,6 @@ const CTA: React.FC<CTAProps> = (props: CTAProps) => {
 
     switch (subscribeClickStatus) {
         case 'DEFAULT':
-        case 'FAILURE':
             return (
                 <ThemeProvider theme={buttonBrandAlt}>
                     <Button
@@ -171,12 +174,21 @@ const CTA: React.FC<CTAProps> = (props: CTAProps) => {
 
                             subscribeToNewsletter(newsletterId as string)
                                 .then(() => setSubscribeClickStatus('SUCCESS'))
-                                .catch(() => setSubscribeClickStatus('FAILURE'));
+                                .catch(() => {
+                                    setSubscribeClickStatus('FAILURE');
+                                    setTimeout(() => setSubscribeClickStatus('DEFAULT'), 3500);
+                                });
                         }}
                     >
                         Sign up
                     </Button>
                 </ThemeProvider>
+            );
+        case 'FAILURE':
+            return (
+                <div css={ctaStyles.errorText}>
+                    There was an error signing up to the newsletter. Please try agian
+                </div>
             );
         case 'IN_PROGRESS':
             return <LoadingDots></LoadingDots>;
