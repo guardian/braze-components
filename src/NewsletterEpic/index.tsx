@@ -6,6 +6,7 @@ import { COMPONENT_NAME } from './canRender';
 import { body, headline, textSans } from '@guardian/src-foundations/typography';
 import { canRender } from './canRender';
 import { from, until } from '@guardian/src-foundations/mq';
+import { LoadingDots } from './LoadingDots';
 
 // Once https://github.com/guardian/source/pull/843 is merged and in a
 // @guardian/src-icons release we'll be able to bump the version on this project
@@ -137,8 +138,8 @@ const ctaStyles = {
         }
     `,
     thankYouText: css`
-        ${body.medium({ fontWeight: 'bold' })}
-        color: ${palette.neutral[0]}
+        ${body.medium({ fontWeight: 'bold' })};
+        color: ${palette.neutral[0]};
     `,
     newslettersLink: css`
         ${body.medium()}
@@ -151,6 +152,7 @@ const ctaStyles = {
         color: ${palette.neutral[0]};
     `,
 };
+
 const CTA: React.FC<CTAProps> = (props: CTAProps) => {
     const { subscribeToNewsletter, newsletterId } = props;
 
@@ -177,13 +179,7 @@ const CTA: React.FC<CTAProps> = (props: CTAProps) => {
                 </ThemeProvider>
             );
         case 'IN_PROGRESS':
-            return (
-                <ThemeProvider theme={buttonBrandAlt}>
-                    <Button css={ctaStyles.button} disabled={true}>
-                        Loading...
-                    </Button>
-                </ThemeProvider>
-            );
+            return <LoadingDots></LoadingDots>;
         case 'SUCCESS':
             return (
                 <>
