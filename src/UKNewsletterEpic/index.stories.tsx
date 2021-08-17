@@ -39,7 +39,9 @@ export const defaultStory = (): ReactElement | null => {
                 }}
                 subscribeToNewsletter={(newsletterId) => {
                     console.log(`subscribeToNewsletter invoked with id ${newsletterId}`);
-                    return new Promise((resolve) => setTimeout(resolve, 1000));
+                    return new Promise((resolve, reject) =>
+                        setTimeout(() => (Math.random() > 0.5 ? resolve() : reject()), 1000),
+                    );
                 }}
             />
         </StorybookWrapper>
