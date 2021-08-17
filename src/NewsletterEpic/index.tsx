@@ -187,7 +187,7 @@ const CTA: React.FC<CTAProps> = (props: CTAProps) => {
         case 'FAILURE':
             return (
                 <div css={ctaStyles.errorText}>
-                    There was an error signing up to the newsletter. Please try agian
+                    There was an error signing up to the newsletter. Please try again
                 </div>
             );
         case 'IN_PROGRESS':
