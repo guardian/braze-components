@@ -144,6 +144,7 @@ const ctaStyles = {
     errorText: css`
         ${body.medium({ fontWeight: 'bold' })};
         color: ${palette.neutral[0]};
+        margin-bottom: 16px;
     `,
     newslettersLink: css`
         ${body.medium()}
@@ -157,38 +158,45 @@ const ctaStyles = {
     `,
 };
 
+type SignUpButtonProps = { onSignUpClick: () => void };
+
+const SignUpButton: React.FC<SignUpButtonProps> = (props: SignUpButtonProps) => {
+    return (
+        <ThemeProvider theme={buttonBrandAlt}>
+            <Button css={ctaStyles.button} onClick={props.onSignUpClick}>
+                Sign up
+            </Button>
+        </ThemeProvider>
+    );
+};
+
 const CTA: React.FC<CTAProps> = (props: CTAProps) => {
     const { subscribeToNewsletter, newsletterId } = props;
 
     const [subscribeClickStatus, setSubscribeClickStatus] =
         useState<SubscribeClickStatus>('DEFAULT');
 
+    const onSignUpClick = () => {
+        setSubscribeClickStatus('IN_PROGRESS');
+
+        subscribeToNewsletter(newsletterId as string)
+            .then(() => setSubscribeClickStatus('SUCCESS'))
+            .catch(() => {
+                setSubscribeClickStatus('FAILURE');
+            });
+    };
+
     switch (subscribeClickStatus) {
         case 'DEFAULT':
-            return (
-                <ThemeProvider theme={buttonBrandAlt}>
-                    <Button
-                        css={ctaStyles.button}
-                        onClick={() => {
-                            setSubscribeClickStatus('IN_PROGRESS');
-
-                            subscribeToNewsletter(newsletterId as string)
-                                .then(() => setSubscribeClickStatus('SUCCESS'))
-                                .catch(() => {
-                                    setSubscribeClickStatus('FAILURE');
-                                    setTimeout(() => setSubscribeClickStatus('DEFAULT'), 3500);
-                                });
-                        }}
-                    >
-                        Sign up
-                    </Button>
-                </ThemeProvider>
-            );
+            return <SignUpButton onSignUpClick={onSignUpClick}></SignUpButton>;
         case 'FAILURE':
             return (
-                <div css={ctaStyles.errorText}>
-                    There was an error signing up to the newsletter. Please try again
-                </div>
+                <>
+                    <div css={ctaStyles.errorText}>
+                        There was an error signing up to the newsletter. Please try again
+                    </div>
+                    <SignUpButton onSignUpClick={onSignUpClick}></SignUpButton>
+                </>
             );
         case 'IN_PROGRESS':
             return <LoadingDots></LoadingDots>;
