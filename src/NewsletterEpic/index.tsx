@@ -188,7 +188,7 @@ const CTA: React.FC<CTAProps> = (props: CTAProps) => {
 
     switch (subscribeClickStatus) {
         case 'DEFAULT':
-            return <SignUpButton onSignUpClick={onSignUpClick}></SignUpButton>;
+            return <SignUpButton onSignUpClick={onSignUpClick} />;
         case 'FAILURE':
             return (
                 <>
