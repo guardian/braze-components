@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react';
 import { withKnobs, text } from '@storybook/addon-knobs';
 import { StorybookWrapper } from '../utils/StorybookWrapper';
 import { BrazeEndOfArticleComponent } from '../BrazeEndOfArticleComponent';
+import { knobsData } from '../utils/knobsData';
 
 export default {
     component: 'Epic',
@@ -56,18 +57,22 @@ export const defaultStory = (): ReactElement | null => {
         }
     }
 
+    const brazeMessageProps = {
+        slotName,
+        ophanComponentId,
+        heading,
+        highlightedText,
+        buttonText,
+        buttonUrl,
+        ...paragraphMap,
+    };
+
+    knobsData.set({ ...brazeMessageProps, componentName });
+
     return (
         <StorybookWrapper>
             <BrazeEndOfArticleComponent
-                brazeMessageProps={{
-                    slotName,
-                    ophanComponentId,
-                    heading,
-                    highlightedText,
-                    buttonText,
-                    buttonUrl,
-                    ...paragraphMap,
-                }}
+                brazeMessageProps={brazeMessageProps}
                 componentName={componentName}
                 subscribeToNewsletter={() => Promise.resolve()}
             />
