@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react';
 import { BrazeEndOfArticleComponent } from '../BrazeEndOfArticleComponent';
 import { StorybookWrapper } from '../utils/StorybookWrapper';
 import { withKnobs, text, boolean } from '@storybook/addon-knobs';
+import { knobsData } from '../utils/knobsData';
 
 export default {
     component: 'USNewsletterEpic',
@@ -31,17 +32,21 @@ export const defaultStory = (): ReactElement | null => {
     const ophanComponentId = text('ophanComponentId', 'example_ophan_component_id');
     const simulateFailure = boolean('Simulate Subscribe Failure', false);
 
+    const brazeMessageProps = {
+        header,
+        frequency,
+        paragraph1,
+        paragraph2,
+        ophanComponentId,
+    };
+
+    knobsData.set({ ...brazeMessageProps, componentName });
+
     return (
         <StorybookWrapper>
             <BrazeEndOfArticleComponent
                 componentName={componentName}
-                brazeMessageProps={{
-                    header,
-                    frequency,
-                    paragraph1,
-                    paragraph2,
-                    ophanComponentId,
-                }}
+                brazeMessageProps={brazeMessageProps}
                 subscribeToNewsletter={(newsletterId) => {
                     console.log(`subscribeToNewsletter invoked with id ${newsletterId}`);
                     return new Promise((resolve, reject) =>
