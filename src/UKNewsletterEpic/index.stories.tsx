@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { BrazeEndOfArticleComponent } from '../BrazeEndOfArticleComponent';
 import { StorybookWrapper } from '../utils/StorybookWrapper';
-import { withKnobs, text } from '@storybook/addon-knobs';
+import { withKnobs, text, boolean } from '@storybook/addon-knobs';
 
 export default {
     component: 'UKNewsletterEpic',
@@ -25,6 +25,7 @@ export const defaultStory = (): ReactElement | null => {
     );
     const componentName = text('componentName', 'UKNewsletterEpic');
     const ophanComponentId = text('ophanComponentId', 'example_ophan_component_id');
+    const simulateFailure = boolean('Simulate Subscribe Failure', false);
 
     return (
         <StorybookWrapper>
@@ -40,7 +41,7 @@ export const defaultStory = (): ReactElement | null => {
                 subscribeToNewsletter={(newsletterId) => {
                     console.log(`subscribeToNewsletter invoked with id ${newsletterId}`);
                     return new Promise((resolve, reject) =>
-                        setTimeout(() => (Math.random() > 0.5 ? resolve() : reject()), 1000),
+                        setTimeout(() => (simulateFailure ? reject() : resolve()), 1000),
                     );
                 }}
             />
