@@ -1,11 +1,11 @@
 import React, { ReactElement } from 'react';
 import { BrazeEndOfArticleComponent } from '../BrazeEndOfArticleComponent';
 import { StorybookWrapper } from '../utils/StorybookWrapper';
-import { withKnobs, text } from '@storybook/addon-knobs';
+import { withKnobs, text, boolean } from '@storybook/addon-knobs';
 
 export default {
-    component: 'UKNewsletterEpic',
-    title: 'WorkInProgress/EndOfArticle/UKNewsletterEpic',
+    component: 'UKNewsletterEpicFailure',
+    title: 'Dev/EndOfArticle/UKNewsletterEpicFailure',
     decorators: [withKnobs({ escapeHTML: false })],
     parameters: {},
 };
@@ -25,6 +25,7 @@ export const defaultStory = (): ReactElement | null => {
     );
     const componentName = text('componentName', 'UKNewsletterEpic');
     const ophanComponentId = text('ophanComponentId', 'example_ophan_component_id');
+    const simulateFailure = boolean('Simulate Subscribe Failure', true);
 
     return (
         <StorybookWrapper>
@@ -39,11 +40,13 @@ export const defaultStory = (): ReactElement | null => {
                 }}
                 subscribeToNewsletter={(newsletterId) => {
                     console.log(`subscribeToNewsletter invoked with id ${newsletterId}`);
-                    return new Promise((resolve) => setTimeout(() => resolve(), 1000));
+                    return new Promise((resolve, reject) =>
+                        setTimeout(() => (simulateFailure ? reject() : resolve()), 1000),
+                    );
                 }}
             />
         </StorybookWrapper>
     );
 };
 
-defaultStory.storyName = 'UKNewsletterEpic';
+defaultStory.storyName = 'UKNewsletterEpicFailure';
