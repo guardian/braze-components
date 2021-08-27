@@ -3,9 +3,10 @@ import React from 'react';
 import { brand, palette, space } from '@guardian/src-foundations';
 import { ContributionsEpicButtons } from './ContributionsEpicButtons';
 import { body, headline } from '@guardian/src-foundations/typography';
-import { COMPONENT_NAME, canRenderEpic, parseParagraphs } from './canRender';
+import { COMPONENT_NAME, canRender, parseParagraphs } from './canRender';
 export { COMPONENT_NAME };
 import { replaceNonArticleCountPlaceholders } from './placeholders';
+import { from, breakpoints } from '@guardian/src-foundations/mq';
 
 // Custom styles for <a> tags in the Epic content
 const linkStyles = css`
@@ -23,7 +24,7 @@ const styles = {
         max-width: 620px;
     `,
     epicContainer: css`
-        padding: 4px 8px 12px;
+        padding: ${space[1]}px ${space[2]}px ${space[3]}px;
         border-top: 1px solid #ffe500;
         background-color: #f6f6f6;
         display: flex;
@@ -44,6 +45,27 @@ const styles = {
         ${linkStyles}
         padding: 2px;
         background-color: ${palette.brandAlt[400]};
+    `,
+};
+
+const imageStyles = {
+    picture: css`
+        width: 100%;
+        height: 100%;
+        display: flex;
+    `,
+    container: css`
+        display: none;
+
+        ${from.tablet} {
+            display: block;
+            margin: -${space[1]}px -${space[2]}px ${space[1]}px;
+        }
+    `,
+    image: css`
+        height: auto;
+        width: 100%;
+        object-fit: cover;
     `,
 };
 
@@ -68,15 +90,45 @@ export type EpicProps = {
     ophanComponentId?: string;
     brazeMessageProps: BrazeMessageProps;
     countryCode?: string;
+    headerImageUrl?: string;
+};
+
+type HeaderImageProps = {
+    imageUrl?: string;
+};
+
+const emptyImage = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+
+// We use a picture element here with an empty image for < tablet so that we
+// don't load an image unnecessarily when we're not going to render it (which would be
+// the case with an img tag)
+const HeaderImage: React.FC<HeaderImageProps> = ({ imageUrl }: HeaderImageProps) => {
+    if (imageUrl) {
+        return (
+            <div css={imageStyles.container}>
+                <picture css={imageStyles.picture}>
+                    <source
+                        srcSet={emptyImage}
+                        media={`(max-width: ${breakpoints.tablet - 1}px)`}
+                    />
+                    <source srcSet={imageUrl} media={`(min-width: ${breakpoints.tablet}px)`} />
+                    <img css={imageStyles.image} src={imageUrl} alt="" />
+                </picture>
+            </div>
+        );
+    }
+
+    return null;
 };
 
 export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
     const {
         brazeMessageProps: { heading, buttonText, buttonUrl, highlightedText },
         countryCode,
+        headerImageUrl,
     } = props;
 
-    if (!canRenderEpic(props.brazeMessageProps)) {
+    if (!canRender(props.brazeMessageProps)) {
         return null;
     }
 
@@ -90,6 +142,8 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
         <ThemeProvider theme={brand}>
             <div css={styles.epicWrapper}>
                 <section css={styles.epicContainer}>
+                    <HeaderImage imageUrl={headerImageUrl} />
+
                     <span css={styles.heading}>{heading}</span>
                     {paragraphs.map((text, index) => (
                         <p key={'paragraph' + index} css={styles.paragraph}>

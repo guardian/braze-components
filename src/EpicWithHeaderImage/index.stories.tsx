@@ -3,19 +3,18 @@ import { StorybookWrapper } from '../utils/StorybookWrapper';
 import { BrazeEndOfArticleComponent } from '../BrazeEndOfArticleComponent';
 import { knobsData } from '../utils/knobsData';
 import {
-    buildEpicParagraphDocs,
     coreArgTypes,
     ophanComponentIdArgType,
+    buildEpicParagraphDocs,
 } from '../storybookCommon/argTypes';
-import { BrazeMessageProps } from '.';
+import { BrazeMessageProps } from '../Epic';
 
 const NUMBER_OF_PARAGRAPHS = 9;
 const paragraphDocs = buildEpicParagraphDocs(NUMBER_OF_PARAGRAPHS);
 
 export default {
-    component: 'Epic',
-    title: 'EndOfArticle/Epic',
-    parameters: {},
+    component: 'EpicWithHeaderImage',
+    title: 'WorkInProgress/EndOfArticle/EpicWithHeaderImage',
     argTypes: {
         ...coreArgTypes,
         ...ophanComponentIdArgType,
@@ -95,7 +94,7 @@ DefaultStory.args = {
     buttonUrl: 'https://support.theguardian.com/contribute',
     ophanComponentId: 'example_ophan_component_id',
     slotName: 'EndOfArticle',
-    componentName: 'Epic',
+    componentName: 'EpicWithHeaderImage',
 };
 
-DefaultStory.story = { name: 'Epic' };
+DefaultStory.story = { name: 'EpicWithHeaderImage' };
