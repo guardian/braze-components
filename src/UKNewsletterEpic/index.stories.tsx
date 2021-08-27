@@ -44,7 +44,7 @@ export const defaultStory = (): ReactElement | null => {
                 brazeMessageProps={brazeMessageProps}
                 subscribeToNewsletter={(newsletterId) => {
                     console.log(`subscribeToNewsletter invoked with id ${newsletterId}`);
-                    return new Promise((resolve) => setTimeout(resolve, 1000));
+                    return new Promise((resolve) => setTimeout(() => resolve(), 1000));
                 }}
             />
         </StorybookWrapper>
