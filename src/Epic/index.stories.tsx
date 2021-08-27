@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react';
 import { withKnobs, text } from '@storybook/addon-knobs';
 import { StorybookWrapper } from '../utils/StorybookWrapper';
 import { BrazeEndOfArticleComponent } from '../BrazeEndOfArticleComponent';
+import { knobsData } from '../utils/knobsData';
 
 export default {
     component: 'Epic',
@@ -24,7 +25,7 @@ const defaultContent = {
         'We hope you will consider supporting us today. We need your support to keep delivering quality journalism that’s open and independent. Every reader contribution, however big or small, is so valuable. ',
     ],
     highlightedText:
-        'Support The Guardian from as little as %%CURRENCY_SYMBOL%%1 - and it only takes a minute. Thank you.',
+        'Support <a href="https://example.com">The Guardian</a> from as little as %%CURRENCY_SYMBOL%%1 - and it only takes a minute. Thank you.',
     buttonText: 'Support The Guardian',
     buttonUrl: 'https://support.theguardian.com/contribute',
 };
@@ -56,18 +57,22 @@ export const defaultStory = (): ReactElement | null => {
         }
     }
 
+    const brazeMessageProps = {
+        slotName,
+        ophanComponentId,
+        heading,
+        highlightedText,
+        buttonText,
+        buttonUrl,
+        ...paragraphMap,
+    };
+
+    knobsData.set({ ...brazeMessageProps, componentName });
+
     return (
         <StorybookWrapper>
             <BrazeEndOfArticleComponent
-                brazeMessageProps={{
-                    slotName,
-                    ophanComponentId,
-                    heading,
-                    highlightedText,
-                    buttonText,
-                    buttonUrl,
-                    ...paragraphMap,
-                }}
+                brazeMessageProps={brazeMessageProps}
                 componentName={componentName}
                 subscribeToNewsletter={() => Promise.resolve()}
             />

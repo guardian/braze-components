@@ -95,7 +95,10 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
                         <p key={'paragraph' + index} css={styles.paragraph}>
                             <span dangerouslySetInnerHTML={{ __html: text }} />
                             {highlightTextClean.length > 0 && index === paragraphs.length - 1 ? (
-                                <span css={styles.highlightText}>{highlightTextClean}</span>
+                                <span
+                                    css={styles.highlightText}
+                                    dangerouslySetInnerHTML={{ __html: highlightTextClean }}
+                                />
                             ) : null}
                         </p>
                     ))}
