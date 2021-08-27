@@ -3,7 +3,7 @@ import React from 'react';
 import { brand, palette, space } from '@guardian/src-foundations';
 import { ContributionsEpicButtons } from './ContributionsEpicButtons';
 import { body, headline } from '@guardian/src-foundations/typography';
-import { COMPONENT_NAME, canRenderEpic, parseParagraphs } from './canRender';
+import { COMPONENT_NAME, canRender, parseParagraphs } from './canRender';
 export { COMPONENT_NAME };
 import { replaceNonArticleCountPlaceholders } from './placeholders';
 
@@ -23,7 +23,7 @@ const styles = {
         max-width: 620px;
     `,
     epicContainer: css`
-        padding: 4px 8px 12px;
+        padding: ${space[1]}px ${space[2]}px ${space[3]}px;
         border-top: 1px solid #ffe500;
         background-color: #f6f6f6;
         display: flex;
@@ -68,15 +68,17 @@ export type EpicProps = {
     ophanComponentId?: string;
     brazeMessageProps: BrazeMessageProps;
     countryCode?: string;
+    headerSection?: React.ReactNode;
 };
 
 export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
     const {
         brazeMessageProps: { heading, buttonText, buttonUrl, highlightedText },
         countryCode,
+        headerSection,
     } = props;
 
-    if (!canRenderEpic(props.brazeMessageProps)) {
+    if (!canRender(props.brazeMessageProps)) {
         return null;
     }
 
@@ -90,6 +92,8 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
         <ThemeProvider theme={brand}>
             <div css={styles.epicWrapper}>
                 <section css={styles.epicContainer}>
+                    {headerSection}
+
                     <span css={styles.heading}>{heading}</span>
                     {paragraphs.map((text, index) => (
                         <p key={'paragraph' + index} css={styles.paragraph}>

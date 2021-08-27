@@ -3,19 +3,18 @@ import { StorybookWrapper } from '../utils/StorybookWrapper';
 import { BrazeEndOfArticleComponent } from '../BrazeEndOfArticleComponent';
 import { knobsData } from '../utils/knobsData';
 import {
-    buildEpicParagraphDocs,
     coreArgTypes,
     ophanComponentIdArgType,
+    buildEpicParagraphDocs,
 } from '../storybookCommon/argTypes';
-import { BrazeMessageProps } from '.';
+import { BrazeMessageProps } from '../Epic';
 
 const NUMBER_OF_PARAGRAPHS = 9;
 const paragraphDocs = buildEpicParagraphDocs(NUMBER_OF_PARAGRAPHS);
 
 export default {
-    component: 'Epic',
-    title: 'EndOfArticle/Epic',
-    parameters: {},
+    component: 'EpicWithSpecialHeader',
+    title: 'WorkInProgress/EndOfArticle/EpicWithSpecialHeader',
     argTypes: {
         ...coreArgTypes,
         ...ophanComponentIdArgType,
@@ -80,7 +79,6 @@ const StoryTemplate = (
 export const DefaultStory = StoryTemplate.bind({});
 
 DefaultStory.args = {
-    heading: 'Since you’re here...',
     paragraph1:
         '... we have a small favour to ask. More people, <a href="https://example.com">like you</a>, are reading and supporting the Guardian’s independent, investigative journalism than ever before. And unlike many news organisations, we made the choice to keep our reporting open for all, regardless of where they live or what they can afford to pay.',
     paragraph2:
@@ -95,7 +93,7 @@ DefaultStory.args = {
     buttonUrl: 'https://support.theguardian.com/contribute',
     ophanComponentId: 'example_ophan_component_id',
     slotName: 'EndOfArticle',
-    componentName: 'Epic',
+    componentName: 'EpicWithSpecialHeader',
 };
 
-DefaultStory.story = { name: 'Epic' };
+DefaultStory.story = { name: 'EpicWithSpecialHeader' };
