@@ -6,7 +6,7 @@ import { knobsData } from '../utils/knobsData';
 
 export default {
     component: 'USNewsletterEpic',
-    title: 'WorkInProgress/EndOfArticle/USNewsletterEpic',
+    title: 'EndOfArticle/USNewsletterEpic',
     decorators: [
         withKnobs({
             escapeHTML: false,
