@@ -1,46 +1,57 @@
 import React, { ReactElement } from 'react';
 import { BrazeEndOfArticleComponent } from '../BrazeEndOfArticleComponent';
 import { StorybookWrapper } from '../utils/StorybookWrapper';
-import { withKnobs, text } from '@storybook/addon-knobs';
 import { knobsData } from '../utils/knobsData';
+import { coreArgTypes, ophanComponentIdArgType } from '../storybookCommon/argTypes';
+import type { BrazeMessageProps } from '.';
 
 export default {
     component: 'AUNewsletterEpic',
     title: 'EndOfArticle/AUNewsletterEpic',
-    decorators: [withKnobs({ escapeHTML: false })],
     parameters: {},
+    argTypes: {
+        ...coreArgTypes,
+        ...ophanComponentIdArgType,
+        header: {
+            name: 'header',
+            type: { name: 'string', required: true },
+            description: 'Header text',
+        },
+        frequency: {
+            name: 'frequency',
+            type: { name: 'string', required: true },
+            description: 'Text description of how often the email is sent',
+        },
+        paragraph1: {
+            name: 'paragraph1',
+            type: { name: 'string', required: true },
+            description: 'First paragraph',
+        },
+        paragraph2: {
+            name: 'paragraph2',
+            type: { name: 'string', required: false },
+            description: 'Second paragraph',
+        },
+    },
 };
 
-export const defaultStory = (): ReactElement | null => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const slotName = text('slotName', 'EndOfArticle');
-    const header = text('header', `Guardian Australia's Morning Mail`);
-    const frequency = text('frequency', 'Every weekday');
-    const paragraph1 = text(
-        'paragraph1',
-        'Get early morning news from Guardian Australia straight to your inbox.',
-    );
-    const paragraph2 = text(
-        'paragraph2',
-        'We thought you should know this newsletter may contain information about Guardian products and services.',
-    );
-    const componentName = text('componentName', 'AUNewsletterEpic');
-    const ophanComponentId = text('ophanComponentId', 'example_ophan_component_id');
-
+const StoryTemplate = (
+    args: BrazeMessageProps & { componentName: string },
+): ReactElement | null => {
     const brazeMessageProps = {
-        header,
-        frequency,
-        paragraph1,
-        paragraph2,
-        ophanComponentId,
+        header: args.header,
+        frequency: args.frequency,
+        paragraph1: args.paragraph1,
+        paragraph2: args.paragraph2,
+        ophanComponentId: args.ophanComponentId,
     };
 
-    knobsData.set({ ...brazeMessageProps, componentName });
+    knobsData.set({ ...brazeMessageProps, componentName: args.componentName });
 
     return (
         <StorybookWrapper>
             <BrazeEndOfArticleComponent
-                componentName={componentName}
+                componentName={args.componentName}
                 brazeMessageProps={brazeMessageProps}
                 subscribeToNewsletter={(newsletterId) => {
                     console.log(`subscribeToNewsletter invoked with id ${newsletterId}`);
@@ -51,4 +62,17 @@ export const defaultStory = (): ReactElement | null => {
     );
 };
 
-defaultStory.storyName = 'AUNewsletterEpic';
+export const DefaultStory = StoryTemplate.bind({});
+
+DefaultStory.args = {
+    slotName: 'EndOfArticle',
+    header: `Guardian Australia's Morning Mail`,
+    frequency: 'Every weekday',
+    paragraph1: 'Get early morning news from Guardian Australia straight to your inbox.',
+    paragraph2:
+        'We thought you should know this newsletter may contain information about Guardian products and services.',
+    componentName: 'AUNewsletterEpic',
+    ophanComponentId: 'example_ophan_component_id',
+};
+
+DefaultStory.storyName = 'AUNewsletterEpic';
