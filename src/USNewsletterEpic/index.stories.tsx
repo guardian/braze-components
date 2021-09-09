@@ -3,6 +3,7 @@ import { BrazeEndOfArticleComponent } from '../BrazeEndOfArticleComponent';
 import { StorybookWrapper } from '../utils/StorybookWrapper';
 import { knobsData } from '../utils/knobsData';
 import { coreArgTypes } from '../storybookCommon/argTypes';
+import type { BrazeMessageProps } from '.';
 
 export default {
     component: 'USNewsletterEpic',
@@ -38,7 +39,9 @@ export default {
     },
 };
 
-const StoryTemplate = (args): ReactElement | null => {
+const StoryTemplate = (
+    args: BrazeMessageProps & { componentName: string },
+): ReactElement | null => {
     const brazeMessageProps = {
         header: args.header,
         frequency: args.frequency,
