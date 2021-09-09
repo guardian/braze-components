@@ -5,7 +5,6 @@ module.exports = {
     addons: [
         '@storybook/addon-docs',
         '@storybook/addon-controls',
-        '@storybook/addon-knobs',
         '@storybook/addon-viewport',
         './gu-auth/register.js',
         './gu-preview/register.js',
