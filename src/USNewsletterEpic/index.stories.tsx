@@ -2,28 +2,14 @@ import React, { ReactElement } from 'react';
 import { BrazeEndOfArticleComponent } from '../BrazeEndOfArticleComponent';
 import { StorybookWrapper } from '../utils/StorybookWrapper';
 import { knobsData } from '../utils/knobsData';
+import { coreArgTypes } from '../storybookCommon/argTypes';
 
 export default {
     component: 'USNewsletterEpic',
     title: 'EndOfArticle/USNewsletterEpic',
     parameters: {},
     argTypes: {
-        slotName: {
-            name: 'slotName',
-            type: { name: 'string', required: true },
-            description: 'The slot on the page',
-            table: {
-                category: "core (don't change)",
-            },
-        },
-        componentName: {
-            name: 'componentName',
-            type: { name: 'string', required: true },
-            description: 'The component (template) name',
-            table: {
-                category: "core (don't change)",
-            },
-        },
+        ...coreArgTypes,
         header: {
             name: 'header',
             type: { name: 'string', required: true },

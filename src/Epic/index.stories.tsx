@@ -2,28 +2,14 @@ import React, { ReactElement } from 'react';
 import { StorybookWrapper } from '../utils/StorybookWrapper';
 import { BrazeEndOfArticleComponent } from '../BrazeEndOfArticleComponent';
 import { knobsData } from '../utils/knobsData';
+import { coreArgTypes } from '../storybookCommon/argTypes';
 
 export default {
     component: 'Epic',
     title: 'EndOfArticle/Epic',
     parameters: {},
     argTypes: {
-        slotName: {
-            name: 'slotName',
-            type: { name: 'string', required: true },
-            description: 'The slot on the page',
-            table: {
-                category: "core (don't change)",
-            },
-        },
-        componentName: {
-            name: 'componentName',
-            type: { name: 'string', required: true },
-            description: 'The component (template) name',
-            table: {
-                category: "core (don't change)",
-            },
-        },
+        ...coreArgTypes,
         heading: {
             name: 'heading',
             type: { name: 'string', required: true },
