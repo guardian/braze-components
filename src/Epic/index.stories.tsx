@@ -3,6 +3,7 @@ import { StorybookWrapper } from '../utils/StorybookWrapper';
 import { BrazeEndOfArticleComponent } from '../BrazeEndOfArticleComponent';
 import { knobsData } from '../utils/knobsData';
 import { coreArgTypes } from '../storybookCommon/argTypes';
+import { BrazeMessageProps } from '.';
 
 export default {
     component: 'Epic',
@@ -90,9 +91,10 @@ declare global {
     }
 }
 
-const StoryTemplate = (args): ReactElement | null => {
+const StoryTemplate = (
+    args: BrazeMessageProps & { componentName: string },
+): ReactElement | null => {
     const brazeMessageProps = {
-        slotName: args.slotName,
         ophanComponentId: args.ophanComponentId,
         heading: args.heading,
         highlightedText: args.highlightedText,
