@@ -32,6 +32,13 @@ export default {
             type: { name: 'string', required: true },
             description: 'Text next to the app store logos',
         },
+        imageUrl: {
+            name: 'imageUrl (use Grid image picker)',
+            type: { name: 'string', required: true },
+            control: null,
+            description:
+                'i.guim.co.uk URL for the banner image. Use the Grid image picker to select this.',
+        },
     },
 };
 
