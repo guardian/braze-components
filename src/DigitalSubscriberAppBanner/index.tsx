@@ -2,7 +2,7 @@ import React from 'react';
 import { AppBanner } from '../AppBanner';
 import type { OphanComponentEvent } from '@guardian/types';
 import type { BrazeClickHandler } from '../utils/tracking';
-import { COMPONENT_NAME } from './canRender';
+import { COMPONENT_NAME, canRender } from './canRender';
 export { COMPONENT_NAME };
 
 export type BrazeMessageProps = {
@@ -10,11 +10,21 @@ export type BrazeMessageProps = {
     body?: string;
 };
 
-export type Props = {
+type ValidatedBrazeMessageProps = {
+    header: string;
+    body: string;
+};
+
+type PlatformProps = {
     logButtonClickWithBraze: BrazeClickHandler;
     submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
+};
+
+export type Props = PlatformProps & {
     brazeMessageProps: BrazeMessageProps;
 };
+
+type InnerProps = PlatformProps & ValidatedBrazeMessageProps;
 
 const cta = 'Search for "Guardian live news"';
 const imageUrl =
@@ -23,8 +33,27 @@ const imageUrl =
 export const DigitalSubscriberAppBanner: React.FC<Props> = ({
     logButtonClickWithBraze,
     submitComponentEvent,
-    brazeMessageProps: { header, body },
-}: Props) => (
+    brazeMessageProps,
+}: Props) => {
+    if (!canRender(brazeMessageProps)) {
+        return null;
+    }
+
+    return (
+        <DigitalSubscriberAppBannerValidated
+            logButtonClickWithBraze={logButtonClickWithBraze}
+            submitComponentEvent={submitComponentEvent}
+            {...(brazeMessageProps as ValidatedBrazeMessageProps)}
+        />
+    );
+};
+
+export const DigitalSubscriberAppBannerValidated: React.FC<InnerProps> = ({
+    logButtonClickWithBraze,
+    submitComponentEvent,
+    header,
+    body,
+}: InnerProps) => (
     <AppBanner
         logButtonClickWithBraze={logButtonClickWithBraze}
         submitComponentEvent={submitComponentEvent}

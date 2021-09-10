@@ -16,3 +16,13 @@ export const coreArgTypes = {
         },
     },
 };
+
+export const coreBannerArgTypes = {
+    ...coreArgTypes,
+    logButtonClickWithBraze: {
+        table: { disable: true },
+    },
+    submitComponentEvent: {
+        table: { disable: true },
+    },
+};

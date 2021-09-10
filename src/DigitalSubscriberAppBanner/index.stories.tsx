@@ -3,23 +3,14 @@ import { BrazeBannerComponent } from '../BrazeBannerComponent';
 import { StorybookWrapper } from '../utils/StorybookWrapper';
 import { knobsData } from '../utils/knobsData';
 import { BrazeMessageProps } from '.';
-import { coreArgTypes } from '../storybookCommon/argTypes';
+import { coreBannerArgTypes } from '../storybookCommon/argTypes';
+import { DigitalSubscriberAppBannerValidated } from '.';
 
 export default {
-    component: 'DigitalSubscriberAppBanner',
+    component: DigitalSubscriberAppBannerValidated,
     title: 'Banner/DigitalSubscriberAppBanner',
     argTypes: {
-        ...coreArgTypes,
-        header: {
-            name: 'header',
-            type: { name: 'string', required: true },
-            description: 'Header text',
-        },
-        body: {
-            name: 'body',
-            type: { name: 'string', required: true },
-            description: 'Body text',
-        },
+        ...coreBannerArgTypes,
     },
 };
 
@@ -52,9 +43,9 @@ export const DefaultStory = StoryTemplate.bind({});
 
 DefaultStory.args = {
     slotName: 'Banner',
+    componentName: 'DigitalSubscriberAppBanner',
     header: 'A note to our digital subscribers',
     body: 'Hi John, did you know that as a Guardian digital subscriber you can enjoy an enhanced experience of our quality, independent journalism on all your devices, including The Guardian Live app.',
-    componentName: 'DigitalSubscriberAppBanner',
 };
 
 DefaultStory.story = { name: 'DigitalSubscriberAppBanner' };
