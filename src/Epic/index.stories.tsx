@@ -19,47 +19,47 @@ export default {
         paragraph1: {
             name: 'paragraph1',
             type: { name: 'string', required: true },
-            description: 'First paragraph',
+            description: 'First paragraph. Supports HTML.',
         },
         paragraph2: {
             name: 'paragraph2',
             type: { name: 'string' },
-            description: 'Second paragraph',
+            description: 'Second paragraph. Supports HTML.',
         },
         paragraph3: {
             name: 'paragraph3',
             type: { name: 'string' },
-            description: 'Third paragraph',
+            description: 'Third paragraph. Supports HTML.',
         },
         paragraph4: {
             name: 'paragraph4',
             type: { name: 'string' },
-            description: 'Fourth paragraph',
+            description: 'Fourth paragraph. Supports HTML.',
         },
         paragraph5: {
             name: 'paragraph5',
             type: { name: 'string' },
-            description: 'Fifth paragraph',
+            description: 'Fifth paragraph. Supports HTML.',
         },
         paragraph6: {
             name: 'paragraph6',
             type: { name: 'string' },
-            description: 'Sixth paragraph',
+            description: 'Sixth paragraph. Supports HTML.',
         },
         paragraph7: {
             name: 'paragraph7',
             type: { name: 'string' },
-            description: 'Seventh paragraph',
+            description: 'Seventh paragraph. Supports HTML.',
         },
         paragraph8: {
             name: 'paragraph8',
             type: { name: 'string' },
-            description: 'Eighth paragraph',
+            description: 'Eighth paragraph. Supports HTML.',
         },
         paragraph9: {
             name: 'paragraph9',
             type: { name: 'string' },
-            description: 'Ninth paragraph',
+            description: 'Ninth paragraph. Supports HTML.',
         },
         highlightedText: {
             name: 'highlightedText',
