@@ -83,3 +83,10 @@ This will:
     version change in package.json)
 -   Publish the new release to NPM
 -   Push new commits/tags to GitHub
+
+## CI/CD
+
+Whenever you push to GitHub actions will be triggered to run Jest tests, the
+TypeScript compiler etc. A TeamCity build will also be triggered. On the `main`
+branch if the TeamCity build is successful Riff Raff will deploy Storybook to
+https://braze-components.gutools.co.uk.
