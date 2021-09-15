@@ -1,7 +1,7 @@
-import { canRenderEpic } from './canRender';
+import { canRender } from './canRender';
 import { BrazeMessageProps } from './index';
 
-describe('canRenderEpic', () => {
+describe('canRender', () => {
     it('returns true when data from Braze is valid', () => {
         const dataFromBraze: BrazeMessageProps = {
             heading: 'Example Heading',
@@ -14,7 +14,7 @@ describe('canRenderEpic', () => {
             ophanComponentId: 'epic_123',
         };
 
-        const got = canRenderEpic(dataFromBraze);
+        const got = canRender(dataFromBraze);
 
         expect(got).toEqual(true);
     });
@@ -30,7 +30,7 @@ describe('canRenderEpic', () => {
             ophanComponentId: 'epic_123',
         };
 
-        const got = canRenderEpic(dataFromBraze);
+        const got = canRender(dataFromBraze);
 
         expect(got).toEqual(true);
     });
@@ -45,7 +45,7 @@ describe('canRenderEpic', () => {
             ophanComponentId: 'epic_123',
         };
 
-        const got = canRenderEpic(dataFromBraze);
+        const got = canRender(dataFromBraze);
 
         expect(got).toEqual(true);
     });
@@ -58,7 +58,7 @@ describe('canRenderEpic', () => {
             ophanComponentId: 'epic_123',
         };
 
-        const got = canRenderEpic(dataFromBraze);
+        const got = canRender(dataFromBraze);
 
         expect(got).toEqual(false);
     });
@@ -74,7 +74,7 @@ describe('canRenderEpic', () => {
             ophanComponentId: 'epic_123',
         };
 
-        const got = canRenderEpic(dataFromBraze);
+        const got = canRender(dataFromBraze);
 
         expect(got).toEqual(false);
     });
@@ -89,7 +89,7 @@ describe('canRenderEpic', () => {
             ophanComponentId: 'epic_123',
         };
 
-        const got = canRenderEpic(dataFromBraze);
+        const got = canRender(dataFromBraze);
 
         expect(got).toEqual(false);
     });
@@ -104,7 +104,7 @@ describe('canRenderEpic', () => {
             ophanComponentId: 'epic_123',
         };
 
-        const got = canRenderEpic(dataFromBraze);
+        const got = canRender(dataFromBraze);
 
         expect(got).toEqual(false);
     });
@@ -119,7 +119,7 @@ describe('canRenderEpic', () => {
             buttonUrl: 'https://www.example.com',
         };
 
-        const got = canRenderEpic(dataFromBraze);
+        const got = canRender(dataFromBraze);
 
         expect(got).toEqual(false);
     });
@@ -133,7 +133,7 @@ describe('canRenderEpic', () => {
             buttonUrl: 'https://www.example.com',
         };
 
-        const got = canRenderEpic(dataFromBraze);
+        const got = canRender(dataFromBraze);
 
         expect(got).toEqual(false);
     });

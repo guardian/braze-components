@@ -29,3 +29,22 @@ export const ophanComponentIdArgType = {
             '`rc_upsell_test1_variant`.',
     },
 };
+
+export const buildEpicParagraphDocs = (
+    numberOfParagraphs: number,
+): [string, Record<string, unknown>][] =>
+    Array.from({ length: numberOfParagraphs }, (_, idx) => {
+        const name = `paragraph${idx + 1}`;
+        return [
+            name,
+            {
+                name,
+                type: {
+                    name: 'string',
+                    required: idx === 0,
+                },
+                description:
+                    'Paragraph text. Supports HTML. If adding links see Braze user guide for tracking params.',
+            },
+        ];
+    });
