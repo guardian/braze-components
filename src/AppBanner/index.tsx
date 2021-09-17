@@ -9,6 +9,7 @@ import { PlayStore } from '../assets/play-store';
 import { BrazeClickHandler } from '../utils/tracking';
 import { styles as commonStyles } from '../styles/bannerCommon';
 import { styles } from './styles';
+import { catchAndLogErrors } from '../utils/catchAndLogErrors';
 
 import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
@@ -27,14 +28,6 @@ export type Props = {
     submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
     ophanComponentId?: string;
     brazeMessageProps: BrazeMessageProps;
-};
-
-const catchAndLogErrors = (description: string, fn: () => void): void => {
-    try {
-        fn();
-    } catch (e) {
-        console.log(`Error (${description}): `, e.message);
-    }
 };
 
 export const AppBanner = (props: Props): ReactElement | null => {

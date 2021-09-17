@@ -57,6 +57,12 @@ const StoryTemplate = (
                     console.log(`subscribeToNewsletter invoked with id ${newsletterId}`);
                     return new Promise((resolve) => setTimeout(() => resolve(), 1000));
                 }}
+                submitComponentEvent={(componentEvent) =>
+                    console.log('SubmitComponentEvent invoked with ', componentEvent)
+                }
+                logButtonClickWithBraze={(id) =>
+                    console.log(`logButtonClickWithBraze invoked with id ${id}`)
+                }
             />
         </StorybookWrapper>
     );

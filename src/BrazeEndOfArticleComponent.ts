@@ -15,6 +15,8 @@ import {
     EpicWithSpecialHeader,
 } from './EpicWithSpecialHeader';
 import { buildBrazeMessageComponent, ComponentMapping } from './buildBrazeMessageComponent';
+import type { BrazeClickHandler } from './utils/tracking';
+import type { OphanComponentEvent } from '@guardian/types';
 
 type BrazeMessageProps = {
     [key: string]: string | undefined;
@@ -24,6 +26,8 @@ export type CommonEndOfArticleComponentProps = {
     componentName: string;
     brazeMessageProps: BrazeMessageProps;
     subscribeToNewsletter: NewsletterSubscribeCallback;
+    logButtonClickWithBraze: BrazeClickHandler;
+    submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
     countryCode?: string;
 };
 

@@ -21,11 +21,15 @@ describe('NewsletterEpic', () => {
 
         it('calls subscribeToNewsletter with the correct id', async () => {
             const subscribeToNewsletter = jest.fn(() => Promise.resolve());
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
+            const noOp = () => {};
 
             render(
                 <NewsletterEpic
                     brazeMessageProps={brazeMessageProps}
                     subscribeToNewsletter={subscribeToNewsletter}
+                    submitComponentEvent={noOp}
+                    logButtonClickWithBraze={noOp}
                 />,
             );
 
@@ -37,17 +41,68 @@ describe('NewsletterEpic', () => {
 
         it('renders thank you when successful', async () => {
             const subscribeToNewsletter = () => Promise.resolve();
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
+            const noOp = () => {};
 
             render(
                 <NewsletterEpic
                     brazeMessageProps={brazeMessageProps}
                     subscribeToNewsletter={subscribeToNewsletter}
+                    submitComponentEvent={noOp}
+                    logButtonClickWithBraze={noOp}
                 />,
             );
 
             fireEvent.click(screen.getByText('Sign up'));
 
             await screen.findByText(/Thank you/);
+        });
+
+        it('calls submitComponentEvent with the correct data', async () => {
+            const subscribeToNewsletter = () => Promise.resolve();
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
+            const noOp = () => {};
+            const submitComponentEvent = jest.fn();
+
+            render(
+                <NewsletterEpic
+                    brazeMessageProps={brazeMessageProps}
+                    subscribeToNewsletter={subscribeToNewsletter}
+                    submitComponentEvent={submitComponentEvent}
+                    logButtonClickWithBraze={noOp}
+                />,
+            );
+
+            fireEvent.click(screen.getByText('Sign up'));
+
+            await screen.findByText(/Thank you/);
+            const expectedPayload = {
+                action: 'CLICK',
+                component: { componentType: 'RETENTION_EPIC', id: 'ophan_component_id' },
+                value: '1',
+            };
+            expect(submitComponentEvent).toHaveBeenCalledWith(expectedPayload);
+        });
+
+        it('calls logButtonClickWithBraze with the correct id', async () => {
+            const subscribeToNewsletter = () => Promise.resolve();
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
+            const noOp = () => {};
+            const logButtonClickWithBraze = jest.fn();
+
+            render(
+                <NewsletterEpic
+                    brazeMessageProps={brazeMessageProps}
+                    subscribeToNewsletter={subscribeToNewsletter}
+                    submitComponentEvent={noOp}
+                    logButtonClickWithBraze={logButtonClickWithBraze}
+                />,
+            );
+
+            fireEvent.click(screen.getByText('Sign up'));
+
+            await screen.findByText(/Thank you/);
+            expect(logButtonClickWithBraze).toHaveBeenCalledWith(0);
         });
     });
 });

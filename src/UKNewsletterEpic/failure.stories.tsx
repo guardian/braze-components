@@ -68,6 +68,12 @@ const StoryTemplate = (
                         setTimeout(() => (args.simulateFailure ? reject() : resolve()), 1000),
                     );
                 }}
+                submitComponentEvent={(componentEvent) =>
+                    console.log('SubmitComponentEvent invoked with ', componentEvent)
+                }
+                logButtonClickWithBraze={(id) =>
+                    console.log(`logButtonClickWithBraze invoked with id ${id}`)
+                }
             />
         </StorybookWrapper>
     );
