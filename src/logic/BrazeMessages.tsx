@@ -9,8 +9,8 @@ export type Extras = Record<string, string>;
 export type ErrorHandler = (error: Error, identifier: string) => void;
 
 interface BrazeMessagesInterface {
-    getMessageForBanner: () => Promise<BrazeMessage>;
-    getMessageForEndOfArticle: () => Promise<BrazeMessage>;
+    getMessageForBanner: (section: string | undefined) => Promise<BrazeMessage>;
+    getMessageForEndOfArticle: (section: string | undefined) => Promise<BrazeMessage>;
 }
 
 const generateId = (): string => `${Math.random().toString(16).slice(2)}-${new Date().getTime()}`;
@@ -122,21 +122,24 @@ class BrazeMessages implements BrazeMessagesInterface {
         });
     }
 
-    getMessageForBanner(): Promise<BrazeMessage> {
-        return this.getMessageForSlot('Banner');
+    getMessageForBanner(section: string | undefined): Promise<BrazeMessage> {
+        return this.getMessageForSlot('Banner', section);
     }
 
-    getMessageForEndOfArticle(): Promise<BrazeMessage> {
-        return this.getMessageForSlot('EndOfArticle');
+    getMessageForEndOfArticle(section: string | undefined): Promise<BrazeMessage> {
+        return this.getMessageForSlot('EndOfArticle', section);
     }
 
-    private getMessageForSlot(slotName: SlotName) {
+    private getMessageForSlot(slotName: SlotName, section: string | undefined) {
         // If there's already a message in the cache, return it
         const messagesFromCache = this.cache.all(slotName, this.appboy, this.errorHandler);
 
-        const [firstRenderableMessage] = messagesFromCache.filter((msg) =>
-            canRenderBrazeMsg(msg.message.extras),
-        );
+        const [firstRenderableMessage] = messagesFromCache
+            .filter((msg) => canRenderBrazeMsg(msg.message.extras))
+            .filter((msg) => {
+                console.log('braze section:', msg.message.extras.section);
+                return msg.message.extras.section === section || !msg.message.extras.section;
+            });
 
         if (firstRenderableMessage) {
             return Promise.resolve(
@@ -156,9 +159,12 @@ class BrazeMessages implements BrazeMessagesInterface {
         return this.freshMessageBySlot[slotName].then(() => {
             const messagesFromCache = this.cache.all(slotName, this.appboy, this.errorHandler);
 
-            const [firstValidMessage] = messagesFromCache.filter((msg) =>
-                canRenderBrazeMsg(msg.message.extras),
-            );
+            const [firstValidMessage] = messagesFromCache
+                .filter((msg) => canRenderBrazeMsg(msg.message.extras))
+                .filter((msg) => {
+                    console.log('braze section:', msg.message.extras.section);
+                    return msg.message.extras.section === section || !msg.message.extras.section;
+                });
 
             if (firstValidMessage) {
                 return new BrazeMessage(
