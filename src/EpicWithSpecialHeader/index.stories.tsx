@@ -14,7 +14,7 @@ const paragraphDocs = buildEpicParagraphDocs(NUMBER_OF_PARAGRAPHS);
 
 export default {
     component: 'EpicWithSpecialHeader',
-    title: 'WorkInProgress/EndOfArticle/EpicWithSpecialHeader',
+    title: 'EndOfArticle/EpicWithSpecialHeader',
     argTypes: {
         ...coreArgTypes,
         ...ophanComponentIdArgType,
