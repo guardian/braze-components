@@ -122,11 +122,11 @@ class BrazeMessages implements BrazeMessagesInterface {
         });
     }
 
-    getMessageForBanner(section: string | undefined): Promise<BrazeMessage> {
+    getMessageForBanner(section?: string): Promise<BrazeMessage> {
         return this.getMessageForSlot('Banner', section);
     }
 
-    getMessageForEndOfArticle(section: string | undefined): Promise<BrazeMessage> {
+    getMessageForEndOfArticle(section?: string): Promise<BrazeMessage> {
         return this.getMessageForSlot('EndOfArticle', section);
     }
 
