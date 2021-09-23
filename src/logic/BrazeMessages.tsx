@@ -132,54 +132,50 @@ class BrazeMessages implements BrazeMessagesInterface {
 
     private getMessageForSlot(slotName: SlotName, section: string | undefined) {
         // If there's already a message in the cache, return it
-        const messagesFromCache = this.cache.all(slotName, this.appboy, this.errorHandler);
-
-        const [firstRenderableMessage] = messagesFromCache
-            .filter((msg) => canRenderBrazeMsg(msg.message.extras))
-            .filter((msg) => {
-                console.log('braze section:', msg.message.extras.section);
-                return msg.message.extras.section === section || !msg.message.extras.section;
-            });
+        const firstRenderableMessage = this.getHighestPriorityMessageFromCache(slotName, section);
 
         if (firstRenderableMessage) {
-            return Promise.resolve(
-                new BrazeMessage(
-                    firstRenderableMessage.id,
-                    firstRenderableMessage.message,
-                    this.appboy,
-                    slotName,
-                    this.cache,
-                    this.errorHandler,
-                ),
-            );
+            return Promise.resolve(firstRenderableMessage);
         }
 
         // Otherwise we'll wait for a fresh message to arrive, returning the
         // data from the cache (where it will have already been added)
         return this.freshMessageBySlot[slotName].then(() => {
-            const messagesFromCache = this.cache.all(slotName, this.appboy, this.errorHandler);
+            const firstRenderableMessage = this.getHighestPriorityMessageFromCache(
+                slotName,
+                section,
+            );
 
-            const [firstValidMessage] = messagesFromCache
-                .filter((msg) => canRenderBrazeMsg(msg.message.extras))
-                .filter((msg) => {
-                    console.log('braze section:', msg.message.extras.section);
-                    return msg.message.extras.section === section || !msg.message.extras.section;
-                });
-
-            if (firstValidMessage) {
-                return new BrazeMessage(
-                    firstValidMessage.id,
-                    firstValidMessage.message,
-                    this.appboy,
-                    slotName,
-                    this.cache,
-                    this.errorHandler,
-                );
+            if (firstRenderableMessage) {
+                return Promise.resolve(firstRenderableMessage);
             }
 
             // Generally we don't expect to reach this point
             throw new Error(`No valid messages for ${slotName} slot`);
         });
+    }
+
+    private getHighestPriorityMessageFromCache(slotName: SlotName, section: string | undefined) {
+        const messagesFromCache = this.cache.all(slotName, this.appboy, this.errorHandler);
+
+        const [firstRenderableMessage] = messagesFromCache
+            .filter((msg) => canRenderBrazeMsg(msg.message.extras))
+            .filter((msg) => {
+                return msg.message.extras.section === section || !msg.message.extras.section;
+            });
+
+        if (firstRenderableMessage) {
+            return new BrazeMessage(
+                firstRenderableMessage.id,
+                firstRenderableMessage.message,
+                this.appboy,
+                slotName,
+                this.cache,
+                this.errorHandler,
+            );
+        }
+
+        return;
     }
 }
 
