@@ -17,6 +17,15 @@ export const coreArgTypes = {
             category: CORE_CATEGORY_NAME,
         },
     },
+    section: {
+        name: 'section',
+        type: { name: 'multi-select' },
+        options: ['sport', 'environment', 'news'],
+        description: 'section to target',
+        table: {
+            category: 'Page context',
+        },
+    },
 };
 
 export const ophanComponentIdArgType = {
