@@ -7,7 +7,7 @@ import type { BrazeMessageProps } from '.';
 
 export default {
     component: 'GreenlightNewsletterEpic',
-    title: 'EndOfArticle/GreenlightNewsletterEpic',
+    title: 'Dev/EndOfArticle/GreenlightNewsletterEpic',
     parameters: {},
     argTypes: {
         ...coreArgTypes,
