@@ -1,4 +1,4 @@
-import { css, ThemeProvider } from '@emotion/react';
+import { css, Interpolation, ThemeProvider } from '@emotion/react';
 import React, { useState, ReactElement } from 'react';
 import { brand, palette, space } from '@guardian/src-foundations';
 import { Button, buttonBrandAlt } from '@guardian/src-button';
@@ -7,6 +7,7 @@ import { body, headline, textSans } from '@guardian/src-foundations/typography';
 import { canRender } from './canRender';
 import { from, until } from '@guardian/src-foundations/mq';
 import { LoadingDots } from './LoadingDots';
+import { Theme } from '@guardian/types';
 
 // Once https://github.com/guardian/source/pull/843 is merged and in a
 // @guardian/src-icons release we'll be able to bump the version on this project
@@ -115,6 +116,7 @@ export type BrazeMessageProps = {
     imageUrl?: string;
     newsletterId?: string;
     ophanComponentId?: string;
+    headingColor?: string;
 };
 
 export type Props = {
@@ -234,7 +236,12 @@ export const NewsletterEpic: React.FC<Props> = (props: Props) => {
                     <img css={styles.image} src={imageUrl}></img>
                 </div>
                 <div css={styles.rightSection}>
-                    <span css={styles.heading}>{header}</span>
+                    <span
+                        css={styles.heading}
+                        style={{ color: props.brazeMessageProps.headingColor }}
+                    >
+                        {header}
+                    </span>
                     <div css={styles.frequencySection}>
                         <span css={styles.frequencyClock}>
                             <SvgClock />

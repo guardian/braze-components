@@ -36,6 +36,11 @@ import {
 } from './UKNewsletterEpic/canRender';
 
 import {
+    COMPONENT_NAME as GREENLIGHT_NEWSLETTER_EPIC_NAME,
+    canRender as greenlightNewsletterEpicCanRender,
+} from './GreenlightNewsletterEpic/canRender';
+
+import {
     COMPONENT_NAME as EPIC_WITH_IMAGE_NAME,
     canRender as epicWithImageCanRender,
 } from './EpicWithSpecialHeader/canRender';
@@ -59,6 +64,7 @@ const COMPONENT_CAN_RENDER_MAPPINGS: Record<
     [US_NEWSLETTER_EPIC_NAME]: usNewsletterEpicCanRender,
     [AU_NEWSLETTER_EPIC_NAME]: auNewsletterEpicCanRender,
     [UK_NEWSLETTER_EPIC_NAME]: ukNewsletterEpicCanRender,
+    [GREENLIGHT_NEWSLETTER_EPIC_NAME]: greenlightNewsletterEpicCanRender,
     [EPIC_WITH_IMAGE_NAME]: epicWithImageCanRender,
 };
 
