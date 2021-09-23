@@ -377,6 +377,31 @@ describe('BrazeMessages', () => {
 
                 expect(firstMessage).toEqual(secondMessage);
             });
+
+            it('prioritises a message with matching page context filters', async () => {
+                const messageWithoutFilter = buildMessage(JSON.parse(message1Json));
+                InMemoryCache.push('EndOfArticle', {
+                    message: messageWithoutFilter,
+                    id: '1',
+                });
+                const messageWithFilter = buildMessage(JSON.parse(message1Json));
+                messageWithFilter.extras.section = 'environment';
+                InMemoryCache.push('EndOfArticle', {
+                    message: messageWithFilter,
+                    id: '2',
+                });
+                const fakeAppBoy = new FakeAppBoy();
+                const brazeMessages = new BrazeMessages(
+                    fakeAppBoy as unknown as typeof appboy,
+                    InMemoryCache,
+                    (error, identifier) => console.log(identifier, error),
+                );
+                const section = 'environment';
+
+                const gotMessage = await brazeMessages.getMessageForEndOfArticle(section);
+
+                expect(gotMessage.message).toEqual(messageWithFilter);
+            });
         });
     });
 });

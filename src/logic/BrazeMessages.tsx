@@ -158,8 +158,21 @@ class BrazeMessages implements BrazeMessagesInterface {
     private getHighestPriorityMessageFromCache(slotName: SlotName, section: string | undefined) {
         const messagesFromCache = this.cache.all(slotName, this.appboy, this.errorHandler);
 
-        const [firstRenderableMessage] = messagesFromCache
-            .filter((msg) => canRenderBrazeMsg(msg.message.extras))
+        const allRenderableMessages = messagesFromCache.filter((msg) =>
+            canRenderBrazeMsg(msg.message.extras),
+        );
+
+        // We want to prioritise messages with a filter if any of those match
+        const messagesWithPageContextFilters = allRenderableMessages.filter((msg) => {
+            return Boolean(msg.message.extras.section);
+        });
+
+        const messagesWithoutPageContextFilters = allRenderableMessages.filter((msg) => {
+            return !Boolean(msg.message.extras.section);
+        });
+
+        const [firstRenderableMessage] = messagesWithPageContextFilters
+            .concat(messagesWithoutPageContextFilters)
             .filter((msg) => {
                 return msg.message.extras.section === section || !msg.message.extras.section;
             });
