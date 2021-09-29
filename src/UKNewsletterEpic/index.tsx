@@ -5,7 +5,7 @@ import { NewsletterEpic, NewsletterSubscribeCallback } from '../NewsletterEpic';
 const newsletterId = '4156';
 
 const IMAGE_URL =
-    'https://i.guim.co.uk/img/media/568c6031be78dab6f6c28336010884f3ebd0f97c/0_0_1936_1936/1936.png?width=196&s=b8925f3e3a96a5b4f807e421b8a44906';
+    'https://i.guim.co.uk/img/media/568c6031be78dab6f6c28336010884f3ebd0f97c/0_0_1936_1936/master/1936.png?width=196&quality=45&auto=format&s=2a3630e9625620d5726c31c5cdbf4772';
 
 export type BrazeMessageProps = {
     header?: string;
