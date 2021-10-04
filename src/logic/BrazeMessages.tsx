@@ -8,9 +8,12 @@ import { canRenderBrazeMsg } from '../canRender';
 export type Extras = Record<string, string>;
 export type ErrorHandler = (error: Error, identifier: string) => void;
 
+interface BrazeArticleContext {
+    section?: string;
+}
 interface BrazeMessagesInterface {
-    getMessageForBanner: () => Promise<BrazeMessage>;
-    getMessageForEndOfArticle: () => Promise<BrazeMessage>;
+    getMessageForBanner: (articleContext?: BrazeArticleContext) => Promise<BrazeMessage>;
+    getMessageForEndOfArticle: (articleContext?: BrazeArticleContext) => Promise<BrazeMessage>;
 }
 
 const generateId = (): string => `${Math.random().toString(16).slice(2)}-${new Date().getTime()}`;
@@ -122,59 +125,83 @@ class BrazeMessages implements BrazeMessagesInterface {
         });
     }
 
-    getMessageForBanner(): Promise<BrazeMessage> {
-        return this.getMessageForSlot('Banner');
+    getMessageForBanner(articleContext?: BrazeArticleContext): Promise<BrazeMessage> {
+        return this.getMessageForSlot('Banner', articleContext);
     }
 
-    getMessageForEndOfArticle(): Promise<BrazeMessage> {
-        return this.getMessageForSlot('EndOfArticle');
+    getMessageForEndOfArticle(articleContext?: BrazeArticleContext): Promise<BrazeMessage> {
+        return this.getMessageForSlot('EndOfArticle', articleContext);
     }
 
-    private getMessageForSlot(slotName: SlotName) {
+    private getMessageForSlot(slotName: SlotName, articleContext?: BrazeArticleContext) {
         // If there's already a message in the cache, return it
-        const messagesFromCache = this.cache.all(slotName, this.appboy, this.errorHandler);
-
-        const [firstRenderableMessage] = messagesFromCache.filter((msg) =>
-            canRenderBrazeMsg(msg.message.extras),
+        const firstRenderableMessage = this.getHighestPriorityMessageFromCache(
+            slotName,
+            articleContext,
         );
 
         if (firstRenderableMessage) {
-            return Promise.resolve(
-                new BrazeMessage(
-                    firstRenderableMessage.id,
-                    firstRenderableMessage.message,
-                    this.appboy,
-                    slotName,
-                    this.cache,
-                    this.errorHandler,
-                ),
-            );
+            return Promise.resolve(firstRenderableMessage);
         }
 
         // Otherwise we'll wait for a fresh message to arrive, returning the
         // data from the cache (where it will have already been added)
         return this.freshMessageBySlot[slotName].then(() => {
-            const messagesFromCache = this.cache.all(slotName, this.appboy, this.errorHandler);
-
-            const [firstValidMessage] = messagesFromCache.filter((msg) =>
-                canRenderBrazeMsg(msg.message.extras),
+            const firstRenderableMessage = this.getHighestPriorityMessageFromCache(
+                slotName,
+                articleContext,
             );
 
-            if (firstValidMessage) {
-                return new BrazeMessage(
-                    firstValidMessage.id,
-                    firstValidMessage.message,
-                    this.appboy,
-                    slotName,
-                    this.cache,
-                    this.errorHandler,
-                );
+            if (firstRenderableMessage) {
+                return Promise.resolve(firstRenderableMessage);
             }
 
             // Generally we don't expect to reach this point
             throw new Error(`No valid messages for ${slotName} slot`);
         });
     }
+
+    private getHighestPriorityMessageFromCache(
+        slotName: SlotName,
+        articleContext?: BrazeArticleContext,
+    ) {
+        const messagesFromCache = this.cache.all(slotName, this.appboy, this.errorHandler);
+
+        const allRenderableMessages = messagesFromCache.filter((msg) =>
+            canRenderBrazeMsg(msg.message.extras),
+        );
+
+        // We want to prioritise messages with a filter if any of those match
+        const messagesWithPageContextFilters = allRenderableMessages.filter((msg) => {
+            return Boolean(msg.message.extras.section);
+        });
+
+        const messagesWithoutPageContextFilters = allRenderableMessages.filter((msg) => {
+            return !Boolean(msg.message.extras.section);
+        });
+
+        const [firstRenderableMessage] = messagesWithPageContextFilters
+            .concat(messagesWithoutPageContextFilters)
+            .filter((msg) => {
+                return (
+                    msg.message.extras.section === articleContext?.section ||
+                    !msg.message.extras.section
+                );
+            });
+
+        if (firstRenderableMessage) {
+            return new BrazeMessage(
+                firstRenderableMessage.id,
+                firstRenderableMessage.message,
+                this.appboy,
+                slotName,
+                this.cache,
+                this.errorHandler,
+            );
+        }
+
+        return;
+    }
 }
 
-export { BrazeMessages, BrazeMessagesInterface, BrazeMessage };
+export { BrazeMessages, BrazeMessagesInterface, BrazeMessage, BrazeArticleContext };
