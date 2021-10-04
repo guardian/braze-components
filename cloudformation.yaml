@@ -38,7 +38,8 @@ Resources:
                 DefaultCacheBehavior:
                     AllowedMethods: [HEAD, GET]
                     CachedMethods: [HEAD, GET]
-                    MinTTL: 3600
+                    MinTTL: 60
+                    MaxTTL: 60
                     Compress: true
                     ForwardedValues:
                         QueryString: false
