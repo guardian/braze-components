@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 
 import type appboy from '@braze/web-sdk-core';
-import { MessageCache } from './LocalMessageCache';
+import { MessageCache, MessageWithId } from './LocalMessageCache';
 import type { SlotName } from './types';
 import { canRenderBrazeMsg } from '../canRender';
 
@@ -17,6 +17,15 @@ interface BrazeMessagesInterface {
 }
 
 const generateId = (): string => `${Math.random().toString(16).slice(2)}-${new Date().getTime()}`;
+
+const splitByContextFilters = (
+    messages: MessageWithId[],
+): { messagesWithFilters: MessageWithId[]; messagesWithoutFilters: MessageWithId[] } => {
+    return {
+        messagesWithFilters: messages.filter((msg) => Boolean(msg.message.extras.section)),
+        messagesWithoutFilters: messages.filter((msg) => !Boolean(msg.message.extras.section)),
+    };
+};
 
 class BrazeMessage {
     id: string;
@@ -172,16 +181,11 @@ class BrazeMessages implements BrazeMessagesInterface {
         );
 
         // We want to prioritise messages with a filter if any of those match
-        const messagesWithPageContextFilters = allRenderableMessages.filter((msg) => {
-            return Boolean(msg.message.extras.section);
-        });
+        const { messagesWithFilters, messagesWithoutFilters } =
+            splitByContextFilters(allRenderableMessages);
 
-        const messagesWithoutPageContextFilters = allRenderableMessages.filter((msg) => {
-            return !Boolean(msg.message.extras.section);
-        });
-
-        const [firstRenderableMessage] = messagesWithPageContextFilters
-            .concat(messagesWithoutPageContextFilters)
+        const [firstRenderableMessage] = messagesWithFilters
+            .concat(messagesWithoutFilters)
             .filter((msg) => {
                 return (
                     msg.message.extras.section === articleContext?.section ||
