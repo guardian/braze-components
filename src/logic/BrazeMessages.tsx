@@ -188,8 +188,10 @@ class BrazeMessages implements BrazeMessagesInterface {
             .concat(messagesWithoutFilters)
             .filter((msg) => {
                 return (
-                    msg.message.extras.section === articleContext?.section ||
-                    !msg.message.extras.section
+                    !msg.message.extras.section ||
+                    typeof msg.message.extras.section != 'string' ||
+                    msg.message.extras.section.toLowerCase() ===
+                        articleContext?.section?.toLowerCase()
                 );
             });
 
