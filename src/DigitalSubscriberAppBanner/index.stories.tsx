@@ -3,13 +3,14 @@ import { BrazeBannerComponent } from '../BrazeBannerComponent';
 import { StorybookWrapper } from '../utils/StorybookWrapper';
 import { knobsData } from '../utils/knobsData';
 import { BrazeMessageProps } from '.';
-import { coreArgTypes } from '../storybookCommon/argTypes';
+import { coreArgTypes, sectionArgType } from '../storybookCommon/argTypes';
 
 export default {
     component: 'DigitalSubscriberAppBanner',
     title: 'Banner/DigitalSubscriberAppBanner',
     argTypes: {
         ...coreArgTypes,
+        ...sectionArgType,
         header: {
             name: 'header',
             type: { name: 'string', required: true },

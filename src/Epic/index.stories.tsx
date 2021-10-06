@@ -6,6 +6,7 @@ import {
     buildEpicParagraphDocs,
     coreArgTypes,
     ophanComponentIdArgType,
+    sectionArgType,
 } from '../storybookCommon/argTypes';
 import { BrazeMessageProps } from '.';
 
@@ -19,6 +20,7 @@ export default {
     argTypes: {
         ...coreArgTypes,
         ...ophanComponentIdArgType,
+        ...sectionArgType,
         heading: {
             name: 'heading',
             type: { name: 'string', required: true },

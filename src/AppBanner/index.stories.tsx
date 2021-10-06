@@ -4,7 +4,7 @@ import { StorybookWrapper } from '../utils/StorybookWrapper';
 import { knobsData } from '../utils/knobsData';
 import { withGrid, grid } from '../../.storybook/grid/withGrid';
 import { BrazeMessageProps } from '.';
-import { coreArgTypes } from '../storybookCommon/argTypes';
+import { coreArgTypes, sectionArgType } from '../storybookCommon/argTypes';
 
 export default {
     component: 'AppBanner',
@@ -17,6 +17,7 @@ export default {
     },
     argTypes: {
         ...coreArgTypes,
+        ...sectionArgType,
         header: {
             name: 'header',
             type: { name: 'string', required: true },
