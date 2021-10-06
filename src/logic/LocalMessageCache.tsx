@@ -8,7 +8,7 @@ export const millisecondsBeforeExpiry = 1000 * 60 * 60 * 24; // 24 hours: 60 sec
 
 type Message = appboy.InAppMessage;
 
-type MessageWithId = {
+export type MessageWithId = {
     id: string;
     message: Message;
 };
