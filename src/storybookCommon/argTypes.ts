@@ -32,7 +32,7 @@ export const ophanComponentIdArgType = {
     },
 };
 
-export const sectionArgType = {
+export const pageContextArgTypes = {
     section: {
         name: 'section',
         type: { required: false },
