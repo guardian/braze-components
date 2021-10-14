@@ -12,7 +12,11 @@ import type { BrazeMessageProps } from '.';
 export default {
     component: 'UKNewsletterEpic',
     title: 'EndOfArticle/UKNewsletterEpic',
-    parameters: {},
+    parameters: {
+        articleContext: {
+            disable: false,
+        },
+    },
     argTypes: {
         ...coreArgTypes,
         ...ophanComponentIdArgType,

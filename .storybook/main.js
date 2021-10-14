@@ -9,5 +9,6 @@ module.exports = {
         './gu-auth/register.js',
         './gu-preview/register.js',
         './grid/register.js',
+        './article-context/register.js'
     ],
 };
