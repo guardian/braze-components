@@ -25,6 +25,7 @@ export const nonEmotionStyles: Record<string, React.CSSProperties> = {
         fontSize: 12,
         fontWeight: 'bold',
         lineHeight: 2.7,
+        paddingLeft: 12
     },
     select: {
         appearance: 'none',
@@ -63,8 +64,7 @@ export const nonEmotionStyles: Record<string, React.CSSProperties> = {
         maxHeight: '400px',
     },
     copyButton: {
-        appearance: 'none',
-        borderColor: 'rgba(51, 51, 51, 0.5)',
+        borderColor: 'rgba(51, 51, 51, 0.2)',
         borderWidth: 1,
         whiteSpace: 'nowrap',
         margin: '0px',
@@ -74,7 +74,6 @@ export const nonEmotionStyles: Record<string, React.CSSProperties> = {
         lineHeight: '1',
         background: 'rgb(250, 250, 250)',
         color: 'rgb(51, 51, 51)',
-        boxShadow: 'rgb(0 0 0 / 10%) 0px 0px 0px 1px inset',
         borderRadius: '4px',
         padding: '10px 16px',
         display: 'inline',
@@ -85,10 +84,12 @@ export const nonEmotionStyles: Record<string, React.CSSProperties> = {
     },
     th: {
         textAlign: 'left',
-        padding: '20px 15px 15px 20px',
+        padding: 12,
+        paddingLeft: 20,
+        color: 'grey'
     },
     tableHeaderRow: {
-        borderBottom: '1px solid rgb(128, 128, 128)',
+        borderBottom: '1px solid rgb(128, 128, 128, 0.3)',
         height: 22,
     },
 };
