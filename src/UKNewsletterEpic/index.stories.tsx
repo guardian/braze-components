@@ -2,11 +2,7 @@ import React, { ReactElement } from 'react';
 import { BrazeEndOfArticleComponent } from '../BrazeEndOfArticleComponent';
 import { StorybookWrapper } from '../utils/StorybookWrapper';
 import { knobsData } from '../utils/knobsData';
-import {
-    coreArgTypes,
-    ophanComponentIdArgType,
-    pageContextArgTypes,
-} from '../storybookCommon/argTypes';
+import { coreArgTypes, ophanComponentIdArgType } from '../storybookCommon/argTypes';
 import type { BrazeMessageProps } from '.';
 
 export default {
@@ -20,7 +16,6 @@ export default {
     argTypes: {
         ...coreArgTypes,
         ...ophanComponentIdArgType,
-        ...pageContextArgTypes,
         header: {
             name: 'header',
             type: { name: 'string', required: true },

@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import { BrazeBannerComponent } from '../BrazeBannerComponent';
 import { StorybookWrapper } from '../utils/StorybookWrapper';
 import { knobsData } from '../utils/knobsData';
-import { coreArgTypes, pageContextArgTypes } from '../storybookCommon/argTypes';
+import { coreArgTypes } from '../storybookCommon/argTypes';
 import { BrazeMessageProps } from '.';
 
 export default {
@@ -10,7 +10,6 @@ export default {
     title: 'Banner/SpecialEditionBanner',
     argTypes: {
         ...coreArgTypes,
-        ...pageContextArgTypes,
         header: {
             name: 'header',
             type: { name: 'string', required: true },

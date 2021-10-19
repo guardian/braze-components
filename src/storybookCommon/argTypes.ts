@@ -1,5 +1,3 @@
-import { guardianSectionIds } from './sectionIds';
-
 const CORE_CATEGORY_NAME = "core (don't change)";
 
 export const coreArgTypes = {
@@ -29,16 +27,6 @@ export const ophanComponentIdArgType = {
             'The component ID sent to Ophan for tracking. The format is ' +
             '`[PRODUCT]_[FREETEXT]_test[NUMBER]_[variant|control]`. For example ' +
             '`rc_upsell_test1_variant`.',
-    },
-};
-
-export const pageContextArgTypes = {
-    section: {
-        name: 'section',
-        type: { required: false },
-        description:
-            'If provided will only show on articles matching this section id. e.g environment',
-        options: guardianSectionIds,
     },
 };
 
