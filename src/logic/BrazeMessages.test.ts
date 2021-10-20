@@ -47,7 +47,7 @@ class FakeAppBoy {
         return 'FAKE_SUBSCRIPTION_ID';
     }
 
-    emit(payload: any) {
+    emit(payload: appboy.InAppMessage) {
         this.emitter.emit('inAppMessage', payload);
     }
 
@@ -61,7 +61,7 @@ beforeEach(() => {
     logInAppMessageImpressionSpy.mockClear();
 });
 
-const buildMessage = (data: any) => hydrateMessage(data, appboy);
+const buildMessage = (data: Record<string, unknown>) => hydrateMessage(data, appboy);
 
 describe('BrazeMessages', () => {
     describe(`When the cache is enabled`, () => {
