@@ -6,17 +6,35 @@ import type { ErrorHandler } from './BrazeMessages';
 const localStorageKeyBase = 'gu.brazeMessageCache';
 export const millisecondsBeforeExpiry = 1000 * 60 * 60 * 24; // 24 hours: 60 seconds * 60 minutes
 
-type Message = appboy.InAppMessage;
+type Message = appboy.HtmlMessage;
 
 export type MessageWithId = {
     id: string;
     message: Message;
 };
 
+// From the serialized JSON, duplicated from the Braze SDK types
+export type MessageData = {
+    message: string;
+    extras?: Record<string, string>;
+    campaignId?: string;
+    cardId?: string;
+    triggerId?: string;
+    dismissType?: appboy.InAppMessage.DismissType;
+    duration?: number;
+    animateIn?: boolean;
+    animateOut?: boolean;
+    frameColor?: number;
+    htmlId?: string;
+    css?: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    messageFields?: Record<string, any>;
+};
+
 type CachedMessage = {
     message: {
         id: string;
-        message: Record<string, any>; // From the serialized JSON
+        message: MessageData;
     };
     expires: number; // Expiry date in Unix time
 };
@@ -46,12 +64,12 @@ const readQueue = (slotName: SlotName): CachedMessage[] => {
 };
 
 const hydrateMessage = (
-    messageData: Record<string, any>,
+    messageData: MessageData,
     appboyInstance: typeof appboy,
-): appboy.InAppMessage => {
+): appboy.HtmlMessage => {
     /* eslint-disable @typescript-eslint/no-unsafe-member-access */
     const hydratedMessage = new appboyInstance.HtmlMessage(
-        messageData.message as string,
+        messageData.message,
         messageData.extras,
         messageData.campaignId,
         messageData.cardId,
@@ -71,12 +89,12 @@ const hydrateMessage = (
 };
 
 const isValid = (m: CachedMessage): boolean => {
-    return (
+    return Boolean(
         m?.expires &&
-        Number.isFinite(m?.expires) &&
-        m?.message?.id &&
-        m?.message?.message?.triggerId &&
-        m?.message?.message?.extras
+            Number.isFinite(m?.expires) &&
+            m?.message?.id &&
+            m?.message?.message?.triggerId &&
+            m?.message?.message?.extras,
     );
 };
 
@@ -173,7 +191,9 @@ class LocalMessageCache {
             const expires = Date.now() + millisecondsBeforeExpiry;
 
             const messageToCache: CachedMessage = {
-                message,
+                // Casting here as the Message will become a MessageData as part
+                // of the JSON serialization proccess
+                message: message as { id: string; message: MessageData },
                 expires,
             };
 
@@ -196,68 +216,4 @@ class LocalMessageCache {
     }
 }
 
-type InMemoryCachedMessage = {
-    message: MessageWithId;
-    expires: number; // Expiry date in Unix time
-};
-
-const inMemoryQueue: Record<SlotName, InMemoryCachedMessage[]> = {
-    EndOfArticle: [],
-    Banner: [],
-};
-
-// Until we're ready to turn caching on we can use this as a swap in replacement
-// for LocalMessageCache.
-class InMemoryCache {
-    static peek(slotName: SlotName): MessageWithId | undefined {
-        const unexpiredMessages = inMemoryQueue[slotName].filter((i) => hasNotExpired(i));
-        return unexpiredMessages[0]?.message;
-    }
-
-    static all(slotName: SlotName): MessageWithId[] {
-        const unexpiredMessages = inMemoryQueue[slotName]
-            .filter((i) => hasNotExpired(i))
-            .map((i) => i.message);
-        return unexpiredMessages;
-    }
-
-    static remove(slotName: SlotName, id: string): boolean {
-        const idx = inMemoryQueue[slotName].findIndex((i) => i.message.id === id);
-
-        if (idx >= 0) {
-            const removedItem = inMemoryQueue[slotName].splice(idx, 1);
-
-            if (removedItem) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    static push(slotName: SlotName, message: MessageWithId): boolean {
-        if (inMemoryQueue[slotName].length < MAX_QUEUE_SIZE) {
-            const expires = Date.now() + millisecondsBeforeExpiry;
-
-            const messageToCache = {
-                message,
-                expires,
-            };
-
-            inMemoryQueue[slotName].push(messageToCache);
-
-            return true;
-        }
-
-        return false;
-    }
-
-    static clear(): void {
-        // eslint-disable-next-line guard-for-in
-        for (const slotName in SlotNames) {
-            inMemoryQueue[slotName as SlotName] = [];
-        }
-    }
-}
-
-export { LocalMessageCache, CachedMessage, InMemoryCache, MessageCache, setQueue, hydrateMessage };
+export { LocalMessageCache, CachedMessage, MessageCache, setQueue, hydrateMessage };

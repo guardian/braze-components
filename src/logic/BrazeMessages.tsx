@@ -32,7 +32,7 @@ class BrazeMessage {
 
     appboy: typeof appboy;
 
-    message: appboy.InAppMessage;
+    message: appboy.HtmlMessage;
 
     slotName: SlotName;
 
@@ -42,7 +42,7 @@ class BrazeMessage {
 
     constructor(
         id: string,
-        message: appboy.InAppMessage,
+        message: appboy.HtmlMessage,
         appboyInstance: typeof appboy,
         slotName: SlotName,
         cache: MessageCache,
@@ -91,7 +91,7 @@ class BrazeMessage {
 class BrazeMessages implements BrazeMessagesInterface {
     appboy: typeof appboy;
 
-    freshMessageBySlot: Record<SlotName, Promise<appboy.InAppMessage>>;
+    freshMessageBySlot: Record<SlotName, Promise<appboy.HtmlMessage>>;
 
     cache: MessageCache;
 
@@ -109,11 +109,11 @@ class BrazeMessages implements BrazeMessagesInterface {
 
     // Generally we only expect a single message per slot max in a pageview. This method
     // returns a promise which will resolve when the first message arrives
-    private getFreshMessagesForSlot(targetSlotName: SlotName): Promise<appboy.InAppMessage> {
+    private getFreshMessagesForSlot(targetSlotName: SlotName): Promise<appboy.HtmlMessage> {
         return new Promise((resolve) => {
             const callback = (m: appboy.InAppMessage | appboy.ControlMessage) => {
-                // Cast this as we only ever expect it to be an InAppMessage
-                const message = m as appboy.InAppMessage;
+                // Cast this as we only ever expect it to be an HtmlMessage (subclass of InAppMessage)
+                const message = m as appboy.HtmlMessage;
                 const { extras } = message;
 
                 if (extras && extras.slotName && extras.slotName === targetSlotName) {
