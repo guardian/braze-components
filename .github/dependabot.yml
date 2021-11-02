@@ -9,3 +9,8 @@ updates:
       directory: '/' # Location of package manifests
       schedule:
           interval: 'daily'
+    # Enable version updates for Actions
+    - package-ecosystem: 'github-actions'
+      directory: '/'
+      schedule:
+          interval: 'weekly'
