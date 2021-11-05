@@ -38,7 +38,7 @@ const END_OF_ARTICLE_MAPPINGS: ComponentMapping<CommonEndOfArticleComponentProps
     [UK_NEWSLETTER_EPIC_NAME]: UKNewsletterEpic,
     [EPIC_NAME]: Epic,
     [EPIC_WITH_HEADER_IMAGE_NAME]: EpicWithSpecialHeader,
-    [DTO_NEWSLETTER_EPIC_NAME]: DownToEarthNewsletterEpic,
+    [DTE_NEWSLETTER_EPIC_NAME]: DownToEarthNewsletterEpic,
 };
 
 export const BrazeEndOfArticleComponent: React.FC<CommonEndOfArticleComponentProps> =
