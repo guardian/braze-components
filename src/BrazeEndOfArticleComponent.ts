@@ -10,7 +10,7 @@ import { COMPONENT_NAME as US_NEWSLETTER_EPIC_NAME, USNewsletterEpic } from './U
 import { COMPONENT_NAME as AU_NEWSLETTER_EPIC_NAME, AUNewsletterEpic } from './AUNewsletterEpic';
 import { COMPONENT_NAME as UK_NEWSLETTER_EPIC_NAME, UKNewsletterEpic } from './UKNewsletterEpic';
 import {
-    COMPONENT_NAME as DTO_NEWSLETTER_EPIC_NAME,
+    COMPONENT_NAME as DTE_NEWSLETTER_EPIC_NAME,
     DownToEarthNewsletterEpic,
 } from './DownToEarthNewsletterEpic';
 import { COMPONENT_NAME as EPIC_NAME, Epic } from './Epic';
