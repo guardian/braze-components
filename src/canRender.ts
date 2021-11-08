@@ -40,6 +40,11 @@ import {
     canRender as epicWithImageCanRender,
 } from './EpicWithSpecialHeader/canRender';
 
+import {
+    COMPONENT_NAME as DTE_NEWSLETTER_EPIC_NAME,
+    canRender as dteNewsletterEpicCanRender,
+} from './DownToEarthNewsletterEpic/canRender';
+
 /** These are in a seperate file to enable tree shaking of the logic deciding if a Braze message can be rendered
  * this means the user won't download the Braze components bundle when the component can't be shown.
  */
@@ -60,6 +65,7 @@ const COMPONENT_CAN_RENDER_MAPPINGS: Record<
     [AU_NEWSLETTER_EPIC_NAME]: auNewsletterEpicCanRender,
     [UK_NEWSLETTER_EPIC_NAME]: ukNewsletterEpicCanRender,
     [EPIC_WITH_IMAGE_NAME]: epicWithImageCanRender,
+    [DTE_NEWSLETTER_EPIC_NAME]: dteNewsletterEpicCanRender,
 };
 
 export const canRenderBrazeMsg = (msgExtras: Extras | undefined): boolean => {
