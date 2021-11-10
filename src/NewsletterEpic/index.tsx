@@ -1,11 +1,18 @@
 import { css, ThemeProvider } from '@emotion/react';
 import React, { useState, ReactElement } from 'react';
-import { brand, palette, space } from '@guardian/src-foundations';
-import { Button, buttonBrandAlt } from '@guardian/src-button';
-import { COMPONENT_NAME } from './canRender';
-import { body, headline, textSans } from '@guardian/src-foundations/typography';
-import { canRender } from './canRender';
-import { from, until } from '@guardian/src-foundations/mq';
+import {
+    brand,
+    news,
+    neutral,
+    space,
+    from,
+    until,
+    body,
+    headline,
+    textSans,
+} from '@guardian/source-foundations';
+import { Button, buttonThemeBrandAlt } from '@guardian/source-react-components';
+import { COMPONENT_NAME, canRender } from './canRender';
 import { LoadingDots } from './LoadingDots';
 
 // Once https://github.com/guardian/source/pull/843 is merged and in a
@@ -27,8 +34,8 @@ export const SvgClock = (): ReactElement => {
 const styles = {
     epicContainer: css`
         padding: 4px 8px 12px;
-        border-top: 1px solid ${palette.news[400]};
-        background-color: ${palette.neutral[97]};
+        border-top: 1px solid ${news[400]};
+        background-color: ${neutral[97]};
         display: flex;
         flex-direction: row;
         max-width: 620px;
@@ -51,7 +58,7 @@ const styles = {
         }
     `,
     frequencyText: css`
-        color: ${palette.neutral[20]};
+        color: ${neutral[20]};
         ${textSans.medium()}
         margin-left: 4px;
     `,
@@ -80,7 +87,7 @@ const styles = {
         line-height: 135%;
         margin: ${space[5]}px 0 ${space[5]}px;
         max-width: 100%;
-        color: ${palette.neutral[0]};
+        color: ${neutral[0]};
 
         ${from.phablet} {
             max-width: 90%;
@@ -131,30 +138,30 @@ type SubscribeClickStatus = 'DEFAULT' | 'IN_PROGRESS' | 'SUCCESS' | 'FAILURE';
 
 const ctaStyles = {
     button: css`
-        background-color: ${palette.news[400]};
-        color: ${palette.neutral[100]};
+        background-color: ${news[400]};
+        color: ${neutral[100]};
         &:hover {
-            background-color: ${palette.news[400]};
+            background-color: ${news[400]};
         }
     `,
     thankYouText: css`
         ${body.medium({ fontWeight: 'bold' })};
-        color: ${palette.neutral[0]};
+        color: ${neutral[0]};
     `,
     errorText: css`
         ${body.medium({ fontWeight: 'bold' })};
-        color: ${palette.neutral[0]};
+        color: ${neutral[0]};
         margin-bottom: 16px;
     `,
     newslettersLink: css`
         ${body.medium()}
-        border-bottom: 1px solid ${palette.neutral[60]};
-        color: ${palette.news[400]};
+        border-bottom: 1px solid ${neutral[60]};
+        color: ${news[400]};
         padding-bottom: 2px;
         text-decoration: none;
     `,
     newslettersLinkPeriod: css`
-        color: ${palette.neutral[0]};
+        color: ${neutral[0]};
     `,
 };
 
@@ -162,7 +169,7 @@ type SignUpButtonProps = { onSignUpClick: () => void };
 
 const SignUpButton: React.FC<SignUpButtonProps> = (props: SignUpButtonProps) => {
     return (
-        <ThemeProvider theme={buttonBrandAlt}>
+        <ThemeProvider theme={buttonThemeBrandAlt}>
             <Button css={ctaStyles.button} onClick={props.onSignUpClick}>
                 Sign up
             </Button>

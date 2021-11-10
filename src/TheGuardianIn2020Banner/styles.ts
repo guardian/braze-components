@@ -1,7 +1,5 @@
 import { css } from '@emotion/react';
-import { from, until } from '@guardian/src-foundations/mq';
-import { body } from '@guardian/src-foundations/typography';
-import { palette, space } from '@guardian/src-foundations';
+import { from, until, body, neutral, space } from '@guardian/source-foundations';
 
 const bodyColor = '#666';
 
@@ -64,6 +62,6 @@ export const styles = {
         margin-top: ${space[3]}px;
         margin-right: ${space[3]}px;
         display: inline-block;
-        color: ${palette.neutral[20]};
+        color: ${neutral[20]};
     `,
 };

@@ -1,8 +1,7 @@
 import React from 'react';
 import { css, ThemeProvider } from '@emotion/react';
-import { palette, space } from '@guardian/src-foundations';
-import { LinkButton } from '@guardian/src-button';
-import { SvgArrowRightStraight } from '@guardian/src-icons';
+import { neutral, brandAlt, space } from '@guardian/source-foundations';
+import { LinkButton, SvgArrowRightStraight } from '@guardian/source-react-components';
 
 const buttonWrapperStyles = css`
     margin: ${space[4]}px ${space[2]}px ${space[1]}px 0;
@@ -29,13 +28,13 @@ const buttonMargins = css`
 // Custom theme for Button/LinkButton
 // See also `tertiaryButtonOverrides` below.
 const buttonStyles = {
-    textPrimary: palette.neutral[7],
-    backgroundPrimary: palette.brandAlt[400],
-    backgroundPrimaryHover: palette.brandAlt[300],
-    textSecondary: palette.neutral[7],
-    backgroundSecondary: palette.neutral[93],
-    backgroundSecondaryHover: palette.neutral[86],
-    borderSecondary: palette.neutral[86],
+    textPrimary: neutral[7],
+    backgroundPrimary: brandAlt[400],
+    backgroundPrimaryHover: brandAlt[300],
+    textSecondary: neutral[7],
+    backgroundSecondary: neutral[93],
+    backgroundSecondaryHover: neutral[86],
+    borderSecondary: neutral[86],
 };
 
 const contributionsTheme = {
