@@ -4,6 +4,7 @@ module.exports = {
         'plugin:@typescript-eslint/recommended',
         'plugin:react/recommended',
         'plugin:prettier/recommended',
+        'plugin:@guardian/eslint-plugin-source-react-components/recommended',
     ],
     plugins: ['@emotion'],
     parserOptions: {
