@@ -1,7 +1,13 @@
 import { css } from '@emotion/react';
-import { palette, space } from '@guardian/src-foundations';
-import { from, until } from '@guardian/src-foundations/mq';
-import { body, headline } from '@guardian/src-foundations/typography';
+import {
+    neutral,
+    background,
+    space,
+    from,
+    until,
+    body,
+    headline,
+} from '@guardian/source-foundations';
 
 const imgHeight = '280';
 const bannerColor = '#ebe8e8';
@@ -17,7 +23,7 @@ export const styles = {
         align-items: center;
         width: 100%;
         background-color: ${bannerColor};
-        color: ${palette.neutral[20]};
+        color: ${neutral[20]};
 
         html {
             box-sizing: border-box;
@@ -136,7 +142,7 @@ export const styles = {
         margin-top: ${space[5]}px;
         margin-right: ${space[3]}px;
         display: inline-block;
-        color: ${palette.neutral[20]};
+        color: ${neutral[20]};
     `,
 
     smallRightSpacer: css`
@@ -180,9 +186,9 @@ export const styles = {
             fill: ${infoColor};
             background: radial-gradient(
                 circle at center,
-                ${palette.background.primary} 0%,
-                ${palette.background.primary} 50%,
-                ${palette.background.primary} 52%,
+                ${background.primary} 0%,
+                ${background.primary} 50%,
+                ${background.primary} 52%,
                 transparent 53%
             );
         }
@@ -209,9 +215,9 @@ export const styles = {
             fill: ${infoColor};
             background: radial-gradient(
                 circle at center,
-                ${palette.background.primary} 0%,
-                ${palette.background.primary} 50%,
-                ${palette.background.primary} 52%,
+                ${background.primary} 0%,
+                ${background.primary} 50%,
+                ${background.primary} 52%,
                 transparent 53%
             );
             border-radius: 50%;

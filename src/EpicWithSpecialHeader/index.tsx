@@ -1,8 +1,6 @@
 import React from 'react';
 import { css } from '@emotion/react';
-import { from, breakpoints } from '@guardian/src-foundations/mq';
-import { space } from '@guardian/src-foundations';
-import { body, headline } from '@guardian/src-foundations/typography';
+import { from, breakpoints, space, body, headline } from '@guardian/source-foundations';
 
 import { Epic } from '../Epic';
 import type { EpicProps } from '../Epic';

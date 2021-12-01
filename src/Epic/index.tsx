@@ -1,8 +1,7 @@
 import { css, ThemeProvider } from '@emotion/react';
 import React from 'react';
-import { brand, palette, space } from '@guardian/src-foundations';
+import { brand, news, brandAlt, space, body, headline } from '@guardian/source-foundations';
 import { ContributionsEpicButtons } from './ContributionsEpicButtons';
-import { body, headline } from '@guardian/src-foundations/typography';
 import { COMPONENT_NAME, canRender, parseParagraphs } from './canRender';
 export { COMPONENT_NAME };
 import { replaceNonArticleCountPlaceholders } from './placeholders';
@@ -10,7 +9,7 @@ import { replaceNonArticleCountPlaceholders } from './placeholders';
 // Custom styles for <a> tags in the Epic content
 const linkStyles = css`
     a {
-        color: ${palette.news[400]};
+        color: ${news[400]};
         text-decoration: none;
     }
     a:hover {
@@ -43,7 +42,7 @@ const styles = {
         ${body.medium({ fontWeight: 'bold' })}
         ${linkStyles}
         padding: 2px;
-        background-color: ${palette.brandAlt[400]};
+        background-color: ${brandAlt[400]};
     `,
 };
 

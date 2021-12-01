@@ -1,7 +1,11 @@
 import React, { useState, ReactElement } from 'react';
 import { ThemeProvider } from '@emotion/react';
-import { Button, buttonReaderRevenueBrandAlt } from '@guardian/src-button';
-import { SvgCross, SvgInfo } from '@guardian/src-icons';
+import {
+    Button,
+    buttonThemeReaderRevenueBrandAlt,
+    SvgCross,
+    SvgInfo,
+} from '@guardian/source-react-components';
 import { OphanComponentEvent } from '@guardian/libs';
 
 import { AppStore } from '../assets/app-store';
@@ -20,7 +24,7 @@ export type BrazeMessageProps = {
     imageUrl?: string;
 };
 
-import { ButtonTheme } from '@guardian/src-foundations/dist/types/themes';
+import type { ButtonTheme } from '@guardian/source-react-components';
 
 export type Props = {
     logButtonClickWithBraze: BrazeClickHandler;
@@ -87,14 +91,14 @@ export const AppBanner = (props: Props): ReactElement | null => {
     // Probably should be removed later
     const overrridenReaderRevenueTheme: { button: ButtonTheme } = {
         button: {
-            ...buttonReaderRevenueBrandAlt.button,
+            ...buttonThemeReaderRevenueBrandAlt.button,
             backgroundPrimary: 'rgb(51, 51, 51)',
             backgroundPrimaryHover: 'black',
         },
     };
     const notInterestedTheme: { button: ButtonTheme } = {
         button: {
-            ...buttonReaderRevenueBrandAlt.button,
+            ...buttonThemeReaderRevenueBrandAlt.button,
             textSubdued: 'rgb(51, 51, 51)',
         },
     };

@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import { ThemeProvider } from '@emotion/react';
-import { Button, buttonReaderRevenueBrandAlt, LinkButton } from '@guardian/src-button';
-import { SvgCross, SvgInfo } from '@guardian/src-icons';
+import {
+    Button,
+    buttonThemeReaderRevenueBrandAlt,
+    LinkButton,
+    SvgCross,
+    SvgInfo,
+} from '@guardian/source-react-components';
 import { OphanComponentEvent } from '@guardian/libs';
 
 import { BrazeClickHandler } from '../utils/tracking';
@@ -14,7 +19,7 @@ export type BrazeMessageProps = {
     header?: string;
     body?: string;
 };
-import { ButtonTheme } from '@guardian/src-foundations/dist/types/themes/button';
+import type { ButtonTheme } from '@guardian/source-react-components';
 
 export type Props = {
     logButtonClickWithBraze: BrazeClickHandler;
@@ -100,7 +105,7 @@ const TheGuardianIn2020Banner: React.FC<Props> = (props: Props) => {
     // Probably should be removed later
     const overrridenReaderRevenueTheme: { button: ButtonTheme } = {
         button: {
-            ...buttonReaderRevenueBrandAlt.button,
+            ...buttonThemeReaderRevenueBrandAlt.button,
             backgroundPrimary: 'rgb(51, 51, 51)',
             backgroundPrimaryHover: 'black',
         },
@@ -144,7 +149,7 @@ const TheGuardianIn2020Banner: React.FC<Props> = (props: Props) => {
                         />
                     </div>
                     <div css={commonStyles.iconPanel}>
-                        <ThemeProvider theme={buttonReaderRevenueBrandAlt}>
+                        <ThemeProvider theme={buttonThemeReaderRevenueBrandAlt}>
                             <Button
                                 icon={<SvgCross />}
                                 hideLabel={true}
