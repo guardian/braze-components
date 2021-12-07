@@ -2515,10 +2515,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@guardian/cdk@31.0.0":
-  version "31.0.0"
-  resolved "https://registry.yarnpkg.com/@guardian/cdk/-/cdk-31.0.0.tgz#b0a3b063acda301a976c90a57754aa1bfb424102"
-  integrity sha512-cMRJh4OJQDRUyjIxDOLJDlJpCijehdy6Ufs3sz/Zt6kd0MNZIjY1j+aTnAFynyg9IDmx8/6CMi0+XzqvCpBIsg==
+"@guardian/cdk@31.4.0":
+  version "31.4.0"
+  resolved "https://registry.yarnpkg.com/@guardian/cdk/-/cdk-31.4.0.tgz#a0d6cdb8545d5fbe5c2f47b1bcb6fba83497d155"
+  integrity sha512-/xsLQpzQxipm29ECDs6zb/kwD7IZYID2uX7q2psF3lxPp58h2w7OeSW5ewx253pmLy7MTMOX98uq5Zo8QpoK+w==
   dependencies:
     "@aws-cdk/assert" "1.132.0"
     "@aws-cdk/aws-apigateway" "1.132.0"
@@ -2539,12 +2539,12 @@
     "@aws-cdk/aws-stepfunctions" "1.132.0"
     "@aws-cdk/aws-stepfunctions-tasks" "1.132.0"
     "@aws-cdk/core" "1.132.0"
-    aws-sdk "^2.1025.0"
+    aws-sdk "^2.1041.0"
     chalk "^4.1.2"
     execa "^5.1.1"
     git-url-parse "^11.6.0"
     read-pkg-up "7.0.1"
-    yargs "^17.2.1"
+    yargs "^17.3.0"
 
 "@guardian/eslint-config-typescript@^0.7.0":
   version "0.7.0"
@@ -3253,7 +3253,7 @@ aws-cdk@1.132.0:
     yaml "1.10.2"
     yargs "^16.2.0"
 
-aws-sdk@^2.1025.0, aws-sdk@^2.848.0, aws-sdk@^2.979.0:
+aws-sdk@^2.1041.0, aws-sdk@^2.848.0, aws-sdk@^2.979.0:
   version "2.1044.0"
   resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1044.0.tgz#0708eaf48daf8d961b414e698d84e8cd1f82c4ad"
   integrity sha512-n55uGUONQGXteGGG1QlZ1rKx447KSuV/x6jUGNf2nOl41qMI8ZgLUhNUt0uOtw3qJrCTanzCyR/JKBq2PMiqEQ==
@@ -7059,7 +7059,7 @@ yargs@^16.2.0:
     y18n "^5.0.5"
     yargs-parser "^20.2.2"
 
-yargs@^17.2.1:
+yargs@^17.3.0:
   version "17.3.0"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-17.3.0.tgz#295c4ffd0eef148ef3e48f7a2e0f58d0e4f26b1c"
   integrity sha512-GQl1pWyDoGptFPJx9b9L6kmR33TGusZvXIZUT+BOz9f7X2L94oeAskFYLEg/FkhV06zZPBYLvLZRWeYId29lew==

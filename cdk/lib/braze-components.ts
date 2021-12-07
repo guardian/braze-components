@@ -6,7 +6,7 @@ import { GuStack, GuStageParameter } from '@guardian/cdk/lib/constructs/core';
 
 export class BrazeComponents extends GuStack {
     constructor(scope: App, id: string, props: GuStackProps) {
-        super(scope, id, props);
+        super(scope, id, { ...props, withoutTags: true });
         const yamlTemplateFilePath = join(__dirname, '../..', 'cloudformation.yaml');
         new CfnInclude(this, 'YamlTemplate', {
             templateFile: yamlTemplateFilePath,

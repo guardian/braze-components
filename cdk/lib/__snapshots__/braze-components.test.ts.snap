@@ -137,14 +137,6 @@ Object {
             },
           },
           Object {
-            "Key": "gu:cdk:version",
-            "Value": "TEST",
-          },
-          Object {
-            "Key": "gu:repo",
-            "Value": "guardian/braze-components",
-          },
-          Object {
             "Key": "stack",
             "Value": Object {
               "Fn::FindInMap": Array [
@@ -155,18 +147,8 @@ Object {
             },
           },
           Object {
-            "Key": "Stack",
-            "Value": "targeting",
-          },
-          Object {
             "Key": "stage",
             "Value": "BrazeComponents/Stage",
-          },
-          Object {
-            "Key": "Stage",
-            "Value": Object {
-              "Ref": "Stage",
-            },
           },
         ],
       },
