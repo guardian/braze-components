@@ -14,4 +14,4 @@ deployments:
         type: cloud-formation
         app: braze-components
         parameters:
-            templatePath: cloudformation.yaml
+            templatePath: BrazeComponents.template.json
