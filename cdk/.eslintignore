@@ -2,4 +2,3 @@ node_modules
 cdk.out
 .eslintrc.js
 jest.config.js
-cdk
