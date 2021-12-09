@@ -16,8 +16,13 @@ import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
 
 export type BrazeMessageProps = {
+    ophanComponentId?: string;
     header?: string;
     body?: string;
+    boldText?: string;
+    buttonText?: string;
+    buttonUrl?: string;
+    imageUrl?: string;
 };
 import type { ButtonTheme } from '@guardian/source-react-components';
 
@@ -36,26 +41,19 @@ const catchAndLogErrors = (description: string, fn: () => void): void => {
     }
 };
 
-const urlObject = new URL(
-    'https://www.theguardian.com/info/ng-interactive/2020/dec/21/the-guardian-in-2020',
-);
-
-const urlParams = {
-    INTCMP: 'gdnwb_mrtn_banner_edtrl_MK_SU_WorkingReport2020Canvas',
-};
-
-for (const [key, value] of Object.entries(urlParams)) {
-    urlObject.searchParams.set(key, value);
-}
-
-const THE_GU_IN_2020_URL = urlObject.href;
-
-const TheGuardianIn2020Banner: React.FC<Props> = (props: Props) => {
+const BannerWithLink: React.FC<Props> = (props: Props) => {
     const {
         logButtonClickWithBraze,
         submitComponentEvent,
-        ophanComponentId = COMPONENT_NAME,
-        brazeMessageProps: { header, body },
+        brazeMessageProps: {
+            header,
+            body,
+            boldText,
+            buttonText,
+            buttonUrl,
+            imageUrl,
+            ophanComponentId,
+        },
     } = props;
 
     const [showBanner, setShowBanner] = useState(true);
@@ -126,27 +124,27 @@ const TheGuardianIn2020Banner: React.FC<Props> = (props: Props) => {
                     </div>
                     <p css={styles.paragraph}>
                         {body}
-                        <br />
-                        <strong css={styles.cta}>
-                            Read our look-back to see how Guardian journalism made a difference.
-                        </strong>
+
+                        {boldText ? (
+                            <>
+                                <br />
+                                <strong css={styles.cta}>{boldText}</strong>
+                            </>
+                        ) : null}
                     </p>
                     <ThemeProvider theme={overrridenReaderRevenueTheme}>
                         <LinkButton
-                            href={THE_GU_IN_2020_URL}
+                            href={buttonUrl}
                             css={commonStyles.primaryButton}
                             onClick={() => onClick(0)}
                         >
-                            Take a look back
+                            {buttonText}
                         </LinkButton>
                     </ThemeProvider>
                 </div>
                 <div css={commonStyles.bottomRightComponent}>
                     <div css={styles.image}>
-                        <img
-                            src="https://i.guim.co.uk/img/media/c9ba78ef2b1a931aab5ca625ce49646e116b11b3/0_0_3200_1800/3200.png?quality=60&width=930&s=72ff133ea3e4516f5a353213e7a62e8a"
-                            alt=""
-                        />
+                        <img src={imageUrl} alt="" />
                     </div>
                     <div css={commonStyles.iconPanel}>
                         <ThemeProvider theme={buttonThemeReaderRevenueBrandAlt}>
@@ -170,4 +168,4 @@ const TheGuardianIn2020Banner: React.FC<Props> = (props: Props) => {
     );
 };
 
-export { TheGuardianIn2020Banner };
+export { BannerWithLink };

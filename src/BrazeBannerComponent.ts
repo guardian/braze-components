@@ -9,10 +9,7 @@ import {
     COMPONENT_NAME as SPECIAL_EDITION_BANNER_NAME,
     SpecialEditionBanner,
 } from './SpecialEditionBanner';
-import {
-    COMPONENT_NAME as THE_GUARDIAN_IN_2020_BANNER_NAME,
-    TheGuardianIn2020Banner,
-} from './TheGuardianIn2020Banner';
+import { COMPONENT_NAME as BANNER_WITH_LINK_NAME, BannerWithLink } from './BannerWithLink';
 import { BrazeClickHandler } from './utils/tracking';
 import { buildBrazeMessageComponent, ComponentMapping } from './buildBrazeMessageComponent';
 
@@ -31,7 +28,7 @@ const BANNER_MAPPINGS: ComponentMapping<CommonBannerComponentProps> = {
     [DIGITAL_SUBSCRIBER_APP_BANNER_NAME]: DigitalSubscriberAppBanner,
     [APP_BANNER_NAME]: AppBanner,
     [SPECIAL_EDITION_BANNER_NAME]: SpecialEditionBanner,
-    [THE_GUARDIAN_IN_2020_BANNER_NAME]: TheGuardianIn2020Banner,
+    [BANNER_WITH_LINK_NAME]: BannerWithLink,
 };
 
 export const BrazeBannerComponent: React.FC<CommonBannerComponentProps> =
