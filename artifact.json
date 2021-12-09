@@ -9,7 +9,7 @@
     },
     {
       "action": "braze-components-cfn",
-      "path": "cloudformation.yaml",
+      "path": "cdk/cdk.out/BrazeComponents.template.json",
       "compress": false
     }
   ]
