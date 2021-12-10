@@ -1,8 +1,8 @@
+import React, { useState, useRef } from 'react';
+
 import { AddonPanel } from '@storybook/components';
 import { API } from '@storybook/api';
 import { guardianSectionIds } from './sectionIds';
-import { useState } from 'react';
-import { useRef } from 'react';
 
 type Props = {
     active: boolean;
@@ -25,7 +25,7 @@ export const nonEmotionStyles: Record<string, React.CSSProperties> = {
         fontSize: 12,
         fontWeight: 'bold',
         lineHeight: 2.7,
-        paddingLeft: 12
+        paddingLeft: 12,
     },
     select: {
         appearance: 'none',
@@ -86,7 +86,7 @@ export const nonEmotionStyles: Record<string, React.CSSProperties> = {
         textAlign: 'left',
         padding: 12,
         paddingLeft: 20,
-        color: 'grey'
+        color: 'grey',
     },
     tableHeaderRow: {
         borderBottom: '1px solid rgb(128, 128, 128, 0.3)',
