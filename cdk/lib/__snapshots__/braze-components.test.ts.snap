@@ -13,6 +13,14 @@ Object {
         "Value": "targeting",
       },
     },
+    "brazecomponents": Object {
+      "CODE": Object {
+        "domainName": "braze-components.code.dev-gutools.co.uk",
+      },
+      "PROD": Object {
+        "domainName": "braze-components.gutools.co.uk",
+      },
+    },
   },
   "Parameters": Object {
     "DomainName": Object {
@@ -171,6 +179,33 @@ Object {
         ],
       },
       "Type": "AWS::CloudFront::Distribution",
+    },
+    "DNSentry": Object {
+      "Properties": Object {
+        "Name": Object {
+          "Fn::FindInMap": Array [
+            "brazecomponents",
+            Object {
+              "Ref": "Stage",
+            },
+            "domainName",
+          ],
+        },
+        "RecordType": "CNAME",
+        "ResourceRecords": Array [
+          Object {
+            "Fn::GetAtt": Array [
+              "CDN",
+              "DomainName",
+            ],
+          },
+        ],
+        "Stage": Object {
+          "Ref": "Stage",
+        },
+        "TTL": 3600,
+      },
+      "Type": "Guardian::DNS::RecordSet",
     },
   },
 }
