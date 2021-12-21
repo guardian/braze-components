@@ -1,5 +1,7 @@
 import { join } from 'path';
 import type { CfnDistribution } from '@aws-cdk/aws-cloudfront';
+import { CloudFrontWebDistribution, OriginAccessIdentity } from '@aws-cdk/aws-cloudfront';
+import { Bucket } from '@aws-cdk/aws-s3';
 import { CfnInclude } from '@aws-cdk/cloudformation-include';
 import type { App } from '@aws-cdk/core';
 import { Duration } from '@aws-cdk/core';
@@ -28,6 +30,33 @@ export class BrazeComponents extends GuStack {
             },
             resourceRecord: oldCloudfrontDist.getAtt('DomainName').toString(),
             ttl: Duration.hours(1),
+        });
+
+        const bucketNameFromStaticCloudformationStack = 'braze-components-storybook';
+        const sourceBucket = Bucket.fromBucketName(
+            this,
+            'braze-components-bucket',
+            bucketNameFromStaticCloudformationStack,
+        );
+
+        const originAccessIdFromStaticCloudformationStack = 'E3EA9DC41190PP';
+        const originAccessIdentity = OriginAccessIdentity.fromOriginAccessIdentityName(
+            this,
+            'braze-components-origin-access-identity',
+            originAccessIdFromStaticCloudformationStack,
+        );
+
+        new CloudFrontWebDistribution(this, 'braze-components-cloudfront', {
+            originConfigs: [
+                {
+                    s3OriginSource: {
+                        s3BucketSource: sourceBucket,
+                        originAccessIdentity,
+                        originPath: `/${this.stage}/braze-components-storybook-static`,
+                    },
+                    behaviors: [{ isDefaultBehavior: true }],
+                },
+            ],
         });
     }
 }

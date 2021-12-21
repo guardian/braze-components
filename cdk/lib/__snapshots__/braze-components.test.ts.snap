@@ -207,6 +207,97 @@ Object {
       },
       "Type": "Guardian::DNS::RecordSet",
     },
+    "brazecomponentscloudfrontCFDistributionCD76C2A5": Object {
+      "Properties": Object {
+        "DistributionConfig": Object {
+          "DefaultCacheBehavior": Object {
+            "AllowedMethods": Array [
+              "GET",
+              "HEAD",
+            ],
+            "CachedMethods": Array [
+              "GET",
+              "HEAD",
+            ],
+            "Compress": true,
+            "ForwardedValues": Object {
+              "Cookies": Object {
+                "Forward": "none",
+              },
+              "QueryString": false,
+            },
+            "TargetOriginId": "origin1",
+            "ViewerProtocolPolicy": "redirect-to-https",
+          },
+          "DefaultRootObject": "index.html",
+          "Enabled": true,
+          "HttpVersion": "http2",
+          "IPV6Enabled": true,
+          "Origins": Array [
+            Object {
+              "ConnectionAttempts": 3,
+              "ConnectionTimeout": 10,
+              "DomainName": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "braze-components-storybook.s3.",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ".",
+                    Object {
+                      "Ref": "AWS::URLSuffix",
+                    },
+                  ],
+                ],
+              },
+              "Id": "origin1",
+              "OriginPath": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "/",
+                    Object {
+                      "Ref": "Stage",
+                    },
+                    "/braze-components-storybook-static",
+                  ],
+                ],
+              },
+              "S3OriginConfig": Object {
+                "OriginAccessIdentity": "origin-access-identity/cloudfront/E3EA9DC41190PP",
+              },
+            },
+          ],
+          "PriceClass": "PriceClass_100",
+          "ViewerCertificate": Object {
+            "CloudFrontDefaultCertificate": true,
+          },
+        },
+        "Tags": Array [
+          Object {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          Object {
+            "Key": "gu:repo",
+            "Value": "guardian/braze-components",
+          },
+          Object {
+            "Key": "Stack",
+            "Value": "targeting",
+          },
+          Object {
+            "Key": "Stage",
+            "Value": Object {
+              "Ref": "Stage",
+            },
+          },
+        ],
+      },
+      "Type": "AWS::CloudFront::Distribution",
+    },
   },
 }
 `;
