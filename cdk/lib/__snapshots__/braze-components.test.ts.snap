@@ -253,6 +253,17 @@ Object {
                 ],
               },
               "Id": "origin1",
+              "OriginPath": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    Object {
+                      "Ref": "Stage",
+                    },
+                    "/braze-components-storybook-static",
+                  ],
+                ],
+              },
               "S3OriginConfig": Object {
                 "OriginAccessIdentity": "origin-access-identity/cloudfront/E3EA9DC41190PP",
               },
