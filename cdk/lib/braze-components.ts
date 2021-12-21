@@ -52,7 +52,7 @@ export class BrazeComponents extends GuStack {
                     s3OriginSource: {
                         s3BucketSource: sourceBucket,
                         originAccessIdentity,
-                        originPath: `${this.stage}/braze-components-storybook-static`,
+                        originPath: `/${this.stage}/braze-components-storybook-static`,
                     },
                     behaviors: [{ isDefaultBehavior: true }],
                 },

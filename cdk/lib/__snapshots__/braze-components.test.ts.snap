@@ -257,6 +257,7 @@ Object {
                 "Fn::Join": Array [
                   "",
                   Array [
+                    "/",
                     Object {
                       "Ref": "Stage",
                     },
