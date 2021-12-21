@@ -15,9 +15,11 @@ Object {
     },
     "brazecomponents": Object {
       "CODE": Object {
+        "certificateId": "1df4da51-49e5-4dd4-b136-3c5e1cac9d64",
         "domainName": "braze-components.code.dev-gutools.co.uk",
       },
       "PROD": Object {
+        "certificateId": "eca82256-dff4-4b0a-80d6-7f884a1ee92d",
         "domainName": "braze-components.gutools.co.uk",
       },
     },
@@ -210,6 +212,7 @@ Object {
     "brazecomponentscloudfrontCFDistributionCD76C2A5": Object {
       "Properties": Object {
         "DistributionConfig": Object {
+          "Aliases": Array [],
           "DefaultCacheBehavior": Object {
             "AllowedMethods": Array [
               "GET",
@@ -272,7 +275,28 @@ Object {
           ],
           "PriceClass": "PriceClass_100",
           "ViewerCertificate": Object {
-            "CloudFrontDefaultCertificate": true,
+            "AcmCertificateArn": Object {
+              "Fn::Join": Array [
+                "",
+                Array [
+                  "arn:aws:acm:us-east-1:",
+                  Object {
+                    "Ref": "AWS::AccountId",
+                  },
+                  ":certificate/",
+                  Object {
+                    "Fn::FindInMap": Array [
+                      "brazecomponents",
+                      Object {
+                        "Ref": "Stage",
+                      },
+                      "certificateId",
+                    ],
+                  },
+                ],
+              ],
+            },
+            "SslSupportMethod": "sni-only",
           },
         },
         "Tags": Array [
