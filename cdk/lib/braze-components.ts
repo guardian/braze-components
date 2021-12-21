@@ -1,6 +1,10 @@
 import { join } from 'path';
-import type { CfnDistribution } from '@aws-cdk/aws-cloudfront';
-import { CloudFrontWebDistribution, OriginAccessIdentity } from '@aws-cdk/aws-cloudfront';
+import { Certificate } from '@aws-cdk/aws-certificatemanager';
+import {
+    CloudFrontWebDistribution,
+    OriginAccessIdentity,
+    ViewerCertificate,
+} from '@aws-cdk/aws-cloudfront';
 import { Bucket } from '@aws-cdk/aws-s3';
 import { CfnInclude } from '@aws-cdk/cloudformation-include';
 import type { App } from '@aws-cdk/core';
@@ -34,6 +38,21 @@ export class BrazeComponents extends GuStack {
             originAccessIdFromStaticCloudformationStack,
         );
 
+        const tlsCertId = this.withStageDependentValue({
+            app: 'braze-components',
+            variableName: 'certificateId',
+            stageValues: {
+                PROD: 'eca82256-dff4-4b0a-80d6-7f884a1ee92d',
+                CODE: '1df4da51-49e5-4dd4-b136-3c5e1cac9d64',
+            },
+        });
+
+        const certificate = Certificate.fromCertificateArn(
+            this,
+            'braze-components-cert',
+            `arn:aws:acm:us-east-1:${this.account}:certificate/${tlsCertId}`,
+        );
+
         const cloudfrontDist = new CloudFrontWebDistribution(this, 'braze-components-cloudfront', {
             originConfigs: [
                 {
@@ -45,6 +64,7 @@ export class BrazeComponents extends GuStack {
                     behaviors: [{ isDefaultBehavior: true }],
                 },
             ],
+            viewerCertificate: ViewerCertificate.fromAcmCertificate(certificate),
         });
 
         new GuCname(this, 'DNS entry', {
