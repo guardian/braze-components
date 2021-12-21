@@ -195,7 +195,7 @@ Object {
         "ResourceRecords": Array [
           Object {
             "Fn::GetAtt": Array [
-              "CDN",
+              "brazecomponentscloudfrontCFDistributionCD76C2A5",
               "DomainName",
             ],
           },

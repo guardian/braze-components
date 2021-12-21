@@ -13,23 +13,11 @@ export class BrazeComponents extends GuStack {
     constructor(scope: App, id: string, props: GuStackProps) {
         super(scope, id, props);
         const yamlTemplateFilePath = join(__dirname, '../..', 'cloudformation.yaml');
-        const template = new CfnInclude(this, 'YamlTemplate', {
+        new CfnInclude(this, 'YamlTemplate', {
             templateFile: yamlTemplateFilePath,
             parameters: {
                 Stage: GuStageParameter.getInstance(this),
             },
-        });
-
-        const oldCloudfrontDist = template.getResource('CDN') as CfnDistribution;
-
-        new GuCname(this, 'DNS entry', {
-            app: 'braze-components',
-            domainNameProps: {
-                CODE: { domainName: 'braze-components.code.dev-gutools.co.uk' },
-                PROD: { domainName: 'braze-components.gutools.co.uk' },
-            },
-            resourceRecord: oldCloudfrontDist.getAtt('DomainName').toString(),
-            ttl: Duration.minutes(1),
         });
 
         const bucketNameFromStaticCloudformationStack = 'braze-components-storybook';
@@ -46,7 +34,7 @@ export class BrazeComponents extends GuStack {
             originAccessIdFromStaticCloudformationStack,
         );
 
-        new CloudFrontWebDistribution(this, 'braze-components-cloudfront', {
+        const cloudfrontDist = new CloudFrontWebDistribution(this, 'braze-components-cloudfront', {
             originConfigs: [
                 {
                     s3OriginSource: {
@@ -57,6 +45,16 @@ export class BrazeComponents extends GuStack {
                     behaviors: [{ isDefaultBehavior: true }],
                 },
             ],
+        });
+
+        new GuCname(this, 'DNS entry', {
+            app: 'braze-components',
+            domainNameProps: {
+                CODE: { domainName: 'braze-components.code.dev-gutools.co.uk' },
+                PROD: { domainName: 'braze-components.gutools.co.uk' },
+            },
+            resourceRecord: cloudfrontDist.distributionDomainName,
+            ttl: Duration.minutes(1),
         });
     }
 }
