@@ -47,6 +47,17 @@ export class BrazeComponents extends GuStack {
             },
         });
 
+        const domainNameMappings = {
+            CODE: 'braze-components.code.dev-gutools.co.uk',
+            PROD: 'braze-components.gutools.co.uk',
+        };
+
+        const customDomainName = this.withStageDependentValue({
+            app: 'braze-components',
+            variableName: 'customDomainName',
+            stageValues: domainNameMappings,
+        });
+
         const certificate = Certificate.fromCertificateArn(
             this,
             'braze-components-cert',
@@ -64,14 +75,16 @@ export class BrazeComponents extends GuStack {
                     behaviors: [{ isDefaultBehavior: true }],
                 },
             ],
-            viewerCertificate: ViewerCertificate.fromAcmCertificate(certificate),
+            viewerCertificate: ViewerCertificate.fromAcmCertificate(certificate, {
+                aliases: [customDomainName],
+            }),
         });
 
         new GuCname(this, 'DNS entry', {
             app: 'braze-components',
             domainNameProps: {
-                CODE: { domainName: 'braze-components.code.dev-gutools.co.uk' },
-                PROD: { domainName: 'braze-components.gutools.co.uk' },
+                CODE: { domainName: domainNameMappings['CODE'] },
+                PROD: { domainName: domainNameMappings['PROD'] },
             },
             resourceRecord: cloudfrontDist.distributionDomainName,
             ttl: Duration.minutes(1),

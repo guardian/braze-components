@@ -16,10 +16,12 @@ Object {
     "brazecomponents": Object {
       "CODE": Object {
         "certificateId": "1df4da51-49e5-4dd4-b136-3c5e1cac9d64",
+        "customDomainName": "braze-components.code.dev-gutools.co.uk",
         "domainName": "braze-components.code.dev-gutools.co.uk",
       },
       "PROD": Object {
         "certificateId": "eca82256-dff4-4b0a-80d6-7f884a1ee92d",
+        "customDomainName": "braze-components.gutools.co.uk",
         "domainName": "braze-components.gutools.co.uk",
       },
     },
@@ -212,7 +214,17 @@ Object {
     "brazecomponentscloudfrontCFDistributionCD76C2A5": Object {
       "Properties": Object {
         "DistributionConfig": Object {
-          "Aliases": Array [],
+          "Aliases": Array [
+            Object {
+              "Fn::FindInMap": Array [
+                "brazecomponents",
+                Object {
+                  "Ref": "Stage",
+                },
+                "customDomainName",
+              ],
+            },
+          ],
           "DefaultCacheBehavior": Object {
             "AllowedMethods": Array [
               "GET",
