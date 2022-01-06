@@ -29,7 +29,7 @@ export class BrazeComponents extends GuStack {
                 PROD: { domainName: 'braze-components.gutools.co.uk' },
             },
             resourceRecord: oldCloudfrontDist.getAtt('DomainName').toString(),
-            ttl: Duration.hours(1),
+            ttl: Duration.minutes(1),
         });
 
         const bucketNameFromStaticCloudformationStack = 'braze-components-storybook';
