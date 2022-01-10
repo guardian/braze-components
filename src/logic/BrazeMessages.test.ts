@@ -3,7 +3,7 @@ import { createNanoEvents, Emitter } from 'nanoevents';
 import { BrazeArticleContext, BrazeMessages } from './BrazeMessages';
 import { LocalMessageCache, InMemoryCache, hydrateMessage } from './LocalMessageCache';
 
-import { COMPONENT_NAME as G2020_BANNER_NAME } from '../TheGuardianIn2020Banner/canRender';
+import { COMPONENT_NAME as BANNER_WITH_LINK_NAME } from '../BannerWithLink/canRender';
 
 const logInAppMessageImpressionSpy = jest.fn();
 
@@ -12,9 +12,14 @@ const message2Json = `{"message":"","messageAlignment":"CENTER","duration":5000,
 
 const bannerExtras = {
     slotName: 'Banner',
-    componentName: G2020_BANNER_NAME,
+    componentName: BANNER_WITH_LINK_NAME,
+    ophanComponentId: 'banner_ophan_component_id',
     header: 'Header',
     body: 'Body',
+    buttonText: 'Button',
+    buttonUrl: 'http://guardian.co.uk',
+    imageUrl:
+        'https://i.guim.co.uk/img/media/c9ba78ef2b1a931aab5ca625ce49646e116b11b3/0_0_3200_1800/3200.png?quality=60&width=930&s=72ff133ea3e4516f5a353213e7a62e8a',
 };
 
 const epicExtras = {

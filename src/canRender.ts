@@ -3,10 +3,6 @@ import {
     canRender as appBannerCanRender,
 } from './AppBanner/canRender';
 import {
-    COMPONENT_NAME as THE_GUARDIAN_IN_2020_BANNER_NAME,
-    canRender as gIn2020BannerCanRender,
-} from './TheGuardianIn2020Banner/canRender';
-import {
     COMPONENT_NAME as DIGITAL_SUBSCRIBER_APP_BANNER_NAME,
     canRender as digitialSubCanRender,
 } from './DigitalSubscriberAppBanner/canRender';
@@ -45,6 +41,11 @@ import {
     canRender as dteNewsletterEpicCanRender,
 } from './DownToEarthNewsletterEpic/canRender';
 
+import {
+    COMPONENT_NAME as BANNER_WITH_LINK_NAME,
+    canRender as bannerWithLinkCanRender,
+} from './BannerWithLink/canRender';
+
 /** These are in a seperate file to enable tree shaking of the logic deciding if a Braze message can be rendered
  * this means the user won't download the Braze components bundle when the component can't be shown.
  */
@@ -58,7 +59,6 @@ const COMPONENT_CAN_RENDER_MAPPINGS: Record<
     [APP_BANNER_NAME]: appBannerCanRender,
     [DIGITAL_SUBSCRIBER_APP_BANNER_NAME]: digitialSubCanRender,
     [SPECIAL_EDITION_BANNER_NAME]: specialEdCanRender,
-    [THE_GUARDIAN_IN_2020_BANNER_NAME]: gIn2020BannerCanRender,
     [EPIC_NAME]: epicCanRender,
     [NEWSLETTER_EPIC_NAME]: newsletterEpicCanRender,
     [US_NEWSLETTER_EPIC_NAME]: usNewsletterEpicCanRender,
@@ -66,6 +66,7 @@ const COMPONENT_CAN_RENDER_MAPPINGS: Record<
     [UK_NEWSLETTER_EPIC_NAME]: ukNewsletterEpicCanRender,
     [EPIC_WITH_IMAGE_NAME]: epicWithImageCanRender,
     [DTE_NEWSLETTER_EPIC_NAME]: dteNewsletterEpicCanRender,
+    [BANNER_WITH_LINK_NAME]: bannerWithLinkCanRender,
 };
 
 export const canRenderBrazeMsg = (msgExtras: Extras | undefined): boolean => {
