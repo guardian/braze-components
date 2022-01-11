@@ -2,30 +2,21 @@
 
 exports[`The BrazeComponents stack matches the snapshot 1`] = `
 Object {
-  "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "Braze Components Application",
   "Mappings": Object {
-    "Constants": Object {
-      "App": Object {
-        "Value": "braze-components",
-      },
-      "Stack": Object {
-        "Value": "targeting",
-      },
-    },
     "brazecomponents": Object {
       "CODE": Object {
+        "certificateId": "1df4da51-49e5-4dd4-b136-3c5e1cac9d64",
+        "customDomainName": "braze-components.code.dev-gutools.co.uk",
         "domainName": "braze-components.code.dev-gutools.co.uk",
       },
       "PROD": Object {
+        "certificateId": "eca82256-dff4-4b0a-80d6-7f884a1ee92d",
+        "customDomainName": "braze-components.gutools.co.uk",
         "domainName": "braze-components.gutools.co.uk",
       },
     },
   },
   "Parameters": Object {
-    "DomainName": Object {
-      "Type": "String",
-    },
     "Stage": Object {
       "AllowedValues": Array [
         "CODE",
@@ -35,17 +26,6 @@ Object {
       "Description": "Stage name",
       "Type": "String",
     },
-    "TLSCert": Object {
-      "Description": "ARN of TLS certificate in US-EAST-1",
-      "Type": "String",
-    },
-    "WebrootAccessIdentityID": Object {
-      "Description": "ID of CloudFront origin access identity for webroot bucket access (check output of static-s3 stack)",
-      "Type": "String",
-    },
-    "WebrootBucket": Object {
-      "Type": "String",
-    },
   },
   "Resources": Object {
     "CDN": Object {
@@ -53,163 +33,15 @@ Object {
         "DistributionConfig": Object {
           "Aliases": Array [
             Object {
-              "Ref": "DomainName",
-            },
-          ],
-          "CustomErrorResponses": Array [
-            Object {
-              "ErrorCachingMinTTL": 5,
-              "ErrorCode": 404,
-            },
-          ],
-          "DefaultCacheBehavior": Object {
-            "AllowedMethods": Array [
-              "HEAD",
-              "GET",
-            ],
-            "CachedMethods": Array [
-              "HEAD",
-              "GET",
-            ],
-            "Compress": true,
-            "ForwardedValues": Object {
-              "QueryString": false,
-            },
-            "MaxTTL": 60,
-            "MinTTL": 60,
-            "TargetOriginId": Object {
-              "Fn::Sub": Array [
-                "braze-components-\${Stage}",
+              "Fn::FindInMap": Array [
+                "brazecomponents",
                 Object {
-                  "Stage": Object {
-                    "Ref": "Stage",
-                  },
+                  "Ref": "Stage",
                 },
+                "customDomainName",
               ],
-            },
-            "ViewerProtocolPolicy": "redirect-to-https",
-          },
-          "DefaultRootObject": "index.html",
-          "Enabled": true,
-          "HttpVersion": "http2",
-          "Origins": Array [
-            Object {
-              "DomainName": Object {
-                "Fn::Sub": "\${WebrootBucket}.s3.amazonaws.com",
-              },
-              "Id": Object {
-                "Fn::Sub": Array [
-                  "braze-components-\${Stage}",
-                  Object {
-                    "Stage": Object {
-                      "Ref": "Stage",
-                    },
-                  },
-                ],
-              },
-              "OriginPath": Object {
-                "Fn::Sub": Array [
-                  "/\${Stage}/braze-components-storybook-static",
-                  Object {
-                    "Stage": Object {
-                      "Ref": "Stage",
-                    },
-                  },
-                ],
-              },
-              "S3OriginConfig": Object {
-                "OriginAccessIdentity": Object {
-                  "Fn::Sub": "origin-access-identity/cloudfront/\${WebrootAccessIdentityID}",
-                },
-              },
             },
           ],
-          "PriceClass": "PriceClass_100",
-          "ViewerCertificate": Object {
-            "AcmCertificateArn": Object {
-              "Ref": "TLSCert",
-            },
-            "MinimumProtocolVersion": "TLSv1",
-            "SslSupportMethod": "sni-only",
-          },
-        },
-        "Tags": Array [
-          Object {
-            "Key": "app",
-            "Value": Object {
-              "Fn::FindInMap": Array [
-                "Constants",
-                "App",
-                "Value",
-              ],
-            },
-          },
-          Object {
-            "Key": "gu:cdk:version",
-            "Value": "TEST",
-          },
-          Object {
-            "Key": "gu:repo",
-            "Value": "guardian/braze-components",
-          },
-          Object {
-            "Key": "stack",
-            "Value": Object {
-              "Fn::FindInMap": Array [
-                "Constants",
-                "Stack",
-                "Value",
-              ],
-            },
-          },
-          Object {
-            "Key": "Stack",
-            "Value": "targeting",
-          },
-          Object {
-            "Key": "stage",
-            "Value": "BrazeComponents/Stage",
-          },
-          Object {
-            "Key": "Stage",
-            "Value": Object {
-              "Ref": "Stage",
-            },
-          },
-        ],
-      },
-      "Type": "AWS::CloudFront::Distribution",
-    },
-    "DNSentry": Object {
-      "Properties": Object {
-        "Name": Object {
-          "Fn::FindInMap": Array [
-            "brazecomponents",
-            Object {
-              "Ref": "Stage",
-            },
-            "domainName",
-          ],
-        },
-        "RecordType": "CNAME",
-        "ResourceRecords": Array [
-          Object {
-            "Fn::GetAtt": Array [
-              "CDN",
-              "DomainName",
-            ],
-          },
-        ],
-        "Stage": Object {
-          "Ref": "Stage",
-        },
-        "TTL": 60,
-      },
-      "Type": "Guardian::DNS::RecordSet",
-    },
-    "brazecomponentscloudfrontCFDistributionCD76C2A5": Object {
-      "Properties": Object {
-        "DistributionConfig": Object {
           "DefaultCacheBehavior": Object {
             "AllowedMethods": Array [
               "GET",
@@ -272,7 +104,28 @@ Object {
           ],
           "PriceClass": "PriceClass_100",
           "ViewerCertificate": Object {
-            "CloudFrontDefaultCertificate": true,
+            "AcmCertificateArn": Object {
+              "Fn::Join": Array [
+                "",
+                Array [
+                  "arn:aws:acm:us-east-1:",
+                  Object {
+                    "Ref": "AWS::AccountId",
+                  },
+                  ":certificate/",
+                  Object {
+                    "Fn::FindInMap": Array [
+                      "brazecomponents",
+                      Object {
+                        "Ref": "Stage",
+                      },
+                      "certificateId",
+                    ],
+                  },
+                ],
+              ],
+            },
+            "SslSupportMethod": "sni-only",
           },
         },
         "Tags": Array [
@@ -297,6 +150,33 @@ Object {
         ],
       },
       "Type": "AWS::CloudFront::Distribution",
+    },
+    "DNSentry": Object {
+      "Properties": Object {
+        "Name": Object {
+          "Fn::FindInMap": Array [
+            "brazecomponents",
+            Object {
+              "Ref": "Stage",
+            },
+            "domainName",
+          ],
+        },
+        "RecordType": "CNAME",
+        "ResourceRecords": Array [
+          Object {
+            "Fn::GetAtt": Array [
+              "CDN",
+              "DomainName",
+            ],
+          },
+        ],
+        "Stage": Object {
+          "Ref": "Stage",
+        },
+        "TTL": 60,
+      },
+      "Type": "Guardian::DNS::RecordSet",
     },
   },
 }
