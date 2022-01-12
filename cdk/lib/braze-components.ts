@@ -83,7 +83,7 @@ export class BrazeComponents extends GuStack {
                 PROD: { domainName: 'braze-components.gutools.co.uk' },
             },
             resourceRecord: cloudFrontDist.distributionDomainName,
-            ttl: Duration.minutes(1),
+            ttl: Duration.hours(1),
         });
     }
 }
