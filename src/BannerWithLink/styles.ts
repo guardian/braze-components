@@ -1,7 +1,14 @@
 import { css } from '@emotion/react';
-import { from, until, space } from '@guardian/source-foundations';
+import { from, until, space, neutral } from '@guardian/source-foundations';
+import { ButtonTheme, buttonThemeReaderRevenueBrandAlt } from '@guardian/source-react-components';
+
+const backgroundColor = '#f79e1b';
+const buttonColor = '#007abc';
 
 export const styles = {
+    wrapper: css`
+        background-color: ${backgroundColor};
+    `,
     image: css`
         max-width: 100%;
         max-height: 260px;
@@ -27,6 +34,7 @@ export const styles = {
     `,
     paragraph: css`
         font-size: 16px;
+        color: ${neutral[0]};
 
         ${from.desktop} {
             font-size: 16px;
@@ -40,6 +48,30 @@ export const styles = {
         }
     `,
     cta: css`
+        color: ${neutral[0]};
         margin-top: ${space[3]}px;
     `,
+    closeButton: css`
+        &:hover {
+            background-color: transparent;
+        }
+    `,
+    infoIcon: css`
+        svg {
+            fill: ${neutral[0]};
+            background: transparent;
+        }
+    `,
+    heading: css`
+        color: ${neutral[0]};
+    `,
+};
+
+// Use this theme but override the colours to match the moment colours
+export const overridenReaderRevenueTheme: { button: ButtonTheme } = {
+    button: {
+        ...buttonThemeReaderRevenueBrandAlt.button,
+        backgroundPrimary: buttonColor,
+        backgroundPrimaryHover: buttonColor,
+    },
 };
