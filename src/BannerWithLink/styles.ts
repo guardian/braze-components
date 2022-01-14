@@ -1,7 +1,5 @@
 import { css } from '@emotion/react';
-import { from, until, body, neutral, space } from '@guardian/source-foundations';
-
-const bodyColor = '#666';
+import { from, until, space } from '@guardian/source-foundations';
 
 export const styles = {
     image: css`
@@ -28,22 +26,10 @@ export const styles = {
         }
     `,
     paragraph: css`
-        ${body.medium()}
         font-size: 16px;
-        line-height: 135%;
-        margin: ${space[5]}px 0 ${space[5]}px;
-        max-width: 100%;
-        color: ${bodyColor};
-
-        ${from.phablet} {
-            max-width: 90%;
-        }
-
-        ${from.tablet} {
-            max-width: 100%;
-        }
 
         ${from.desktop} {
+            font-size: 16px;
             margin: ${space[3]}px 0 ${space[4]}px;
             max-width: 42rem;
         }
@@ -52,16 +38,8 @@ export const styles = {
             font-size: 20px;
             max-width: 37rem;
         }
-
-        ${from.wide} {
-            max-width: 42rem;
-        }
     `,
     cta: css`
-        font-weight: 700;
         margin-top: ${space[3]}px;
-        margin-right: ${space[3]}px;
-        display: inline-block;
-        color: ${neutral[20]};
     `,
 };

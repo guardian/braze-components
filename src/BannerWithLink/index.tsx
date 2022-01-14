@@ -122,13 +122,13 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
                         </span>
                         {header}
                     </div>
-                    <p css={styles.paragraph}>
+                    <p css={[commonStyles.paragraph, styles.paragraph]}>
                         {body}
 
                         {boldText ? (
                             <>
                                 <br />
-                                <strong css={styles.cta}>{boldText}</strong>
+                                <strong css={[commonStyles.cta, styles.cta]}>{boldText}</strong>
                             </>
                         ) : null}
                     </p>
