@@ -54,7 +54,7 @@ export default {
 
 const StoryTemplate = (args: BrazeMessageProps & { componentName: string }): ReactElement => {
     const imageUrl = grid(
-        'https://i.guim.co.uk/img/media/c9ba78ef2b1a931aab5ca625ce49646e116b11b3/0_0_3200_1800/3200.png?quality=60&width=930&s=72ff133ea3e4516f5a353213e7a62e8a',
+        'https://i.guim.co.uk/img/media/3bf8e0a7b3d59ba66ac91792ceed73a7b0536f62/0_0_931_523/master/931.png?width=930&quality=45&auto=format&s=629e348cc332f79b8ae9beda5c3f3429',
     );
 
     const brazeMessageProps: BrazeMessageProps = {

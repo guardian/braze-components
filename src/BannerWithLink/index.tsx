@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import { ThemeProvider } from '@emotion/react';
 import {
     Button,
-    buttonThemeReaderRevenueBrandAlt,
     LinkButton,
     SvgCross,
     SvgInfo,
+    buttonThemeReaderRevenueBrandAlt,
 } from '@guardian/source-react-components';
 import { OphanComponentEvent } from '@guardian/libs';
 
 import { BrazeClickHandler } from '../utils/tracking';
 import { styles as commonStyles } from '../styles/bannerCommon';
-import { styles } from './styles';
+import { overridenReaderRevenueTheme, styles } from './styles';
 import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
 
@@ -24,7 +24,6 @@ export type BrazeMessageProps = {
     buttonUrl?: string;
     imageUrl?: string;
 };
-import type { ButtonTheme } from '@guardian/source-react-components';
 
 export type Props = {
     logButtonClickWithBraze: BrazeClickHandler;
@@ -98,41 +97,30 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
         logToBrazeAndOphan(internalButtonId);
     };
 
-    // This is to keep button colors the same as before
-    // https://github.com/guardian/braze-components/pull/123
-    // Probably should be removed later
-    const overrridenReaderRevenueTheme: { button: ButtonTheme } = {
-        button: {
-            ...buttonThemeReaderRevenueBrandAlt.button,
-            backgroundPrimary: 'rgb(51, 51, 51)',
-            backgroundPrimaryHover: 'black',
-        },
-    };
-
     return (
-        <div css={commonStyles.wrapper}>
+        <div css={[commonStyles.wrapper, styles.wrapper]}>
             <div css={commonStyles.contentContainer}>
                 <div css={commonStyles.topLeftComponent}>
-                    <div css={commonStyles.infoIcon}>
+                    <div css={[commonStyles.infoIcon, styles.infoIcon]}>
                         <SvgInfo />
                     </div>
-                    <div css={commonStyles.heading}>
-                        <span css={commonStyles.smallInfoIcon}>
+                    <div css={[commonStyles.heading, styles.heading]}>
+                        <span css={[commonStyles.smallInfoIcon, styles.infoIcon]}>
                             <SvgInfo />
                         </span>
                         {header}
                     </div>
-                    <p css={styles.paragraph}>
+                    <p css={[commonStyles.paragraph, styles.paragraph]}>
                         {body}
 
                         {boldText ? (
                             <>
                                 <br />
-                                <strong css={styles.cta}>{boldText}</strong>
+                                <strong css={[commonStyles.cta, styles.cta]}>{boldText}</strong>
                             </>
                         ) : null}
                     </p>
-                    <ThemeProvider theme={overrridenReaderRevenueTheme}>
+                    <ThemeProvider theme={overridenReaderRevenueTheme}>
                         <LinkButton
                             href={buttonUrl}
                             css={commonStyles.primaryButton}
@@ -151,7 +139,7 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
                             <Button
                                 icon={<SvgCross />}
                                 hideLabel={true}
-                                css={commonStyles.closeButton}
+                                cssOverrides={[commonStyles.closeButton, styles.closeButton]}
                                 priority="tertiary"
                                 size="small"
                                 aria-label="Close"

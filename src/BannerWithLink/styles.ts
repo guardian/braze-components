@@ -1,9 +1,14 @@
 import { css } from '@emotion/react';
-import { from, until, body, neutral, space } from '@guardian/source-foundations';
+import { from, until, space, neutral } from '@guardian/source-foundations';
+import { ButtonTheme, buttonThemeReaderRevenueBrandAlt } from '@guardian/source-react-components';
 
-const bodyColor = '#666';
+const backgroundColor = '#f79e1b';
+const buttonColor = '#007abc';
 
 export const styles = {
+    wrapper: css`
+        background-color: ${backgroundColor};
+    `,
     image: css`
         max-width: 100%;
         max-height: 260px;
@@ -28,22 +33,11 @@ export const styles = {
         }
     `,
     paragraph: css`
-        ${body.medium()}
         font-size: 16px;
-        line-height: 135%;
-        margin: ${space[5]}px 0 ${space[5]}px;
-        max-width: 100%;
-        color: ${bodyColor};
-
-        ${from.phablet} {
-            max-width: 90%;
-        }
-
-        ${from.tablet} {
-            max-width: 100%;
-        }
+        color: ${neutral[0]};
 
         ${from.desktop} {
+            font-size: 16px;
             margin: ${space[3]}px 0 ${space[4]}px;
             max-width: 42rem;
         }
@@ -52,16 +46,32 @@ export const styles = {
             font-size: 20px;
             max-width: 37rem;
         }
-
-        ${from.wide} {
-            max-width: 42rem;
-        }
     `,
     cta: css`
-        font-weight: 700;
+        color: ${neutral[0]};
         margin-top: ${space[3]}px;
-        margin-right: ${space[3]}px;
-        display: inline-block;
-        color: ${neutral[20]};
     `,
+    closeButton: css`
+        &:hover {
+            background-color: transparent;
+        }
+    `,
+    infoIcon: css`
+        svg {
+            fill: ${neutral[0]};
+            background: transparent;
+        }
+    `,
+    heading: css`
+        color: ${neutral[0]};
+    `,
+};
+
+// Use this theme but override the colours to match the moment colours
+export const overridenReaderRevenueTheme: { button: ButtonTheme } = {
+    button: {
+        ...buttonThemeReaderRevenueBrandAlt.button,
+        backgroundPrimary: buttonColor,
+        backgroundPrimaryHover: buttonColor,
+    },
 };
