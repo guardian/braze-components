@@ -11,11 +11,11 @@ export const styles = {
     `,
     image: css`
         max-width: 100%;
-        max-height: 260px;
+        max-height: 300px;
         display: flex;
         justify-content: center;
         align-items: flex-end;
-        margin-top: -20px;
+        margin-top: ${space[2]}px;
 
         img {
             max-width: 100%;
@@ -64,6 +64,16 @@ export const styles = {
     `,
     heading: css`
         color: ${neutral[0]};
+    `,
+    bottomRightComponent: css`
+        ${from.desktop} {
+            padding-right: 0;
+            max-width: 45%;
+        }
+
+        ${from.wide} {
+            max-width: 48%;
+        }
     `,
 };
 

@@ -130,7 +130,7 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
                         </LinkButton>
                     </ThemeProvider>
                 </div>
-                <div css={commonStyles.bottomRightComponent}>
+                <div css={[commonStyles.bottomRightComponent, styles.bottomRightComponent]}>
                     <div css={styles.image}>
                         <img src={imageUrl} alt="" />
                     </div>
