@@ -1,7 +1,7 @@
 import appboy from '@braze/web-sdk-core';
 import { createNanoEvents, Emitter } from 'nanoevents';
 import { BrazeArticleContext, BrazeMessages } from './BrazeMessages';
-import { LocalMessageCache, InMemoryCache, hydrateMessage } from './LocalMessageCache';
+import { LocalMessageCache, hydrateMessage, MessageData } from './LocalMessageCache';
 
 import { COMPONENT_NAME as BANNER_WITH_LINK_NAME } from '../BannerWithLink/canRender';
 
@@ -47,7 +47,7 @@ class FakeAppBoy {
         return 'FAKE_SUBSCRIPTION_ID';
     }
 
-    emit(payload: any) {
+    emit(payload: appboy.InAppMessage) {
         this.emitter.emit('inAppMessage', payload);
     }
 
@@ -61,7 +61,7 @@ beforeEach(() => {
     logInAppMessageImpressionSpy.mockClear();
 });
 
-const buildMessage = (data: any) => hydrateMessage(data, appboy);
+const buildMessage = (data: MessageData) => hydrateMessage(data, appboy);
 
 describe('BrazeMessages', () => {
     describe(`When the cache is enabled`, () => {
@@ -245,160 +245,31 @@ describe('BrazeMessages', () => {
 
                 expect(firstMessage).toEqual(secondMessage);
             });
-        });
-    });
-
-    describe(`When the cache is not enabled`, () => {
-        beforeEach(() => {
-            InMemoryCache.clear();
-        });
-        describe('getMessageForBanner & getMessageForEndOfArticle', () => {
-            it('returns a promise which resolves with message data for the correct slot', async () => {
-                const fakeAppBoy = new FakeAppBoy();
-                const brazeMessages = new BrazeMessages(
-                    fakeAppBoy as unknown as typeof appboy,
-                    InMemoryCache,
-                    (error, identifier) => console.log(identifier, error),
-                );
-
-                const bannerPromise = brazeMessages.getMessageForBanner();
-                const endOfArticlePromise = brazeMessages.getMessageForEndOfArticle();
-
-                const bannerMessage = buildMessage({
-                    extras: bannerExtras,
-                });
-                fakeAppBoy.emit(bannerMessage);
-
-                const endOfArticleMessage = buildMessage({
-                    extras: epicExtras,
-                });
-                fakeAppBoy.emit(endOfArticleMessage);
-
-                const data = await Promise.all([bannerPromise, endOfArticlePromise]);
-                expect(data[0].extras).toEqual(bannerMessage.extras);
-                expect(data[1].extras).toEqual(endOfArticleMessage.extras);
-            });
-
-            it('returns a message which is capable of logging an impression', async () => {
-                const fakeAppBoy = new FakeAppBoy();
-                const brazeMessages = new BrazeMessages(
-                    fakeAppBoy as unknown as typeof appboy,
-                    InMemoryCache,
-                    (error, identifier) => console.log(identifier, error),
-                );
-
-                const bannerPromise = brazeMessages.getMessageForBanner();
-
-                const message = buildMessage({
-                    extras: bannerExtras,
-                });
-                fakeAppBoy.emit(message);
-
-                const bannerMessage = await bannerPromise;
-                bannerMessage.logImpression();
-
-                expect(logInAppMessageImpressionSpy).toHaveBeenCalledWith(message);
-            });
-
-            it('returns a message with an id', async () => {
-                const fakeAppBoy = new FakeAppBoy();
-                const brazeMessages = new BrazeMessages(
-                    fakeAppBoy as unknown as typeof appboy,
-                    InMemoryCache,
-                    (error, identifier) => console.log(identifier, error),
-                );
-
-                const bannerPromise = brazeMessages.getMessageForBanner();
-
-                const message = buildMessage({
-                    extras: bannerExtras,
-                });
-                fakeAppBoy.emit(message);
-
-                const bannerMessage = await bannerPromise;
-
-                expect(bannerMessage.id).toMatch(/\w{11,13}-\d{13}/);
-            });
-
-            it('returns a cached message if one is available', async () => {
-                const cachedMessage = buildMessage(JSON.parse(message1Json));
-                InMemoryCache.push('EndOfArticle', {
-                    message: cachedMessage,
-                    id: '1',
-                });
-                const freshMessage = buildMessage(JSON.parse(message2Json));
-                const fakeAppBoy = new FakeAppBoy();
-                const brazeMessages = new BrazeMessages(
-                    fakeAppBoy as unknown as typeof appboy,
-                    InMemoryCache,
-                    (error, identifier) => console.log(identifier, error),
-                );
-                fakeAppBoy.emit(freshMessage);
-
-                const gotMessage = await brazeMessages.getMessageForEndOfArticle();
-
-                expect(gotMessage.message).toEqual(cachedMessage);
-            });
-
-            it('logging an impression results in the message being removed from the cache', async () => {
-                const cachedMessage = buildMessage(JSON.parse(message1Json));
-                InMemoryCache.push('EndOfArticle', {
-                    message: cachedMessage,
-                    id: '1',
-                });
-                const freshMessage = buildMessage(JSON.parse(message2Json));
-                const fakeAppBoy = new FakeAppBoy();
-                const brazeMessages = new BrazeMessages(
-                    fakeAppBoy as unknown as typeof appboy,
-                    InMemoryCache,
-                    (error, identifier) => console.log(identifier, error),
-                );
-                fakeAppBoy.emit(freshMessage);
-
-                const firstMessage = await brazeMessages.getMessageForEndOfArticle();
-                firstMessage.logImpression();
-
-                const anotherMessage = await brazeMessages.getMessageForEndOfArticle();
-                expect(anotherMessage.message).toEqual(freshMessage);
-            });
-
-            it('returns the same cached message multiple times if an impression is not logged', async () => {
-                const cachedMessage = buildMessage(JSON.parse(message1Json));
-                InMemoryCache.push('EndOfArticle', {
-                    message: cachedMessage,
-                    id: '1',
-                });
-                const freshMessage = buildMessage(JSON.parse(message2Json));
-                const fakeAppBoy = new FakeAppBoy();
-                const brazeMessages = new BrazeMessages(
-                    fakeAppBoy as unknown as typeof appboy,
-                    InMemoryCache,
-                    (error, identifier) => console.log(identifier, error),
-                );
-                fakeAppBoy.emit(freshMessage);
-
-                const firstMessage = await brazeMessages.getMessageForEndOfArticle();
-                const secondMessage = await brazeMessages.getMessageForEndOfArticle();
-
-                expect(firstMessage).toEqual(secondMessage);
-            });
 
             it('prioritises a message with matching page context filters', async () => {
                 const messageWithoutFilter = buildMessage(JSON.parse(message1Json));
-                InMemoryCache.push('EndOfArticle', {
-                    message: messageWithoutFilter,
-                    id: '1',
-                });
+                LocalMessageCache.push(
+                    'EndOfArticle',
+                    {
+                        message: messageWithoutFilter,
+                        id: '1',
+                    },
+                    (e) => console.log(e),
+                );
                 const messageWithFilter = buildMessage(JSON.parse(message1Json));
                 messageWithFilter.extras.section = 'environment';
-                InMemoryCache.push('EndOfArticle', {
-                    message: messageWithFilter,
-                    id: '2',
-                });
+                LocalMessageCache.push(
+                    'EndOfArticle',
+                    {
+                        message: messageWithFilter,
+                        id: '2',
+                    },
+                    (e) => console.log(e),
+                );
                 const fakeAppBoy = new FakeAppBoy();
                 const brazeMessages = new BrazeMessages(
                     fakeAppBoy as unknown as typeof appboy,
-                    InMemoryCache,
+                    LocalMessageCache,
                     (error, identifier) => console.log(identifier, error),
                 );
                 const articleContext: BrazeArticleContext = {
