@@ -1,5 +1,7 @@
 import React from 'react';
 
+import type { OphanComponentEvent } from '@guardian/libs';
+
 import {
     COMPONENT_NAME as NEWSLETTER_EPIC_NAME,
     NewsletterEpic,
@@ -19,6 +21,7 @@ import {
     EpicWithSpecialHeader,
 } from './EpicWithSpecialHeader';
 import { buildBrazeMessageComponent, ComponentMapping } from './buildBrazeMessageComponent';
+import type { BrazeClickHandler } from './utils/tracking';
 
 type BrazeMessageProps = {
     [key: string]: string | undefined;
@@ -29,6 +32,8 @@ export type CommonEndOfArticleComponentProps = {
     brazeMessageProps: BrazeMessageProps;
     subscribeToNewsletter: NewsletterSubscribeCallback;
     countryCode?: string;
+    logButtonClickWithBraze: BrazeClickHandler;
+    submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
 };
 
 const END_OF_ARTICLE_MAPPINGS: ComponentMapping<CommonEndOfArticleComponentProps> = {
