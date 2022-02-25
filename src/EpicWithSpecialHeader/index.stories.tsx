@@ -71,6 +71,12 @@ const StoryTemplate = (
                 brazeMessageProps={brazeMessageProps}
                 componentName={args.componentName}
                 subscribeToNewsletter={() => Promise.resolve()}
+                logButtonClickWithBraze={(internalButtonId) => {
+                    console.log(`Button with internal ID ${internalButtonId} clicked`);
+                }}
+                submitComponentEvent={(componentEvent) => {
+                    console.log('submitComponentEvent called with: ', componentEvent);
+                }}
             />
         </StorybookWrapper>
     );
