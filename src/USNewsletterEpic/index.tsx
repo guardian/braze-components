@@ -1,6 +1,8 @@
 import React from 'react';
 import { canRender, COMPONENT_NAME } from './canRender';
 import { NewsletterEpic, NewsletterSubscribeCallback } from '../NewsletterEpic';
+import type { BrazeClickHandler } from '../utils/tracking';
+import type { OphanComponentEvent } from '@guardian/libs';
 
 const IMAGE_URL =
     'https://i.guim.co.uk/img/media/d0944e021b1cc7426f515fecc8034f12b7862041/0_0_784_784/master/784.png?width=196&quality=45&auto=format&s=cca73e857c5093f39ef7a2a9dc2e7ce7';
@@ -18,6 +20,8 @@ export type BrazeMessageProps = {
 export type Props = {
     brazeMessageProps: BrazeMessageProps;
     subscribeToNewsletter: NewsletterSubscribeCallback;
+    logButtonClickWithBraze: BrazeClickHandler;
+    submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
 };
 
 export const USNewsletterEpic: React.FC<Props> = (props: Props) => {
