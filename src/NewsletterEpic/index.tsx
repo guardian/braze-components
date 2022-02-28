@@ -1,5 +1,5 @@
 import { css, ThemeProvider } from '@emotion/react';
-import React, { useState, ReactElement } from 'react';
+import React, { useState } from 'react';
 import {
     brand,
     news,
@@ -11,25 +11,9 @@ import {
     headline,
     textSans,
 } from '@guardian/source-foundations';
-import { Button, buttonThemeBrandAlt } from '@guardian/source-react-components';
+import { Button, buttonThemeBrandAlt, SvgClock } from '@guardian/source-react-components';
 import { COMPONENT_NAME, canRender } from './canRender';
 import { LoadingDots } from './LoadingDots';
-
-// Once https://github.com/guardian/source/pull/843 is merged and in a
-// @guardian/src-icons release we'll be able to bump the version on this project
-// and replace this with:
-// import { SvgClock } from '@guardian/src-icons'
-export const SvgClock = (): ReactElement => {
-    return (
-        <svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
-            <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M26 15c0 6.075-4.925 11-11 11S4 21.075 4 15 8.925 4 15 4s11 4.925 11 11zm-9.8-.35L15.475 6H14.5l-.75 9.375 1.275 1.275L22 16v-1l-5.8-.35z"
-            />
-        </svg>
-    );
-};
 
 const styles = {
     epicContainer: css`
