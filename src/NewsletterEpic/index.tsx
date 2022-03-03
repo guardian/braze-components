@@ -14,6 +14,8 @@ import {
 import { Button, buttonThemeBrandAlt, SvgClock } from '@guardian/source-react-components';
 import { COMPONENT_NAME, canRender } from './canRender';
 import { LoadingDots } from './LoadingDots';
+import type { BrazeClickHandler } from '../utils/tracking';
+import type { OphanComponentEvent } from '@guardian/libs';
 
 const styles = {
     epicContainer: css`
@@ -111,11 +113,16 @@ export type BrazeMessageProps = {
 export type Props = {
     brazeMessageProps: BrazeMessageProps;
     subscribeToNewsletter: NewsletterSubscribeCallback;
+    logButtonClickWithBraze: BrazeClickHandler;
+    submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
 };
 
 type CTAProps = {
     subscribeToNewsletter: NewsletterSubscribeCallback;
     newsletterId: string;
+    logButtonClickWithBraze: BrazeClickHandler;
+    submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
+    ophanComponentId?: string;
 };
 
 type SubscribeClickStatus = 'DEFAULT' | 'IN_PROGRESS' | 'SUCCESS' | 'FAILURE';
@@ -162,13 +169,49 @@ const SignUpButton: React.FC<SignUpButtonProps> = (props: SignUpButtonProps) => 
 };
 
 const CTA: React.FC<CTAProps> = (props: CTAProps) => {
-    const { subscribeToNewsletter, newsletterId } = props;
+    const {
+        subscribeToNewsletter,
+        newsletterId,
+        submitComponentEvent,
+        logButtonClickWithBraze,
+        ophanComponentId,
+    } = props;
 
     const [subscribeClickStatus, setSubscribeClickStatus] =
         useState<SubscribeClickStatus>('DEFAULT');
 
+    const catchAndLogErrors = (description: string, fn: () => void): void => {
+        try {
+            fn();
+        } catch (e) {
+            console.log(`Error (${description}): `, e.message);
+        }
+    };
+
     const onSignUpClick = () => {
         setSubscribeClickStatus('IN_PROGRESS');
+
+        // There's only one button to click on this epic, so we can hardcode the
+        // ID here.
+        const internalButtonId = 0;
+
+        catchAndLogErrors('ophanButtonClick', () => {
+            // Braze displays button id from 1, but internal representation is numbered from 0
+            // This ensures that the Button ID in Braze and Ophan will be the same
+            const externalButtonId = internalButtonId + 1;
+            submitComponentEvent({
+                component: {
+                    componentType: 'RETENTION_EPIC',
+                    id: ophanComponentId,
+                },
+                action: 'CLICK',
+                value: externalButtonId.toString(10),
+            });
+        });
+
+        catchAndLogErrors('brazeButtonClick', () => {
+            logButtonClickWithBraze(internalButtonId);
+        });
 
         subscribeToNewsletter(newsletterId as string)
             .then(() => setSubscribeClickStatus('SUCCESS'))
@@ -210,8 +253,18 @@ const CTA: React.FC<CTAProps> = (props: CTAProps) => {
 
 export const NewsletterEpic: React.FC<Props> = (props: Props) => {
     const {
-        brazeMessageProps: { header, frequency, paragraph1, paragraph2, imageUrl, newsletterId },
+        brazeMessageProps: {
+            header,
+            frequency,
+            paragraph1,
+            paragraph2,
+            imageUrl,
+            newsletterId,
+            ophanComponentId,
+        },
         subscribeToNewsletter,
+        submitComponentEvent,
+        logButtonClickWithBraze,
     } = props;
 
     if (!canRender(props.brazeMessageProps)) {
@@ -237,6 +290,9 @@ export const NewsletterEpic: React.FC<Props> = (props: Props) => {
                     <CTA
                         subscribeToNewsletter={subscribeToNewsletter}
                         newsletterId={newsletterId as string}
+                        submitComponentEvent={submitComponentEvent}
+                        logButtonClickWithBraze={logButtonClickWithBraze}
+                        ophanComponentId={ophanComponentId}
                     />
                 </div>
             </section>
