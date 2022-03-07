@@ -51,10 +51,6 @@ export const ContributionsEpicButtons = ({
     buttonText,
     buttonUrl,
 }: ContributionsEpicButtonsProps): JSX.Element | null => {
-    if (!buttonText) {
-        return null;
-    }
-
     return (
         <div css={buttonWrapperStyles}>
             <div css={buttonMargins}>
