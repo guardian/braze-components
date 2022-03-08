@@ -1,7 +1,7 @@
 import React from 'react';
 import { css, ThemeProvider } from '@emotion/react';
 import { neutral, brandAlt, space } from '@guardian/source-foundations';
-import { LinkButton, SvgArrowRightStraight } from '@guardian/source-react-components';
+import { Button, LinkButton, SvgArrowRightStraight } from '@guardian/source-react-components';
 
 const buttonWrapperStyles = css`
     margin: ${space[4]}px ${space[2]}px ${space[1]}px 0;
@@ -42,15 +42,26 @@ const contributionsTheme = {
     link: buttonStyles,
 };
 
+const remindMeButtonOverrides = css`
+    :hover {
+        background-color: ${neutral[86]};
+    }
+`;
 interface ContributionsEpicButtonsProps {
     buttonText: string;
     buttonUrl: string;
+    remindMeButtonText?: string;
+    remindMeConfirmationText?: string;
 }
 
 export const ContributionsEpicButtons = ({
     buttonText,
     buttonUrl,
+    remindMeButtonText,
+    remindMeConfirmationText,
 }: ContributionsEpicButtonsProps): JSX.Element | null => {
+    const shouldShowRemindMeButton = Boolean(remindMeButtonText && remindMeConfirmationText);
+
     return (
         <div css={buttonWrapperStyles}>
             <div css={buttonMargins}>
@@ -67,6 +78,18 @@ export const ContributionsEpicButtons = ({
                     </LinkButton>
                 </ThemeProvider>
             </div>
+
+            {shouldShowRemindMeButton && (
+                <ThemeProvider theme={contributionsTheme}>
+                    <Button
+                        onClick={() => console.log('remind me button clicked')}
+                        priority="tertiary"
+                        css={remindMeButtonOverrides}
+                    >
+                        {remindMeButtonText}
+                    </Button>
+                </ThemeProvider>
+            )}
 
             <img
                 width={422}

@@ -61,6 +61,8 @@ export type BrazeMessageProps = {
     paragraph7?: string;
     paragraph8?: string;
     paragraph9?: string;
+    remindMeButtonText?: string;
+    remindMeConfirmationText?: string;
 };
 
 export type EpicProps = {
@@ -72,7 +74,14 @@ export type EpicProps = {
 
 export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
     const {
-        brazeMessageProps: { heading, buttonText, buttonUrl, highlightedText },
+        brazeMessageProps: {
+            heading,
+            buttonText,
+            buttonUrl,
+            highlightedText,
+            remindMeButtonText,
+            remindMeConfirmationText,
+        },
         countryCode,
         headerSection,
     } = props;
@@ -109,6 +118,8 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
                     <ContributionsEpicButtons
                         buttonText={buttonText as string}
                         buttonUrl={buttonUrl as string}
+                        remindMeButtonText={remindMeButtonText}
+                        remindMeConfirmationText={remindMeConfirmationText}
                     ></ContributionsEpicButtons>
                 </section>
             </div>
