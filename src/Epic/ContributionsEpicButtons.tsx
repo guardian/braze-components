@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { css, ThemeProvider } from '@emotion/react';
-import { neutral, brandAlt, space, body, success, headline } from '@guardian/source-foundations';
+import { neutral, brandAlt, space, body, headline } from '@guardian/source-foundations';
 import { Button, LinkButton, SvgArrowRightStraight } from '@guardian/source-react-components';
 import { Lines } from '@guardian/source-react-components-development-kitchen';
 
