@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { css, ThemeProvider } from '@emotion/react';
-import { neutral, brandAlt, space, body, headline } from '@guardian/source-foundations';
+import { neutral, brandAlt, space } from '@guardian/source-foundations';
 import { Button, LinkButton, SvgArrowRightStraight } from '@guardian/source-react-components';
-import { Lines } from '@guardian/source-react-components-development-kitchen';
+
+import { RemindMeConfirmation } from './RemindMeConfirmation';
 
 const buttonWrapperStyles = css`
     margin: ${space[4]}px ${space[2]}px ${space[1]}px 0;
@@ -84,6 +85,16 @@ const RemindMeButton = ({ remindMeButtonText, onClick }: RemindMeButtonProps) =>
     </ThemeProvider>
 );
 
+const PaymentIcons = () => (
+    <img
+        width={422}
+        height={60}
+        src="https://assets.guim.co.uk/images/acquisitions/2db3a266287f452355b68d4240df8087/payment-methods.png"
+        alt="Accepted payment methods: Visa, Mastercard, American Express and PayPal"
+        css={paymentImageStyles}
+    />
+);
+
 interface ContributionsEpicButtonsProps {
     buttonText: string;
     buttonUrl: string;
@@ -91,15 +102,7 @@ interface ContributionsEpicButtonsProps {
     remindMeConfirmationText?: string;
     remindMeConfirmationHeaderText?: string;
 }
-const successTextStyles = css`
-    ${body.medium()};
-    margin: 0;
-`;
-
-const successHeadingStyles = css`
-    ${headline.xxsmall({ fontWeight: 'bold' })};
-    margin: ${space[2]}px 0;
-`;
+type SectionState = 'DEFAULT' | 'REMINDER_CONFIRMED' | 'REMINDER_CONFIRMATION_CLOSED';
 
 export const ContributionsEpicButtons = ({
     buttonText,
@@ -108,17 +111,25 @@ export const ContributionsEpicButtons = ({
     remindMeConfirmationText,
     remindMeConfirmationHeaderText,
 }: ContributionsEpicButtonsProps): JSX.Element | null => {
-    const [showRemindMeConfirmation, setShowRemindMeConfirmation] = useState<boolean>(false);
+    const [sectionState, setSectionState] = useState<SectionState>('DEFAULT');
 
-    if (showRemindMeConfirmation) {
+    if (sectionState === 'REMINDER_CONFIRMED') {
         return (
-            <>
-                <Lines />
-                {remindMeConfirmationHeaderText && (
-                    <h4 css={successHeadingStyles}>{remindMeConfirmationHeaderText}</h4>
-                )}
-                <p css={successTextStyles}>{remindMeConfirmationText}</p>
-            </>
+            <RemindMeConfirmation
+                remindMeConfirmationText={remindMeConfirmationText as string}
+                remindMeConfirmationHeaderText={remindMeConfirmationHeaderText as string}
+                onClose={() => setSectionState('REMINDER_CONFIRMATION_CLOSED')}
+            />
+        );
+    }
+
+    if (sectionState === 'REMINDER_CONFIRMATION_CLOSED') {
+        return (
+            <div css={buttonWrapperStyles}>
+                <PrimaryButton buttonText={buttonText} buttonUrl={buttonUrl} />
+
+                <PaymentIcons />
+            </div>
         );
     }
 
@@ -129,17 +140,11 @@ export const ContributionsEpicButtons = ({
             {remindMeButtonText && remindMeConfirmationText && (
                 <RemindMeButton
                     remindMeButtonText={remindMeButtonText}
-                    onClick={() => setShowRemindMeConfirmation(true)}
+                    onClick={() => setSectionState('REMINDER_CONFIRMED')}
                 />
             )}
 
-            <img
-                width={422}
-                height={60}
-                src="https://assets.guim.co.uk/images/acquisitions/2db3a266287f452355b68d4240df8087/payment-methods.png"
-                alt="Accepted payment methods: Visa, Mastercard, American Express and PayPal"
-                css={paymentImageStyles}
-            />
+            <PaymentIcons />
         </div>
     );
 };
