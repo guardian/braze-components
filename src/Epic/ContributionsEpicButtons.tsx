@@ -47,6 +47,46 @@ const remindMeButtonOverrides = css`
         background-color: ${neutral[86]};
     }
 `;
+
+interface PrimaryButtonProps {
+    buttonText: string;
+    buttonUrl: string;
+}
+
+const PrimaryButton = ({ buttonUrl, buttonText }: PrimaryButtonProps) => (
+    <div css={buttonMargins}>
+        <ThemeProvider theme={contributionsTheme}>
+            <LinkButton
+                href={buttonUrl}
+                icon={<SvgArrowRightStraight />}
+                iconSide="right"
+                target="_blank"
+                rel="noopener noreferrer"
+                priority={'primary'}
+            >
+                {buttonText}
+            </LinkButton>
+        </ThemeProvider>
+    </div>
+);
+
+interface RemindMeButtonProps {
+    remindMeButtonText: string;
+    remindMeConfirmationText: string;
+}
+
+const RemindMeButton = ({ remindMeButtonText, remindMeConfirmationText }: RemindMeButtonProps) => (
+    <ThemeProvider theme={contributionsTheme}>
+        <Button
+            onClick={() => console.log('remind me button clicked', remindMeConfirmationText)}
+            priority="tertiary"
+            css={remindMeButtonOverrides}
+        >
+            {remindMeButtonText}
+        </Button>
+    </ThemeProvider>
+);
+
 interface ContributionsEpicButtonsProps {
     buttonText: string;
     buttonUrl: string;
@@ -60,35 +100,15 @@ export const ContributionsEpicButtons = ({
     remindMeButtonText,
     remindMeConfirmationText,
 }: ContributionsEpicButtonsProps): JSX.Element | null => {
-    const shouldShowRemindMeButton = Boolean(remindMeButtonText && remindMeConfirmationText);
-
     return (
         <div css={buttonWrapperStyles}>
-            <div css={buttonMargins}>
-                <ThemeProvider theme={contributionsTheme}>
-                    <LinkButton
-                        href={buttonUrl}
-                        icon={<SvgArrowRightStraight />}
-                        iconSide="right"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        priority={'primary'}
-                    >
-                        {buttonText}
-                    </LinkButton>
-                </ThemeProvider>
-            </div>
+            <PrimaryButton buttonText={buttonText} buttonUrl={buttonUrl} />
 
-            {shouldShowRemindMeButton && (
-                <ThemeProvider theme={contributionsTheme}>
-                    <Button
-                        onClick={() => console.log('remind me button clicked')}
-                        priority="tertiary"
-                        css={remindMeButtonOverrides}
-                    >
-                        {remindMeButtonText}
-                    </Button>
-                </ThemeProvider>
+            {remindMeButtonText && remindMeConfirmationText && (
+                <RemindMeButton
+                    remindMeButtonText={remindMeButtonText}
+                    remindMeConfirmationText={remindMeConfirmationText}
+                />
             )}
 
             <img
