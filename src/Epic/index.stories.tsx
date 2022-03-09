@@ -138,7 +138,7 @@ WithReminderStory.args = {
     slotName: 'EndOfArticle',
     componentName: 'Epic',
     remindMeButtonText: 'Remind me in May',
-    remindMeConfirmationText: "Okay, we'll send you an email in May",
+    remindMeConfirmationText: "Okay, we'll send you an email in May.",
     remindMeConfirmationHeaderText: 'Thank you! Your reminder is set.',
 };
 

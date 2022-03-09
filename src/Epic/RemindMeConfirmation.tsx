@@ -29,6 +29,10 @@ const closeButtonContainerStyles = css`
 const successTextStyles = css`
     ${body.medium()};
     margin: 0;
+
+    a {
+        color: ${neutral[0]};
+    }
 `;
 
 const successHeadingStyles = css`
@@ -65,7 +69,12 @@ export const RemindMeConfirmation = ({
             {remindMeConfirmationHeaderText && (
                 <h4 css={successHeadingStyles}>{remindMeConfirmationHeaderText}</h4>
             )}
-            <p css={successTextStyles}>{remindMeConfirmationText}</p>
+            <p css={successTextStyles}>
+                {remindMeConfirmationText} You can manage your email preferences in the My Account,{' '}
+                <a href="https://manage.theguardian.com/email-prefs">emails and marketing tab</a>.
+                If you have any questions about contributing, please{' '}
+                <a href="mailto:contribution.support@theguardian.com">contact us</a>.
+            </p>
         </div>
     );
 };
