@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { css, ThemeProvider } from '@emotion/react';
-import { neutral, brandAlt, space } from '@guardian/source-foundations';
+import { neutral, brandAlt, space, body, success, headline } from '@guardian/source-foundations';
 import { Button, LinkButton, SvgArrowRightStraight } from '@guardian/source-react-components';
 import { Lines } from '@guardian/source-react-components-development-kitchen';
 
@@ -90,6 +90,15 @@ interface ContributionsEpicButtonsProps {
     remindMeButtonText?: string;
     remindMeConfirmationText?: string;
 }
+const successTextStyles = css`
+    ${body.medium()};
+    margin: 0;
+`;
+
+const successHeadingStyles = css`
+    ${headline.xxsmall({ fontWeight: 'bold' })};
+    margin: ${space[2]}px 0;
+`;
 
 export const ContributionsEpicButtons = ({
     buttonText,
@@ -103,7 +112,8 @@ export const ContributionsEpicButtons = ({
         return (
             <>
                 <Lines />
-                <p>{remindMeConfirmationText}</p>
+                <h4 css={successHeadingStyles}>Thank you! Your reminder is set.</h4>
+                <p css={successTextStyles}>{remindMeConfirmationText}</p>
             </>
         );
     }
