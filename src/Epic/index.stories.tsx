@@ -45,6 +45,11 @@ export default {
             type: { name: 'string', required: false },
             description: 'Text to display when user clicks the remind me button',
         },
+        remindMeConfirmationHeaderText: {
+            name: 'remindMeConfirmationHeaderText',
+            type: { name: 'string', required: false },
+            description: 'Header text to display when user clicks the remind me button',
+        },
     },
 };
 
@@ -68,6 +73,7 @@ const StoryTemplate = (
         paragraph9: args.paragraph9,
         remindMeButtonText: args.remindMeButtonText,
         remindMeConfirmationText: args.remindMeConfirmationText,
+        remindMeConfirmationHeaderText: args.remindMeConfirmationHeaderText,
     };
 
     knobsData.set({ ...brazeMessageProps, componentName: args.componentName });
@@ -133,6 +139,7 @@ WithReminderStory.args = {
     componentName: 'Epic',
     remindMeButtonText: 'Remind me in May',
     remindMeConfirmationText: "Okay, we'll send you an email in May",
+    remindMeConfirmationHeaderText: 'Thank you! Your reminder is set.',
 };
 
 WithReminderStory.story = { name: 'Epic with Remind Me CTA' };

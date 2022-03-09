@@ -89,6 +89,7 @@ interface ContributionsEpicButtonsProps {
     buttonUrl: string;
     remindMeButtonText?: string;
     remindMeConfirmationText?: string;
+    remindMeConfirmationHeaderText?: string;
 }
 const successTextStyles = css`
     ${body.medium()};
@@ -105,6 +106,7 @@ export const ContributionsEpicButtons = ({
     buttonUrl,
     remindMeButtonText,
     remindMeConfirmationText,
+    remindMeConfirmationHeaderText,
 }: ContributionsEpicButtonsProps): JSX.Element | null => {
     const [showRemindMeConfirmation, setShowRemindMeConfirmation] = useState<boolean>(false);
 
@@ -112,7 +114,9 @@ export const ContributionsEpicButtons = ({
         return (
             <>
                 <Lines />
-                <h4 css={successHeadingStyles}>Thank you! Your reminder is set.</h4>
+                {remindMeConfirmationHeaderText && (
+                    <h4 css={successHeadingStyles}>{remindMeConfirmationHeaderText}</h4>
+                )}
                 <p css={successTextStyles}>{remindMeConfirmationText}</p>
             </>
         );
