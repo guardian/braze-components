@@ -110,7 +110,7 @@ export const ContributionsEpicButtons = ({
     remindMeButtonText,
     remindMeConfirmationText,
     remindMeConfirmationHeaderText,
-}: ContributionsEpicButtonsProps): JSX.Element | null => {
+}: ContributionsEpicButtonsProps): JSX.Element => {
     const [sectionState, setSectionState] = useState<SectionState>('DEFAULT');
 
     if (sectionState === 'REMINDER_CONFIRMED') {
