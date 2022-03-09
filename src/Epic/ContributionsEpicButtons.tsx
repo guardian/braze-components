@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { css, ThemeProvider } from '@emotion/react';
 import { neutral, brandAlt, space } from '@guardian/source-foundations';
 import { Button, LinkButton, SvgArrowRightStraight } from '@guardian/source-react-components';
+import { Lines } from '@guardian/source-react-components-development-kitchen';
 
 const buttonWrapperStyles = css`
     margin: ${space[4]}px ${space[2]}px ${space[1]}px 0;
@@ -99,7 +100,12 @@ export const ContributionsEpicButtons = ({
     const [showRemindMeConfirmation, setShowRemindMeConfirmation] = useState<boolean>(false);
 
     if (showRemindMeConfirmation) {
-        return <p>{remindMeConfirmationText}</p>;
+        return (
+            <>
+                <Lines />
+                <p>{remindMeConfirmationText}</p>
+            </>
+        );
     }
 
     return (
