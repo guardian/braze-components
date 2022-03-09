@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { css, ThemeProvider } from '@emotion/react';
 import { neutral, brandAlt, space } from '@guardian/source-foundations';
 import { Button, LinkButton, SvgArrowRightStraight } from '@guardian/source-react-components';
@@ -72,16 +72,12 @@ const PrimaryButton = ({ buttonUrl, buttonText }: PrimaryButtonProps) => (
 
 interface RemindMeButtonProps {
     remindMeButtonText: string;
-    remindMeConfirmationText: string;
+    onClick: () => void;
 }
 
-const RemindMeButton = ({ remindMeButtonText, remindMeConfirmationText }: RemindMeButtonProps) => (
+const RemindMeButton = ({ remindMeButtonText, onClick }: RemindMeButtonProps) => (
     <ThemeProvider theme={contributionsTheme}>
-        <Button
-            onClick={() => console.log('remind me button clicked', remindMeConfirmationText)}
-            priority="tertiary"
-            css={remindMeButtonOverrides}
-        >
+        <Button onClick={() => onClick()} priority="tertiary" css={remindMeButtonOverrides}>
             {remindMeButtonText}
         </Button>
     </ThemeProvider>
@@ -100,6 +96,12 @@ export const ContributionsEpicButtons = ({
     remindMeButtonText,
     remindMeConfirmationText,
 }: ContributionsEpicButtonsProps): JSX.Element | null => {
+    const [showRemindMeConfirmation, setShowRemindMeConfirmation] = useState<boolean>(false);
+
+    if (showRemindMeConfirmation) {
+        return <p>{remindMeConfirmationText}</p>;
+    }
+
     return (
         <div css={buttonWrapperStyles}>
             <PrimaryButton buttonText={buttonText} buttonUrl={buttonUrl} />
@@ -107,7 +109,7 @@ export const ContributionsEpicButtons = ({
             {remindMeButtonText && remindMeConfirmationText && (
                 <RemindMeButton
                     remindMeButtonText={remindMeButtonText}
-                    remindMeConfirmationText={remindMeConfirmationText}
+                    onClick={() => setShowRemindMeConfirmation(true)}
                 />
             )}
 
