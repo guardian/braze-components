@@ -28,8 +28,7 @@ describe('NewsletterEpic', () => {
                 <NewsletterEpic
                     brazeMessageProps={brazeMessageProps}
                     subscribeToNewsletter={subscribeToNewsletter}
-                    logButtonClickWithBraze={noOpClickHandler}
-                    submitComponentEvent={noOpClickHandler}
+                    trackClick={noOpClickHandler}
                 />,
             );
 
@@ -39,30 +38,23 @@ describe('NewsletterEpic', () => {
             expect(subscribeToNewsletter).toHaveBeenCalledWith(newsletterId);
         });
 
-        it('reports clicks to Ophan and Braze with the correct ID', async () => {
+        it('reports clicks with the correct ID', async () => {
             const subscribeToNewsletter = () => Promise.resolve();
-            const logButtonClickWithBraze = jest.fn();
-            const submitComponentEvent = jest.fn();
+            const trackClick = jest.fn();
             render(
                 <NewsletterEpic
                     brazeMessageProps={brazeMessageProps}
                     subscribeToNewsletter={subscribeToNewsletter}
-                    logButtonClickWithBraze={logButtonClickWithBraze}
-                    submitComponentEvent={submitComponentEvent}
+                    trackClick={trackClick}
                 />,
             );
 
             fireEvent.click(screen.getByText('Sign up'));
             await screen.findByText(/Thank you/);
 
-            expect(logButtonClickWithBraze).toHaveBeenCalledWith(0);
-            expect(submitComponentEvent).toHaveBeenCalledWith({
-                component: {
-                    componentType: 'RETENTION_EPIC',
-                    id: brazeMessageProps.ophanComponentId,
-                },
-                action: 'CLICK',
-                value: '1',
+            expect(trackClick).toHaveBeenCalledWith({
+                internalButtonId: 0,
+                ophanComponentId: 'ophan_component_id',
             });
         });
 
@@ -75,8 +67,7 @@ describe('NewsletterEpic', () => {
                 <NewsletterEpic
                     brazeMessageProps={brazeMessageProps}
                     subscribeToNewsletter={subscribeToNewsletter}
-                    logButtonClickWithBraze={noOpClickHandler}
-                    submitComponentEvent={noOpClickHandler}
+                    trackClick={noOpClickHandler}
                 />,
             );
 

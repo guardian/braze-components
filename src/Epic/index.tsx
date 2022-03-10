@@ -5,6 +5,7 @@ import { ContributionsEpicButtons } from './ContributionsEpicButtons';
 import { COMPONENT_NAME, canRender, parseParagraphs } from './canRender';
 export { COMPONENT_NAME };
 import { replaceNonArticleCountPlaceholders } from './placeholders';
+import { TrackClick } from '../utils/tracking';
 
 // Custom styles for <a> tags in the Epic content
 const linkStyles = css`
@@ -71,6 +72,7 @@ export type EpicProps = {
     brazeMessageProps: BrazeMessageProps;
     countryCode?: string;
     headerSection?: React.ReactNode;
+    trackClick: TrackClick;
 };
 
 export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
@@ -83,9 +85,11 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
             remindMeButtonText,
             remindMeConfirmationHeaderText,
             remindMeConfirmationText,
+            ophanComponentId,
         },
         countryCode,
         headerSection,
+        trackClick,
     } = props;
 
     if (!canRender(props.brazeMessageProps)) {
@@ -123,6 +127,12 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
                         remindMeButtonText={remindMeButtonText}
                         remindMeConfirmationText={remindMeConfirmationText}
                         remindMeConfirmationHeaderText={remindMeConfirmationHeaderText}
+                        trackClick={(buttonId: number) =>
+                            trackClick({
+                                internalButtonId: buttonId,
+                                ophanComponentId: ophanComponentId as string,
+                            })
+                        }
                     ></ContributionsEpicButtons>
                 </section>
             </div>

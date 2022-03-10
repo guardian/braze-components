@@ -1,7 +1,5 @@
 import React from 'react';
 
-import type { OphanComponentEvent } from '@guardian/libs';
-
 import {
     COMPONENT_NAME as NEWSLETTER_EPIC_NAME,
     NewsletterEpic,
@@ -20,8 +18,12 @@ import {
     COMPONENT_NAME as EPIC_WITH_HEADER_IMAGE_NAME,
     EpicWithSpecialHeader,
 } from './EpicWithSpecialHeader';
-import { buildBrazeMessageComponent, ComponentMapping } from './buildBrazeMessageComponent';
-import type { BrazeClickHandler } from './utils/tracking';
+import {
+    buildBrazeMessageComponent,
+    ComponentMapping,
+    HasConsolidatedTrackClick,
+} from './buildBrazeMessageComponent';
+import type { BrazeClickHandler, SubmitComponentEvent } from './utils/tracking';
 
 type BrazeMessageProps = {
     [key: string]: string | undefined;
@@ -33,10 +35,12 @@ export type CommonEndOfArticleComponentProps = {
     subscribeToNewsletter: NewsletterSubscribeCallback;
     countryCode?: string;
     logButtonClickWithBraze: BrazeClickHandler;
-    submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
+    submitComponentEvent: SubmitComponentEvent;
 };
 
-const END_OF_ARTICLE_MAPPINGS: ComponentMapping<CommonEndOfArticleComponentProps> = {
+const END_OF_ARTICLE_MAPPINGS: ComponentMapping<
+    CommonEndOfArticleComponentProps & HasConsolidatedTrackClick
+> = {
     [NEWSLETTER_EPIC_NAME]: NewsletterEpic,
     [US_NEWSLETTER_EPIC_NAME]: USNewsletterEpic,
     [AU_NEWSLETTER_EPIC_NAME]: AUNewsletterEpic,
@@ -47,4 +51,7 @@ const END_OF_ARTICLE_MAPPINGS: ComponentMapping<CommonEndOfArticleComponentProps
 };
 
 export const BrazeEndOfArticleComponent: React.FC<CommonEndOfArticleComponentProps> =
-    buildBrazeMessageComponent<CommonEndOfArticleComponentProps>(END_OF_ARTICLE_MAPPINGS);
+    buildBrazeMessageComponent<CommonEndOfArticleComponentProps>(
+        'RETENTION_EPIC',
+        END_OF_ARTICLE_MAPPINGS,
+    );
