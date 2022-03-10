@@ -5,6 +5,9 @@ import { Button, LinkButton, SvgArrowRightStraight } from '@guardian/source-reac
 
 import { RemindMeConfirmation } from './RemindMeConfirmation';
 
+const PRIMARY_BUTTON_INTERNAL_ID = 0;
+const REMIND_ME_BUTTON_INTERNAL_ID = 1;
+
 const buttonWrapperStyles = css`
     margin: ${space[4]}px ${space[2]}px ${space[1]}px 0;
     display: flex;
@@ -57,9 +60,10 @@ const remindMeButtonOverrides = css`
 interface PrimaryButtonProps {
     buttonText: string;
     buttonUrl: string;
+    trackClick: (buttonId: number) => void;
 }
 
-const PrimaryButton = ({ buttonUrl, buttonText }: PrimaryButtonProps) => (
+const PrimaryButton = ({ buttonUrl, buttonText, trackClick }: PrimaryButtonProps) => (
     <div css={buttonMargins}>
         <ThemeProvider theme={contributionsTheme}>
             <LinkButton
@@ -69,6 +73,7 @@ const PrimaryButton = ({ buttonUrl, buttonText }: PrimaryButtonProps) => (
                 target="_blank"
                 rel="noopener noreferrer"
                 priority={'primary'}
+                onClick={() => trackClick(PRIMARY_BUTTON_INTERNAL_ID)}
             >
                 {buttonText}
             </LinkButton>
@@ -107,6 +112,7 @@ interface ContributionsEpicButtonsProps {
     remindMeButtonText?: string;
     remindMeConfirmationText?: string;
     remindMeConfirmationHeaderText?: string;
+    trackClick: (buttonId: number) => void;
 }
 type SectionState = 'DEFAULT' | 'REMINDER_CONFIRMED' | 'REMINDER_CONFIRMATION_CLOSED';
 
@@ -116,6 +122,7 @@ export const ContributionsEpicButtons = ({
     remindMeButtonText,
     remindMeConfirmationText,
     remindMeConfirmationHeaderText,
+    trackClick,
 }: ContributionsEpicButtonsProps): JSX.Element => {
     const [sectionState, setSectionState] = useState<SectionState>('DEFAULT');
 
@@ -132,7 +139,11 @@ export const ContributionsEpicButtons = ({
     if (sectionState === 'REMINDER_CONFIRMATION_CLOSED') {
         return (
             <div css={buttonWrapperStyles}>
-                <PrimaryButton buttonText={buttonText} buttonUrl={buttonUrl} />
+                <PrimaryButton
+                    buttonText={buttonText}
+                    buttonUrl={buttonUrl}
+                    trackClick={trackClick}
+                />
 
                 <PaymentIcons />
             </div>
@@ -141,12 +152,15 @@ export const ContributionsEpicButtons = ({
 
     return (
         <div css={buttonWrapperStyles}>
-            <PrimaryButton buttonText={buttonText} buttonUrl={buttonUrl} />
+            <PrimaryButton buttonText={buttonText} buttonUrl={buttonUrl} trackClick={trackClick} />
 
             {remindMeButtonText && remindMeConfirmationText && (
                 <RemindMeButton
                     remindMeButtonText={remindMeButtonText}
-                    onClick={() => setSectionState('REMINDER_CONFIRMED')}
+                    onClick={() => {
+                        trackClick(REMIND_ME_BUTTON_INTERNAL_ID);
+                        setSectionState('REMINDER_CONFIRMED');
+                    }}
                 />
             )}
 
