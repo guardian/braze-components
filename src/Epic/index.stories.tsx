@@ -35,11 +35,20 @@ export default {
             type: { name: 'string', required: true },
             description: 'Button label text',
         },
-        buttonUrl: {
-            name: 'buttonUrl',
-            type: { name: 'string', required: true },
-            description:
-                'Destination link for the button. See Braze user guide for tracking params.',
+        remindMeButtonText: {
+            name: 'remindMeButtonText',
+            type: { name: 'string', required: false },
+            description: 'Text for secondary remind me button',
+        },
+        remindMeConfirmationText: {
+            name: 'remindMeConfirmationText',
+            type: { name: 'string', required: false },
+            description: 'Text to display when user clicks the remind me button',
+        },
+        remindMeConfirmationHeaderText: {
+            name: 'remindMeConfirmationHeaderText',
+            type: { name: 'string', required: false },
+            description: 'Header text to display when user clicks the remind me button',
         },
     },
 };
@@ -62,6 +71,9 @@ const StoryTemplate = (
         paragraph7: args.paragraph7,
         paragraph8: args.paragraph8,
         paragraph9: args.paragraph9,
+        remindMeButtonText: args.remindMeButtonText,
+        remindMeConfirmationText: args.remindMeConfirmationText,
+        remindMeConfirmationHeaderText: args.remindMeConfirmationHeaderText,
     };
 
     knobsData.set({ ...brazeMessageProps, componentName: args.componentName });
@@ -105,3 +117,25 @@ DefaultStory.args = {
 };
 
 DefaultStory.story = { name: 'Epic' };
+
+export const WithReminderStory = StoryTemplate.bind({});
+
+WithReminderStory.args = {
+    heading: 'Since you’re here...',
+    paragraph1:
+        '... we have a small favour to ask. More people, <a href="https://example.com">like you</a>, are reading and supporting the Guardian’s independent, investigative journalism than ever before. And unlike many news organisations, we made the choice to keep our reporting open for all, regardless of where they live or what they can afford to pay.',
+    paragraph2:
+        'The Guardian will engage with the most critical issues of our time – from the escalating climate catastrophe to widespread inequality to the influence of big tech on our lives. At a time when factual information is a necessity, we believe that each of us, around the world, deserves access to accurate reporting with integrity at its heart.',
+    highlightedText:
+        'Support <a href="https://example.com">The Guardian</a> from as little as %%CURRENCY_SYMBOL%%1 - and it only takes a minute. Thank you.',
+    buttonText: 'Support The Guardian',
+    buttonUrl: 'https://support.theguardian.com/contribute',
+    ophanComponentId: 'example_ophan_component_id',
+    slotName: 'EndOfArticle',
+    componentName: 'Epic',
+    remindMeButtonText: 'Remind me in May',
+    remindMeConfirmationText: "Okay, we'll send you an email in May.",
+    remindMeConfirmationHeaderText: 'Thank you! Your reminder is set.',
+};
+
+WithReminderStory.story = { name: 'Epic with Remind Me CTA' };

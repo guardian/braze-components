@@ -1,8 +1,7 @@
 import React from 'react';
 import { canRender, COMPONENT_NAME } from './canRender';
 import { NewsletterEpic, NewsletterSubscribeCallback } from '../NewsletterEpic';
-import type { BrazeClickHandler } from '../utils/tracking';
-import type { OphanComponentEvent } from '@guardian/libs';
+import type { TrackClick } from '../utils/tracking';
 
 const newsletterId = '4147';
 
@@ -20,8 +19,7 @@ export type BrazeMessageProps = {
 export type Props = {
     brazeMessageProps: BrazeMessageProps;
     subscribeToNewsletter: NewsletterSubscribeCallback;
-    logButtonClickWithBraze: BrazeClickHandler;
-    submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
+    trackClick: TrackClick;
 };
 
 export const DownToEarthNewsletterEpic: React.FC<Props> = (props: Props) => {
