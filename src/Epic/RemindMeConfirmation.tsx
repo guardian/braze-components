@@ -70,10 +70,12 @@ export const RemindMeConfirmation = ({
                 <h4 css={successHeadingStyles}>{remindMeConfirmationHeaderText}</h4>
             )}
             <p css={successTextStyles}>
-                {remindMeConfirmationText} You can manage your email preferences in the My Account,{' '}
-                <a href="https://manage.theguardian.com/email-prefs">emails and marketing tab</a>.
-                If you have any questions about contributing, please{' '}
-                <a href="mailto:contribution.support@theguardian.com">contact us</a>.
+                {remindMeConfirmationText} You can manage your email preferences in the My Account
+                area,{' '}
+                <a href="https://manage.theguardian.com/email-prefs">
+                    emails and marketing section
+                </a>
+                .
             </p>
         </div>
     );
