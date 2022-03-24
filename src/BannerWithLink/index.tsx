@@ -1,17 +1,9 @@
 import React, { useState } from 'react';
-import { ThemeProvider } from '@emotion/react';
-import {
-    Button,
-    LinkButton,
-    SvgCross,
-    SvgInfo,
-    buttonThemeReaderRevenueBrandAlt,
-} from '@guardian/source-react-components';
+import { Button, LinkButton, SvgCross, SvgInfo } from '@guardian/source-react-components';
 import { OphanComponentEvent } from '@guardian/libs';
 
 import { BrazeClickHandler } from '../utils/tracking';
-import { styles as commonStyles } from '../styles/bannerCommon';
-import { overridenReaderRevenueTheme, styles } from './styles';
+import { styles } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
 
@@ -98,57 +90,53 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
     };
 
     return (
-        <div css={[commonStyles.wrapper, styles.wrapper]}>
-            <div css={commonStyles.contentContainer}>
-                <div css={commonStyles.topLeftComponent}>
-                    <div css={[commonStyles.infoIcon, styles.infoIcon]}>
+        <div css={[styles.wrapper, styles.wrapper]}>
+            <div css={styles.contentContainer}>
+                <div css={styles.topLeftComponent}>
+                    <div css={[styles.infoIcon, styles.infoIcon]}>
                         <SvgInfo />
                     </div>
-                    <div css={[commonStyles.heading, styles.heading]}>
-                        <span css={[commonStyles.smallInfoIcon, styles.infoIcon]}>
+                    <div css={[styles.heading, styles.heading]}>
+                        <span css={[styles.smallInfoIcon, styles.infoIcon]}>
                             <SvgInfo />
                         </span>
                         {header}
                     </div>
-                    <p css={[commonStyles.paragraph, styles.paragraph]}>
+                    <p css={[styles.paragraph, styles.paragraph]}>
                         {body}
 
                         {boldText ? (
                             <>
                                 <br />
-                                <strong css={[commonStyles.cta, styles.cta]}>{boldText}</strong>
+                                <strong css={[styles.cta, styles.cta]}>{boldText}</strong>
                             </>
                         ) : null}
                     </p>
-                    <ThemeProvider theme={overridenReaderRevenueTheme}>
-                        <LinkButton
-                            href={buttonUrl}
-                            css={commonStyles.primaryButton}
-                            onClick={() => onClick(0)}
-                        >
-                            {buttonText}
-                        </LinkButton>
-                    </ThemeProvider>
+                    <LinkButton
+                        href={buttonUrl}
+                        css={styles.primaryButton}
+                        onClick={() => onClick(0)}
+                    >
+                        {buttonText}
+                    </LinkButton>
                 </div>
-                <div css={[commonStyles.bottomRightComponent, styles.bottomRightComponent]}>
+                <div css={[styles.bottomRightComponent, styles.bottomRightComponent]}>
                     <div css={styles.image}>
                         <img src={imageUrl} alt="" />
                     </div>
-                    <div css={commonStyles.iconPanel}>
-                        <ThemeProvider theme={buttonThemeReaderRevenueBrandAlt}>
-                            <Button
-                                icon={<SvgCross />}
-                                hideLabel={true}
-                                cssOverrides={[commonStyles.closeButton, styles.closeButton]}
-                                priority="tertiary"
-                                size="small"
-                                aria-label="Close"
-                                onClick={(e) => onCloseClick(e, 1)}
-                                tabIndex={0}
-                            >
-                                {' '}
-                            </Button>
-                        </ThemeProvider>
+                    <div css={styles.iconPanel}>
+                        <Button
+                            icon={<SvgCross />}
+                            hideLabel={true}
+                            cssOverrides={[styles.closeButton, styles.closeButton]}
+                            priority="tertiary"
+                            size="small"
+                            aria-label="Close"
+                            onClick={(e) => onCloseClick(e, 1)}
+                            tabIndex={0}
+                        >
+                            {' '}
+                        </Button>
                     </div>
                 </div>
             </div>

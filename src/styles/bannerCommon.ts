@@ -226,4 +226,27 @@ export const styles = {
             display: block;
         }
     `,
+    image: css`
+        max-width: 100%;
+        max-height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        margin-top: ${space[2]}px;
+
+        img {
+            max-width: 100%;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        ${until.desktop} {
+            display: none;
+        }
+
+        ${from.wide} {
+            margin-right: 100px;
+        }
+    `,
 };
