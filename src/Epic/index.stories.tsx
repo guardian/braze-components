@@ -35,6 +35,11 @@ export default {
             type: { name: 'string', required: true },
             description: 'Button label text',
         },
+        buttonUrl: {
+            name: 'buttonUrl',
+            type: { name: 'string', required: true },
+            description: 'Button link URL',
+        },
         remindMeButtonText: {
             name: 'remindMeButtonText',
             type: { name: 'string', required: false },
