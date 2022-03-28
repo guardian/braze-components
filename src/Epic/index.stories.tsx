@@ -33,12 +33,17 @@ export default {
         buttonText: {
             name: 'buttonText',
             type: { name: 'string', required: true },
-            description: 'Button label text',
+            description: 'Button label text (Button 1 in Braze)',
+        },
+        buttonUrl: {
+            name: 'buttonUrl',
+            type: { name: 'string', required: true },
+            description: 'Button link URL',
         },
         remindMeButtonText: {
             name: 'remindMeButtonText',
             type: { name: 'string', required: false },
-            description: 'Text for secondary remind me button',
+            description: 'Text for secondary remind me button (Button 2 in Braze)',
         },
         remindMeConfirmationText: {
             name: 'remindMeConfirmationText',
