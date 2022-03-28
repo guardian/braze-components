@@ -78,7 +78,7 @@ export const styles = {
         ${from.desktop} {
             align-self: flex-end;
             padding-right: ${space[4]}px;
-            max-width: 42%;
+            max-width: 45%;
             justify-content: flex-end;
         }
 
