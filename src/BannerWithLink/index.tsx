@@ -96,7 +96,7 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
                     <div css={styles.infoIcon}>
                         <SvgInfo />
                     </div>
-                    <div css={[styles.heading, styles.heading]}>
+                    <div css={styles.heading}>
                         <span css={[styles.smallInfoIcon, styles.infoIcon]}>
                             <SvgInfo />
                         </span>
