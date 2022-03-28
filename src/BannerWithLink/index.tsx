@@ -90,10 +90,10 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
     };
 
     return (
-        <div css={[styles.wrapper, styles.wrapper]}>
+        <div css={styles.wrapper}>
             <div css={styles.contentContainer}>
                 <div css={styles.topLeftComponent}>
-                    <div css={[styles.infoIcon, styles.infoIcon]}>
+                    <div css={styles.infoIcon}>
                         <SvgInfo />
                     </div>
                     <div css={[styles.heading, styles.heading]}>
@@ -102,13 +102,13 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
                         </span>
                         {header}
                     </div>
-                    <p css={[styles.paragraph, styles.paragraph]}>
+                    <p css={styles.paragraph}>
                         {body}
 
                         {boldText ? (
                             <>
                                 <br />
-                                <strong css={[styles.cta, styles.cta]}>{boldText}</strong>
+                                <strong css={styles.cta}>{boldText}</strong>
                             </>
                         ) : null}
                     </p>
@@ -120,7 +120,7 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
                         {buttonText}
                     </LinkButton>
                 </div>
-                <div css={[styles.bottomRightComponent, styles.bottomRightComponent]}>
+                <div css={styles.bottomRightComponent}>
                     <div css={styles.image}>
                         <img src={imageUrl} alt="" />
                     </div>
@@ -128,7 +128,7 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
                         <Button
                             icon={<SvgCross />}
                             hideLabel={true}
-                            cssOverrides={[styles.closeButton, styles.closeButton]}
+                            cssOverrides={styles.closeButton}
                             priority="tertiary"
                             size="small"
                             aria-label="Close"

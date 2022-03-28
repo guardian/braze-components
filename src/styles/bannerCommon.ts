@@ -88,7 +88,7 @@ export const styles = {
         }
 
         ${from.wide} {
-            max-width: 45%;
+            max-width: 48%;
         }
     `,
 
