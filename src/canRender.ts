@@ -6,10 +6,6 @@ import {
     COMPONENT_NAME as DIGITAL_SUBSCRIBER_APP_BANNER_NAME,
     canRender as digitialSubCanRender,
 } from './DigitalSubscriberAppBanner/canRender';
-import {
-    COMPONENT_NAME as SPECIAL_EDITION_BANNER_NAME,
-    canRender as specialEdCanRender,
-} from './SpecialEditionBanner/canRender';
 import { COMPONENT_NAME as EPIC_NAME, canRender as epicCanRender } from './Epic/canRender';
 import {
     COMPONENT_NAME as NEWSLETTER_EPIC_NAME,
@@ -58,7 +54,6 @@ const COMPONENT_CAN_RENDER_MAPPINGS: Record<
 > = {
     [APP_BANNER_NAME]: appBannerCanRender,
     [DIGITAL_SUBSCRIBER_APP_BANNER_NAME]: digitialSubCanRender,
-    [SPECIAL_EDITION_BANNER_NAME]: specialEdCanRender,
     [EPIC_NAME]: epicCanRender,
     [NEWSLETTER_EPIC_NAME]: newsletterEpicCanRender,
     [US_NEWSLETTER_EPIC_NAME]: usNewsletterEpicCanRender,
