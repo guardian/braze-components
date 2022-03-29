@@ -78,7 +78,7 @@ export const styles = {
         ${from.desktop} {
             align-self: flex-end;
             padding-right: ${space[4]}px;
-            max-width: 42%;
+            max-width: 45%;
             justify-content: flex-end;
         }
 
@@ -88,7 +88,7 @@ export const styles = {
         }
 
         ${from.wide} {
-            max-width: 45%;
+            max-width: 48%;
         }
     `,
 
@@ -224,6 +224,29 @@ export const styles = {
 
         @media (min-width: 1430px) {
             display: block;
+        }
+    `,
+    image: css`
+        max-width: 100%;
+        max-height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        margin-top: ${space[2]}px;
+
+        img {
+            max-width: 100%;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        ${until.desktop} {
+            display: none;
+        }
+
+        ${from.wide} {
+            margin-right: 100px;
         }
     `,
 };
