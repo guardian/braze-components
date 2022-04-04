@@ -8,7 +8,7 @@ import { grid, withGrid } from '../../.storybook/grid/withGrid';
 
 export default {
     component: 'BannerWithLink',
-    title: 'WorkInProgress/Banner/BannerWithLink',
+    title: 'Banner/BannerWithLink',
     decorators: [withGrid],
     parameters: {
         grid: {
