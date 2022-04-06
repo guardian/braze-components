@@ -2,11 +2,8 @@
 
 import type appboy from '@braze/web-sdk-core';
 import { MessageCache, MessageWithId } from './LocalMessageCache';
-import type { SlotName } from './types';
+import type { ErrorHandler, Extras, MessageSlotName } from './types';
 import { canRenderBrazeMsg } from '../canRender';
-
-export type Extras = Record<string, string>;
-export type ErrorHandler = (error: Error, identifier: string) => void;
 
 interface BrazeArticleContext {
     section?: string;
@@ -34,7 +31,7 @@ class BrazeMessage {
 
     message: appboy.HtmlMessage;
 
-    slotName: SlotName;
+    slotName: MessageSlotName;
 
     cache: MessageCache;
 
@@ -44,7 +41,7 @@ class BrazeMessage {
         id: string,
         message: appboy.HtmlMessage,
         appboyInstance: typeof appboy,
-        slotName: SlotName,
+        slotName: MessageSlotName,
         cache: MessageCache,
         errorHandler: ErrorHandler,
     ) {
@@ -91,7 +88,7 @@ class BrazeMessage {
 class BrazeMessages implements BrazeMessagesInterface {
     appboy: typeof appboy;
 
-    freshMessageBySlot: Record<SlotName, Promise<appboy.HtmlMessage>>;
+    freshMessageBySlot: Record<MessageSlotName, Promise<appboy.HtmlMessage>>;
 
     cache: MessageCache;
 
@@ -109,7 +106,7 @@ class BrazeMessages implements BrazeMessagesInterface {
 
     // Generally we only expect a single message per slot max in a pageview. This method
     // returns a promise which will resolve when the first message arrives
-    private getFreshMessagesForSlot(targetSlotName: SlotName): Promise<appboy.HtmlMessage> {
+    private getFreshMessagesForSlot(targetSlotName: MessageSlotName): Promise<appboy.HtmlMessage> {
         return new Promise((resolve) => {
             const callback = (m: appboy.InAppMessage | appboy.ControlMessage) => {
                 // Cast this as we only ever expect it to be an HtmlMessage (subclass of InAppMessage)
@@ -142,7 +139,7 @@ class BrazeMessages implements BrazeMessagesInterface {
         return this.getMessageForSlot('EndOfArticle', articleContext);
     }
 
-    private getMessageForSlot(slotName: SlotName, articleContext?: BrazeArticleContext) {
+    private getMessageForSlot(slotName: MessageSlotName, articleContext?: BrazeArticleContext) {
         // If there's already a message in the cache, return it
         const firstRenderableMessage = this.getHighestPriorityMessageFromCache(
             slotName,
@@ -171,7 +168,7 @@ class BrazeMessages implements BrazeMessagesInterface {
     }
 
     private getHighestPriorityMessageFromCache(
-        slotName: SlotName,
+        slotName: MessageSlotName,
         articleContext?: BrazeArticleContext,
     ) {
         const messagesFromCache = this.cache.all(slotName, this.appboy, this.errorHandler);

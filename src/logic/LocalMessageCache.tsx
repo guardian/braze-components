@@ -1,7 +1,7 @@
 import type appboy from '@braze/web-sdk-core';
 import { storage } from '@guardian/libs';
-import { SlotName, SlotNames } from './types';
-import type { ErrorHandler } from './BrazeMessages';
+import { MessageSlotName, MessageSlotNames } from './types';
+import type { ErrorHandler } from './types';
 
 const localStorageKeyBase = 'gu.brazeMessageCache';
 export const millisecondsBeforeExpiry = 1000 * 60 * 60 * 24; // 24 hours: 60 seconds * 60 minutes
@@ -41,18 +41,18 @@ type CachedMessage = {
 
 const MAX_QUEUE_SIZE = 2;
 
-const keyFromSlotName = (slotName: SlotName): string => `${localStorageKeyBase}.${slotName}`;
+const keyFromSlotName = (slotName: MessageSlotName): string => `${localStorageKeyBase}.${slotName}`;
 
 const hasNotExpired = (cachedMessage: CachedMessage) => cachedMessage.expires > Date.now();
 
 // setQueue is effectively private, but it's useful to expose it publicly
 // so that we can use it in the tests
-const setQueue = (slotName: SlotName, queue: CachedMessage[]): void => {
+const setQueue = (slotName: MessageSlotName, queue: CachedMessage[]): void => {
     const key = keyFromSlotName(slotName);
     storage.local.set(key, queue);
 };
 
-const readQueue = (slotName: SlotName): CachedMessage[] => {
+const readQueue = (slotName: MessageSlotName): CachedMessage[] => {
     const key = keyFromSlotName(slotName);
     const queue = storage.local.get(key);
 
@@ -98,7 +98,7 @@ const isValid = (m: CachedMessage): boolean => {
     );
 };
 
-const getQueue = (slotName: SlotName, errorHandler: ErrorHandler): CachedMessage[] => {
+const getQueue = (slotName: MessageSlotName, errorHandler: ErrorHandler): CachedMessage[] => {
     const queue = readQueue(slotName);
     const validQueue = queue.filter((i) => isValid(i));
     const unexpiredQueue = validQueue.filter((i) => hasNotExpired(i));
@@ -123,23 +123,27 @@ const getQueue = (slotName: SlotName, errorHandler: ErrorHandler): CachedMessage
 
 interface MessageCache {
     peek: (
-        slotName: SlotName,
+        slotName: MessageSlotName,
         appboyInstance: typeof appboy,
         errorHandler: ErrorHandler,
     ) => MessageWithId | undefined;
     all: (
-        slotName: SlotName,
+        slotName: MessageSlotName,
         appboyInstance: typeof appboy,
         errorHandler: ErrorHandler,
     ) => MessageWithId[];
-    remove: (slotName: SlotName, id: string, errorHandler: ErrorHandler) => boolean;
-    push: (slotName: SlotName, message: MessageWithId, errorHandler: ErrorHandler) => boolean;
+    remove: (slotName: MessageSlotName, id: string, errorHandler: ErrorHandler) => boolean;
+    push: (
+        slotName: MessageSlotName,
+        message: MessageWithId,
+        errorHandler: ErrorHandler,
+    ) => boolean;
     clear: () => void;
 }
 
 class LocalMessageCache {
     static peek(
-        slotName: SlotName,
+        slotName: MessageSlotName,
         appboyInstance: typeof appboy,
         errorHandler: ErrorHandler,
     ): MessageWithId | undefined {
@@ -156,7 +160,7 @@ class LocalMessageCache {
     }
 
     static all(
-        slotName: SlotName,
+        slotName: MessageSlotName,
         appboyInstance: typeof appboy,
         errorHandler: ErrorHandler,
     ): MessageWithId[] {
@@ -168,7 +172,7 @@ class LocalMessageCache {
         }));
     }
 
-    static remove(slotName: SlotName, id: string, errorHandler: ErrorHandler): boolean {
+    static remove(slotName: MessageSlotName, id: string, errorHandler: ErrorHandler): boolean {
         const queue = getQueue(slotName, errorHandler);
         const idx = queue.findIndex((i) => i.message.id === id);
 
@@ -184,7 +188,11 @@ class LocalMessageCache {
         return false;
     }
 
-    static push(slotName: SlotName, message: MessageWithId, errorHandler: ErrorHandler): boolean {
+    static push(
+        slotName: MessageSlotName,
+        message: MessageWithId,
+        errorHandler: ErrorHandler,
+    ): boolean {
         const queue = getQueue(slotName, errorHandler);
 
         if (queue.length < MAX_QUEUE_SIZE) {
@@ -209,8 +217,8 @@ class LocalMessageCache {
 
     static clear(): void {
         // eslint-disable-next-line guard-for-in
-        for (const slotName in SlotNames) {
-            const key = keyFromSlotName(slotName as SlotName);
+        for (const slotName in MessageSlotNames) {
+            const key = keyFromSlotName(slotName as MessageSlotName);
             storage.local.remove(key);
         }
     }

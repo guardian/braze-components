@@ -3,6 +3,25 @@
 A library of React components for displaying Braze messages on DCR and
 frontend.
 
+Braze messages are exposed in two ways to address two separate use cases.
+
+1. One-shot messages
+2. Persistent notifications
+
+One-shot messages use
+[Braze's in-app messages](https://www.braze.com/docs/developer_guide/platform_integration_guides/web/in-app_messaging/overview/)
+to show a user a single message impression. This is analagous to an ad
+impression. As with ads, these messages are often competing with other
+systems for shared message slots on the page. These messages are exposed
+by the [BrazeMessages](src/logic/BrazeMessages.tsx) class.
+
+Persistent notifications are backed by
+[Braze content cards](https://www.braze.com/docs/developer_guide/platform_integration_guides/web/content_cards/data_models/).
+These notifications persist until they are dismissed (automatically or by
+the user), or they expire. Notifications from different sources can
+peacfully co-exist. These notifications are exposed by the
+[BrazeCards](src/logic/BrazeCards.ts) class.
+
 ## Development
 
 ### Local Setup
