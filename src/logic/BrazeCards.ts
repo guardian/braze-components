@@ -98,6 +98,9 @@ class BrazeCard {
     }
 }
 
+interface BrazeCards {
+    getCardsForProfileBadge(): BrazeCard[];
+}
 class BrazeCards implements BrazeCardsInterface {
     appboy: typeof appboy;
 
@@ -155,4 +158,4 @@ class BrazeCards implements BrazeCardsInterface {
     }
 }
 
-export { BrazeCard, BrazeCards };
+export { BrazeCard, BrazeCards, BrazeCardsInterface };
