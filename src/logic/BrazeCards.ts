@@ -1,4 +1,4 @@
-import appboy from '@braze/web-sdk-core';
+import type appboy from '@braze/web-sdk-core';
 import { ErrorHandler, Extras, CardSlotName, CardSlotNames } from './types';
 
 interface BrazeCardsInterface {
@@ -98,9 +98,6 @@ class BrazeCard {
     }
 }
 
-interface BrazeCards {
-    getCardsForProfileBadge(): BrazeCard[];
-}
 class BrazeCards implements BrazeCardsInterface {
     appboy: typeof appboy;
 
@@ -117,31 +114,25 @@ class BrazeCards implements BrazeCardsInterface {
 
     private getCardsForSlot(targetSlotName: CardSlotName): BrazeCard[] {
         const cachedCards = this.appboy.getCachedContentCards().cards.flatMap((appboyCard) => {
-            if (appboyCard instanceof appboy.ControlCard) {
-                const { extras } = appboyCard;
+            const { extras } = appboyCard;
 
-                if (extras && extras.slotName && extras.slotName === targetSlotName) {
-                    if (appboyCard.id === undefined) {
-                        this.errorHandler(
-                            new Error('appboy card had no ID'),
-                            'BrazeCards.getCardsForSlot',
-                        );
-                        return [];
-                    } else {
-                        return [
-                            new BrazeCard(
-                                appboyCard.id,
-                                targetSlotName,
-                                appboyCard,
-                                appboy,
-                                this.errorHandler,
-                            ),
-                        ];
-                    }
-                } else {
-                    // TODO: Consider whether this an error state, or something we're happy to ignore
-                    //       Will there be other content cards in users' feeds that we should ignore?
+            if (extras && extras.slotName && extras.slotName === targetSlotName) {
+                if (appboyCard.id === undefined) {
+                    this.errorHandler(
+                        new Error('appboy card had no ID'),
+                        'BrazeCards.getCardsForSlot',
+                    );
                     return [];
+                } else {
+                    return [
+                        new BrazeCard(
+                            appboyCard.id,
+                            targetSlotName,
+                            appboyCard,
+                            this.appboy,
+                            this.errorHandler,
+                        ),
+                    ];
                 }
             } else {
                 // TODO: Consider whether this an error state, or something we're happy to ignore
