@@ -70,7 +70,7 @@ describe('braze content cards', () => {
                 );
             });
 
-            test('returns no control cards if the cached feed contains only unsupported cards', () => {
+            test('returns no cards if the cached feed contains only unsupported cards', () => {
                 // cards with no extras or missing the slotName, so they cannot be handled by this library
                 jest.spyOn(appboy, 'getCachedContentCards').mockImplementation(() => {
                     return new appboy.ContentCards(

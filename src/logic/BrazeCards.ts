@@ -10,7 +10,7 @@ class BrazeCard {
 
     slotName: CardSlotName;
 
-    private card: appboy.ControlCard;
+    private card: appboy.Card;
 
     private appboy: typeof appboy;
 
@@ -19,7 +19,7 @@ class BrazeCard {
     constructor(
         id: string,
         slotName: CardSlotName,
-        card: appboy.ControlCard,
+        card: appboy.Card,
         appboyInstance: typeof appboy,
         errorHandler: ErrorHandler,
     ) {
