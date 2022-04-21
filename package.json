@@ -20,7 +20,6 @@
     "build": "rollup -c",
     "postbuild": "tsc --project tsconfig.types.json",
     "test": "jest",
-    "testwatch": "jest --watch",
     "tsc": "tsc  --noEmit",
     "prerelease": "yarn build",
     "release": "np",

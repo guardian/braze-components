@@ -7,19 +7,23 @@ function errorHandler(error: Error, identifier: string): void {
     console.log(identifier, error);
 }
 
+afterEach(() => jest.clearAllMocks());
+
 describe('braze content cards', () => {
     describe('BrazeCards', () => {
         describe('getCardsForProfileBadge', () => {
-            test('returns empty array if there are no content cards for this user', () => {
+            it('returns empty array if there are no content cards for this user', () => {
                 jest.spyOn(appboy, 'getCachedContentCards').mockImplementation(() => {
                     return new appboy.ContentCards([], new Date());
                 });
                 const brazeCards = new BrazeCards(appboy, errorHandler);
+
                 const result = brazeCards.getCardsForProfileBadge();
+
                 expect(result).toEqual([]);
             });
 
-            test("returns BrazeCard instances for each of the profile badge cards in the user's cached card feed", () => {
+            it("returns BrazeCard instances for each of the profile badge cards in the user's cached card feed", () => {
                 jest.spyOn(appboy, 'getCachedContentCards').mockImplementation(() => {
                     return new appboy.ContentCards(
                         [
@@ -31,12 +35,14 @@ describe('braze content cards', () => {
                     );
                 });
                 const brazeCards = new BrazeCards(appboy, errorHandler);
+
                 const result = brazeCards.getCardsForProfileBadge();
+
                 const cardIds = result.map((card) => card.id);
                 expect(cardIds).toEqual(['card-id-1', 'card-id-2', 'card-id-3']);
             });
 
-            test("uses Braze's card ID", () => {
+            it("uses Braze's card ID", () => {
                 fc.assert(
                     fc.property(fc.string(), (id) => {
                         jest.spyOn(appboy, 'getCachedContentCards').mockImplementation(() => {
@@ -46,13 +52,15 @@ describe('braze content cards', () => {
                             );
                         });
                         const brazeCards = new BrazeCards(appboy, errorHandler);
+
                         const result = brazeCards.getCardsForProfileBadge();
+
                         expect(result[0].id).toEqual(id);
                     }),
                 );
             });
 
-            test('uses the extras record that Braze provides', () => {
+            it('uses the extras record that Braze provides', () => {
                 const extrasGen = fc.dictionary(fc.string(), fc.string());
                 fc.assert(
                     fc.property(extrasGen, (dict) => {
@@ -64,14 +72,15 @@ describe('braze content cards', () => {
                             );
                         });
                         const brazeCards = new BrazeCards(appboy, errorHandler);
+
                         const result = brazeCards.getCardsForProfileBadge();
+
                         expect(result[0].extras).toEqual(extras);
                     }),
                 );
             });
 
-            test('returns no cards if the cached feed contains only unsupported cards', () => {
-                // cards with no extras or missing the slotName, so they cannot be handled by this library
+            it('does not return cards that are missing slotName in their extras (so they cannot be handled by us)', () => {
                 jest.spyOn(appboy, 'getCachedContentCards').mockImplementation(() => {
                     return new appboy.ContentCards(
                         [
@@ -86,23 +95,36 @@ describe('braze content cards', () => {
                                 { extraField: 'field-value' },
                                 false,
                             ),
+                            // a card with no extras at all
+                            new appboy.ControlCard(
+                                'card-id-no-extras',
+                                false,
+                                new Date(),
+                                new Date(new Date().getTime() + 86400),
+                                undefined,
+                                false,
+                            ),
                         ],
                         new Date(),
                     );
                 });
                 const brazeCards = new BrazeCards(appboy, errorHandler);
+
                 const result = brazeCards.getCardsForProfileBadge();
+
                 expect(result).toEqual([]);
             });
         });
 
-        test("The last updated date comes from the appboy instance's last updated date", () => {
+        it("The last updated date comes from the appboy instance's last updated date", () => {
             fc.assert(
                 fc.property(fc.date(), (date) => {
                     jest.spyOn(appboy, 'getCachedContentCards').mockImplementation(() => {
                         return new appboy.ContentCards([], date);
                     });
+
                     const brazeCards = new BrazeCards(appboy, errorHandler);
+
                     expect(brazeCards.lastUpdated).toEqual(date);
                 }),
             );
@@ -110,7 +132,7 @@ describe('braze content cards', () => {
     });
 
     describe('BrazeCard', () => {
-        test('logImpression calls the appboy sdk method', () => {
+        it('logImpression calls the appboy sdk method', () => {
             const mockAppboyFn = jest.fn();
             const mockErrorHandler = jest.fn();
             const appboyCard = testCard('ProfileBadge', 'card-id', {});
@@ -129,10 +151,10 @@ describe('braze content cards', () => {
             brazeCard.logImpression();
 
             expect(mockAppboyFn).toHaveBeenCalledWith([appboyCard]);
-            expect(mockErrorHandler).toHaveBeenCalledTimes(0);
+            expect(mockErrorHandler).not.toHaveBeenCalled();
         });
 
-        test('logImpression fails if the appboy sdk method fails (returns false)', () => {
+        it('logImpression fails if the appboy sdk method fails (returns false)', () => {
             const mockErrorHandler = jest.fn();
             const appboyCard = testCard('ProfileBadge', 'card-id', {});
             jest.spyOn(appboy, 'logCardImpressions').mockImplementation(() => {
@@ -151,7 +173,7 @@ describe('braze content cards', () => {
             expect(mockErrorHandler).toHaveBeenCalled();
         });
 
-        test('logCardClick calls the appboy sdk method', () => {
+        it('logCardClick calls the appboy sdk method', () => {
             const mockAppboyFn = jest.fn();
             const mockErrorHandler = jest.fn();
             const appboyCard = testCard('ProfileBadge', 'card-id', {});
@@ -173,7 +195,7 @@ describe('braze content cards', () => {
             expect(mockErrorHandler).toHaveBeenCalledTimes(0);
         });
 
-        test('logCardClick fails if the appboy sdk method fails (returns false)', () => {
+        it('logCardClick fails if the appboy sdk method fails (returns false)', () => {
             const mockErrorHandler = jest.fn();
             const appboyCard = testCard('ProfileBadge', 'card-id', {});
             jest.spyOn(appboy, 'logCardClick').mockImplementation(() => {
@@ -192,7 +214,7 @@ describe('braze content cards', () => {
             expect(mockErrorHandler).toHaveBeenCalled();
         });
 
-        test('logCardDismissal calls the appboy sdk method', () => {
+        it('logCardDismissal calls the appboy sdk method', () => {
             const mockAppboyFn = jest.fn();
             const mockErrorHandler = jest.fn();
             const appboyCard = testCard('ProfileBadge', 'card-id', {});
@@ -214,7 +236,7 @@ describe('braze content cards', () => {
             expect(mockErrorHandler).toHaveBeenCalledTimes(0);
         });
 
-        test('logCardDismissal fails if the appboy sdk method fails (returns false)', () => {
+        it('logCardDismissal fails if the appboy sdk method fails (returns false)', () => {
             const mockErrorHandler = jest.fn();
             const appboyCard = testCard('ProfileBadge', 'card-id', {});
             jest.spyOn(appboy, 'logCardDismissal').mockImplementation(() => {
