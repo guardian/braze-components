@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import dialogPolyfill from 'dialog-polyfill';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { getLoginUrl } from '../utils';
 
 export const overlayStyles = css`
