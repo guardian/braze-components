@@ -7388,10 +7388,10 @@ fake-tag@^2.0.0:
   resolved "https://registry.yarnpkg.com/fake-tag/-/fake-tag-2.0.0.tgz#08ea5df950ef8635833186247f569e8406ffb4da"
   integrity sha512-QDz+8qiNQ9AfBZ31EXlID5JIbUkU3e1nXDWk4tidFzd2gy8XJaEUW1HCuDY6DUy6t2Y0nvhD6PsUc+2WYy5w0w==
 
-fast-check@^2.24.0:
-  version "2.24.0"
-  resolved "https://registry.yarnpkg.com/fast-check/-/fast-check-2.24.0.tgz#39f85586862108a4de6394c5196ebcf8b76b6c8b"
-  integrity sha512-iNXbN90lbabaCUfnW5jyXYPwMJLFYl09eJDkXA9ZoidFlBK63gNRvcKxv+8D1OJ1kIYjwBef4bO/K3qesUeWLQ==
+fast-check@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/fast-check/-/fast-check-3.0.0.tgz#6ea28d584e9ffebd7ecd0f06c163cd6af593ecfd"
+  integrity sha512-uujtrFJEQQqnIMO52ARwzPcuV4omiL1OJBUBLE9WnNFeu0A97sREXDOmCIHY+Z6KLVcemUf09rWr0q0Xy/Y/Ew==
   dependencies:
     pure-rand "^5.0.1"
 
