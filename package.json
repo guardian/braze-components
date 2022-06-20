@@ -52,13 +52,13 @@
     "@rollup/plugin-commonjs": "^14.0.0",
     "@rollup/plugin-node-resolve": "^8.4.0",
     "@rollup/plugin-replace": "^2.3.3",
-    "@storybook/addon-controls": "^6.5.4",
-    "@storybook/addon-docs": "^6.5.4",
-    "@storybook/addon-toolbars": "^6.5.4",
-    "@storybook/addon-viewport": "^6.5.4",
-    "@storybook/components": "^6.5.4",
+    "@storybook/addon-controls": "^6.5.9",
+    "@storybook/addon-docs": "^6.5.9",
+    "@storybook/addon-toolbars": "^6.5.9",
+    "@storybook/addon-viewport": "^6.5.9",
+    "@storybook/components": "^6.5.9",
     "@storybook/preset-typescript": "^3.0.0",
-    "@storybook/react": "^6.5.4",
+    "@storybook/react": "^6.5.9",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.0.4",
     "@types/jest": "^27.5.1",
@@ -111,6 +111,7 @@
   "resolutions": {
     "@types/react": "17.0.2",
     "immer": "9.0.6",
-    "minimist": "1.2.6"
+    "minimist": "1.2.6",
+    "trim": "0.0.3"
   }
 }
