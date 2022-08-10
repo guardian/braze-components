@@ -9,10 +9,7 @@
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist",
-    "banner/package.json",
-    "end-of-article/package.json",
-    "logic/package.json"
+    "dist"
   ],
   "scripts": {
     "watch": "rollup -cw",
