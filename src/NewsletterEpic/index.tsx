@@ -1,3 +1,5 @@
+/** @jsxImportSource @emotion/react */
+
 import { css, ThemeProvider } from '@emotion/react';
 import React, { useState } from 'react';
 import {
@@ -19,7 +21,7 @@ import type { TrackClick } from '../utils/tracking';
 const styles = {
     epicContainer: css`
         padding: 4px 8px 12px;
-        border-top: 1px solid ${news[400]};
+        border-top: 5px solid orange;
         background-color: ${neutral[97]};
         display: flex;
         flex-direction: row;
@@ -241,6 +243,7 @@ export const NewsletterEpic: React.FC<Props> = (props: Props) => {
     return (
         <ThemeProvider theme={brand}>
             <section css={styles.epicContainer}>
+                <p>hello world again!!</p>
                 <div>
                     <img css={styles.image} src={imageUrl}></img>
                 </div>
