@@ -280,6 +280,32 @@ describe('BrazeMessages', () => {
 
                 expect(gotMessage.message).toEqual(messageWithFilter);
             });
+
+            it('returns a message if the article section matches any of the message sections', async () => {
+                const messageWithFilter = buildMessage(JSON.parse(message1Json));
+                messageWithFilter.extras.section = 'science|environment|weather';
+                LocalMessageCache.push(
+                    'EndOfArticle',
+                    {
+                        message: messageWithFilter,
+                        id: '1',
+                    },
+                    (e) => console.log(e),
+                );
+                const fakeAppBoy = new FakeAppBoy();
+                const brazeMessages = new BrazeMessages(
+                    fakeAppBoy as unknown as typeof appboy,
+                    LocalMessageCache,
+                    (error, identifier) => console.log(identifier, error),
+                );
+                const articleContext: BrazeArticleContext = {
+                    section: 'environment',
+                };
+
+                const gotMessage = await brazeMessages.getMessageForEndOfArticle(articleContext);
+
+                expect(gotMessage.message).toEqual(messageWithFilter);
+            });
         });
     });
 });
