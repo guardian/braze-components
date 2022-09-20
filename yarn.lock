@@ -1698,10 +1698,10 @@
     monocle-ts "^2.3.3"
     newtype-ts "^0.3.4"
 
-"@guardian/libs@^3.1.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@guardian/libs/-/libs-3.1.0.tgz#44b0291741a0fce588167f4ec8c17fa9a7d41261"
-  integrity sha512-GJk34o9lUmP6FcBKd0FSV2RwvAKKJzcAV5mVdhgq/JmBNj8Ns5eiJlq8LG2ewIJJSzRaWT4h8Fg6n9KI8K0xDQ==
+"@guardian/libs@^7.0.0":
+  version "7.1.4"
+  resolved "https://registry.yarnpkg.com/@guardian/libs/-/libs-7.1.4.tgz#f5de14f52a32cb677361d49157c94eb046a2b9a8"
+  integrity sha512-r2AJk+4EakNLCLXHhUEqdYSjFhuq19k7tsQO5+53YZc6x6ADEXFNRVE/7EzbODgu5pVwk5SQ/rMuWsE7+5qdVQ==
 
 "@guardian/node-riffraff-artifact@^0.3.2":
   version "0.3.2"
