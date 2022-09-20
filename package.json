@@ -46,7 +46,7 @@
     "@guardian/node-riffraff-artifact": "^0.3.2",
     "@guardian/source-foundations": "^4.0.3",
     "@guardian/source-react-components": "^4.0.2",
-    "@guardian/source-react-components-development-kitchen": "^0.0.33",
+    "@guardian/source-react-components-development-kitchen": "^0.0.36",
     "@rollup/plugin-alias": "^3.1.1",
     "@rollup/plugin-babel": "^5.1.0",
     "@rollup/plugin-commonjs": "^14.0.0",
@@ -97,7 +97,7 @@
     "@guardian/libs": "^3.1.0",
     "@guardian/source-foundations": "^4.0.3",
     "@guardian/source-react-components": "^4.0.2",
-    "@guardian/source-react-components-development-kitchen": "^0.0.33",
+    "@guardian/source-react-components-development-kitchen": "^0.0.36",
     "react": "17.0.2"
   },
   "dependencies": {},
