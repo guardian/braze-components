@@ -184,12 +184,22 @@ class BrazeMessages implements BrazeMessagesInterface {
         const [firstRenderableMessage] = messagesWithFilters
             .concat(messagesWithoutFilters)
             .filter((msg) => {
-                return (
-                    !msg.message.extras.section ||
-                    typeof msg.message.extras.section != 'string' ||
-                    msg.message.extras.section.toLowerCase() ===
-                        articleContext?.section?.toLowerCase()
-                );
+                // The message does not have a section filter
+                if (!msg.message.extras.section || typeof msg.message.extras.section != 'string') {
+                    return true;
+                }
+
+                // The message has section(s) but no section was provided by the page
+                const pageSection = articleContext?.section?.toLowerCase();
+                if (!pageSection) {
+                    return false;
+                }
+
+                // The message has a section filter and the page provided a section, do they match?
+                const messageSections = msg.message.extras.section
+                    .split('|')
+                    .map((section) => section.toLowerCase());
+                return messageSections.includes(pageSection);
             });
 
         if (firstRenderableMessage) {
