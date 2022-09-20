@@ -36,7 +36,7 @@
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-react": "^7.10.4",
     "@babel/preset-typescript": "^7.10.4",
-    "@braze/web-sdk-core": "3.3.0",
+    "@braze/web-sdk-core": "^3.5.1",
     "@emotion/babel-preset-css-prop": "^11.1.2",
     "@emotion/eslint-plugin": "^11.2.0",
     "@emotion/react": "^11.1.2",
