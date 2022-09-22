@@ -18,7 +18,6 @@
     "watch": "rollup -cw",
     "prebuild": "rm -rf dist",
     "build": "rollup -c",
-    "postbuild": "tsc --project tsconfig.types.json",
     "test": "jest",
     "tsc": "tsc  --noEmit",
     "prerelease": "yarn build",
