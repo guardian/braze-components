@@ -100,9 +100,11 @@ export const ArticleContextPanel = ({ active, api }: Props) => {
     const inputRef = useRef<HTMLInputElement>();
 
     const onCopyClick = () => {
-        inputRef.current.select();
-        inputRef.current.setSelectionRange(0, 1000);
-        navigator.clipboard.writeText(inputRef.current.value);
+        if (inputRef?.current) {
+            inputRef.current.select();
+            inputRef.current.setSelectionRange(0, 1000);
+            navigator.clipboard.writeText(inputRef.current.value);
+        }
     };
 
     return (
