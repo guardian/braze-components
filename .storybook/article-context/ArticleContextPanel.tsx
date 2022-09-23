@@ -95,14 +95,16 @@ export const nonEmotionStyles: Record<string, React.CSSProperties> = {
 };
 
 export const ArticleContextPanel = ({ active, api }: Props) => {
-    const [selectedSection, setSelectedSection] = useState('');
+    const [selectedSections, setSelectedSections] = useState<string[]>([]);
 
     const inputRef = useRef<HTMLInputElement>();
 
     const onCopyClick = () => {
-        inputRef.current.select();
-        inputRef.current.setSelectionRange(0, 1000);
-        navigator.clipboard.writeText(inputRef.current.value);
+        if (inputRef?.current) {
+            inputRef.current.select();
+            inputRef.current.setSelectionRange(0, 1000);
+            navigator.clipboard.writeText(inputRef.current.value);
+        }
     };
 
     return (
@@ -124,11 +126,20 @@ export const ArticleContextPanel = ({ active, api }: Props) => {
                         <td style={nonEmotionStyles.td}>
                             <select
                                 id="section-dropdown"
-                                onChange={(event) => setSelectedSection(event.target.value)}
+                                onChange={(event) => {
+                                    setSelectedSections(
+                                        [...event.target.selectedOptions].map(
+                                            (option) => option.value,
+                                        ),
+                                    );
+                                }}
                                 style={nonEmotionStyles.select}
+                                multiple
                             >
                                 {guardianSectionIds.map((id) => (
-                                    <option value={id}>{id}</option>
+                                    <option key={id} value={id}>
+                                        {id}
+                                    </option>
                                 ))}
                             </select>
                         </td>
@@ -141,9 +152,10 @@ export const ArticleContextPanel = ({ active, api }: Props) => {
                             </button>
                             <input
                                 ref={inputRef}
-                                value={selectedSection}
+                                value={selectedSections.join('|')}
                                 style={nonEmotionStyles.textInput}
                                 placeholder="Select section from dropdown then copy it from here"
+                                readOnly
                             ></input>
                         </td>
                     </tr>
