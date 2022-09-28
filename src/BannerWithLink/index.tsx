@@ -5,6 +5,8 @@ import { OphanComponentEvent } from '@guardian/libs';
 import { BrazeClickHandler } from '../utils/tracking';
 import { styles } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';
+import { catchAndLogErrors } from '../utils/catchAndLogErrors';
+
 export { COMPONENT_NAME };
 
 export type BrazeMessageProps = {
@@ -22,14 +24,6 @@ export type Props = {
     submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
     ophanComponentId?: string;
     brazeMessageProps: BrazeMessageProps;
-};
-
-const catchAndLogErrors = (description: string, fn: () => void): void => {
-    try {
-        fn();
-    } catch (e) {
-        console.log(`Error (${description}): `, e.message);
-    }
 };
 
 const BannerWithLink: React.FC<Props> = (props: Props) => {

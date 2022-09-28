@@ -40,7 +40,9 @@ class BrazeCard {
                 );
             }
         } catch (error) {
-            this.errorHandler(error, 'BrazeCard.logImpressions');
+            if (error instanceof Error) {
+                this.errorHandler(error, 'BrazeCard.logImpressions');
+            }
         }
     }
 
@@ -54,7 +56,9 @@ class BrazeCard {
                 );
             }
         } catch (error) {
-            this.errorHandler(error, 'BrazeCard.logCardClick');
+            if (error instanceof Error) {
+                this.errorHandler(error, 'BrazeCard.logCardClick');
+            }
         }
     }
 
@@ -68,7 +72,9 @@ class BrazeCard {
                 );
             }
         } catch (error) {
-            this.errorHandler(error, 'BrazeCard.logCardDismiss');
+            if (error instanceof Error) {
+                this.errorHandler(error, 'BrazeCard.logCardDismiss');
+            }
         }
     }
 

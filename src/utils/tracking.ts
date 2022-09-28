@@ -1,4 +1,5 @@
 import type { OphanComponentEvent } from '@guardian/libs';
+import { catchAndLogErrors } from './catchAndLogErrors';
 
 type BrazeClickHandler = (internalButtonId: number) => void;
 type SubmitComponentEvent = (componentEvent: OphanComponentEvent) => void;
@@ -17,14 +18,6 @@ type InnerProps = {
 };
 
 type TrackClick = (innerProps: InnerProps) => void;
-
-const catchAndLogErrors = (description: string, fn: () => void): void => {
-    try {
-        fn();
-    } catch (e) {
-        console.log(`Error (${description}): `, e.message);
-    }
-};
 
 const buildTrackClick =
     ({ submitComponentEvent, logButtonClickWithBraze, ophanComponentType }: Props): TrackClick =>

@@ -57,7 +57,9 @@ class BrazeMessage {
         try {
             this.appboy.logInAppMessageImpression(this.message);
         } catch (error) {
-            this.errorHandler(error, 'BrazeMessage.logImpression');
+            if (error instanceof Error) {
+                this.errorHandler(error, 'BrazeMessage.logImpression');
+            }
         }
 
         this.cache.remove(this.slotName, this.id, this.errorHandler);
@@ -76,7 +78,9 @@ class BrazeMessage {
         try {
             this.appboy.logInAppMessageButtonClick(button, this.message);
         } catch (error) {
-            this.errorHandler(error, 'BrazeMessage.logButtonClick');
+            if (error instanceof Error) {
+                this.errorHandler(error, 'BrazeMessage.logButtonClick');
+            }
         }
     }
 
