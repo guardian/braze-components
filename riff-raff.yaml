@@ -1,5 +1,8 @@
 stacks: [targeting]
 regions: [eu-west-1]
+allowedStages:
+    - CODE
+    - PROD
 deployments:
     braze-components-storybook-static:
         app: braze-components
@@ -14,4 +17,6 @@ deployments:
         type: cloud-formation
         app: braze-components
         parameters:
-            templatePath: BrazeComponents.template.json
+            templateStagePaths:
+                CODE: BrazeComponents-CODE.template.json
+                PROD: BrazeComponents-PROD.template.json

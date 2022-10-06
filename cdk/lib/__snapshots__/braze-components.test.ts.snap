@@ -2,45 +2,18 @@
 
 exports[`The BrazeComponents stack matches the snapshot 1`] = `
 Object {
-  "Mappings": Object {
-    "brazecomponents": Object {
-      "CODE": Object {
-        "certificateId": "1df4da51-49e5-4dd4-b136-3c5e1cac9d64",
-        "customDomainName": "braze-components.code.dev-gutools.co.uk",
-        "domainName": "braze-components.code.dev-gutools.co.uk",
-      },
-      "PROD": Object {
-        "certificateId": "eca82256-dff4-4b0a-80d6-7f884a1ee92d",
-        "customDomainName": "braze-components.gutools.co.uk",
-        "domainName": "braze-components.gutools.co.uk",
-      },
-    },
-  },
-  "Parameters": Object {
-    "Stage": Object {
-      "AllowedValues": Array [
-        "CODE",
-        "PROD",
-      ],
-      "Default": "CODE",
-      "Description": "Stage name",
-      "Type": "String",
-    },
+  "Metadata": Object {
+    "gu:cdk:constructs": Array [
+      "GuCname",
+    ],
+    "gu:cdk:version": "TEST",
   },
   "Resources": Object {
     "CDN": Object {
       "Properties": Object {
         "DistributionConfig": Object {
           "Aliases": Array [
-            Object {
-              "Fn::FindInMap": Array [
-                "brazecomponents",
-                Object {
-                  "Ref": "Stage",
-                },
-                "customDomainName",
-              ],
-            },
+            "braze-components.test.dev-gutools.co.uk",
           ],
           "DefaultCacheBehavior": Object {
             "AllowedMethods": Array [
@@ -85,18 +58,7 @@ Object {
                 ],
               },
               "Id": "origin1",
-              "OriginPath": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "/",
-                    Object {
-                      "Ref": "Stage",
-                    },
-                    "/braze-components-storybook-static",
-                  ],
-                ],
-              },
+              "OriginPath": "/TEST/braze-components-storybook-static",
               "S3OriginConfig": Object {
                 "OriginAccessIdentity": "origin-access-identity/cloudfront/E3EA9DC41190PP",
               },
@@ -112,16 +74,7 @@ Object {
                   Object {
                     "Ref": "AWS::AccountId",
                   },
-                  ":certificate/",
-                  Object {
-                    "Fn::FindInMap": Array [
-                      "brazecomponents",
-                      Object {
-                        "Ref": "Stage",
-                      },
-                      "certificateId",
-                    ],
-                  },
+                  ":certificate/xxx-xxx-xxx",
                 ],
               ],
             },
@@ -143,9 +96,7 @@ Object {
           },
           Object {
             "Key": "Stage",
-            "Value": Object {
-              "Ref": "Stage",
-            },
+            "Value": "TEST",
           },
         ],
       },
@@ -153,15 +104,7 @@ Object {
     },
     "DNSentry": Object {
       "Properties": Object {
-        "Name": Object {
-          "Fn::FindInMap": Array [
-            "brazecomponents",
-            Object {
-              "Ref": "Stage",
-            },
-            "domainName",
-          ],
-        },
+        "Name": "braze-components.test.dev-gutools.co.uk",
         "RecordType": "CNAME",
         "ResourceRecords": Array [
           Object {
@@ -171,9 +114,7 @@ Object {
             ],
           },
         ],
-        "Stage": Object {
-          "Ref": "Stage",
-        },
+        "Stage": "TEST",
         "TTL": 3600,
       },
       "Type": "Guardian::DNS::RecordSet",

@@ -9,7 +9,7 @@
     },
     {
       "action": "braze-components-cfn",
-      "path": "cdk/cdk.out/BrazeComponents.template.json",
+      "path": "cdk/cdk.out/",
       "compress": false
     }
   ]
