@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, LinkButton, SvgCross, SvgInfo } from '@guardian/source-react-components';
+import { Button, LinkButton, SvgCross, SvgInfoRound } from '@guardian/source-react-components';
 import { OphanComponentEvent } from '@guardian/libs';
 
 import { BrazeClickHandler } from '../utils/tracking';
@@ -94,11 +94,11 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
             <div css={styles.contentContainer}>
                 <div css={styles.topLeftComponent}>
                     <div css={styles.infoIcon}>
-                        <SvgInfo />
+                        <SvgInfoRound />
                     </div>
                     <div css={styles.heading}>
                         <span css={[styles.smallInfoIcon, styles.infoIcon]}>
-                            <SvgInfo />
+                            <SvgInfoRound />
                         </span>
                         {header}
                     </div>

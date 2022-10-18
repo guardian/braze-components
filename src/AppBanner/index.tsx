@@ -4,7 +4,7 @@ import {
     Button,
     buttonThemeReaderRevenueBrandAlt,
     SvgCross,
-    SvgInfo,
+    SvgInfoRound,
 } from '@guardian/source-react-components';
 import { OphanComponentEvent } from '@guardian/libs';
 
@@ -108,11 +108,11 @@ export const AppBanner = (props: Props): ReactElement | null => {
             <div css={commonStyles.contentContainer}>
                 <div css={commonStyles.topLeftComponent}>
                     <div css={commonStyles.infoIcon}>
-                        <SvgInfo />
+                        <SvgInfoRound />
                     </div>
                     <div css={commonStyles.heading}>
                         <span css={commonStyles.smallInfoIcon}>
-                            <SvgInfo />
+                            <SvgInfoRound />
                         </span>
                         {header}
                     </div>
