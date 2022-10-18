@@ -1,13 +1,5 @@
 import { css } from '@emotion/react';
-import {
-    neutral,
-    background,
-    space,
-    from,
-    until,
-    body,
-    headline,
-} from '@guardian/source-foundations';
+import { neutral, palette, space, from, until, body, headline } from '@guardian/source-foundations';
 
 const imgHeight = '280';
 const bannerColor = '#ebe8e8';
@@ -185,9 +177,9 @@ export const styles = {
             fill: ${infoColor};
             background: radial-gradient(
                 circle at center,
-                ${background.primary} 0%,
-                ${background.primary} 50%,
-                ${background.primary} 52%,
+                ${palette.neutral[100]} 0%,
+                ${palette.neutral[100]} 50%,
+                ${palette.neutral[100]} 52%,
                 transparent 53%
             );
         }
@@ -214,9 +206,9 @@ export const styles = {
             fill: ${infoColor};
             background: radial-gradient(
                 circle at center,
-                ${background.primary} 0%,
-                ${background.primary} 50%,
-                ${background.primary} 52%,
+                ${palette.neutral[100]} 0%,
+                ${palette.neutral[100]} 50%,
+                ${palette.neutral[100]} 52%,
                 transparent 53%
             );
             border-radius: 50%;
