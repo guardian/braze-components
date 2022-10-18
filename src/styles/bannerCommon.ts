@@ -178,9 +178,7 @@ export const styles = {
             background: radial-gradient(
                 circle at center,
                 ${palette.neutral[100]} 0%,
-                ${palette.neutral[100]} 50%,
-                ${palette.neutral[100]} 52%,
-                transparent 53%
+                transparent 50%
             );
         }
 
@@ -207,9 +205,7 @@ export const styles = {
             background: radial-gradient(
                 circle at center,
                 ${palette.neutral[100]} 0%,
-                ${palette.neutral[100]} 50%,
-                ${palette.neutral[100]} 52%,
-                transparent 53%
+                transparent 50%
             );
             border-radius: 50%;
         }
