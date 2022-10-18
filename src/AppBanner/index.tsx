@@ -1,4 +1,5 @@
 import React, { useState, ReactElement } from 'react';
+import { css } from '@emotion/react';
 import { ThemeProvider } from '@emotion/react';
 import {
     Button,
@@ -134,7 +135,14 @@ export const AppBanner = (props: Props): ReactElement | null => {
                         </Button>
                     </ThemeProvider>
                     <ThemeProvider theme={notInterestedTheme}>
-                        <Button onClick={(e) => onCloseClick(e, 0)} priority="subdued">
+                        <Button
+                            onClick={(e) => onCloseClick(e, 0)}
+                            priority="subdued"
+                            cssOverrides={css`
+                                text-decoration: none;
+                                text-underline-offset: inherit;
+                            `}
+                        >
                             {"I'm not interested"}
                         </Button>
                     </ThemeProvider>
