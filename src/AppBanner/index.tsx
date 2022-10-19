@@ -141,6 +141,10 @@ export const AppBanner = (props: Props): ReactElement | null => {
                             cssOverrides={css`
                                 text-decoration: none;
                                 text-underline-offset: inherit;
+
+                                &:hover {
+                                    text-decoration: underline;
+                                }
                             `}
                         >
                             {"I'm not interested"}
