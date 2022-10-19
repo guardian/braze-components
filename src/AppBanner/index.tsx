@@ -1,10 +1,11 @@
 import React, { useState, ReactElement } from 'react';
+import { css } from '@emotion/react';
 import { ThemeProvider } from '@emotion/react';
 import {
     Button,
     buttonThemeReaderRevenueBrandAlt,
     SvgCross,
-    SvgInfo,
+    SvgInfoRound,
 } from '@guardian/source-react-components';
 import { OphanComponentEvent } from '@guardian/libs';
 
@@ -108,11 +109,11 @@ export const AppBanner = (props: Props): ReactElement | null => {
             <div css={commonStyles.contentContainer}>
                 <div css={commonStyles.topLeftComponent}>
                     <div css={commonStyles.infoIcon}>
-                        <SvgInfo />
+                        <SvgInfoRound />
                     </div>
                     <div css={commonStyles.heading}>
                         <span css={commonStyles.smallInfoIcon}>
-                            <SvgInfo />
+                            <SvgInfoRound />
                         </span>
                         {header}
                     </div>
@@ -134,7 +135,18 @@ export const AppBanner = (props: Props): ReactElement | null => {
                         </Button>
                     </ThemeProvider>
                     <ThemeProvider theme={notInterestedTheme}>
-                        <Button onClick={(e) => onCloseClick(e, 0)} priority="subdued">
+                        <Button
+                            onClick={(e) => onCloseClick(e, 0)}
+                            priority="subdued"
+                            cssOverrides={css`
+                                text-decoration: none;
+                                text-underline-offset: inherit;
+
+                                &:hover {
+                                    text-decoration: underline;
+                                }
+                            `}
+                        >
                             {"I'm not interested"}
                         </Button>
                     </ThemeProvider>
