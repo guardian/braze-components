@@ -113,6 +113,7 @@ interface ContributionsEpicButtonsProps {
     remindMeConfirmationText?: string;
     remindMeConfirmationHeaderText?: string;
     trackClick: (buttonId: number) => void;
+    hidePaymentIcons?: string;
 }
 type SectionState = 'DEFAULT' | 'REMINDER_CONFIRMED' | 'REMINDER_CONFIRMATION_CLOSED';
 
@@ -123,8 +124,10 @@ export const ContributionsEpicButtons = ({
     remindMeConfirmationText,
     remindMeConfirmationHeaderText,
     trackClick,
+    hidePaymentIcons,
 }: ContributionsEpicButtonsProps): JSX.Element => {
     const [sectionState, setSectionState] = useState<SectionState>('DEFAULT');
+    const showPaymentIcons = hidePaymentIcons != null & hidePaymentIcons === 'true' ? false : true;
 
     if (sectionState === 'REMINDER_CONFIRMED') {
         return (
@@ -164,7 +167,9 @@ export const ContributionsEpicButtons = ({
                 />
             )}
 
-            <PaymentIcons />
+            {showPaymentIcons && (
+                <PaymentIcons />
+            )}
         </div>
     );
 };

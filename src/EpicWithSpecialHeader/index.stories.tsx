@@ -40,6 +40,11 @@ export default {
             description:
                 'Destination link for the button. See Braze user guide for tracking params.',
         },
+        hidePaymentIcons: {
+            name: 'hidePaymentIcons',
+            type: { name: 'string', required: false },
+            description: 'Set value to "true" to suppress the payment icons beneath the CTA',
+        },
     },
 };
 
@@ -52,6 +57,7 @@ const StoryTemplate = (
         highlightedText: args.highlightedText,
         buttonText: args.buttonText,
         buttonUrl: args.buttonUrl,
+        hidePaymentIcons: args.hidePaymentIcons,
         paragraph1: args.paragraph1,
         paragraph2: args.paragraph2,
         paragraph3: args.paragraph3,
@@ -97,6 +103,7 @@ DefaultStory.args = {
         'Support <a href="https://example.com">The Guardian</a> from as little as %%CURRENCY_SYMBOL%%1 - and it only takes a minute. Thank you.',
     buttonText: 'Support The Guardian',
     buttonUrl: 'https://support.theguardian.com/contribute',
+    hidePaymentIcons: '',
     ophanComponentId: 'example_ophan_component_id',
     slotName: 'EndOfArticle',
     componentName: 'EpicWithSpecialHeader',
