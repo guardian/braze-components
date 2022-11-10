@@ -12,6 +12,7 @@ import { OphanComponentEvent } from '@guardian/libs';
 import { AppStore } from '../assets/app-store';
 import { PlayStore } from '../assets/play-store';
 import { BrazeClickHandler } from '../utils/tracking';
+import { useEscapeShortcut } from '../utils/useEscapeShortcut';
 import { styles as commonStyles } from '../styles/bannerCommon';
 import { styles } from './styles';
 
@@ -56,17 +57,18 @@ export const AppBanner = (props: Props): ReactElement | null => {
 
     const [showBanner, setShowBanner] = useState(true);
 
-    if (!showBanner) {
-        return null;
-    }
-
     const onCloseClick = (
         evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
         internalButtonId: number,
     ): void => {
         evt.preventDefault();
 
+        onCloseAction(internalButtonId);
+    };
+
+    const onCloseAction = (internalButtonId: number): void => {
         setShowBanner(false);
+        document.body.focus();
 
         catchAndLogErrors('ophanButtonClick', () => {
             // Braze displays button id from 1, but internal representation is numbered from 0
@@ -87,6 +89,8 @@ export const AppBanner = (props: Props): ReactElement | null => {
         });
     };
 
+    useEscapeShortcut(() => onCloseAction(1), []);
+
     // This is to keep button colors the same as before
     // https://github.com/guardian/braze-components/pull/123
     // Probably should be removed later
@@ -103,6 +107,10 @@ export const AppBanner = (props: Props): ReactElement | null => {
             textSubdued: 'rgb(51, 51, 51)',
         },
     };
+
+    if (!showBanner) {
+        return null;
+    }
 
     return (
         <div css={commonStyles.wrapper}>
