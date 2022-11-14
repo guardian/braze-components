@@ -127,7 +127,7 @@ export const ContributionsEpicButtons = ({
     hidePaymentIcons,
 }: ContributionsEpicButtonsProps): JSX.Element => {
     const [sectionState, setSectionState] = useState<SectionState>('DEFAULT');
-    const showPaymentIcons = hidePaymentIcons != null && hidePaymentIcons === 'true' ? false : true;
+    const showPaymentIcons = hidePaymentIcons !== 'true';
 
     if (sectionState === 'REMINDER_CONFIRMED') {
         return (
