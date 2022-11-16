@@ -3,6 +3,7 @@ import { Button, LinkButton, SvgCross, SvgInfoRound } from '@guardian/source-rea
 import { OphanComponentEvent } from '@guardian/libs';
 
 import { BrazeClickHandler } from '../utils/tracking';
+import { useEscapeShortcut } from '../utils/useEscapeShortcut';
 import { styles } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
@@ -53,10 +54,6 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
         return null;
     }
 
-    if (!showBanner) {
-        return null;
-    }
-
     const logToBrazeAndOphan = (internalButtonId: number): void => {
         catchAndLogErrors('ophanButtonClick', () => {
             // Braze displays button id from 1, but internal representation is numbered from 0
@@ -83,11 +80,21 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
         internalButtonId: number,
     ): void => {
         evt.preventDefault();
+        onCloseAction(internalButtonId);
+    };
 
+    const onCloseAction = (internalButtonId: number): void => {
         setShowBanner(false);
+        document.body.focus();
 
         logToBrazeAndOphan(internalButtonId);
     };
+
+    useEscapeShortcut(() => onCloseAction(1), []);
+
+    if (!showBanner) {
+        return null;
+    }
 
     return (
         <div css={styles.wrapper}>
