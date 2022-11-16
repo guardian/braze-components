@@ -65,6 +65,7 @@ export type BrazeMessageProps = {
     remindMeButtonText?: string;
     remindMeConfirmationHeaderText?: string;
     remindMeConfirmationText?: string;
+    hidePaymentIcons?: string;
 };
 
 export type EpicProps = {
@@ -86,6 +87,7 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
             remindMeConfirmationHeaderText,
             remindMeConfirmationText,
             ophanComponentId,
+            hidePaymentIcons,
         },
         countryCode,
         headerSection,
@@ -124,6 +126,7 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
                     <ContributionsEpicButtons
                         buttonText={buttonText as string}
                         buttonUrl={buttonUrl as string}
+                        hidePaymentIcons={hidePaymentIcons}
                         remindMeButtonText={remindMeButtonText}
                         remindMeConfirmationText={remindMeConfirmationText}
                         remindMeConfirmationHeaderText={remindMeConfirmationHeaderText}
