@@ -1688,10 +1688,10 @@
     monocle-ts "^2.3.3"
     newtype-ts "^0.3.4"
 
-"@guardian/libs@^7.1.0":
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/@guardian/libs/-/libs-7.1.0.tgz#1c80905e29df158d09f4681ec13f37fdbcbbe5f2"
-  integrity sha512-GTFY5sFyKov2HZFdWEKhnWB1IjBFiFhtzJdG2BlFcRBeRo/8DlBvOMjURY+hnoIdgEo1f3A+hHUBdqLsRP5Uig==
+"@guardian/libs@^9.0.1":
+  version "9.1.0"
+  resolved "https://registry.yarnpkg.com/@guardian/libs/-/libs-9.1.0.tgz#fe93379ab471b3f45edf71482e57fd41976f629f"
+  integrity sha512-wUf4ubWYDDNmL/fn31m4qLP1vEb341k7yvA6jPalHVd5xdpsvnAmEZy+N4ik80xaxdFZefZXBJ7h6yTiuKKAIg==
 
 "@guardian/node-riffraff-artifact@^0.3.2":
   version "0.3.2"
@@ -14022,6 +14022,11 @@ tslib@^2.0.0, tslib@^2.0.1, tslib@^2.0.3:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.0.tgz#803b8cdab3e12ba581a4ca41c8839bbb0dacb09e"
   integrity sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg==
+
+tslib@^2.4.0:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.4.1.tgz#0d0bfbaac2880b91e22df0768e55be9753a5b17e"
+  integrity sha512-tGyy4dAjRIEwI7BzsB0lynWgOpfqjUdq91XXAlIWD2OwKBH7oCl/GZG/HT4BOHrTlPMOASlMQ7veyTqpmRcrNA==
 
 tsutils@^3.17.1, tsutils@^3.21.0:
   version "3.21.0"
