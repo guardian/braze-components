@@ -30,7 +30,8 @@ const styles = {
         flex-direction: column;
     `,
     paragraph: css`
-        margin: 0 auto ${space[2]}px;
+        margin-top: 0;
+        margin-bottom: ${space[2]}px;
         ${body.medium()}
         ${linkStyles}
     `,
