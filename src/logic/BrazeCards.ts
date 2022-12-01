@@ -32,7 +32,7 @@ class BrazeCard {
 
     logImpression(): void {
         try {
-            const result = this.appboy.logCardImpressions([this.card]);
+            const result = this.appboy.logCardImpressions([this.card], true);
             if (!result) {
                 this.errorHandler(
                     new Error('Failed to log card impression event'),
