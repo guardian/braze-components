@@ -42,7 +42,7 @@
     "@emotion/react": "^11.1.2",
     "@guardian/eslint-plugin-source-react-components": "^9.0.0",
     "@guardian/grid-client": "^1.1.1",
-    "@guardian/libs": "^3.1.0",
+    "@guardian/libs": "^10.0.0",
     "@guardian/node-riffraff-artifact": "^0.3.2",
     "@guardian/source-foundations": "^7.0.1",
     "@guardian/source-react-components": "^9.0.0",
