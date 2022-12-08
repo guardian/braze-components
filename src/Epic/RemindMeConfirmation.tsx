@@ -2,7 +2,7 @@ import React from 'react';
 import { css } from '@emotion/react';
 import { body, from, headline, neutral, space } from '@guardian/source-foundations';
 import { Button, SvgCross } from '@guardian/source-react-components';
-import { Lines } from '@guardian/source-react-components-development-kitchen';
+import { StraightLines } from '@guardian/source-react-components-development-kitchen';
 
 const reminderConfirmationContainerStyles = css`
     position: relative;
@@ -65,7 +65,7 @@ export const RemindMeConfirmation = ({
                     Close
                 </Button>
             </div>
-            <Lines />
+            <StraightLines />
             {remindMeConfirmationHeaderText && (
                 <h4 css={successHeadingStyles}>{remindMeConfirmationHeaderText}</h4>
             )}
