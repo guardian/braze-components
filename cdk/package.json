@@ -29,9 +29,9 @@
     "typescript": "~4.4.3"
   },
   "dependencies": {
-    "@guardian/cdk": "48.0.0",
-    "aws-cdk": "2.44.0",
-    "aws-cdk-lib": "2.44.0",
+    "@guardian/cdk": "49.2.0",
+    "aws-cdk": "2.59.0",
+    "aws-cdk-lib": "2.59.0",
     "constructs": "10.1.117",
     "source-map-support": "^0.5.20"
   }
