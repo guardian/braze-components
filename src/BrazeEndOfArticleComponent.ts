@@ -32,27 +32,11 @@ import {
     DownToEarthNewsletterEpic,
 } from './DownToEarthNewsletterEpic';
 
-// New name Newsletter Epics + additional epics
+// New name Newsletter Epics
 import {
     COMPONENT_NAME as EPICNEWSLETTER_AU_AFTERNOONUPDATE_NAME,
     EpicNewsletter_AU_AfternoonUpdate,
 } from './EpicNewsletter_AU_AfternoonUpdate';
-import {
-    COMPONENT_NAME as EPICNEWSLETTER_AU_GUARDIANAUSTRALIAMORNINGMAIL_NAME,
-    EpicNewsletter_AU_GuardianAustraliaMorningMail,
-} from './EpicNewsletter_AU_GuardianAustraliaMorningMail';
-import {
-    COMPONENT_NAME as EPICNEWSLETTER_UK_THEMORNINGBRIEFING_NAME,
-    EpicNewsletter_UK_TheMorningBriefing,
-} from './EpicNewsletter_UK_TheMorningBriefing';
-import {
-    COMPONENT_NAME as EPICNEWSLETTER_US_FIRSTTHING_NAME,
-    EpicNewsletter_US_FirstThing,
-} from './EpicNewsletter_US_FirstThing';
-import {
-    COMPONENT_NAME as EPICNEWSLETTER_DOWNTOEARTH_NAME,
-    EpicNewsletter_DownToEarth,
-} from './EpicNewsletter_DownToEarth';
 import {
     COMPONENT_NAME as EPICNEWSLETTER_THEGUIDE_NAME,
     EpicNewsletter_TheGuide,
@@ -85,13 +69,8 @@ const END_OF_ARTICLE_MAPPINGS: ComponentMapping<
     [UK_NEWSLETTER_EPIC_NAME]: UKNewsletterEpic,
     [DTE_NEWSLETTER_EPIC_NAME]: DownToEarthNewsletterEpic,
 
-    // New name Newsletter Epics + additional epics
+    // New name Newsletter Epics
     [EPICNEWSLETTER_AU_AFTERNOONUPDATE_NAME]: EpicNewsletter_AU_AfternoonUpdate,
-    [EPICNEWSLETTER_AU_GUARDIANAUSTRALIAMORNINGMAIL_NAME]:
-        EpicNewsletter_AU_GuardianAustraliaMorningMail,
-    [EPICNEWSLETTER_UK_THEMORNINGBRIEFING_NAME]: EpicNewsletter_UK_TheMorningBriefing,
-    [EPICNEWSLETTER_US_FIRSTTHING_NAME]: EpicNewsletter_US_FirstThing,
-    [EPICNEWSLETTER_DOWNTOEARTH_NAME]: EpicNewsletter_DownToEarth,
     [EPICNEWSLETTER_THEGUIDE_NAME]: EpicNewsletter_TheGuide,
 };
 
