@@ -78,8 +78,7 @@ DefaultStory.args = {
     slotName: 'EndOfArticle',
     header: 'Sign up for Down to Earth',
     frequency: 'Weekly',
-    paragraph1:
-        `The planet's most important stories. Get all the week's environment news - the good, the bad and the essential.`,
+    paragraph1: `The planet's most important stories. Get all the week's environment news - the good, the bad and the essential.`,
     paragraph2:
         'We thought you should know this newsletter may contain information about Guardian products and services.',
     componentName: 'EpicNewsletter_DownToEarth',

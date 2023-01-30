@@ -74,8 +74,10 @@ DefaultStory.args = {
     slotName: 'EndOfArticle',
     header: `Sign up for Guardian Australia's Afternoon Update`,
     frequency: 'Every weekday',
-    paragraph1: 'Our Australian afternoon update breaks down the key stories of the day, telling you what’s happening and why it matters.',
-    paragraph2: 'We thought you should know this newsletter may contain information about Guardian products and services.',
+    paragraph1:
+        'Our Australian afternoon update breaks down the key stories of the day, telling you what’s happening and why it matters.',
+    paragraph2:
+        'We thought you should know this newsletter may contain information about Guardian products and services.',
     componentName: 'EpicNewsletter_AU_AfternoonUpdate',
     ophanComponentId: 'example_ophan_component_id',
 };

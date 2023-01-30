@@ -74,7 +74,8 @@ DefaultStory.args = {
     slotName: 'EndOfArticle',
     header: `Sign up for Guardian Australia's Morning Mail`,
     frequency: 'Every weekday',
-    paragraph1: 'Our Australian morning briefing breaks down the key stories of the day, telling you what’s happening and why it matters.',
+    paragraph1:
+        'Our Australian morning briefing breaks down the key stories of the day, telling you what’s happening and why it matters.',
     paragraph2:
         'We thought you should know this newsletter may contain information about Guardian products and services.',
     componentName: 'EpicNewsletter_AU_GuardianAustraliaMorningMail',

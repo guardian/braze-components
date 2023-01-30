@@ -75,7 +75,8 @@ DefaultStory.args = {
     header: `Sign up for The Guide`,
     frequency: 'Weekly',
     paragraph1: 'Get our weekly pop culture email, free in your inbox every Friday.',
-    paragraph2: 'We thought you should know this newsletter may contain information about Guardian products and services.',
+    paragraph2:
+        'We thought you should know this newsletter may contain information about Guardian products and services.',
     componentName: 'EpicNewsletter_TheGuide',
     ophanComponentId: 'example_ophan_component_id',
 };
