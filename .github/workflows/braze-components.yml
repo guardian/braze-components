@@ -1,0 +1,65 @@
+name: Build braze-components
+
+on: push
+
+jobs:
+  braze-components-build:
+    name: braze-components-test-and-build
+    runs-on: ubuntu-latest
+
+    if: >-
+      (github.actor != 'dependabot[bot]') &&
+        (github.event.pull_request.head.repo.owner.login == 'guardian' ||
+          github.event_name == 'push')
+
+    # Required by actions-assume-aws-role
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@main
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Check typescript
+        run: yarn tsc
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Run tests
+        run: CI=true yarn test
+
+      - name: Storybook build
+        run: yarn build-storybook
+
+      - name: Upload
+        run: |
+          export LAST_TEAMCITY_BUILD=1000
+          export GITHUB_RUN_NUMBER=$(( $GITHUB_RUN_NUMBER + $LAST_TEAMCITY_BUILD ))
+          yarn upload-artifact
+
+
+# FROM THE TYPESCRIPT GHA
+# jobs:
+#     typescript:
+#         runs-on: ubuntu-latest
+#         steps:
+#             - uses: actions/checkout@v2.4.0
+#             - uses: guardian/actions-setup-node@main
+
+#             # Cache npm dependencies using https://github.com/bahmutov/npm-install
+#  >>> THIS NEXT LINE???
+#             - uses: bahmutov/npm-install@v1
+
+#             - name: Install
+#               run: yarn
+
+#             - name: Check typescript
+#               run: yarn tsc
