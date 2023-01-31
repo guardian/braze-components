@@ -54,22 +54,3 @@ jobs:
           export LAST_TEAMCITY_BUILD=1000
           export GITHUB_RUN_NUMBER=$(( $GITHUB_RUN_NUMBER + $LAST_TEAMCITY_BUILD ))
           yarn upload-artifact
-
-
-# FROM THE TYPESCRIPT GHA
-# jobs:
-#     typescript:
-#         runs-on: ubuntu-latest
-#         steps:
-#             - uses: actions/checkout@v2.4.0
-#             - uses: guardian/actions-setup-node@main
-
-#             # Cache npm dependencies using https://github.com/bahmutov/npm-install
-#  >>> THIS NEXT LINE???
-#             - uses: bahmutov/npm-install@v1
-
-#             - name: Install
-#               run: yarn
-
-#             - name: Check typescript
-#               run: yarn tsc
