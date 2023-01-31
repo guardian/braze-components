@@ -39,6 +39,10 @@ jobs:
       - name: Storybook build
         run: yarn build-storybook
 
+      - name: CDK
+        working-directory: cdk
+        run: ./script/ci 
+
       - name: Upload
         run: |
           export LAST_TEAMCITY_BUILD=1000
