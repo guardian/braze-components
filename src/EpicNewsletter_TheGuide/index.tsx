@@ -5,7 +5,7 @@ import type { TrackClick } from '../utils/tracking';
 
 // Image URL updated
 const IMAGE_URL =
-    'https://i.guim.co.uk/img/media/ce2e59cfa2ab7db34cba24adbf20910976e55604/0_0_760_456/500.jpg?width=400&quality=75&s=d773f6af9f6967545beea87dfeae0643';
+    'https://i.guim.co.uk/img/media/d277750131b8bb53086870cd7e6adea00aadf432/0_0_200_200/200.png?width=200&quality=75&s=7a0d75b73f805685529987bba80cbccb';
 
 const newsletterId = '6006';
 
