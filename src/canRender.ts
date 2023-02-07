@@ -63,7 +63,6 @@ import {
     canRender as EpicNewsletter_TheGuide_canRender,
 } from './EpicNewsletter_TheGuide/canRender';
 
-
 // Types, functionality, exports
 // --------------------------------------------
 // These are in a seperate file to enable tree shaking of the logic deciding if a Braze message can be rendered
