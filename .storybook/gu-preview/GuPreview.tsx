@@ -2,6 +2,7 @@ import React, { Fragment, ReactElement } from 'react';
 import { styled } from '@storybook/theming';
 import { Icons, IconButton } from '@storybook/components';
 import { knobsData } from '../../src/utils/knobsData';
+import { getPreviewUrl } from '../utils';
 
 const IconButtonWithLabel = styled(IconButton)(() => ({
     display: 'inline-flex',
@@ -14,12 +15,11 @@ const IconButtonLabel = styled.div<{}>(({ theme }) => ({
 }));
 
 function constructPreviewUrl() {
-    let baseUrl =
-        'https://preview.gutools.co.uk/sport/2019/jul/28/tour-de-france-key-moments-egan-bernal-yellow-jersey#';
+    let baseUrl = getPreviewUrl();
 
     const theKnobs = knobsData.get();
 
-    let fullUrl = baseUrl + 'force-braze-message=' + encodeURIComponent(JSON.stringify(theKnobs));
+    let fullUrl = baseUrl + '#force-braze-message=' + encodeURIComponent(JSON.stringify(theKnobs));
     window.open(fullUrl);
 }
 

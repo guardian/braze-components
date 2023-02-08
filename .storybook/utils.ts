@@ -45,4 +45,15 @@ const getLoginUrl = () => {
     }
 };
 
-export { getGridUrl, getImageSigningUrl, getLoginUrl };
+const getPreviewUrl = () => {
+    switch (getEnvironment()) {
+        case 'LOCAL':
+            return 'https://preview.code.dev-gutools.co.uk/education/shortcuts/2015/may/27/ban-rubbing-out-professor-says-erasers-instrument-of-the-devil-guy-claxton';
+        case 'CODE':
+            return 'https://preview.code.dev-gutools.co.uk/education/shortcuts/2015/may/27/ban-rubbing-out-professor-says-erasers-instrument-of-the-devil-guy-claxton';
+        case 'PROD':
+            return 'https://preview.gutools.co.uk/sport/2019/jul/28/tour-de-france-key-moments-egan-bernal-yellow-jersey';
+    }
+}
+
+export { getGridUrl, getImageSigningUrl, getLoginUrl, getPreviewUrl };
