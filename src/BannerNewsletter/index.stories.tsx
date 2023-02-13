@@ -91,10 +91,9 @@ export const DefaultStory = StoryTemplate.bind({});
 DefaultStory.args = {
     slotName: 'Banner',
     header: 'Sign up for a newsletter',
-    body: 'We really want you to read this newsletter. It\'s the best newsletter about stuff you\'ll ever find.',
+    body: "We really want you to read this newsletter. It's the best newsletter about stuff you'll ever find.",
     buttonText: 'Sign up',
-    buttonUrl:
-        'https://example.com',
+    buttonUrl: 'https://example.com',
     boldText: 'You know it makes sense.',
     componentName: 'BannerNewsletter',
     ophanComponentId: 'change_me_ophan_component_id',
