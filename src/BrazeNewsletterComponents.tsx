@@ -3,11 +3,7 @@ import React, { useState } from 'react';
 import { Button, buttonThemeBrandAlt } from '@guardian/source-react-components';
 import type { TrackClick } from './utils/tracking';
 
-import {
-    news,
-    neutral,
-    body,
-} from '@guardian/source-foundations';
+import { news, neutral, body } from '@guardian/source-foundations';
 
 // Newsletter CTA button
 // -------------------------------------------------------
