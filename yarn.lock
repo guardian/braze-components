@@ -1719,10 +1719,10 @@
   resolved "https://registry.yarnpkg.com/@guardian/source-react-components-development-kitchen/-/source-react-components-development-kitchen-7.1.1.tgz#e74c332be885fa82216eb1c1b33ef0e0084d0f07"
   integrity sha512-TuS4iNCT3K2yT/ZB1Sa0wydHP0g7gQkBwfxZy/O01UYF5ipJBloqIOu/T5+jYz6CBwyfwqTjWQP/ynH5OXnOAw==
 
-"@guardian/source-react-components@^9.0.0":
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/@guardian/source-react-components/-/source-react-components-9.0.0.tgz#9a91775dd6405d9461f7d18b836d8df688143204"
-  integrity sha512-A0d0QrqJ+LN+zb8vBLtHqB+aT9gk056tsi2S5oOc0v+pLifZ/y0tOK1htX5EKtjdIjlbsXj0UZc3s+bZtmkHzg==
+"@guardian/source-react-components@^11.2.0":
+  version "11.2.0"
+  resolved "https://registry.yarnpkg.com/@guardian/source-react-components/-/source-react-components-11.2.0.tgz#4732c2ab994af5c585cf5d6e8f28d4d3e2de1ab8"
+  integrity sha512-xwvKAFThOlu1F5kyHkWv3i7Fa7oxK+XJc9b7TVE/WCt7qJJrVRsSBfLIz4C68YWctbvQ34XDgk2dB0GI8/wKFg==
 
 "@hapi/hoek@^9.0.0":
   version "9.2.0"
