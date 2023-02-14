@@ -1,5 +1,5 @@
+import React from 'react';
 import { css, ThemeProvider } from '@emotion/react';
-import React, { useState } from 'react';
 import {
     brand,
     news,
@@ -11,10 +11,10 @@ import {
     headline,
     textSans,
 } from '@guardian/source-foundations';
-import { Button, buttonThemeBrandAlt, SvgClock } from '@guardian/source-react-components';
+import { SvgClock } from '@guardian/source-react-components';
 import { COMPONENT_NAME, canRender } from './canRender';
-import { LoadingDots } from './LoadingDots';
 import type { TrackClick } from '../utils/tracking';
+import { NewsletterSubscribeCallback, CTA } from '../BrazeNewsletterComponents';
 
 const styles = {
     epicContainer: css`
@@ -97,8 +97,6 @@ const styles = {
     `,
 };
 
-export type NewsletterSubscribeCallback = (id: string) => Promise<void>;
-
 export type BrazeMessageProps = {
     header?: string;
     frequency?: string;
@@ -113,110 +111,6 @@ export type Props = {
     brazeMessageProps: BrazeMessageProps;
     subscribeToNewsletter: NewsletterSubscribeCallback;
     trackClick: TrackClick;
-};
-
-type CTAProps = {
-    subscribeToNewsletter: NewsletterSubscribeCallback;
-    newsletterId: string;
-    ophanComponentId?: string;
-    trackClick: TrackClick;
-};
-
-type SubscribeClickStatus = 'DEFAULT' | 'IN_PROGRESS' | 'SUCCESS' | 'FAILURE';
-
-const ctaStyles = {
-    button: css`
-        background-color: ${news[400]};
-        color: ${neutral[100]};
-        &:hover {
-            background-color: ${news[400]};
-        }
-    `,
-    thankYouText: css`
-        ${body.medium({ fontWeight: 'bold' })};
-        color: ${neutral[0]};
-    `,
-    errorText: css`
-        ${body.medium({ fontWeight: 'bold' })};
-        color: ${neutral[0]};
-        margin-bottom: 16px;
-    `,
-    newslettersLink: css`
-        ${body.medium()}
-        border-bottom: 1px solid ${neutral[60]};
-        color: ${news[400]};
-        padding-bottom: 2px;
-        text-decoration: none;
-    `,
-    newslettersLinkPeriod: css`
-        color: ${neutral[0]};
-    `,
-};
-
-type SignUpButtonProps = { onSignUpClick: () => void };
-
-const SignUpButton: React.FC<SignUpButtonProps> = (props: SignUpButtonProps) => {
-    return (
-        <ThemeProvider theme={buttonThemeBrandAlt}>
-            <Button css={ctaStyles.button} onClick={props.onSignUpClick}>
-                Sign up
-            </Button>
-        </ThemeProvider>
-    );
-};
-
-const CTA: React.FC<CTAProps> = (props: CTAProps) => {
-    const { subscribeToNewsletter, newsletterId, ophanComponentId, trackClick } = props;
-
-    const [subscribeClickStatus, setSubscribeClickStatus] =
-        useState<SubscribeClickStatus>('DEFAULT');
-
-    const onSignUpClick = () => {
-        setSubscribeClickStatus('IN_PROGRESS');
-
-        const internalButtonId = 0;
-        trackClick({
-            internalButtonId,
-            // We'll have already confirmed this is truthy in the canRender
-            ophanComponentId: ophanComponentId as string,
-        });
-
-        subscribeToNewsletter(newsletterId as string)
-            .then(() => setSubscribeClickStatus('SUCCESS'))
-            .catch(() => {
-                setSubscribeClickStatus('FAILURE');
-            });
-    };
-
-    switch (subscribeClickStatus) {
-        case 'DEFAULT':
-            return <SignUpButton onSignUpClick={onSignUpClick} />;
-        case 'FAILURE':
-            return (
-                <>
-                    <div css={ctaStyles.errorText}>
-                        There was an error signing up to the newsletter. Please try again
-                    </div>
-                    <SignUpButton onSignUpClick={onSignUpClick}></SignUpButton>
-                </>
-            );
-        case 'IN_PROGRESS':
-            return <LoadingDots></LoadingDots>;
-        case 'SUCCESS':
-            return (
-                <>
-                    <div css={ctaStyles.thankYouText}>Thank you.</div>
-                    <div>
-                        <a
-                            href="https://www.theguardian.com/email-newsletters"
-                            css={ctaStyles.newslettersLink}
-                        >
-                            View all newsletters<span css={ctaStyles.newslettersLinkPeriod}>.</span>
-                        </a>
-                    </div>
-                </>
-            );
-    }
 };
 
 export const NewsletterEpic: React.FC<Props> = (props: Props) => {
