@@ -98,11 +98,14 @@ const COMPONENT_CAN_RENDER_MAPPINGS: Record<
 };
 
 export const canRenderBrazeMsg = (msgExtras: Extras | undefined): boolean => {
+    console.log('canRenderBrazeMsg #1', msgExtras);
     if (!msgExtras) {
         return false;
     }
+    console.log('canRenderBrazeMsg #2', !COMPONENT_CAN_RENDER_MAPPINGS[msgExtras.componentName]);
     if (!COMPONENT_CAN_RENDER_MAPPINGS[msgExtras.componentName]) {
         return false;
     }
+    console.log('canRenderBrazeMsg #3', COMPONENT_CAN_RENDER_MAPPINGS[msgExtras.componentName](msgExtras));
     return COMPONENT_CAN_RENDER_MAPPINGS[msgExtras.componentName](msgExtras);
 };

@@ -12,6 +12,7 @@ import {
     ComponentMapping,
     HasConsolidatedTrackClick,
 } from './buildBrazeMessageComponent';
+import { NewsletterSubscribeCallback } from './BrazeNewsletterComponents';
 
 type BrazeMessageProps = {
     [key: string]: string | undefined;
@@ -22,6 +23,7 @@ export type CommonBannerComponentProps = {
     logButtonClickWithBraze: BrazeClickHandler;
     submitComponentEvent: SubmitComponentEvent;
     brazeMessageProps: BrazeMessageProps;
+    subscribeToNewsletter: NewsletterSubscribeCallback;
 };
 
 const BANNER_MAPPINGS: ComponentMapping<CommonBannerComponentProps & HasConsolidatedTrackClick> = {

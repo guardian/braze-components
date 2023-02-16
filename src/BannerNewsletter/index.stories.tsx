@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import { BrazeBannerComponent } from '../BrazeBannerComponent';
-import { StorybookWrapper } from '../utils/StorybookWrapper';
+import { StorybookWrapper, mockSubscribe } from '../utils/StorybookWrapper';
 import { knobsData } from '../utils/knobsData';
 import { coreArgTypes, ophanComponentIdArgType } from '../storybookCommon/argTypes';
 import { BrazeMessageProps } from '.';
@@ -33,14 +33,15 @@ export default {
             type: { name: 'string', required: false },
             description: 'Bold text',
         },
-        buttonText: {
-            name: 'buttonText',
+        newsletterId: {
+            name: 'newsletterId',
             type: { name: 'string', required: true },
-            description: 'Button text',
+            description: 'The newsletter Id value',
         },
-        buttonUrl: {
-            name: 'buttonUrl',
+        frequency: {
+            name: 'frequency',
             type: { name: 'string', required: true },
+            description: 'Text description of how often the email is sent',
         },
         imageUrl: {
             name: 'imageUrl (use Grid image picker)',
@@ -52,17 +53,22 @@ export default {
     },
 };
 
-const StoryTemplate = (args: BrazeMessageProps & { componentName: string }): ReactElement => {
+const StoryTemplate = (
+    args: BrazeMessageProps & { 
+        componentName: string,
+        newsletterId: string,
+    },
+): ReactElement => {
     const imageUrl = grid(
         'https://i.guim.co.uk/img/media/35d403182e4b262d37385281b19b763ee6b32f6a/58_0_1743_1046/master/1743.png?width=930&quality=45&auto=format&s=9ecd82413fef9883c1e7a0df2bf6abb1',
     );
 
     const brazeMessageProps: BrazeMessageProps = {
         header: args.header,
+        newsletterId: args.newsletterId,
+        frequency: args.frequency,
         body: args.body,
         boldText: args.boldText,
-        buttonText: args.buttonText,
-        buttonUrl: args.buttonUrl,
         imageUrl,
         ophanComponentId: args.ophanComponentId,
     };
@@ -74,13 +80,14 @@ const StoryTemplate = (args: BrazeMessageProps & { componentName: string }): Rea
         <StorybookWrapper>
             <BrazeBannerComponent
                 componentName={args.componentName}
+                subscribeToNewsletter={() => mockSubscribe(args.newsletterId)}
+                brazeMessageProps={brazeMessageProps}
                 logButtonClickWithBraze={(internalButtonId) => {
                     console.log(`Button with internal ID ${internalButtonId} clicked`);
                 }}
                 submitComponentEvent={(componentEvent) => {
                     console.log('submitComponentEvent called with: ', componentEvent);
                 }}
-                brazeMessageProps={brazeMessageProps}
             />
         </StorybookWrapper>
     );
@@ -90,10 +97,10 @@ export const DefaultStory = StoryTemplate.bind({});
 
 DefaultStory.args = {
     slotName: 'Banner',
+    newsletterId: '0',
+    frequency: 'Weekly on Fridays',
     header: 'Sign up for a newsletter',
     body: "We really want you to read this newsletter. It's the best newsletter about stuff you'll ever find.",
-    buttonText: 'Sign up',
-    buttonUrl: 'https://example.com',
     boldText: 'You know it makes sense.',
     componentName: 'BannerNewsletter',
     ophanComponentId: 'change_me_ophan_component_id',

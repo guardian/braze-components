@@ -1,6 +1,6 @@
 declare global {
     interface Window {
-        knobsData: { [key: string]: string };
+        knobsData: { [key: string]: string | undefined };
     }
 }
 
@@ -13,7 +13,7 @@ class KnobsData {
         return this.getWindow().knobsData;
     }
 
-    set(knobs: { [key: string]: string }): void {
+    set(knobs: { [key: string]: string | undefined }): void {
         this.getWindow().knobsData = knobs;
     }
 

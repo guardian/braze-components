@@ -29,22 +29,27 @@ export function buildBrazeMessageComponent<A extends HasComponentName & HasClick
     mappings: ComponentMapping<A & HasConsolidatedTrackClick>,
 ): React.FC<A> {
     const BrazeMessageComponent = (props: A) => {
+        console.log('HELLO #1');
         const ComponentToRender = mappings[props.componentName];
+        console.log('HELLO #2');
 
         if (!ComponentToRender) {
             return null;
         }
+        console.log('HELLO #3');
 
         const trackClick = buildTrackClick({
             submitComponentEvent: props.submitComponentEvent,
             logButtonClickWithBraze: props.logButtonClickWithBraze,
             ophanComponentType,
         });
+        console.log('HELLO #4');
 
         const augmentedProps = {
             ...props,
             trackClick,
         };
+        console.log('HELLO #5');
 
         return <ComponentToRender {...augmentedProps} />;
     };
