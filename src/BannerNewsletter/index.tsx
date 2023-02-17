@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, LinkButton, SvgCross } from '@guardian/source-react-components';
+import { Button, SvgCross } from '@guardian/source-react-components';
 import { OphanComponentEvent } from '@guardian/libs';
 import { BrazeClickHandler } from '../utils/tracking';
 import {
@@ -7,6 +7,11 @@ import {
     logBannerCloseToOphan,
     OnCloseClick,
 } from '../bannerCommon/bannerActions';
+import {
+    NewsletterSubscribeCallback,
+    CTA,
+    NewsletterFrequency,
+} from '../newsletterCommon/sharedComponents';
 import { styles } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
@@ -16,30 +21,38 @@ export type BrazeMessageProps = {
     header?: string;
     body?: string;
     boldText?: string;
-    buttonText?: string;
-    buttonUrl?: string;
     imageUrl?: string;
+    newsletterId?: string;
+    frequency?: string;
 };
 
 export type Props = {
     logButtonClickWithBraze: BrazeClickHandler;
     submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
     brazeMessageProps: BrazeMessageProps;
+    subscribeToNewsletter: NewsletterSubscribeCallback;
 };
 
-const BannerWithLink: React.FC<Props> = (props: Props) => {
+// export type Props = {
+//     brazeMessageProps: BrazeMessageProps;
+//     subscribeToNewsletter: NewsletterSubscribeCallback;
+//     trackClick: TrackClick;
+// };
+
+const BannerNewsletter: React.FC<Props> = (props: Props) => {
     const {
         logButtonClickWithBraze,
         submitComponentEvent,
         brazeMessageProps: {
+            ophanComponentId,
             header,
             body,
             boldText,
-            buttonText,
-            buttonUrl,
+            newsletterId,
             imageUrl,
-            ophanComponentId,
+            frequency,
         },
+        subscribeToNewsletter
     } = props;
 
     const [showBanner, setShowBanner] = useState(true);
@@ -71,6 +84,7 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
 
     useEscapeShortcut(() => onCloseAction(1), []);
 
+
     if (!showBanner) {
         return null;
     }
@@ -80,6 +94,7 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
             <div css={styles.contentContainer}>
                 <div css={styles.topLeftComponent}>
                     <div css={styles.heading}>{header}</div>
+                    <NewsletterFrequency frequency={frequency} />
                     <p css={styles.paragraph}>
                         {body}
 
@@ -90,13 +105,12 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
                             </>
                         ) : null}
                     </p>
-                    <LinkButton
-                        href={buttonUrl}
-                        css={styles.primaryButton}
-                        onClick={() => onClick(0)}
-                    >
-                        {buttonText}
-                    </LinkButton>
+                    <CTA
+                        subscribeToNewsletter={subscribeToNewsletter}
+                        newsletterId={newsletterId as string}
+                        ophanComponentId={ophanComponentId}
+                        trackClick={trackClick}
+                    />
                 </div>
                 <div css={styles.bottomRightComponent}>
                     <div css={styles.image}>
@@ -122,4 +136,4 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
     );
 };
 
-export { BannerWithLink };
+export { BannerNewsletter };
