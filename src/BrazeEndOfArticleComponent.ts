@@ -1,5 +1,8 @@
 import React from 'react';
 
+// Common newsletter imports
+import { NewsletterSubscribeCallback } from './BrazeNewsletterComponents';
+
 // Common Epic imports
 import {
     buildBrazeMessageComponent,
@@ -13,7 +16,6 @@ import type { BrazeClickHandler, SubmitComponentEvent } from './utils/tracking';
 import {
     COMPONENT_NAME as NEWSLETTER_EPIC_NAME,
     NewsletterEpic,
-    NewsletterSubscribeCallback,
 } from './NewsletterEpic';
 
 // Generic Epic Templates
