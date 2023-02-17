@@ -1,6 +1,7 @@
 import React from 'react';
 import { canRender, COMPONENT_NAME } from './canRender';
-import { NewsletterEpic, NewsletterSubscribeCallback } from '../NewsletterEpic';
+import { NewsletterEpic } from '../NewsletterEpic';
+import { NewsletterSubscribeCallback } from '../newsletterCommon/sharedComponents';
 import type { TrackClick } from '../utils/tracking';
 
 const newsletterId = '4156';
