@@ -15,7 +15,6 @@ import type { BrazeClickHandler, SubmitComponentEvent } from './utils/tracking';
 // Isn't it the blueprint on top of which other newsletter epics get built?
 import { COMPONENT_NAME as NEWSLETTER_EPIC_NAME, NewsletterEpic } from './NewsletterEpic';
 
-
 // Generic Epic Templates
 import { COMPONENT_NAME as EPIC_NAME, Epic } from './Epic';
 import {
