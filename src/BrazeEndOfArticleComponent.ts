@@ -1,5 +1,8 @@
 import React from 'react';
 
+// Common newsletter imports
+import { NewsletterSubscribeCallback } from './newsletterCommon/sharedComponents';
+
 // Common Epic imports
 import {
     buildBrazeMessageComponent,
@@ -10,11 +13,8 @@ import type { BrazeClickHandler, SubmitComponentEvent } from './utils/tracking';
 
 // Why are we mapping this component?
 // Isn't it the blueprint on top of which other newsletter epics get built?
-import {
-    COMPONENT_NAME as NEWSLETTER_EPIC_NAME,
-    NewsletterEpic,
-    NewsletterSubscribeCallback,
-} from './NewsletterEpic';
+import { COMPONENT_NAME as NEWSLETTER_EPIC_NAME, NewsletterEpic } from './NewsletterEpic';
+
 
 // Generic Epic Templates
 import { COMPONENT_NAME as EPIC_NAME, Epic } from './Epic';
