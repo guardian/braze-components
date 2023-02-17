@@ -97,7 +97,7 @@ const styles = {
     `,
 };
 
-export type NewsletterSubscribeCallback = (id: string) => Promise<void>;
+export type NewsletterSubscribeCallback = (id: string) => Promise<unknown>;
 
 export type BrazeMessageProps = {
     header?: string;
