@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-import { Button, SvgCross, SvgInfoRound } from '@guardian/source-react-components';
+import { Button, SvgCross } from '@guardian/source-react-components';
 import { useEscapeShortcut } from '../utils/useEscapeShortcut';
 import { styles } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
-import { NewsletterSubscribeCallback, CTA } from '../BrazeNewsletterComponents';
+import {
+    NewsletterSubscribeCallback,
+    CTA,
+    NewsletterFrequency,
+} from '../BrazeNewsletterComponents';
 import type { TrackClick } from '../utils/tracking';
 
 export type BrazeMessageProps = {
@@ -105,15 +109,8 @@ const BannerNewsletter: React.FC<Props> = (props: Props) => {
         <div css={styles.wrapper}>
             <div css={styles.contentContainer}>
                 <div css={styles.topLeftComponent}>
-                    <div css={styles.infoIcon}>
-                        <SvgInfoRound />
-                    </div>
-                    <div css={styles.heading}>
-                        <span css={[styles.smallInfoIcon, styles.infoIcon]}>
-                            <SvgInfoRound />
-                        </span>
-                        {header}
-                    </div>
+                    <div css={styles.heading}>{header}</div>
+                    <NewsletterFrequency frequency={' '} />
                     <p css={styles.paragraph}>
                         {body}
 
@@ -124,16 +121,6 @@ const BannerNewsletter: React.FC<Props> = (props: Props) => {
                             </>
                         ) : null}
                     </p>
-
-                    {/*
-                    <LinkButton
-                        href={buttonUrl}
-                        css={styles.primaryButton}
-                        onClick={() => onClick(0)}
-                    >
-                        {buttonText}
-                    </LinkButton>
-*/}
                     <CTA
                         subscribeToNewsletter={subscribeToNewsletter}
                         newsletterId={newsletterId as string}

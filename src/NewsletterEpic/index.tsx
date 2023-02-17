@@ -9,12 +9,14 @@ import {
     until,
     body,
     headline,
-    textSans,
 } from '@guardian/source-foundations';
-import { SvgClock } from '@guardian/source-react-components';
 import { COMPONENT_NAME, canRender } from './canRender';
 import type { TrackClick } from '../utils/tracking';
-import { NewsletterSubscribeCallback, CTA } from '../BrazeNewsletterComponents';
+import {
+    NewsletterSubscribeCallback,
+    CTA,
+    NewsletterFrequency,
+} from '../BrazeNewsletterComponents';
 
 const styles = {
     epicContainer: css`
@@ -27,25 +29,6 @@ const styles = {
     `,
     rightSection: css`
         padding-left: 12px;
-    `,
-    frequencySection: css`
-        padding: 4px;
-    `,
-    frequencyClock: css`
-        position: relative;
-        top: 2px;
-        margin-right: 4px;
-
-        svg {
-            fill: #999999;
-            height: 16px;
-            width: 16px;
-        }
-    `,
-    frequencyText: css`
-        color: ${neutral[20]};
-        ${textSans.medium()}
-        margin-left: 4px;
     `,
     image: css`
         width: 196px;
@@ -140,12 +123,7 @@ export const NewsletterEpic: React.FC<Props> = (props: Props) => {
                 </div>
                 <div css={styles.rightSection}>
                     <span css={styles.heading}>{header}</span>
-                    <div css={styles.frequencySection}>
-                        <span css={styles.frequencyClock}>
-                            <SvgClock />
-                        </span>
-                        <span css={styles.frequencyText}>{frequency}</span>
-                    </div>
+                    <NewsletterFrequency frequency={frequency} />
                     <p css={styles.paragraph}>{paragraph1}</p>
                     {paragraph2 ? <p css={styles.paragraph}>{paragraph2}</p> : null}
                     <CTA

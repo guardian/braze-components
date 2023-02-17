@@ -1,9 +1,9 @@
 import { css, ThemeProvider, keyframes } from '@emotion/react';
 import React, { useState } from 'react';
-import { Button, buttonThemeBrandAlt } from '@guardian/source-react-components';
+import { Button, buttonThemeBrandAlt, SvgClock } from '@guardian/source-react-components';
 import type { TrackClick } from './utils/tracking';
 
-import { news, neutral, body } from '@guardian/source-foundations';
+import { news, neutral, body, textSans } from '@guardian/source-foundations';
 
 // Newsletter CTA button
 // -------------------------------------------------------
@@ -190,5 +190,51 @@ const LoadingDots = (): React.ReactElement => {
                 </g>
             </g>
         </svg>
+    );
+};
+
+// Newsletter Frequency Block
+// -------------------------------------------------------
+const frequencyStyles = {
+    container: css`
+        padding: 4px;
+    `,
+    clock: css`
+        position: relative;
+        top: 2px;
+        margin-right: 4px;
+
+        svg {
+            fill: #999999;
+            height: 16px;
+            width: 16px;
+        }
+    `,
+    text: css`
+        color: ${neutral[20]};
+        ${textSans.medium()}
+        margin-left: 4px;
+    `,
+};
+type NewsletterFrequencyProps = {
+    frequency?: string;
+};
+
+export const NewsletterFrequency: React.FC<NewsletterFrequencyProps> = (
+    props: NewsletterFrequencyProps,
+) => {
+    const { frequency } = props;
+
+    if (!frequency) {
+        return null;
+    }
+
+    return (
+        <div css={frequencyStyles.container}>
+            <span css={frequencyStyles.clock}>
+                <SvgClock />
+            </span>
+            <span css={frequencyStyles.text}>{frequency}</span>
+        </div>
     );
 };
