@@ -61,7 +61,7 @@ const StoryTemplate = (
             <BrazeEndOfArticleComponent
                 componentName={args.componentName}
                 brazeMessageProps={brazeMessageProps}
-                subscribeToNewsletter={() => mockSubscribe(args.newsletterId)}
+                subscribeToNewsletter={() => mockSubscribe('6006')}
                 logButtonClickWithBraze={(internalButtonId) => mockButtonClick(internalButtonId)}
                 submitComponentEvent={(componentEvent) => mockComponentEvent(componentEvent)}
             />
@@ -74,7 +74,6 @@ export const DefaultStory = StoryTemplate.bind({});
 DefaultStory.args = {
     slotName: 'EndOfArticle',
     header: `Sign up for The Guide`,
-    newsletterId: '6006',
     frequency: 'Weekly',
     paragraph1: 'Get our weekly pop culture email, free in your inbox every Friday.',
     paragraph2:

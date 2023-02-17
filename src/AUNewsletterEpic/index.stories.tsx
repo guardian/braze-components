@@ -61,7 +61,7 @@ const StoryTemplate = (
             <BrazeEndOfArticleComponent
                 componentName={args.componentName}
                 brazeMessageProps={brazeMessageProps}
-                subscribeToNewsletter={() => mockSubscribe(args.newsletterId)}
+                subscribeToNewsletter={() => mockSubscribe('4148')}
                 logButtonClickWithBraze={(internalButtonId) => mockButtonClick(internalButtonId)}
                 submitComponentEvent={(componentEvent) => mockComponentEvent(componentEvent)}
             />
@@ -74,7 +74,6 @@ export const DefaultStory = StoryTemplate.bind({});
 DefaultStory.args = {
     slotName: 'EndOfArticle',
     header: `Guardian Australia's Morning Mail`,
-    newsletterId: '4148',
     frequency: 'Every weekday',
     paragraph1: 'Get early morning news from Guardian Australia straight to your inbox.',
     paragraph2:

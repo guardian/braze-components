@@ -65,7 +65,7 @@ const StoryTemplate = (
             <BrazeEndOfArticleComponent
                 componentName={args.componentName}
                 brazeMessageProps={brazeMessageProps}
-                subscribeToNewsletter={() => mockSubscribe(args.newsletterId)}
+                subscribeToNewsletter={() => mockSubscribe('4147')}
                 logButtonClickWithBraze={(internalButtonId) => mockButtonClick(internalButtonId)}
                 submitComponentEvent={(componentEvent) => mockComponentEvent(componentEvent)}
             />
@@ -78,7 +78,6 @@ export const DefaultStory = StoryTemplate.bind({});
 DefaultStory.args = {
     slotName: 'EndOfArticle',
     header: 'Down To Earth',
-    newsletterId: '4147',
     frequency: 'Weekly',
     paragraph1:
         'An exclusive weekly piece from our top climate crisis correspondents, as well as a digest of the biggest environment stories – plus the good news, the not-so-good news, and everything else you need to know.',
