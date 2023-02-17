@@ -5,15 +5,18 @@ import {
     Button,
     buttonThemeReaderRevenueBrandAlt,
     SvgCross,
-    SvgInfoRound,
 } from '@guardian/source-react-components';
 import { OphanComponentEvent } from '@guardian/libs';
 
 import { AppStore } from '../assets/app-store';
 import { PlayStore } from '../assets/play-store';
 import { BrazeClickHandler } from '../utils/tracking';
-import { useEscapeShortcut } from '../utils/useEscapeShortcut';
 import { styles as commonStyles } from '../styles/bannerCommon';
+import {
+    useEscapeShortcut,
+    OnCloseClick,
+    logBannerCloseToOphan,
+} from '../bannerCommon/bannerActions';
 import { styles } from './styles';
 
 import { canRender, COMPONENT_NAME } from './canRender';
@@ -35,14 +38,6 @@ export type Props = {
     brazeMessageProps: BrazeMessageProps;
 };
 
-const catchAndLogErrors = (description: string, fn: () => void): void => {
-    try {
-        fn();
-    } catch (e) {
-        console.log(`Error (${description}): `, e.message);
-    }
-};
-
 export const AppBanner = (props: Props): ReactElement | null => {
     const {
         logButtonClickWithBraze,
@@ -57,36 +52,24 @@ export const AppBanner = (props: Props): ReactElement | null => {
 
     const [showBanner, setShowBanner] = useState(true);
 
-    const onCloseClick = (
-        evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-        internalButtonId: number,
-    ): void => {
-        evt.preventDefault();
+    const logToBrazeAndOphan = (internalButtonId: number): void => {
+        logBannerCloseToOphan(
+            internalButtonId,
+            submitComponentEvent,
+            ophanComponentId,
+            logButtonClickWithBraze,
+        );
+    };
 
+    const onCloseClick: OnCloseClick = (evt, internalButtonId) => {
+        evt.preventDefault();
         onCloseAction(internalButtonId);
     };
 
     const onCloseAction = (internalButtonId: number): void => {
         setShowBanner(false);
         document.body.focus();
-
-        catchAndLogErrors('ophanButtonClick', () => {
-            // Braze displays button id from 1, but internal representation is numbered from 0
-            // This ensures that the Button ID in Braze and Ophan will be the same
-            const externalButtonId = internalButtonId + 1;
-            submitComponentEvent({
-                component: {
-                    componentType: 'RETENTION_ENGAGEMENT_BANNER',
-                    id: ophanComponentId,
-                },
-                action: 'CLICK',
-                value: externalButtonId.toString(10),
-            });
-        });
-
-        catchAndLogErrors('brazeButtonClick', () => {
-            logButtonClickWithBraze(internalButtonId);
-        });
+        logToBrazeAndOphan(internalButtonId);
     };
 
     useEscapeShortcut(() => onCloseAction(1), []);
@@ -116,15 +99,7 @@ export const AppBanner = (props: Props): ReactElement | null => {
         <div css={commonStyles.wrapper}>
             <div css={commonStyles.contentContainer}>
                 <div css={commonStyles.topLeftComponent}>
-                    <div css={commonStyles.infoIcon}>
-                        <SvgInfoRound />
-                    </div>
-                    <div css={commonStyles.heading}>
-                        <span css={commonStyles.smallInfoIcon}>
-                            <SvgInfoRound />
-                        </span>
-                        {header}
-                    </div>
+                    <div css={commonStyles.heading}>{header}</div>
                     <p css={commonStyles.paragraph}>
                         {body}
                         <br />

@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { Button, LinkButton, SvgCross, SvgInfoRound } from '@guardian/source-react-components';
+import { Button, LinkButton, SvgCross } from '@guardian/source-react-components';
 import { OphanComponentEvent } from '@guardian/libs';
-
 import { BrazeClickHandler } from '../utils/tracking';
-import { useEscapeShortcut } from '../utils/useEscapeShortcut';
+import {
+    useEscapeShortcut,
+    logBannerCloseToOphan,
+    OnCloseClick,
+} from '../bannerCommon/bannerActions';
 import { styles } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
@@ -23,14 +26,6 @@ export type Props = {
     submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
     ophanComponentId?: string;
     brazeMessageProps: BrazeMessageProps;
-};
-
-const catchAndLogErrors = (description: string, fn: () => void): void => {
-    try {
-        fn();
-    } catch (e) {
-        console.log(`Error (${description}): `, e.message);
-    }
 };
 
 const BannerWithLink: React.FC<Props> = (props: Props) => {
@@ -55,30 +50,16 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
     }
 
     const logToBrazeAndOphan = (internalButtonId: number): void => {
-        catchAndLogErrors('ophanButtonClick', () => {
-            // Braze displays button id from 1, but internal representation is numbered from 0
-            // This ensures that the Button ID in Braze and Ophan will be the same
-            const externalButtonId = internalButtonId + 1;
-            submitComponentEvent({
-                component: {
-                    componentType: 'RETENTION_ENGAGEMENT_BANNER',
-                    id: ophanComponentId,
-                },
-                action: 'CLICK',
-                value: externalButtonId.toString(10),
-            });
-        });
-
-        catchAndLogErrors('brazeButtonClick', () => {
-            logButtonClickWithBraze(internalButtonId);
-        });
+        logBannerCloseToOphan(
+            internalButtonId,
+            submitComponentEvent,
+            ophanComponentId,
+            logButtonClickWithBraze,
+        );
     };
     const onClick = logToBrazeAndOphan;
 
-    const onCloseClick = (
-        evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-        internalButtonId: number,
-    ): void => {
+    const onCloseClick: OnCloseClick = (evt, internalButtonId) => {
         evt.preventDefault();
         onCloseAction(internalButtonId);
     };
@@ -86,7 +67,6 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
     const onCloseAction = (internalButtonId: number): void => {
         setShowBanner(false);
         document.body.focus();
-
         logToBrazeAndOphan(internalButtonId);
     };
 
@@ -100,15 +80,7 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
         <div css={styles.wrapper}>
             <div css={styles.contentContainer}>
                 <div css={styles.topLeftComponent}>
-                    <div css={styles.infoIcon}>
-                        <SvgInfoRound />
-                    </div>
-                    <div css={styles.heading}>
-                        <span css={[styles.smallInfoIcon, styles.infoIcon]}>
-                            <SvgInfoRound />
-                        </span>
-                        {header}
-                    </div>
+                    <div css={styles.heading}>{header}</div>
                     <p css={styles.paragraph}>
                         {body}
 
