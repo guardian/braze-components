@@ -50,6 +50,8 @@ const BannerNewsletter: React.FC<Props> = (props: Props) => {
         },
     } = props;
 
+    console.log('BannerNewsletter', frequency);
+
     const [showBanner, setShowBanner] = useState(true);
 
     if (!canRender(props.brazeMessageProps)) {
@@ -90,6 +92,7 @@ const BannerNewsletter: React.FC<Props> = (props: Props) => {
         document.body.focus();
 
         // logToBrazeAndOphan(internalButtonId);
+        console.log('onCloseAction internalButtonId', internalButtonId);
     };
 
     useEscapeShortcut(() => onCloseAction(1), []);
@@ -122,7 +125,7 @@ const BannerNewsletter: React.FC<Props> = (props: Props) => {
                         ) : null}
                     </p>
 
-{/*
+                    {/*
                     <LinkButton
                         href={buttonUrl}
                         css={styles.primaryButton}
@@ -137,7 +140,6 @@ const BannerNewsletter: React.FC<Props> = (props: Props) => {
                         ophanComponentId={ophanComponentId}
                         trackClick={trackClick}
                     />
-
                 </div>
                 <div css={styles.bottomRightComponent}>
                     <div css={styles.image}>

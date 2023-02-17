@@ -45,9 +45,9 @@ export default {
 };
 
 const StoryTemplate = (
-    args: BrazeMessageProps & { 
-        componentName: string,
-        newsletterId: string,
+    args: BrazeMessageProps & {
+        componentName: string;
+        newsletterId: string;
     },
 ): ReactElement | null => {
     const brazeMessageProps = {
@@ -68,7 +68,7 @@ const StoryTemplate = (
                 subscribeToNewsletter={() => mockSubscribe('4156')}
                 logButtonClickWithBraze={(internalButtonId) => mockButtonClick(internalButtonId)}
                 submitComponentEvent={(componentEvent) => mockComponentEvent(componentEvent)}
-           />
+            />
         </StorybookWrapper>
     );
 };

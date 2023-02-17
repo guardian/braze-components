@@ -16,7 +16,8 @@ export const StorybookWrapper: React.FC<Props> = ({ children }: Props) => (
     </div>
 );
 
-export const mockSubscribe = (newsletterId: string) => {
+type MockSubscribe = (id: string) => Promise<unknown>;
+export const mockSubscribe: MockSubscribe = (newsletterId) => {
     console.log(`subscribeToNewsletter invoked - ${newsletterId}`);
     return new Promise((resolve: (value: unknown) => void) => {
         setTimeout(() => {
@@ -26,10 +27,12 @@ export const mockSubscribe = (newsletterId: string) => {
     });
 };
 
-export const mockButtonClick = (internalButtonId: number) => {
+type MockButtonClick = (id: number) => void;
+export const mockButtonClick: MockButtonClick = (internalButtonId) => {
     console.log(`Button with internal ID ${internalButtonId} clicked`);
 };
 
-export const mockComponentEvent = (componentEvent: {[key: string]: any}) => {
+type MockComponentEvent = (e: { [key: string]: unknown }) => void;
+export const mockComponentEvent: MockComponentEvent = (componentEvent) => {
     console.log('submitComponentEvent called with: ', componentEvent);
 };

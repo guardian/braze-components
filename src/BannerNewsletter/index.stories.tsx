@@ -54,9 +54,9 @@ export default {
 };
 
 const StoryTemplate = (
-    args: BrazeMessageProps & { 
-        componentName: string,
-        newsletterId: string,
+    args: BrazeMessageProps & {
+        componentName: string;
+        newsletterId: string;
     },
 ): ReactElement => {
     const imageUrl = grid(

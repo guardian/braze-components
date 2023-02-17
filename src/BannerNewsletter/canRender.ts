@@ -7,10 +7,10 @@ import type { BrazeMessageProps } from './index';
 export const COMPONENT_NAME = 'BannerNewsletter';
 
 export const canRender = (brazeMessageProps: BrazeMessageProps): boolean => {
-    const { header, body, buttonText, buttonUrl, imageUrl, ophanComponentId } = brazeMessageProps;
+    const { header, body, imageUrl, ophanComponentId, newsletterId, frequency } = brazeMessageProps;
     if (imageUrl && !isImageUrlAllowed(imageUrl)) {
         console.log(`Image URL ${imageUrl} is not allowed`);
         return false;
     }
-    return Boolean(header && body && buttonText && buttonUrl && imageUrl && ophanComponentId);
+    return Boolean(header && body && imageUrl && ophanComponentId && newsletterId && frequency);
 };
