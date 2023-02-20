@@ -8,8 +8,7 @@ import { AppBanner } from '.';
 
 describe('AppBanner', () => {
     const baseProps = () => ({
-        logButtonClickWithBraze: jest.fn(),
-        submitComponentEvent: jest.fn(),
+        trackClick: jest.fn(),
         brazeMessageProps: {
             header: 'A note to our digital subscribers',
             body: 'Hi John, did you know...',
@@ -23,29 +22,28 @@ describe('AppBanner', () => {
         it('invokes logButtonClickWithBraze with the internal button ID', () => {
             const logButtonClickWithBraze = jest.fn();
             const { getByText } = render(
-                <AppBanner {...baseProps()} logButtonClickWithBraze={logButtonClickWithBraze} />,
+                <AppBanner {...baseProps()} trackClick={logButtonClickWithBraze} />,
             );
 
             fireEvent.click(getByText('Ok, got it'));
 
-            expect(logButtonClickWithBraze).toHaveBeenCalledWith(0);
+            expect(logButtonClickWithBraze).toHaveBeenCalledWith({
+                internalButtonId: 0,
+                ophanComponentId: 'AppBanner',
+            });
         });
 
         it('invokes submitComponentEvent with correct data', () => {
             const logButtonClickWithOphan = jest.fn();
             const { getByText } = render(
-                <AppBanner {...baseProps()} submitComponentEvent={logButtonClickWithOphan} />,
+                <AppBanner {...baseProps()} trackClick={logButtonClickWithOphan} />,
             );
 
             fireEvent.click(getByText('Ok, got it'));
 
             expect(logButtonClickWithOphan).toHaveBeenCalledWith({
-                component: {
-                    componentType: 'RETENTION_ENGAGEMENT_BANNER',
-                    id: 'AppBanner',
-                },
-                action: 'CLICK',
-                value: '1',
+                internalButtonId: 0,
+                ophanComponentId: 'AppBanner',
             });
         });
 
@@ -61,12 +59,7 @@ describe('AppBanner', () => {
 
         it('closes the banner even if the callback throws an error', () => {
             const props = baseProps();
-            const logButtonClickWithBraze = () => {
-                throw new Error('Something went wrong');
-            };
-            const { container, getByText } = render(
-                <AppBanner {...props} logButtonClickWithBraze={logButtonClickWithBraze} />,
-            );
+            const { container, getByText } = render(<AppBanner {...props} />);
 
             fireEvent.click(getByText('Ok, got it'));
 

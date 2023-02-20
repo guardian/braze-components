@@ -34,13 +34,7 @@ export type Props = {
 
 export const AppBanner = (props: Props): ReactElement | null => {
     const {
-        brazeMessageProps: {
-            ophanComponentId = COMPONENT_NAME,
-            header,
-            body,
-            cta,
-            imageUrl,
-        },
+        brazeMessageProps: { ophanComponentId = COMPONENT_NAME, header, body, cta, imageUrl },
         trackClick,
     } = props;
 

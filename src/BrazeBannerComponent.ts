@@ -29,9 +29,7 @@ export type CommonBannerComponentProps = {
     submitComponentEvent: SubmitComponentEvent;
 };
 
-const BANNER_MAPPINGS: ComponentMapping<
-    CommonBannerComponentProps & HasConsolidatedTrackClick
-> = {
+const BANNER_MAPPINGS: ComponentMapping<CommonBannerComponentProps & HasConsolidatedTrackClick> = {
     [DIGITAL_SUBSCRIBER_APP_BANNER_NAME]: DigitalSubscriberAppBanner,
     [APP_BANNER_NAME]: AppBanner,
     [BANNER_WITH_LINK_NAME]: BannerWithLink,
