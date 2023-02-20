@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
 import { Button, LinkButton, SvgCross } from '@guardian/source-react-components';
-import { OphanComponentEvent } from '@guardian/libs';
-import { BrazeClickHandler } from '../utils/tracking';
-import {
-    useEscapeShortcut,
-    logBannerCloseToOphan,
-    OnCloseClick,
-} from '../bannerCommon/bannerActions';
+import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
+import type { TrackClick } from '../utils/tracking';
 import { styles } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
@@ -22,24 +17,22 @@ export type BrazeMessageProps = {
 };
 
 export type Props = {
-    logButtonClickWithBraze: BrazeClickHandler;
-    submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
     brazeMessageProps: BrazeMessageProps;
+    trackClick: TrackClick;
 };
 
 const BannerWithLink: React.FC<Props> = (props: Props) => {
     const {
-        logButtonClickWithBraze,
-        submitComponentEvent,
         brazeMessageProps: {
+            ophanComponentId = COMPONENT_NAME,
             header,
             body,
             boldText,
             buttonText,
             buttonUrl,
             imageUrl,
-            ophanComponentId,
         },
+        trackClick,
     } = props;
 
     const [showBanner, setShowBanner] = useState(true);
@@ -47,16 +40,6 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
     if (!canRender(props.brazeMessageProps)) {
         return null;
     }
-
-    const logToBrazeAndOphan = (internalButtonId: number): void => {
-        logBannerCloseToOphan(
-            internalButtonId,
-            submitComponentEvent,
-            ophanComponentId,
-            logButtonClickWithBraze,
-        );
-    };
-    const onClick = logToBrazeAndOphan;
 
     const onCloseClick: OnCloseClick = (evt, internalButtonId) => {
         evt.preventDefault();
@@ -66,10 +49,13 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
     const onCloseAction = (internalButtonId: number): void => {
         setShowBanner(false);
         document.body.focus();
-        logToBrazeAndOphan(internalButtonId);
+        trackClick({
+            internalButtonId,
+            ophanComponentId: ophanComponentId as string,
+        });
     };
 
-    useEscapeShortcut(() => onCloseAction(1), []);
+    useEscapeShortcut(() => onCloseAction(CLOSE_BUTTON_ID));
 
     if (!showBanner) {
         return null;
@@ -93,7 +79,12 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
                     <LinkButton
                         href={buttonUrl}
                         css={styles.primaryButton}
-                        onClick={() => onClick(0)}
+                        onClick={() =>
+                            trackClick({
+                                internalButtonId: 0,
+                                ophanComponentId: ophanComponentId as string,
+                            })
+                        }
                     >
                         {buttonText}
                     </LinkButton>
@@ -110,7 +101,7 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
                             priority="tertiary"
                             size="small"
                             aria-label="Close"
-                            onClick={(e) => onCloseClick(e, 1)}
+                            onClick={(e) => onCloseClick(e, CLOSE_BUTTON_ID)}
                             tabIndex={0}
                         >
                             {' '}

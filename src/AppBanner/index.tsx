@@ -6,23 +6,19 @@ import {
     buttonThemeReaderRevenueBrandAlt,
     SvgCross,
 } from '@guardian/source-react-components';
-import { OphanComponentEvent } from '@guardian/libs';
+import type { TrackClick } from '../utils/tracking';
 
 import { AppStore } from '../assets/app-store';
 import { PlayStore } from '../assets/play-store';
-import { BrazeClickHandler } from '../utils/tracking';
 import { styles as commonStyles } from '../styles/bannerCommon';
-import {
-    useEscapeShortcut,
-    OnCloseClick,
-    logBannerCloseToOphan,
-} from '../bannerCommon/bannerActions';
+import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
 import { styles } from './styles';
 
 import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
 
 export type BrazeMessageProps = {
+    ophanComponentId?: string;
     header?: string;
     body?: string;
     cta?: string;
@@ -32,18 +28,20 @@ export type BrazeMessageProps = {
 import type { ButtonTheme } from '@guardian/source-react-components';
 
 export type Props = {
-    logButtonClickWithBraze: BrazeClickHandler;
-    submitComponentEvent: (componentEvent: OphanComponentEvent) => void;
-    ophanComponentId?: string;
     brazeMessageProps: BrazeMessageProps;
+    trackClick: TrackClick;
 };
 
 export const AppBanner = (props: Props): ReactElement | null => {
     const {
-        logButtonClickWithBraze,
-        submitComponentEvent,
-        ophanComponentId = COMPONENT_NAME,
-        brazeMessageProps: { header, body, cta, imageUrl },
+        brazeMessageProps: {
+            ophanComponentId = COMPONENT_NAME,
+            header,
+            body,
+            cta,
+            imageUrl,
+        },
+        trackClick,
     } = props;
 
     if (!canRender(props.brazeMessageProps)) {
@@ -52,14 +50,9 @@ export const AppBanner = (props: Props): ReactElement | null => {
 
     const [showBanner, setShowBanner] = useState(true);
 
-    const logToBrazeAndOphan = (internalButtonId: number): void => {
-        logBannerCloseToOphan(
-            internalButtonId,
-            submitComponentEvent,
-            ophanComponentId,
-            logButtonClickWithBraze,
-        );
-    };
+    if (!canRender(props.brazeMessageProps)) {
+        return null;
+    }
 
     const onCloseClick: OnCloseClick = (evt, internalButtonId) => {
         evt.preventDefault();
@@ -69,10 +62,13 @@ export const AppBanner = (props: Props): ReactElement | null => {
     const onCloseAction = (internalButtonId: number): void => {
         setShowBanner(false);
         document.body.focus();
-        logToBrazeAndOphan(internalButtonId);
+        trackClick({
+            internalButtonId,
+            ophanComponentId: ophanComponentId as string,
+        });
     };
 
-    useEscapeShortcut(() => onCloseAction(1), []);
+    useEscapeShortcut(() => onCloseAction(CLOSE_BUTTON_ID));
 
     // This is to keep button colors the same as before
     // https://github.com/guardian/braze-components/pull/123
@@ -147,7 +143,7 @@ export const AppBanner = (props: Props): ReactElement | null => {
                                 priority="tertiary"
                                 size="small"
                                 aria-label="Close"
-                                onClick={(e) => onCloseClick(e, 1)}
+                                onClick={(e) => onCloseClick(e, CLOSE_BUTTON_ID)}
                                 tabIndex={0}
                             >
                                 {' '}

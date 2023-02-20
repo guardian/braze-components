@@ -19,6 +19,10 @@ export type ComponentMapping<A> = {
     [key: string]: React.FC<A>;
 };
 
+export type BrazeMessageProps = {
+    [key: string]: string | undefined;
+};
+
 // We know in here that we have access to logButtonClickWithBraze and
 // submitComponentEvent (using the HasClickTrackingCallbacks interface). So,
 // we're able to consolidate these into a single trackClick callback in the
