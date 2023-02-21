@@ -9,8 +9,6 @@ import { DigitalSubscriberAppBanner } from '.';
 describe('DigitalSubscriberAppBanner', () => {
     describe('when a button is clicked', () => {
         const baseProps = () => ({
-            // logButtonClickWithBraze: jest.fn(),
-            // submitComponentEvent: jest.fn(),
             trackClick: jest.fn(),
             brazeMessageProps: {
                 header: 'A note to our digital subscribers',
