@@ -1,40 +1,54 @@
-import React, { useState, ReactElement } from 'react';
-import { css } from '@emotion/react';
-import { ThemeProvider } from '@emotion/react';
-import {
-    Button,
-    buttonThemeReaderRevenueBrandAlt,
-    SvgCross,
-} from '@guardian/source-react-components';
-import type { TrackClick } from '../utils/tracking';
+import React, { useState, ReactElement, useEffect, useRef } from 'react';
 
-import { AppStore } from '../assets/app-store';
-import { PlayStore } from '../assets/play-store';
-import { styles as commonStyles } from '../styles/bannerCommon';
-import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
-import { styles } from './styles';
+import type { TrackClick } from '../utils/tracking';
+import {
+    useEscapeShortcut,
+    OnCloseClick,
+    CLOSE_BUTTON_ID,
+    captureFocusOnBanner,
+} from '../bannerCommon/bannerActions';
+
+import { BannerStickyTopBar } from '../bannerCommon/BannerStickyTopBar';
+import { BannerBodyCopy } from '../bannerCommon/BannerBodyCopy';
+import { BannerAppStrapline } from '../bannerCommon/BannerAppStrapline';
+import { BannerLinkButton } from '../bannerCommon/BannerLinkButton';
+import { BannerNotInterestedButton } from '../bannerCommon/BannerNotInterestedButton';
+import { BannerImageBlock } from '../bannerCommon/BannerImageBlock';
+import { BannerCloseButton } from '../bannerCommon/BannerCloseButton';
 
 import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
+
+import { styles } from '../bannerCommon/bannerStyles';
 
 export type BrazeMessageProps = {
     ophanComponentId?: string;
     header?: string;
     body?: string;
+    boldText?: string;
+    secondParagraph?: string;
     cta?: string;
     imageUrl?: string;
+    imageAccessibilityText?: string;
 };
 
-import type { ButtonTheme } from '@guardian/source-react-components';
-
-export type Props = {
+type Props = {
     brazeMessageProps: BrazeMessageProps;
     trackClick: TrackClick;
 };
 
 export const AppBanner = (props: Props): ReactElement | null => {
     const {
-        brazeMessageProps: { ophanComponentId = COMPONENT_NAME, header, body, cta, imageUrl },
+        brazeMessageProps: {
+            ophanComponentId = COMPONENT_NAME,
+            header,
+            body,
+            boldText,
+            secondParagraph,
+            cta,
+            imageUrl,
+            imageAccessibilityText,
+        },
         trackClick,
     } = props;
 
@@ -64,87 +78,42 @@ export const AppBanner = (props: Props): ReactElement | null => {
 
     useEscapeShortcut(() => onCloseAction(CLOSE_BUTTON_ID));
 
-    // This is to keep button colors the same as before
-    // https://github.com/guardian/braze-components/pull/123
-    // Probably should be removed later
-    const overrridenReaderRevenueTheme: { button: ButtonTheme } = {
-        button: {
-            ...buttonThemeReaderRevenueBrandAlt.button,
-            backgroundPrimary: 'rgb(51, 51, 51)',
-            backgroundPrimaryHover: 'black',
-        },
-    };
-    const notInterestedTheme: { button: ButtonTheme } = {
-        button: {
-            ...buttonThemeReaderRevenueBrandAlt.button,
-            textSubdued: 'rgb(51, 51, 51)',
-        },
-    };
+    const bannerRef = useRef<HTMLDivElement>(null);
+    useEffect(() => captureFocusOnBanner(bannerRef), [bannerRef.current]);
 
     if (!showBanner) {
         return null;
     }
 
     return (
-        <div css={commonStyles.wrapper}>
-            <div css={commonStyles.contentContainer}>
-                <div css={commonStyles.topLeftComponent}>
-                    <div css={commonStyles.heading}>{header}</div>
-                    <p css={commonStyles.paragraph}>
-                        {body}
-                        <br />
-                        <strong css={commonStyles.cta}>{cta}</strong>
-                        <span css={styles.storeIcon}>
-                            <AppStore />
-                            <PlayStore />
-                        </span>
-                    </p>
-                    <ThemeProvider theme={overrridenReaderRevenueTheme}>
-                        <Button
-                            onClick={(e) => onCloseClick(e, 0)}
-                            css={commonStyles.primaryButton}
-                        >
-                            Ok, got it
-                        </Button>
-                    </ThemeProvider>
-                    <ThemeProvider theme={notInterestedTheme}>
-                        <Button
-                            onClick={(e) => onCloseClick(e, 0)}
-                            priority="subdued"
-                            cssOverrides={css`
-                                text-decoration: none;
-                                text-underline-offset: inherit;
+        <div css={styles.wrapper} ref={bannerRef}>
+            <BannerStickyTopBar
+                header={header}
+                frequency="We'll give it to you for free!"
+                onCloseClick={onCloseClick}
+            />
 
-                                &:hover {
-                                    text-decoration: underline;
-                                }
-                            `}
-                        >
-                            {"I'm not interested"}
-                        </Button>
-                    </ThemeProvider>
-                </div>
-                <div css={commonStyles.bottomRightComponent}>
-                    <div css={styles.image}>
-                        <img src={imageUrl} alt="" />
+            <div css={[styles.breakpoints, styles.contentContainer]}>
+                <div>
+                    <BannerBodyCopy
+                        body={body}
+                        boldText={boldText}
+                        secondParagraph={secondParagraph}
+                    />
+
+                    <BannerAppStrapline cta={cta} />
+                    <div css={styles.ctaBar}>
+                        <BannerLinkButton onCloseClick={onCloseClick} />
+                        <BannerNotInterestedButton onCloseClick={onCloseClick} />
                     </div>
-                    <div css={commonStyles.iconPanel}>
-                        <ThemeProvider theme={overrridenReaderRevenueTheme}>
-                            <Button
-                                icon={<SvgCross />}
-                                hideLabel={true}
-                                css={commonStyles.closeButton}
-                                priority="tertiary"
-                                size="small"
-                                aria-label="Close"
-                                onClick={(e) => onCloseClick(e, CLOSE_BUTTON_ID)}
-                                tabIndex={0}
-                            >
-                                {' '}
-                            </Button>
-                        </ThemeProvider>
+                    <div css={styles.hiddenCloseButton}>
+                        <BannerCloseButton onCloseClick={onCloseClick} />
                     </div>
                 </div>
+                <BannerImageBlock
+                    imageUrl={imageUrl}
+                    imageAccessibilityText={imageAccessibilityText}
+                />
             </div>
         </div>
     );

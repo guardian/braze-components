@@ -51,6 +51,20 @@ export const styles = {
         }
     `,
 
+    topBar: css`
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        background-color: ${bannerColor};
+
+        ${from.desktop} {
+            min-height: 0;
+        }
+    `,
+
     topLeftComponent: css`
         width: 93%;
         padding: ${space[4]}px;
