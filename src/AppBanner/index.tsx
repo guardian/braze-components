@@ -104,9 +104,9 @@ export const AppBanner = (props: Props): ReactElement | null => {
                     <BannerAppStrapline cta={cta} />
                     <div css={styles.ctaBar}>
                         <BannerLinkButton onCloseClick={onCloseClick} />
-                        <BannerSecondaryCtaButton 
+                        <BannerSecondaryCtaButton
                             buttonCopy={"I'm not interested"}
-                            onCloseClick={onCloseClick} 
+                            onCloseClick={onCloseClick}
                         />
                     </div>
                     <div css={styles.hiddenCloseButton}>

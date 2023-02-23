@@ -38,7 +38,10 @@ export const BannerLinkButton = (props: BannerLinkButtonProps): JSX.Element => {
 
     return (
         <ThemeProvider theme={overrridenReaderRevenueTheme}>
-            <Button onClick={(e) => onCloseClick(e, ACKNOWLEDGE_BUTTON_ID)} css={styles.primaryButton}>
+            <Button
+                onClick={(e) => onCloseClick(e, ACKNOWLEDGE_BUTTON_ID)}
+                css={styles.primaryButton}
+            >
                 Ok, got it
             </Button>
         </ThemeProvider>
