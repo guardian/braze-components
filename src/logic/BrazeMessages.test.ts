@@ -20,6 +20,7 @@ const bannerExtras = {
     buttonUrl: 'http://guardian.co.uk',
     imageUrl:
         'https://i.guim.co.uk/img/media/c9ba78ef2b1a931aab5ca625ce49646e116b11b3/0_0_3200_1800/3200.png?quality=60&width=930&s=72ff133ea3e4516f5a353213e7a62e8a',
+    imageAccessibilityText: 'Product packshot image',
 };
 
 const epicExtras = {

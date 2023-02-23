@@ -36,7 +36,7 @@ const ctaStyles = {
     `,
 };
 
-export type NewsletterSubscribeCallback = (id: string) => Promise<void>;
+export type NewsletterSubscribeCallback = (id: string | undefined) => Promise<void>;
 
 type SubscribeClickStatus = 'DEFAULT' | 'IN_PROGRESS' | 'SUCCESS' | 'FAILURE';
 

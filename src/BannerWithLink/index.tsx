@@ -1,27 +1,31 @@
-import React, { useState } from 'react';
-import { Button, LinkButton, SvgCross } from '@guardian/source-react-components';
-import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
+import React, { useState, ReactElement, useEffect, useRef } from 'react';
+
 import type { TrackClick } from '../utils/tracking';
-import { styles } from '../styles/bannerCommon';
+import {
+    BrazeBannerMessageProps,
+    captureFocusOnBanner,
+    CLOSE_BUTTON_ID,
+    OnCloseClick,
+    useEscapeShortcut,
+} from '../bannerCommon/bannerActions';
+
+import { BannerStickyTopBar } from '../bannerCommon/BannerStickyTopBar';
+import { BannerBodyCopy } from '../bannerCommon/BannerBodyCopy';
+import { BannerLinkButton } from '../bannerCommon/BannerLinkButton';
+import { BannerImageBlock } from '../bannerCommon/BannerImageBlock';
+import { BannerCloseButton } from '../bannerCommon/BannerCloseButton';
+
 import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
 
-export type BrazeMessageProps = {
-    ophanComponentId?: string;
-    header?: string;
-    body?: string;
-    boldText?: string;
-    buttonText?: string;
-    buttonUrl?: string;
-    imageUrl?: string;
-};
+import { styles } from '../bannerCommon/bannerStyles';
 
-export type Props = {
-    brazeMessageProps: BrazeMessageProps;
+type Props = {
+    brazeMessageProps: BrazeBannerMessageProps;
     trackClick: TrackClick;
 };
 
-const BannerWithLink: React.FC<Props> = (props: Props) => {
+export const BannerWithLink = (props: Props): ReactElement | null => {
     const {
         brazeMessageProps: {
             ophanComponentId = COMPONENT_NAME,
@@ -31,15 +35,16 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
             buttonText,
             buttonUrl,
             imageUrl,
+            imageAccessibilityText,
         },
         trackClick,
     } = props;
 
-    const [showBanner, setShowBanner] = useState(true);
-
     if (!canRender(props.brazeMessageProps)) {
         return null;
     }
+
+    const [showBanner, setShowBanner] = useState(true);
 
     const onCloseClick: OnCloseClick = (evt, internalButtonId) => {
         evt.preventDefault();
@@ -57,60 +62,40 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
 
     useEscapeShortcut(() => onCloseAction(CLOSE_BUTTON_ID));
 
+    const bannerRef = useRef<HTMLDivElement>(null);
+    useEffect(() => captureFocusOnBanner(bannerRef), [bannerRef.current]);
+
     if (!showBanner) {
         return null;
     }
 
     return (
-        <div css={styles.wrapper}>
-            <div css={styles.contentContainer}>
-                <div css={styles.topLeftComponent}>
-                    <div css={styles.heading}>{header}</div>
-                    <p css={styles.paragraph}>
-                        {body}
+        <div css={styles.wrapper} ref={bannerRef}>
+            <BannerStickyTopBar header={header} onCloseClick={onCloseClick} />
 
-                        {boldText ? (
-                            <>
-                                <br />
-                                <strong css={styles.cta}>{boldText}</strong>
-                            </>
-                        ) : null}
-                    </p>
-                    <LinkButton
-                        href={buttonUrl}
-                        css={styles.primaryButton}
-                        onClick={() =>
-                            trackClick({
-                                internalButtonId: 0,
-                                ophanComponentId: ophanComponentId as string,
-                            })
-                        }
-                    >
-                        {buttonText}
-                    </LinkButton>
-                </div>
-                <div css={styles.bottomRightComponent}>
-                    <div css={styles.image}>
-                        <img src={imageUrl} alt="" />
-                    </div>
-                    <div css={styles.iconPanel}>
-                        <Button
-                            icon={<SvgCross />}
-                            hideLabel={true}
-                            cssOverrides={styles.closeButton}
-                            priority="tertiary"
-                            size="small"
-                            aria-label="Close"
-                            onClick={(e) => onCloseClick(e, CLOSE_BUTTON_ID)}
-                            tabIndex={0}
-                        >
-                            {' '}
-                        </Button>
+            <div css={[styles.breakpoints, styles.contentContainer]}>
+                <div>
+                    <BannerBodyCopy body={body} boldText={boldText} />
+
+                    {buttonText && buttonUrl && (
+                        <div css={styles.ctaBar}>
+                            <BannerLinkButton
+                                ophanComponentId={ophanComponentId as string}
+                                buttonText={buttonText}
+                                buttonUrl={buttonUrl}
+                                trackClick={trackClick}
+                            />
+                        </div>
+                    )}
+                    <div css={styles.hiddenCloseButton}>
+                        <BannerCloseButton onCloseClick={onCloseClick} />
                     </div>
                 </div>
+                <BannerImageBlock
+                    imageUrl={imageUrl}
+                    imageAccessibilityText={imageAccessibilityText}
+                />
             </div>
         </div>
     );
 };
-
-export { BannerWithLink };
