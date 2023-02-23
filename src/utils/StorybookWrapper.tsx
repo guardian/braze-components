@@ -1,4 +1,5 @@
 import React from 'react';
+import { NewsletterSubscribeCallback } from '../NewsletterEpic';
 import { fontFaces, cssResets, previewStyles } from './styleUtilities';
 
 type Props = {
@@ -16,13 +17,12 @@ export const StorybookWrapper: React.FC<Props> = ({ children }: Props) => (
     </div>
 );
 
-type MockSubscribe = (id: string) => Promise<unknown>;
-export const mockSubscribe: MockSubscribe = (newsletterId) => {
+export const mockSubscribe: NewsletterSubscribeCallback = (newsletterId) => {
     console.log(`subscribeToNewsletter invoked - ${newsletterId}`);
-    return new Promise((resolve: (value: unknown) => void) => {
+    return new Promise((resolve) => {
         setTimeout(() => {
             console.log(`subscribeToNewsletter resolved - ${newsletterId}`);
-            resolve('');
+            resolve();
         }, 1000);
     });
 };
