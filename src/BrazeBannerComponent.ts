@@ -24,7 +24,7 @@ import { COMPONENT_NAME as BANNER_NEWSLETTER_NAME, BannerNewsletter } from './Ba
 export type CommonBannerComponentProps = {
     componentName: string;
     brazeMessageProps: BrazeMessageProps;
-    subscribeToNewsletter: NewsletterSubscribeCallback;
+    subscribeToNewsletter?: NewsletterSubscribeCallback;
     logButtonClickWithBraze: BrazeClickHandler;
     submitComponentEvent: SubmitComponentEvent;
 };

@@ -26,6 +26,21 @@ export type OnCloseClick = (
     internalButtonId: number,
 ) => void;
 
+export type BrazeBannerMessageProps = {
+    ophanComponentId?: string;
+    header?: string;
+    newsletterId?: string;
+    frequency?: string;
+    body?: string;
+    boldText?: string;
+    secondParagraph?: string;
+    cta?: string;
+    buttonText?: string;
+    buttonUrl?: string;
+    imageUrl?: string;
+    imageAccessibilityText?: string;
+};
+
 export const CLOSE_BUTTON_ID = 1;
 export const ACKNOWLEDGE_BUTTON_ID = 0;
 

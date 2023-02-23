@@ -1,14 +1,10 @@
 import React from 'react';
 import { css } from '@emotion/react';
 
-import { OnCloseClick, ACKNOWLEDGE_BUTTON_ID } from '../bannerCommon/bannerActions';
+import { ACKNOWLEDGE_BUTTON_ID } from '../bannerCommon/bannerActions';
+import type { TrackClick } from '../utils/tracking';
 
-import { ThemeProvider } from '@emotion/react';
-import {
-    Button,
-    buttonThemeReaderRevenueBrandAlt,
-    ButtonTheme,
-} from '@guardian/source-react-components';
+import { LinkButton } from '@guardian/source-react-components';
 
 import { space } from '@guardian/source-foundations';
 
@@ -19,31 +15,27 @@ const styles = {
 };
 
 type BannerLinkButtonProps = {
-    onCloseClick: OnCloseClick;
+    ophanComponentId: string;
+    buttonText: string;
+    buttonUrl: string;
+    trackClick: TrackClick;
 };
 
 export const BannerLinkButton = (props: BannerLinkButtonProps): JSX.Element => {
-    const { onCloseClick } = props;
-
-    // This is to keep button colors the same as before
-    // https://github.com/guardian/braze-components/pull/123
-    // Probably should be removed later
-    const overrridenReaderRevenueTheme: { button: ButtonTheme } = {
-        button: {
-            ...buttonThemeReaderRevenueBrandAlt.button,
-            backgroundPrimary: 'rgb(51, 51, 51)',
-            backgroundPrimaryHover: 'black',
-        },
-    };
+    const { ophanComponentId, buttonText, buttonUrl, trackClick } = props;
 
     return (
-        <ThemeProvider theme={overrridenReaderRevenueTheme}>
-            <Button
-                onClick={(e) => onCloseClick(e, ACKNOWLEDGE_BUTTON_ID)}
-                css={styles.primaryButton}
-            >
-                Ok, got it
-            </Button>
-        </ThemeProvider>
+        <LinkButton
+            href={buttonUrl}
+            onClick={() =>
+                trackClick({
+                    ophanComponentId,
+                    internalButtonId: ACKNOWLEDGE_BUTTON_ID,
+                })
+            }
+            css={styles.primaryButton}
+        >
+            {buttonText}
+        </LinkButton>
     );
 };

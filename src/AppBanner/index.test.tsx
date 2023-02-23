@@ -15,6 +15,8 @@ describe('AppBanner', () => {
             cta: 'Search for "Guardian"...',
             imageUrl:
                 'https://i.guim.co.uk/img/media/de6813b4dd9b9805a2d14dd6af14ae2b48e2e19e/0_0_930_520/930.png?width=930&quality=60&s=a7d81978655765847246c8d4d0cd0e7f',
+            imageAccessibilityText: 'Product packshot image',
+            ophanComponentId: 'AppBanner',
         },
     });
 

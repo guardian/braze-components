@@ -1,15 +1,18 @@
 import React, { ReactElement } from 'react';
-import { BrazeBannerComponent } from '../BrazeBannerComponent';
+
 import { StorybookWrapper } from '../utils/StorybookWrapper';
 import { knobsData } from '../utils/knobsData';
-import { BrazeMessageProps } from '.';
-import { coreArgTypes } from '../storybookCommon/argTypes';
+import { coreArgTypes, ophanComponentIdArgType } from '../storybookCommon/argTypes';
+
+import { BrazeBannerComponent } from '../BrazeBannerComponent';
+import type { BrazeBannerMessageProps } from '../bannerCommon/bannerActions';
 
 export default {
     component: 'DigitalSubscriberAppBanner',
     title: 'Banner/DigitalSubscriberAppBanner',
     argTypes: {
         ...coreArgTypes,
+        ...ophanComponentIdArgType,
         header: {
             name: 'header',
             type: { name: 'string', required: true },
@@ -23,8 +26,9 @@ export default {
     },
 };
 
-const StoryTemplate = (args: BrazeMessageProps & { componentName: string }): ReactElement => {
+const StoryTemplate = (args: BrazeBannerMessageProps & { componentName: string }): ReactElement => {
     const brazeMessageProps = {
+        ophanComponentId: args.ophanComponentId,
         header: args.header,
         body: args.body,
     };
@@ -52,9 +56,12 @@ export const DefaultStory = StoryTemplate.bind({});
 
 DefaultStory.args = {
     slotName: 'Banner',
+    componentName: 'DigitalSubscriberAppBanner',
+
+    ophanComponentId: 'change_me_ophan_component_id',
+
     header: 'A note to our digital subscribers',
     body: 'Hi John, did you know that as a Guardian digital subscriber you can enjoy an enhanced experience of our quality, independent journalism on all your devices, including The Guardian Live app.',
-    componentName: 'DigitalSubscriberAppBanner',
 };
 
 DefaultStory.story = { name: 'DigitalSubscriberAppBanner' };

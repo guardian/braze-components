@@ -1,5 +1,5 @@
 import React from 'react';
-import { NewsletterSubscribeCallback } from '../NewsletterEpic';
+import { NewsletterSubscribeCallback } from '../newsletterCommon/sharedComponents';
 import { fontFaces, cssResets, previewStyles } from './styleUtilities';
 
 type Props = {

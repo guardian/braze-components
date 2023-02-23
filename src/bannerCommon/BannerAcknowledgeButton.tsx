@@ -10,41 +10,38 @@ import {
     ButtonTheme,
 } from '@guardian/source-react-components';
 
-const styles = {
-    notInterestedButton: css`
-        text-decoration: none;
-        text-underline-offset: inherit;
+import { space } from '@guardian/source-foundations';
 
-        &:hover {
-            text-decoration: underline;
-        }
+const styles = {
+    primaryButton: css`
+        margin-right: ${space[3]}px;
     `,
 };
 
-type BannerSecondaryCtaButtonProps = {
+type BannerAcknowledgeButtonProps = {
     buttonText: string;
     onCloseClick: OnCloseClick;
 };
 
-export const BannerSecondaryCtaButton = (props: BannerSecondaryCtaButtonProps): JSX.Element => {
+export const BannerAcknowledgeButton = (props: BannerAcknowledgeButtonProps): JSX.Element => {
     const { buttonText, onCloseClick } = props;
 
     // This is to keep button colors the same as before
     // https://github.com/guardian/braze-components/pull/123
     // Probably should be removed later
-    const secondaryCtaButtonTheme: { button: ButtonTheme } = {
+    const overrridenReaderRevenueTheme: { button: ButtonTheme } = {
         button: {
             ...buttonThemeReaderRevenueBrandAlt.button,
-            textSubdued: 'rgb(51, 51, 51)',
+            backgroundPrimary: 'rgb(51, 51, 51)',
+            backgroundPrimaryHover: 'black',
         },
     };
 
     return (
-        <ThemeProvider theme={secondaryCtaButtonTheme}>
+        <ThemeProvider theme={overrridenReaderRevenueTheme}>
             <Button
                 onClick={(e) => onCloseClick(e, ACKNOWLEDGE_BUTTON_ID)}
-                priority="subdued"
-                css={styles.notInterestedButton}
+                css={styles.primaryButton}
             >
                 {buttonText}
             </Button>

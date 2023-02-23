@@ -1,10 +1,12 @@
 import React, { ReactElement } from 'react';
-import { BrazeBannerComponent } from '../BrazeBannerComponent';
+
 import { StorybookWrapper } from '../utils/StorybookWrapper';
 import { knobsData } from '../utils/knobsData';
+import { coreArgTypes, ophanComponentIdArgType } from '../storybookCommon/argTypes';
 import { withGrid, grid } from '../../.storybook/grid/withGrid';
-import { BrazeMessageProps } from '.';
-import { coreArgTypes } from '../storybookCommon/argTypes';
+
+import { BrazeBannerComponent } from '../BrazeBannerComponent';
+import type { BrazeBannerMessageProps } from '../bannerCommon/bannerActions';
 
 export default {
     component: 'AppBanner',
@@ -17,6 +19,7 @@ export default {
     },
     argTypes: {
         ...coreArgTypes,
+        ...ophanComponentIdArgType,
         header: {
             name: 'header',
             type: { name: 'string', required: true },
@@ -52,13 +55,18 @@ export default {
     },
 };
 
-const StoryTemplate = (args: BrazeMessageProps & { componentName: string }): ReactElement => {
-    const brazeMessageProps = {
+const StoryTemplate = (args: BrazeBannerMessageProps & { componentName: string }): ReactElement => {
+    const imageUrl = grid(
+        'https://i.guim.co.uk/img/media/de6813b4dd9b9805a2d14dd6af14ae2b48e2e19e/0_0_930_520/master/930.png?quality=45&width=930&s=0beb53509265d32e3d201aa3981323bb',
+    );
+
+    const brazeMessageProps: BrazeBannerMessageProps = {
+        ophanComponentId: args.ophanComponentId,
         header: args.header,
         body: args.body,
         boldText: args.boldText,
         cta: args.cta,
-        imageUrl: args.imageUrl,
+        imageUrl,
         imageAccessibilityText: args.imageAccessibilityText,
     };
 
@@ -85,15 +93,17 @@ export const DefaultStory = StoryTemplate.bind({});
 
 DefaultStory.args = {
     slotName: 'Banner',
+    componentName: 'AppBanner',
+
+    ophanComponentId: 'change_me_ophan_component_id',
+
     header: 'A note to our digital subscribers',
     body: 'Hi John, did you know that as a Guardian digital subscriber you can enjoy an enhanced experience of our quality, independent journalism on all your devices, including The Guardian Live app.',
-    boldText: 'You know it makes sense.',
-    componentName: 'AppBanner',
+    boldText: 'Highlighted text.',
+
     cta: 'Search for "Guardian live news"',
-    imageUrl: grid(
-        'https://i.guim.co.uk/img/media/de6813b4dd9b9805a2d14dd6af14ae2b48e2e19e/0_0_930_520/master/930.png?quality=45&width=930&s=0beb53509265d32e3d201aa3981323bb',
-    ),
-    imageAccessibilityText: 'Explanation text of what the image shows',
+
+    imageAccessibilityText: 'Product packshot image',
 };
 
 DefaultStory.story = { name: 'AppBanner' };
