@@ -27,6 +27,7 @@ export type OnCloseClick = (
 ) => void;
 
 export const CLOSE_BUTTON_ID = 1;
+export const ACKNOWLEDGE_BUTTON_ID = 0;
 
 type UseRefObject = {
     current: HTMLDivElement | null;

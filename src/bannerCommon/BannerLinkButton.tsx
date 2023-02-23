@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/react';
 
-import { OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
+import { OnCloseClick, ACKNOWLEDGE_BUTTON_ID } from '../bannerCommon/bannerActions';
 
 import { ThemeProvider } from '@emotion/react';
 import {
@@ -38,7 +38,7 @@ export const BannerLinkButton = (props: BannerLinkButtonProps): JSX.Element => {
 
     return (
         <ThemeProvider theme={overrridenReaderRevenueTheme}>
-            <Button onClick={(e) => onCloseClick(e, CLOSE_BUTTON_ID)} css={styles.primaryButton}>
+            <Button onClick={(e) => onCloseClick(e, ACKNOWLEDGE_BUTTON_ID)} css={styles.primaryButton}>
                 Ok, got it
             </Button>
         </ThemeProvider>

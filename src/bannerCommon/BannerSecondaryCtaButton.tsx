@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/react';
 
-import { OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
+import { OnCloseClick, ACKNOWLEDGE_BUTTON_ID } from '../bannerCommon/bannerActions';
 
 import { ThemeProvider } from '@emotion/react';
 import {
@@ -21,17 +21,18 @@ const styles = {
     `,
 };
 
-type BannerNotInterestedButtonProps = {
+type BannerSecondaryCtaButtonProps = {
+    buttonCopy: string;
     onCloseClick: OnCloseClick;
 };
 
-export const BannerNotInterestedButton = (props: BannerNotInterestedButtonProps): JSX.Element => {
-    const { onCloseClick } = props;
+export const BannerSecondaryCtaButton = (props: BannerSecondaryCtaButtonProps): JSX.Element => {
+    const { buttonCopy, onCloseClick } = props;
 
     // This is to keep button colors the same as before
     // https://github.com/guardian/braze-components/pull/123
     // Probably should be removed later
-    const notInterestedTheme: { button: ButtonTheme } = {
+    const secondaryCtaButtonTheme: { button: ButtonTheme } = {
         button: {
             ...buttonThemeReaderRevenueBrandAlt.button,
             textSubdued: 'rgb(51, 51, 51)',
@@ -39,13 +40,13 @@ export const BannerNotInterestedButton = (props: BannerNotInterestedButtonProps)
     };
 
     return (
-        <ThemeProvider theme={notInterestedTheme}>
+        <ThemeProvider theme={secondaryCtaButtonTheme}>
             <Button
-                onClick={(e) => onCloseClick(e, CLOSE_BUTTON_ID)}
+                onClick={(e) => onCloseClick(e, ACKNOWLEDGE_BUTTON_ID)}
                 priority="subdued"
                 css={styles.notInterestedButton}
             >
-                {"I'm not interested"}
+                {buttonCopy}
             </Button>
         </ThemeProvider>
     );

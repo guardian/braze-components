@@ -12,7 +12,7 @@ import { BannerStickyTopBar } from '../bannerCommon/BannerStickyTopBar';
 import { BannerBodyCopy } from '../bannerCommon/BannerBodyCopy';
 import { BannerAppStrapline } from '../bannerCommon/BannerAppStrapline';
 import { BannerLinkButton } from '../bannerCommon/BannerLinkButton';
-import { BannerNotInterestedButton } from '../bannerCommon/BannerNotInterestedButton';
+import { BannerSecondaryCtaButton } from '../bannerCommon/BannerSecondaryCtaButton';
 import { BannerImageBlock } from '../bannerCommon/BannerImageBlock';
 import { BannerCloseButton } from '../bannerCommon/BannerCloseButton';
 
@@ -104,7 +104,10 @@ export const AppBanner = (props: Props): ReactElement | null => {
                     <BannerAppStrapline cta={cta} />
                     <div css={styles.ctaBar}>
                         <BannerLinkButton onCloseClick={onCloseClick} />
-                        <BannerNotInterestedButton onCloseClick={onCloseClick} />
+                        <BannerSecondaryCtaButton 
+                            buttonCopy={"I'm not interested"}
+                            onCloseClick={onCloseClick} 
+                        />
                     </div>
                     <div css={styles.hiddenCloseButton}>
                         <BannerCloseButton onCloseClick={onCloseClick} />
