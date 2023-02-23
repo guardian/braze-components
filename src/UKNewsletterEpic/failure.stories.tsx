@@ -65,7 +65,7 @@ const StoryTemplate = (
                 subscribeToNewsletter={(newsletterId) => {
                     console.log(`subscribeToNewsletter invoked with id ${newsletterId}`);
                     return new Promise((resolve, reject) =>
-                        setTimeout(() => (args.simulateFailure ? reject() : resolve(' ')), 1000),
+                        setTimeout(() => (args.simulateFailure ? reject() : resolve()), 1000),
                     );
                 }}
                 logButtonClickWithBraze={(internalButtonId) => mockButtonClick(internalButtonId)}
