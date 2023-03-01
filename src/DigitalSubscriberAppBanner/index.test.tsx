@@ -17,17 +17,14 @@ describe('DigitalSubscriberAppBanner', () => {
         });
 
         it('invokes submitComponentEvent with correct data', () => {
-            const logButtonClickWithOphan = jest.fn();
+            const logButtonClick = jest.fn();
             const { getByText } = render(
-                <DigitalSubscriberAppBanner
-                    {...baseProps()}
-                    trackClick={logButtonClickWithOphan}
-                />,
+                <DigitalSubscriberAppBanner {...baseProps()} trackClick={logButtonClick} />,
             );
 
             fireEvent.click(getByText('Ok, got it'));
 
-            expect(logButtonClickWithOphan).toHaveBeenCalledWith({
+            expect(logButtonClick).toHaveBeenCalledWith({
                 internalButtonId: 0,
                 ophanComponentId: 'DigitalSubscriberAppBanner',
             });

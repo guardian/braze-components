@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import { Button, SvgCross } from '@guardian/source-react-components';
 import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
-import {
-    NewsletterSubscribeCallback,
-    CTA,
-    NewsletterFrequency,
-} from '../newsletterCommon/sharedComponents';
+import { NewsletterSubscribeCallback, CTA, NewsletterFrequency } from '../newsletterCommon';
 import type { TrackClick } from '../utils/tracking';
 import { styles } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';

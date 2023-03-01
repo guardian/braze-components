@@ -8,8 +8,6 @@ export type BrazeMessageProps = {
     ophanComponentId?: string;
     header?: string;
     body?: string;
-    cta?: string;
-    imageUrl?: string;
 };
 
 export type Props = {
