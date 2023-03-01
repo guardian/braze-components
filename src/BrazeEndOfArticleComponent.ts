@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Common newsletter imports
-import { NewsletterSubscribeCallback } from './newsletterCommon';
+import type { NewsletterSubscribeCallback } from './newsletterCommon';
 
 // Common Epic imports
 import {
