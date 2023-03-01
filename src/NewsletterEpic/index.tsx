@@ -12,11 +12,7 @@ import {
 } from '@guardian/source-foundations';
 import { COMPONENT_NAME, canRender } from './canRender';
 import type { TrackClick } from '../utils/tracking';
-import {
-    NewsletterSubscribeCallback,
-    CTA,
-    NewsletterFrequency,
-} from '../newsletterCommon/sharedComponents';
+import { NewsletterSubscribeCallback, CTA, NewsletterFrequency } from '../newsletterCommon';
 
 const styles = {
     epicContainer: css`
