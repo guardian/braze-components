@@ -8,11 +8,11 @@ import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
 
 export type BrazeMessageProps = {
-    ophanComponentId: string;
+    ophanComponentId?: string;
     header?: string;
     body?: string;
     boldText?: string;
-    secondParagraph?: string,
+    secondParagraph?: string;
     imageUrl?: string;
     newsletterId?: string;
     frequency?: string;
@@ -56,7 +56,7 @@ const BannerNewsletter: React.FC<Props> = (props: Props) => {
         document.body.focus();
         trackClick({
             internalButtonId,
-            ophanComponentId,
+            ophanComponentId: ophanComponentId as string,
         });
     };
 
@@ -73,11 +73,9 @@ const BannerNewsletter: React.FC<Props> = (props: Props) => {
                     <div css={styles.heading}>{header}</div>
                     <NewsletterFrequency frequency={frequency} />
                     <p css={styles.paragraph}>
-                        {body} {boldText && (<strong>{boldText}</strong>)}
+                        {body} {boldText && <strong>{boldText}</strong>}
                     </p>
-                    {secondParagraph && (
-                        <p css={styles.paragraph}>{secondParagraph}</p>
-                    )}
+                    {secondParagraph && <p css={styles.paragraph}>{secondParagraph}</p>}
                     <CTA
                         subscribeToNewsletter={subscribeToNewsletter}
                         newsletterId={newsletterId as string}

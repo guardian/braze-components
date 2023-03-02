@@ -7,7 +7,7 @@ import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
 
 export type BrazeMessageProps = {
-    ophanComponentId: string;
+    ophanComponentId?: string;
     header?: string;
     body?: string;
     boldText?: string;
@@ -51,7 +51,7 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
         document.body.focus();
         trackClick({
             internalButtonId,
-            ophanComponentId,
+            ophanComponentId: ophanComponentId as string,
         });
     };
 

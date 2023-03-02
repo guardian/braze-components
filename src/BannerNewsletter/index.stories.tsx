@@ -108,10 +108,10 @@ DefaultStory.args = {
     header: 'The Morning Briefing',
     newsletterId: '4156',
     frequency: 'Every day',
-    body: "Whether it’s the latest manoeuvring in global politics or the ‘and finally’ story that everyone’s talking about, you’ll be bang up to date with the news that counts.",
+    body: 'Whether it’s the latest manoeuvring in global politics or the ‘and finally’ story that everyone’s talking about, you’ll be bang up to date with the news that counts.',
     boldText: 'Sign up today!',
     secondParagraph:
-       'We thought you should know this newsletter may contain information about Guardian products and services.',
+        'We thought you should know this newsletter may contain information about Guardian products and services.',
 };
 
 DefaultStory.story = { name: 'BannerNewsletter' };
