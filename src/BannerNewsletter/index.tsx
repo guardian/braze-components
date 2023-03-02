@@ -75,7 +75,9 @@ const BannerNewsletter: React.FC<Props> = (props: Props) => {
                     <p css={styles.paragraph}>
                         {body} {boldText && <strong>{boldText}</strong>}
                     </p>
-                    {secondParagraph && <p css={styles.paragraph}>{secondParagraph}</p>}
+                    {secondParagraph && (
+                        <p css={[styles.paragraph, styles.secondParagraph]}>{secondParagraph}</p>
+                    )}
                     <CTA
                         subscribeToNewsletter={subscribeToNewsletter}
                         newsletterId={newsletterId as string}

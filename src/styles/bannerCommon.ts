@@ -127,6 +127,12 @@ export const styles = {
         }
     `,
 
+    secondParagraph: css`
+        ${from.desktop} {
+            font-size: 18px;
+        }
+    `,
+
     cta: css`
         font-weight: 700;
         margin-top: ${space[5]}px;
