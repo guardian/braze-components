@@ -8,10 +8,11 @@ import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
 
 export type BrazeMessageProps = {
-    ophanComponentId?: string;
+    ophanComponentId: string;
     header?: string;
     body?: string;
     boldText?: string;
+    secondParagraph?: string,
     imageUrl?: string;
     newsletterId?: string;
     frequency?: string;
@@ -26,10 +27,11 @@ export type Props = {
 const BannerNewsletter: React.FC<Props> = (props: Props) => {
     const {
         brazeMessageProps: {
-            ophanComponentId = COMPONENT_NAME,
+            ophanComponentId,
             header,
             body,
             boldText,
+            secondParagraph,
             newsletterId,
             imageUrl,
             frequency,
@@ -54,7 +56,7 @@ const BannerNewsletter: React.FC<Props> = (props: Props) => {
         document.body.focus();
         trackClick({
             internalButtonId,
-            ophanComponentId: ophanComponentId as string,
+            ophanComponentId,
         });
     };
 
@@ -71,15 +73,11 @@ const BannerNewsletter: React.FC<Props> = (props: Props) => {
                     <div css={styles.heading}>{header}</div>
                     <NewsletterFrequency frequency={frequency} />
                     <p css={styles.paragraph}>
-                        {body}
-
-                        {boldText ? (
-                            <>
-                                <br />
-                                <strong css={styles.cta}>{boldText}</strong>
-                            </>
-                        ) : null}
+                        {body} {boldText && (<strong>{boldText}</strong>)}
                     </p>
+                    {secondParagraph && (
+                        <p css={styles.paragraph}>{secondParagraph}</p>
+                    )}
                     <CTA
                         subscribeToNewsletter={subscribeToNewsletter}
                         newsletterId={newsletterId as string}
@@ -87,8 +85,8 @@ const BannerNewsletter: React.FC<Props> = (props: Props) => {
                         trackClick={trackClick}
                     />
                 </div>
-                <div css={styles.bottomRightComponent}>
-                    <div css={styles.image}>
+                <div css={styles.centeredBottomRightComponent}>
+                    <div css={styles.centeredImage}>
                         <img src={imageUrl} alt="" />
                     </div>
                     <div css={styles.iconPanel}>

@@ -33,6 +33,11 @@ export default {
             type: { name: 'string', required: false },
             description: 'Bold text',
         },
+        secondParagraph: {
+            name: 'secondParagraph',
+            type: { name: 'string', required: true },
+            description: 'Additional paragraph',
+        },
         newsletterId: {
             name: 'newsletterId',
             type: { name: 'string', required: true },
@@ -60,7 +65,7 @@ const StoryTemplate = (
     },
 ): ReactElement => {
     const imageUrl = grid(
-        'https://i.guim.co.uk/img/media/35d403182e4b262d37385281b19b763ee6b32f6a/58_0_1743_1046/master/1743.png?width=930&quality=45&auto=format&s=9ecd82413fef9883c1e7a0df2bf6abb1',
+        'https://i.guim.co.uk/img/media/568c6031be78dab6f6c28336010884f3ebd0f97c/0_0_1936_1936/master/1936.png?width=196&quality=45&auto=format&s=2a3630e9625620d5726c31c5cdbf4772',
     );
 
     const brazeMessageProps: BrazeMessageProps = {
@@ -69,6 +74,7 @@ const StoryTemplate = (
         frequency: args.frequency,
         body: args.body,
         boldText: args.boldText,
+        secondParagraph: args.secondParagraph,
         imageUrl,
         ophanComponentId: args.ophanComponentId,
     };
@@ -97,13 +103,15 @@ export const DefaultStory = StoryTemplate.bind({});
 
 DefaultStory.args = {
     slotName: 'Banner',
-    newsletterId: '0',
-    frequency: 'Weekly on Fridays',
-    header: 'Sign up for a newsletter',
-    body: "We really want you to read this newsletter. It's the best newsletter about stuff you'll ever find.",
-    boldText: 'You know it makes sense.',
     componentName: 'BannerNewsletter',
     ophanComponentId: 'change_me_ophan_component_id',
+    header: 'The Morning Briefing',
+    newsletterId: '4156',
+    frequency: 'Every day',
+    body: "Whether it’s the latest manoeuvring in global politics or the ‘and finally’ story that everyone’s talking about, you’ll be bang up to date with the news that counts.",
+    boldText: 'Sign up today!',
+    secondParagraph:
+       'We thought you should know this newsletter may contain information about Guardian products and services.',
 };
 
 DefaultStory.story = { name: 'BannerNewsletter' };
