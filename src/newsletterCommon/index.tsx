@@ -102,10 +102,11 @@ export const CTA: React.FC<CTAProps> = (props: CTAProps) => {
                     <div css={ctaStyles.thankYouText}>Thank you.</div>
                     <div>
                         <a
-                            href="https://www.theguardian.com/email-newsletters"
+                            href="https://manage.theguardian.com/email-prefs"
                             css={ctaStyles.newslettersLink}
                         >
-                            View all newsletters<span css={ctaStyles.newslettersLinkPeriod}>.</span>
+                            Manage my newsletters
+                            <span css={ctaStyles.newslettersLinkPeriod}>.</span>
                         </a>
                     </div>
                 </>
