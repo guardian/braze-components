@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { css, ThemeProvider, keyframes } from '@emotion/react';
-import { Button, buttonThemeBrandAlt, SvgClock } from '@guardian/source-react-components';
+import { Button, buttonThemeBrandAlt, SvgClock, Link } from '@guardian/source-react-components';
 import type { TrackClick } from '../utils/tracking';
 
 import { news, neutral, body, textSans } from '@guardian/source-foundations';
@@ -23,13 +23,6 @@ const ctaStyles = {
         ${body.medium({ fontWeight: 'bold' })};
         color: ${neutral[0]};
         margin-bottom: 16px;
-    `,
-    newslettersLink: css`
-        ${body.medium()}
-        border-bottom: 1px solid ${neutral[60]};
-        color: ${news[400]};
-        padding-bottom: 2px;
-        text-decoration: none;
     `,
     newslettersLinkPeriod: css`
         color: ${neutral[0]};
@@ -101,6 +94,17 @@ export const CTA: React.FC<CTAProps> = (props: CTAProps) => {
                 <>
                     <div css={ctaStyles.thankYouText}>Thank you.</div>
                     <div>
+                        <Link
+                            href="https://manage.theguardian.com/email-prefs"
+                            priority="primary"
+                        >
+                            Manage my newsletters
+                        </Link>
+                        <span css={ctaStyles.newslettersLinkPeriod}>.</span>
+                    </div>
+
+{/*
+                    <div>
                         <a
                             href="https://manage.theguardian.com/email-prefs"
                             css={ctaStyles.newslettersLink}
@@ -109,6 +113,7 @@ export const CTA: React.FC<CTAProps> = (props: CTAProps) => {
                             <span css={ctaStyles.newslettersLinkPeriod}>.</span>
                         </a>
                     </div>
+*/}                    
                 </>
             );
     }
