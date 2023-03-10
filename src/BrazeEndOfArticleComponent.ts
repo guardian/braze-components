@@ -8,6 +8,7 @@ import {
     buildBrazeMessageComponent,
     ComponentMapping,
     HasConsolidatedTrackClick,
+    BrazeMessageProps,
 } from './buildBrazeMessageComponent';
 import type { BrazeClickHandler, SubmitComponentEvent } from './utils/tracking';
 
@@ -31,7 +32,7 @@ import {
     DownToEarthNewsletterEpic,
 } from './DownToEarthNewsletterEpic';
 
-// New name Newsletter Epics
+// 2023 Newsletter Epics
 import {
     COMPONENT_NAME as EPICNEWSLETTER_AU_AFTERNOONUPDATE_NAME,
     EpicNewsletter_AU_AfternoonUpdate,
@@ -40,10 +41,6 @@ import {
     COMPONENT_NAME as EPICNEWSLETTER_THEGUIDE_NAME,
     EpicNewsletter_TheGuide,
 } from './EpicNewsletter_TheGuide';
-
-type BrazeMessageProps = {
-    [key: string]: string | undefined;
-};
 
 export type CommonEndOfArticleComponentProps = {
     componentName: string;

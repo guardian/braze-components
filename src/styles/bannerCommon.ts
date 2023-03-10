@@ -127,6 +127,12 @@ export const styles = {
         }
     `,
 
+    secondParagraph: css`
+        ${from.desktop} {
+            font-size: 18px;
+        }
+    `,
+
     cta: css`
         font-weight: 700;
         margin-top: ${space[5]}px;
@@ -171,6 +177,49 @@ export const styles = {
         display: flex;
         justify-content: center;
         align-items: flex-end;
+        margin-top: ${space[2]}px;
+
+        img {
+            max-width: 100%;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        ${until.desktop} {
+            display: none;
+        }
+
+        ${from.wide} {
+            margin-right: 100px;
+        }
+    `,
+    centeredBottomRightComponent: css`
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        max-height: 100%;
+
+        ${from.desktop} {
+            padding-right: ${space[4]}px;
+            max-width: 45%;
+        }
+
+        ${from.leftCol} {
+            padding-right: 0;
+        }
+
+        ${from.wide} {
+            max-width: 48%;
+        }
+    `,
+
+    centeredImage: css`
+        max-width: 100%;
+        max-height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         margin-top: ${space[2]}px;
 
         img {
