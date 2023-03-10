@@ -6,11 +6,6 @@ import {
 } from './AppBanner/canRender';
 
 import {
-    COMPONENT_NAME as DIGITAL_SUBSCRIBER_APP_BANNER_NAME,
-    canRender as digitialSubCanRender,
-} from './DigitalSubscriberAppBanner/canRender';
-
-import {
     COMPONENT_NAME as BANNER_WITH_LINK_NAME,
     canRender as bannerWithLinkCanRender,
 } from './BannerWithLink/canRender';
@@ -80,7 +75,6 @@ const COMPONENT_CAN_RENDER_MAPPINGS: Record<
     (brazeMessageProps: Record<string, unknown>) => boolean
 > = {
     [APP_BANNER_NAME]: appBannerCanRender,
-    [DIGITAL_SUBSCRIBER_APP_BANNER_NAME]: digitialSubCanRender,
     [BANNER_WITH_LINK_NAME]: bannerWithLinkCanRender,
     [BANNER_NEWSLETTER_NAME]: bannerNewsletterCanRender,
 
