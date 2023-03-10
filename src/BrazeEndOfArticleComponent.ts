@@ -1,20 +1,20 @@
 import React from 'react';
 
+// Common newsletter imports
+import type { NewsletterSubscribeCallback } from './newsletterCommon';
+
 // Common Epic imports
 import {
     buildBrazeMessageComponent,
     ComponentMapping,
     HasConsolidatedTrackClick,
+    BrazeMessageProps,
 } from './buildBrazeMessageComponent';
 import type { BrazeClickHandler, SubmitComponentEvent } from './utils/tracking';
 
 // Why are we mapping this component?
 // Isn't it the blueprint on top of which other newsletter epics get built?
-import {
-    COMPONENT_NAME as NEWSLETTER_EPIC_NAME,
-    NewsletterEpic,
-    NewsletterSubscribeCallback,
-} from './NewsletterEpic';
+import { COMPONENT_NAME as NEWSLETTER_EPIC_NAME, NewsletterEpic } from './NewsletterEpic';
 
 // Generic Epic Templates
 import { COMPONENT_NAME as EPIC_NAME, Epic } from './Epic';
@@ -32,7 +32,7 @@ import {
     DownToEarthNewsletterEpic,
 } from './DownToEarthNewsletterEpic';
 
-// New name Newsletter Epics
+// 2023 Newsletter Epics
 import {
     COMPONENT_NAME as EPICNEWSLETTER_AU_AFTERNOONUPDATE_NAME,
     EpicNewsletter_AU_AfternoonUpdate,
@@ -41,10 +41,6 @@ import {
     COMPONENT_NAME as EPICNEWSLETTER_THEGUIDE_NAME,
     EpicNewsletter_TheGuide,
 } from './EpicNewsletter_TheGuide';
-
-type BrazeMessageProps = {
-    [key: string]: string | undefined;
-};
 
 export type CommonEndOfArticleComponentProps = {
     componentName: string;

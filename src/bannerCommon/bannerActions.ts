@@ -20,3 +20,10 @@ export function useEscapeShortcut(
         return () => window.removeEventListener('keydown', handleEscapeKeydown);
     }, deps);
 }
+
+export type OnCloseClick = (
+    evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    internalButtonId: number,
+) => void;
+
+export const CLOSE_BUTTON_ID = 1;

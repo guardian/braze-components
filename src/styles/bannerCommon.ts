@@ -1,9 +1,8 @@
 import { css } from '@emotion/react';
-import { neutral, palette, space, from, until, body, headline } from '@guardian/source-foundations';
+import { neutral, space, from, until, body, headline } from '@guardian/source-foundations';
 
 const imgHeight = '280';
 const bannerColor = '#ebe8e8';
-const infoColor = '#c4c4c4';
 const bodyColor = '#666';
 
 export const styles = {
@@ -128,6 +127,12 @@ export const styles = {
         }
     `,
 
+    secondParagraph: css`
+        ${from.desktop} {
+            font-size: 18px;
+        }
+    `,
+
     cta: css`
         font-weight: 700;
         margin-top: ${space[5]}px;
@@ -166,60 +171,55 @@ export const styles = {
         right: 10px;
     `,
 
-    smallInfoIcon: css`
-        left: -60px;
-        display: none;
-
-        svg {
-            width: 40px;
-            height: 40px;
-            vertical-align: -30%;
-            fill: ${infoColor};
-            background: radial-gradient(
-                circle at center,
-                ${palette.neutral[100]} 0%,
-                transparent 50%
-            );
-        }
-
-        ${until.phablet} {
-            display: block;
-            margin-left: -4px;
-            margin-top: -4px;
-            margin-bottom: 4px;
-        }
-    `,
-
-    infoIcon: css`
-        position: absolute;
-        width: 60px;
-        height: 60px;
-        left: -60px;
-        top: 10px;
-        display: none;
-
-        svg {
-            width: 60px;
-            height: 60px;
-            fill: ${infoColor};
-            background: radial-gradient(
-                circle at center,
-                ${palette.neutral[100]} 0%,
-                transparent 50%
-            );
-            border-radius: 50%;
-        }
-
-        @media (min-width: 1430px) {
-            display: block;
-        }
-    `,
     image: css`
         max-width: 100%;
         max-height: 300px;
         display: flex;
         justify-content: center;
         align-items: flex-end;
+        margin-top: ${space[2]}px;
+
+        img {
+            max-width: 100%;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        ${until.desktop} {
+            display: none;
+        }
+
+        ${from.wide} {
+            margin-right: 100px;
+        }
+    `,
+    centeredBottomRightComponent: css`
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        max-height: 100%;
+
+        ${from.desktop} {
+            padding-right: ${space[4]}px;
+            max-width: 45%;
+        }
+
+        ${from.leftCol} {
+            padding-right: 0;
+        }
+
+        ${from.wide} {
+            max-width: 48%;
+        }
+    `,
+
+    centeredImage: css`
+        max-width: 100%;
+        max-height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         margin-top: ${space[2]}px;
 
         img {
