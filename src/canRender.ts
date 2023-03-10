@@ -15,6 +15,11 @@ import {
     canRender as bannerWithLinkCanRender,
 } from './BannerWithLink/canRender';
 
+import {
+    COMPONENT_NAME as BANNER_NEWSLETTER_NAME,
+    canRender as bannerNewsletterCanRender,
+} from './BannerNewsletter/canRender';
+
 // Default Epics
 // --------------------------------------------
 import { COMPONENT_NAME as EPIC_NAME, canRender as epicCanRender } from './Epic/canRender';
@@ -51,7 +56,7 @@ import {
     canRender as dteNewsletterEpicCanRender,
 } from './DownToEarthNewsletterEpic/canRender';
 
-// New newsletter Epics
+// 2023 newsletter Epics
 // --------------------------------------------
 import {
     COMPONENT_NAME as EPICNEWSLETTER_AU_AFTERNOONUPDATE,
@@ -77,6 +82,7 @@ const COMPONENT_CAN_RENDER_MAPPINGS: Record<
     [APP_BANNER_NAME]: appBannerCanRender,
     [DIGITAL_SUBSCRIBER_APP_BANNER_NAME]: digitialSubCanRender,
     [BANNER_WITH_LINK_NAME]: bannerWithLinkCanRender,
+    [BANNER_NEWSLETTER_NAME]: bannerNewsletterCanRender,
 
     [EPIC_NAME]: epicCanRender,
     [EPIC_WITH_IMAGE_NAME]: epicWithImageCanRender,
