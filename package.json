@@ -42,7 +42,7 @@
     "@emotion/react": "^11.1.2",
     "@guardian/eslint-plugin-source-react-components": "^13.0.0",
     "@guardian/grid-client": "^1.1.1",
-    "@guardian/libs": "^13.1.0",
+    "@guardian/libs": "^14.0.0",
     "@guardian/node-riffraff-artifact": "^0.3.2",
     "@guardian/source-foundations": "^9.0.0",
     "@guardian/source-react-components": "^11.2.0",
@@ -95,7 +95,7 @@
   },
   "peerDependencies": {
     "@emotion/react": "^11.1.2",
-    "@guardian/libs": "^13.1.0",
+    "@guardian/libs": "^14.0.0",
     "@guardian/source-foundations": "^9.0.0",
     "@guardian/source-react-components": "^11.2.0",
     "@guardian/source-react-components-development-kitchen": "^9.2.0",
