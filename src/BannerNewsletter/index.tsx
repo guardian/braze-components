@@ -24,6 +24,9 @@ const localStyles = {
             max-width: 100%;
         }
     `,
+    bold: css`
+        font-weight: bold;
+    `,
 };
 
 export type BrazeMessageProps = {
@@ -92,7 +95,7 @@ const BannerNewsletter: React.FC<Props> = (props: Props) => {
                     <div css={localStyles.heading}>{header}</div>
                     <NewsletterFrequency frequency={frequency} />
                     <p css={styles.paragraph}>
-                        {body} {boldText && <strong>{boldText}</strong>}
+                        {body} {boldText && <span css={localStyles.bold}>{boldText}</span>}
                     </p>
                     {secondParagraph && (
                         <p css={[styles.paragraph, styles.secondParagraph]}>{secondParagraph}</p>
