@@ -35,7 +35,7 @@ export default {
         },
         secondParagraph: {
             name: 'secondParagraph',
-            type: { name: 'string', required: true },
+            type: { name: 'string', required: false },
             description: 'Additional paragraph',
         },
         newsletterId: {
