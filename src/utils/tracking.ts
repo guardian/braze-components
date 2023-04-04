@@ -21,8 +21,10 @@ type TrackClick = (innerProps: InnerProps) => void;
 const catchAndLogErrors = (description: string, fn: () => void): void => {
     try {
         fn();
-    } catch (e) {
-        console.log(`Error (${description}): `, e.message);
+    } catch (e: unknown) {
+        if (e instanceof Error) {
+            console.log(`Error (${description}): `, e.message);
+        }
     }
 };
 
