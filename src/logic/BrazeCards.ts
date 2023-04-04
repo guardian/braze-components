@@ -39,8 +39,10 @@ class BrazeCard {
                     'BrazeCard.logImpressions',
                 );
             }
-        } catch (error) {
-            this.errorHandler(error, 'BrazeCard.logImpressions');
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                this.errorHandler(error, 'BrazeCard.logImpressions');
+            }
         }
     }
 
@@ -53,8 +55,10 @@ class BrazeCard {
                     'BrazeCard.logCardClick',
                 );
             }
-        } catch (error) {
-            this.errorHandler(error, 'BrazeCard.logCardClick');
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                this.errorHandler(error, 'BrazeCard.logCardClick');
+            }
         }
     }
 
@@ -67,8 +71,10 @@ class BrazeCard {
                     'BrazeCard.logCardDismiss',
                 );
             }
-        } catch (error) {
-            this.errorHandler(error, 'BrazeCard.logCardDismiss');
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                this.errorHandler(error, 'BrazeCard.logCardDismiss');
+            }
         }
     }
 
