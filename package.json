@@ -44,7 +44,7 @@
     "@guardian/grid-client": "^1.1.1",
     "@guardian/libs": "^14.0.0",
     "@guardian/node-riffraff-artifact": "^0.3.2",
-    "@guardian/source-foundations": "^9.0.0",
+    "@guardian/source-foundations": "^10.0.0",
     "@guardian/source-react-components": "^11.2.0",
     "@guardian/source-react-components-development-kitchen": "^9.2.0",
     "@rollup/plugin-alias": "^3.1.1",
