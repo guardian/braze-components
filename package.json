@@ -99,7 +99,7 @@
     "@guardian/source-foundations": "^10.0.0",
     "@guardian/source-react-components": "^12.0.0",
     "@guardian/source-react-components-development-kitchen": "^10.0.1",
-    "react": "18.2.0"
+    "react": "17.0.2 || 18.2.0"
   },
   "dependencies": {},
   "np": {
