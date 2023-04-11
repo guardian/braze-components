@@ -1,37 +1,64 @@
 import React, { useState } from 'react';
-import { Button, LinkButton, SvgCross } from '@guardian/source-react-components';
+import { css } from '@emotion/react';
+import { from, headline } from '@guardian/source-foundations';
+import { Button, SvgCross } from '@guardian/source-react-components';
 import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
+import { NewsletterSubscribeCallback, CTA, NewsletterFrequency } from '../newsletterCommon';
 import type { TrackClick } from '../utils/tracking';
 import { styles } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
+
+const localStyles = {
+    heading: css`
+        ${headline.small({ fontWeight: 'bold' })};
+        margin: 0;
+        max-width: 100%;
+
+        ${from.mobileLandscape} {
+            ${headline.small({ fontWeight: 'bold' })};
+        }
+
+        ${from.tablet} {
+            ${headline.medium({ fontWeight: 'bold' })};
+            max-width: 100%;
+        }
+    `,
+    bold: css`
+        font-weight: bold;
+    `,
+};
 
 export type BrazeMessageProps = {
     ophanComponentId?: string;
     header?: string;
     body?: string;
     boldText?: string;
-    buttonText?: string;
-    buttonUrl?: string;
+    secondParagraph?: string;
     imageUrl?: string;
+    newsletterId?: string;
+    frequency?: string;
 };
 
 export type Props = {
     brazeMessageProps: BrazeMessageProps;
     trackClick: TrackClick;
+    subscribeToNewsletter: NewsletterSubscribeCallback;
 };
 
-const BannerWithLink: React.FC<Props> = (props: Props) => {
+const BannerNewsletter: React.FC<Props> = (props: Props) => {
     const {
         brazeMessageProps: {
             ophanComponentId,
             header,
             body,
             boldText,
-            buttonText,
-            buttonUrl,
+            secondParagraph,
+            newsletterId,
             imageUrl,
+            frequency,
         },
+        subscribeToNewsletter,
         trackClick,
     } = props;
 
@@ -65,32 +92,23 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
         <div css={styles.wrapper}>
             <div css={styles.contentContainer}>
                 <div css={styles.topLeftComponent}>
-                    <div css={styles.heading}>{header}</div>
+                    <div css={localStyles.heading}>{header}</div>
+                    <NewsletterFrequency frequency={frequency} />
                     <p css={styles.paragraph}>
-                        {body}
-
-                        {boldText ? (
-                            <>
-                                <br />
-                                <strong css={styles.cta}>{boldText}</strong>
-                            </>
-                        ) : null}
+                        {body} {boldText && <span css={localStyles.bold}>{boldText}</span>}
                     </p>
-                    <LinkButton
-                        href={buttonUrl}
-                        css={styles.primaryButton}
-                        onClick={() =>
-                            trackClick({
-                                internalButtonId: 0,
-                                ophanComponentId: ophanComponentId as string,
-                            })
-                        }
-                    >
-                        {buttonText}
-                    </LinkButton>
+                    {secondParagraph && (
+                        <p css={[styles.paragraph, styles.secondParagraph]}>{secondParagraph}</p>
+                    )}
+                    <CTA
+                        subscribeToNewsletter={subscribeToNewsletter}
+                        newsletterId={newsletterId as string}
+                        ophanComponentId={ophanComponentId}
+                        trackClick={trackClick}
+                    />
                 </div>
-                <div css={styles.bottomRightComponent}>
-                    <div css={styles.image}>
+                <div css={styles.centeredBottomRightComponent}>
+                    <div css={styles.centeredImage}>
                         <img src={imageUrl} alt="" />
                     </div>
                     <div css={styles.iconPanel}>
@@ -113,4 +131,4 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
     );
 };
 
-export { BannerWithLink };
+export { BannerNewsletter };

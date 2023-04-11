@@ -103,6 +103,34 @@ This will:
 -   Publish the new release to NPM
 -   Push new commits/tags to GitHub
 
+#### Steps following merge to main
+
+For braze-components:
+-   Merge braze-components PR to main (in GitHub)
+-   In local iTerm, checkout main branch and git pull
+-   Run yarn release and follow instructions to bump the repo version and generate NPM
+-   When the GitHub release page displays in the browser, review and complete release
+
+For dotcom-rendering:
+-   Run `checkout` main branch and git pull
+-   Run `checkout -b` to start a new branch for the update PR
+-   Update the braze-components dependency in `dotcom-components/dotcom-components/package.json`
+-   Run `yarn` to update the yarn.lock file in the DCR root
+-   Push the branch and create the PR in GitHub. 
+-   If the change involves visual changes to components, capture this via screenshots and include in the PR
+-   If the change involves updates to component layout, add code to DCR Storybook files to reflect those changes
+-   If necessary (it isn't always), take `DCR CODE` (announce first in the `P&E/Dotcom CODE Semaphore` chat) and deploy code there.
+-   If all is good and the PR is approved, merge PR to main (in GitHub)
+
+For frontend:
+-   Run `checkout` main branch and git pull
+-   Run `checkout -b` to start a new branch for the update PR
+-   Update the braze-components dependency in /package.json
+-   Run `make install compile` to update dependency lock file
+-   Push the branch and create the PR in GitHub. 
+-   If necessary (it isn't always), take `Frontend CODE` (announce first in the `P&E/Dotcom CODE Semaphore` chat) and deploy code there.
+-   If all is good and the PR is approved, merge PR to main (in GitHub)
+
 ## CI/CD
 
 Whenever you push to GitHub actions will be triggered to run Jest tests, the

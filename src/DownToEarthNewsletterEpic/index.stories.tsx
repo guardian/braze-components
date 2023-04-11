@@ -1,6 +1,11 @@
 import React, { ReactElement } from 'react';
 import { BrazeEndOfArticleComponent } from '../BrazeEndOfArticleComponent';
-import { StorybookWrapper } from '../utils/StorybookWrapper';
+import {
+    StorybookWrapper,
+    mockSubscribe,
+    mockButtonClick,
+    mockComponentEvent,
+} from '../utils/StorybookWrapper';
 import { knobsData } from '../utils/knobsData';
 import { coreArgTypes, ophanComponentIdArgType } from '../storybookCommon/argTypes';
 import type { BrazeMessageProps } from '.';
@@ -57,16 +62,9 @@ const StoryTemplate = (
             <BrazeEndOfArticleComponent
                 componentName={args.componentName}
                 brazeMessageProps={brazeMessageProps}
-                subscribeToNewsletter={(newsletterId) => {
-                    console.log(`subscribeToNewsletter invoked with id ${newsletterId}`);
-                    return new Promise((resolve) => setTimeout(() => resolve(), 1000));
-                }}
-                logButtonClickWithBraze={(internalButtonId) => {
-                    console.log(`Button with internal ID ${internalButtonId} clicked`);
-                }}
-                submitComponentEvent={(componentEvent) => {
-                    console.log('submitComponentEvent called with: ', componentEvent);
-                }}
+                subscribeToNewsletter={() => mockSubscribe('4147')}
+                logButtonClickWithBraze={(internalButtonId) => mockButtonClick(internalButtonId)}
+                submitComponentEvent={(componentEvent) => mockComponentEvent(componentEvent)}
             />
         </StorybookWrapper>
     );
