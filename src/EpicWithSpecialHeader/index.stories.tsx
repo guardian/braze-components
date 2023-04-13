@@ -8,6 +8,7 @@ import {
     buildEpicParagraphDocs,
 } from '../storybookCommon/argTypes';
 import { BrazeMessageProps } from '../Epic';
+import { grid, withGrid } from '../../.storybook/grid/withGrid';
 
 const NUMBER_OF_PARAGRAPHS = 9;
 const paragraphDocs = buildEpicParagraphDocs(NUMBER_OF_PARAGRAPHS);
@@ -15,13 +16,50 @@ const paragraphDocs = buildEpicParagraphDocs(NUMBER_OF_PARAGRAPHS);
 export default {
     component: 'EpicWithSpecialHeader',
     title: 'EndOfArticle/EpicWithSpecialHeader',
+    decorators: [withGrid],
+    parameters: {
+        grid: {
+            disable: false,
+        },
+    },
     argTypes: {
         ...coreArgTypes,
         ...ophanComponentIdArgType,
+        authoredEpicImageUrl: {
+            name: 'authoredEpicImageUrl',
+            type: { name: 'string' },
+            description:
+                'i.guim.co.uk URL for the byline image. Use the Grid image picker to select this.',
+        },
+        authoredEpicImageAltText: {
+            name: 'authoredEpicImageAltText',
+            type: { name: 'string' },
+            description: 'Accessible image alt text (never forget this!)',
+        },
+        authoredEpicHeader: {
+            name: 'authoredEpicHeader',
+            type: { name: 'string' },
+            description: 'Large header next to the byline image. Leave empty to suppress it.',
+        },
+        authoredEpicBylineName: {
+            name: 'authoredEpicBylineName',
+            type: { name: 'string' },
+            description: 'Byline name',
+        },
+        authoredEpicBylineCopy1: {
+            name: 'authoredEpicBylineCopy1',
+            type: { name: 'string' },
+            description: 'Byline copy line 1',
+        },
+        authoredEpicBylineCopy2: {
+            name: 'authoredEpicBylineCopy2',
+            type: { name: 'string' },
+            description: 'Byline copy line 2 (not always necessary)',
+        },
         heading: {
             name: 'heading',
             type: { name: 'string', required: true },
-            description: 'Header text',
+            description: 'Copy header text',
         },
         ...Object.fromEntries(paragraphDocs),
         highlightedText: {
@@ -51,6 +89,10 @@ export default {
 const StoryTemplate = (
     args: BrazeMessageProps & { componentName: string },
 ): ReactElement | null => {
+    const authoredEpicImageUrl = grid(
+        'https://i.guim.co.uk/img/media/cecfef4098a2a8c1e302e3f67b979f11ee529bb6/0_0_470_471/master/470.png?width=300&quality=45&s=d654e72595c07e2095777863f4901863',
+    );
+
     const brazeMessageProps = {
         ophanComponentId: args.ophanComponentId,
         heading: args.heading,
@@ -67,6 +109,12 @@ const StoryTemplate = (
         paragraph7: args.paragraph7,
         paragraph8: args.paragraph8,
         paragraph9: args.paragraph9,
+        authoredEpicImageUrl,
+        authoredEpicImageAltText: args.authoredEpicImageAltText,
+        authoredEpicHeader: args.authoredEpicHeader,
+        authoredEpicBylineName: args.authoredEpicBylineName,
+        authoredEpicBylineCopy1: args.authoredEpicBylineCopy1,
+        authoredEpicBylineCopy2: args.authoredEpicBylineCopy2,
     };
 
     knobsData.set({ ...brazeMessageProps, componentName: args.componentName });
@@ -91,6 +139,11 @@ const StoryTemplate = (
 export const DefaultStory = StoryTemplate.bind({});
 
 DefaultStory.args = {
+    authoredEpicImageAltText: 'Headshot image of Mark Rice-Oxley',
+    authoredEpicHeader: "You're powering open, independent journalism",
+    authoredEpicBylineName: 'Mark Rice-Oxley',
+    authoredEpicBylineCopy1: 'Executive Editor',
+    authoredEpicBylineCopy2: 'Reader Revenues',
     paragraph1:
         '... we have a small favour to ask. More people, <a href="https://example.com">like you</a>, are reading and supporting the Guardian’s independent, investigative journalism than ever before. And unlike many news organisations, we made the choice to keep our reporting open for all, regardless of where they live or what they can afford to pay.',
     paragraph2:

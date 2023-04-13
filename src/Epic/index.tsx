@@ -6,6 +6,7 @@ import { COMPONENT_NAME, canRender, parseParagraphs } from './canRender';
 export { COMPONENT_NAME };
 import { replaceNonArticleCountPlaceholders } from './placeholders';
 import { TrackClick } from '../utils/tracking';
+import { HeaderSection } from '../EpicWithSpecialHeader';
 
 // Custom styles for <a> tags in the Epic content
 const linkStyles = css`
@@ -72,13 +73,18 @@ export type BrazeMessageProps = {
     remindMeConfirmationHeaderText?: string;
     remindMeConfirmationText?: string;
     hidePaymentIcons?: string;
+    authoredEpicHeader?: string;
+    authoredEpicImageUrl?: string;
+    authoredEpicImageAltText?: string;
+    authoredEpicBylineName?: string;
+    authoredEpicBylineCopy1?: string;
+    authoredEpicBylineCopy2?: string;
 };
 
 export type EpicProps = {
     ophanComponentId?: string;
     brazeMessageProps: BrazeMessageProps;
     countryCode?: string;
-    headerSection?: React.ReactNode;
     trackClick: TrackClick;
 };
 
@@ -94,9 +100,14 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
             remindMeConfirmationText,
             ophanComponentId,
             hidePaymentIcons,
+            authoredEpicHeader,
+            authoredEpicImageUrl,
+            authoredEpicImageAltText,
+            authoredEpicBylineName,
+            authoredEpicBylineCopy1,
+            authoredEpicBylineCopy2,
         },
         countryCode,
-        headerSection,
         trackClick,
     } = props;
 
@@ -114,7 +125,16 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
         <ThemeProvider theme={brand}>
             <div css={styles.epicWrapper}>
                 <section css={styles.epicContainer}>
-                    {headerSection}
+                    {authoredEpicImageUrl && (
+                        <HeaderSection
+                            authoredEpicImageUrl={authoredEpicImageUrl}
+                            authoredEpicImageAltText={authoredEpicImageAltText}
+                            authoredEpicHeader={authoredEpicHeader}
+                            authoredEpicBylineName={authoredEpicBylineName}
+                            authoredEpicBylineCopy1={authoredEpicBylineCopy1}
+                            authoredEpicBylineCopy2={authoredEpicBylineCopy2}
+                        />
+                    )}
 
                     <span css={styles.heading}>{heading}</span>
                     {paragraphs.map((text, index) => (
