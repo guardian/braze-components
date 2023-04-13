@@ -6,9 +6,6 @@ import type { EpicProps } from '../Epic';
 
 export { COMPONENT_NAME } from './canRender';
 
-// const HEADER_IMAGE_URL =
-//     'https://i.guim.co.uk/img/media/cecfef4098a2a8c1e302e3f67b979f11ee529bb6/0_0_470_471/master/470.png?width=300&quality=45&s=d654e72595c07e2095777863f4901863';
-
 const emptyImage = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
 
 const headerStyles = {
