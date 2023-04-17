@@ -27,13 +27,13 @@ export default {
         ...ophanComponentIdArgType,
         authoredEpicImageUrl: {
             name: 'authoredEpicImageUrl',
-            type: { name: 'string' },
+            type: { name: 'string', required: true },
             description:
                 'i.guim.co.uk URL for the byline image. Use the Grid image picker to select this.',
         },
         authoredEpicImageAltText: {
             name: 'authoredEpicImageAltText',
-            type: { name: 'string' },
+            type: { name: 'string', required: true },
             description: 'Accessible image alt text (never forget this!)',
         },
         authoredEpicHeader: {
@@ -43,7 +43,7 @@ export default {
         },
         authoredEpicBylineName: {
             name: 'authoredEpicBylineName',
-            type: { name: 'string' },
+            type: { name: 'string', required: true },
             description: 'Byline name',
         },
         authoredEpicBylineCopy1: {
