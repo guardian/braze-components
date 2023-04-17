@@ -52,9 +52,10 @@ describe('Epic', () => {
                 paragraph1: 'Plz donate',
                 buttonText: 'Support The Guardian',
                 buttonUrl: 'http://support.theguardian.com',
-                remindMeButtonText: 'Remind me in May',
-                remindMeConfirmationText: "Okay we'll send you an email in May.",
-                remindMeConfirmationHeaderText: 'Your reminder is set.',
+                reminderStage: 'UPSELL',
+                // remindMeButtonText: 'Remind me in May',
+                // remindMeConfirmationText: "Okay we'll send you an email in May.",
+                // remindMeConfirmationHeaderText: 'Your reminder is set.',
             };
             const baseProps = () => ({
                 trackClick,
@@ -63,10 +64,10 @@ describe('Epic', () => {
             });
             const { getByText } = render(<Epic {...baseProps()} />);
 
-            fireEvent.click(getByText('Remind me in May'));
+            fireEvent.click(getByText('Remind me in', { exact: false }));
 
-            await screen.findByText(/Okay we'll send you an email in May/);
-            await screen.findByText(/Your reminder is set/);
+            await screen.findByText(/Thank you! Your reminder is set./);
+            await screen.findByText(/Okay, we'll send you an email in/, { exact: false });
             expect(trackClick).toHaveBeenCalledWith({
                 ophanComponentId: brazeMessageProps.ophanComponentId,
                 internalButtonId: 1,

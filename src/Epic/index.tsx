@@ -1,11 +1,12 @@
 import { css, ThemeProvider } from '@emotion/react';
 import React from 'react';
 import { brand, news, brandAlt, space, body, headline } from '@guardian/source-foundations';
-import { ContributionsEpicButtons } from './ContributionsEpicButtons';
+import { ContributionsEpicButtons } from './epicButtons/ContributionsEpicButtons';
 import { COMPONENT_NAME, canRender, parseParagraphs } from './canRender';
 export { COMPONENT_NAME };
 import { replaceNonArticleCountPlaceholders } from './placeholders';
 import { TrackClick } from '../utils/tracking';
+import { ReminderStage } from '../logic/reminders';
 
 // Custom styles for <a> tags in the Epic content
 const linkStyles = css`
@@ -68,10 +69,9 @@ export type BrazeMessageProps = {
     paragraph7?: string;
     paragraph8?: string;
     paragraph9?: string;
-    remindMeButtonText?: string;
-    remindMeConfirmationHeaderText?: string;
-    remindMeConfirmationText?: string;
     hidePaymentIcons?: string;
+    reminderStage?: ReminderStage;
+    reminderOption?: string;
 };
 
 export type EpicProps = {
@@ -89,11 +89,10 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
             buttonText,
             buttonUrl,
             highlightedText,
-            remindMeButtonText,
-            remindMeConfirmationHeaderText,
-            remindMeConfirmationText,
             ophanComponentId,
             hidePaymentIcons,
+            reminderStage,
+            reminderOption,
         },
         countryCode,
         headerSection,
@@ -133,15 +132,14 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
                         buttonText={buttonText as string}
                         buttonUrl={buttonUrl as string}
                         hidePaymentIcons={hidePaymentIcons}
-                        remindMeButtonText={remindMeButtonText}
-                        remindMeConfirmationText={remindMeConfirmationText}
-                        remindMeConfirmationHeaderText={remindMeConfirmationHeaderText}
                         trackClick={(buttonId: number) =>
                             trackClick({
                                 internalButtonId: buttonId,
                                 ophanComponentId: ophanComponentId as string,
                             })
                         }
+                        reminderStage={reminderStage}
+                        reminderOption={reminderOption}
                     ></ContributionsEpicButtons>
                 </section>
             </div>
