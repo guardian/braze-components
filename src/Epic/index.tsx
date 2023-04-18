@@ -125,18 +125,20 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
         <ThemeProvider theme={brand}>
             <div css={styles.epicWrapper}>
                 <section css={styles.epicContainer}>
-                    {authoredEpicImageUrl && (
-                        <HeaderSection
-                            authoredEpicImageUrl={authoredEpicImageUrl}
-                            authoredEpicImageAltText={authoredEpicImageAltText}
-                            authoredEpicHeader={authoredEpicHeader}
-                            authoredEpicBylineName={authoredEpicBylineName}
-                            authoredEpicBylineCopy1={authoredEpicBylineCopy1}
-                            authoredEpicBylineCopy2={authoredEpicBylineCopy2}
-                        />
-                    )}
+                    {authoredEpicImageUrl != null &&
+                        authoredEpicImageAltText != null &&
+                        authoredEpicBylineName != null && (
+                            <HeaderSection
+                                authoredEpicImageUrl={authoredEpicImageUrl}
+                                authoredEpicImageAltText={authoredEpicImageAltText}
+                                authoredEpicHeader={authoredEpicHeader}
+                                authoredEpicBylineName={authoredEpicBylineName}
+                                authoredEpicBylineCopy1={authoredEpicBylineCopy1}
+                                authoredEpicBylineCopy2={authoredEpicBylineCopy2}
+                            />
+                        )}
 
-                    <span css={styles.heading}>{heading}</span>
+                    <div css={styles.heading}>{heading}</div>
                     {paragraphs.map((text, index) => (
                         <p key={'paragraph' + index} css={styles.paragraph}>
                             <span dangerouslySetInnerHTML={{ __html: text }} />
