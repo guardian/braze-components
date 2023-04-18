@@ -49,10 +49,10 @@ const headerStyles = {
 };
 
 type HeaderSectionProps = {
-    authoredEpicImageUrl?: string;
-    authoredEpicImageAltText?: string;
+    authoredEpicImageUrl: string;
+    authoredEpicImageAltText: string;
     authoredEpicHeader?: string;
-    authoredEpicBylineName?: string;
+    authoredEpicBylineName: string;
     authoredEpicBylineCopy1?: string;
     authoredEpicBylineCopy2?: string;
 };
