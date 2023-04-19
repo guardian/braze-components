@@ -73,7 +73,7 @@ export const HeaderSection: React.FC<HeaderSectionProps> = (props: HeaderSection
     return (
         <div css={headerStyles.container}>
             <div css={headerStyles.leftContainer}>
-                <span css={headerStyles.text}>{authoredEpicHeader}</span>
+                {authoredEpicHeader && <span css={headerStyles.text}>{authoredEpicHeader}</span>}
             </div>
             <div css={headerStyles.rightContainer}>
                 <picture css={headerStyles.picture}>
