@@ -96,10 +96,14 @@ export const HeaderSection: React.FC<HeaderSectionProps> = (props: HeaderSection
                     <p css={[headerStyles.imageCaption, headerStyles.imageCaptionBold]}>
                         {authoredEpicBylineName}
                     </p>
-                    <p css={[headerStyles.imageCaption, headerStyles.imageCaptionItalic]}>
-                        {authoredEpicBylineCopy1}
-                    </p>
-                    <p css={headerStyles.imageCaption}>{authoredEpicBylineCopy2}</p>
+                    {authoredEpicBylineCopy1 && (
+                        <p css={[headerStyles.imageCaption, headerStyles.imageCaptionItalic]}>
+                            {authoredEpicBylineCopy1}
+                        </p>
+                    )}
+                    {authoredEpicBylineCopy2 && (
+                        <p css={headerStyles.imageCaption}>{authoredEpicBylineCopy2}</p>
+                    )}
                 </div>
             </div>
         </div>
