@@ -3,12 +3,6 @@ module.exports = ({ config, mode }) => {
     config.module.rules.push({
         test: /\.m?(j|t)sx?$/,
         loader: require.resolve('babel-loader'),
-        exclude: {
-            test: /node_modules/,
-
-            // don't exclude '@guardian' node_modules
-            exclude: /@guardian\//,
-        },
         options: {
             presets: [
                 '@babel/preset-typescript',
