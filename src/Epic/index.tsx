@@ -6,7 +6,7 @@ import { COMPONENT_NAME, canRender, parseParagraphs } from './canRender';
 export { COMPONENT_NAME };
 import { replaceNonArticleCountPlaceholders } from './placeholders';
 import { TrackClick } from '../utils/tracking';
-import { HeaderSection } from '../EpicWithSpecialHeader';
+import { HeaderSection } from './HeaderSection';
 
 // Custom styles for <a> tags in the Epic content
 const linkStyles = css`
