@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import { neutral, space, from, until, body, headline } from '@guardian/source-foundations';
+import {neutral, space, from, until, body, headline, brandAlt} from '@guardian/source-foundations';
 
 const imgHeight = '280';
 const bannerColor = '#ebe8e8';
@@ -235,6 +235,85 @@ export const styles = {
 
         ${from.wide} {
             margin-right: 100px;
+        }
+    `,
+    reminderContainer: css`
+        position: relative;
+        margin-top: ${space[2]}px;
+
+        ${from.tablet} {
+            margin-top: 0;
+        }
+    `,
+    reminderLine: css`
+        border-top: 1px solid black;
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+
+        ${from.leftCol} {
+            left: calc(50% - 550px + 1120px * 0.14285714285714285 - 20px + 10px + 1px);
+        }
+
+        ${from.wide} {
+            left: calc(50% - 630px + 1280px * 0.1875 - 20px + 10px);
+        }
+
+        &:before {
+            content: '';
+            display: block;
+            position: absolute;
+            left: 90px;
+            bottom: 100%;
+            width: 0;
+            height: 0;
+            border: 10px solid transparent;
+            border-bottom-color: black;
+
+            ${from.tablet} {
+                left: calc(50% + 210px);
+            }
+
+            ${from.desktop} {
+                left: calc(50% + 253px);
+            }
+
+            ${from.leftCol} {
+                left: 732px;
+            }
+
+            ${from.wide} {
+                left: 733px;
+            }
+        }
+
+        &:after {
+            content: '';
+            display: block;
+            position: absolute;
+            left: 91px;
+            bottom: 100%;
+            width: 0;
+            height: 0;
+            border: 9px solid transparent;
+            border-bottom-color: ${brandAlt[400]};
+
+            ${from.tablet} {
+                left: calc(50% + 211px);
+            }
+
+            ${from.desktop} {
+                left: calc(50% + 254px);
+            }
+
+            ${from.leftCol} {
+                left: 733px;
+            }
+
+            ${from.wide} {
+                left: 734px;
+            }
         }
     `,
 };

@@ -52,7 +52,7 @@ export default {
     },
 };
 
-const StoryTemplate = (args: BrazeMessageProps & { componentName: string }): ReactElement => {
+const StoryTemplate = (args: BrazeMessageProps & { componentName: string, email?: string }): ReactElement => {
     const imageUrl = grid(
         'https://i.guim.co.uk/img/media/35d403182e4b262d37385281b19b763ee6b32f6a/58_0_1743_1046/master/1743.png?width=930&quality=45&auto=format&s=9ecd82413fef9883c1e7a0df2bf6abb1',
     );
@@ -66,6 +66,8 @@ const StoryTemplate = (args: BrazeMessageProps & { componentName: string }): Rea
         imageUrl,
         ophanComponentId: args.ophanComponentId,
     };
+
+    const email = args.email;
 
     // This is to make the data available to the guPreview add-on:
     knobsData.set({ ...brazeMessageProps, componentName: args.componentName });
@@ -81,6 +83,7 @@ const StoryTemplate = (args: BrazeMessageProps & { componentName: string }): Rea
                     console.log('submitComponentEvent called with: ', componentEvent);
                 }}
                 brazeMessageProps={brazeMessageProps}
+                email={email}
             />
         </StorybookWrapper>
     );
@@ -101,3 +104,20 @@ DefaultStory.args = {
 };
 
 DefaultStory.story = { name: 'BannerWithLink' };
+
+export const WithReminderStory = StoryTemplate.bind({});
+
+WithReminderStory.args = {
+    slotName: 'Banner',
+    header: 'The Guardian’s impact in 2021',
+    body: 'Thanks to your generous support in this extraordinary year, our open, independent journalism was read by millions. From the pandemic to our urgent coverage of the climate crisis, our reporting had a powerful impact.',
+    buttonText: 'Take a look back',
+    buttonUrl:
+        'https://www.theguardian.com/info/ng-interactive/2020/dec/21/the-guardian-in-2020?INTCMP=gdnwb_mrtn_banner_edtrl_MK_SU_WorkingReport2020Canvas',
+    boldText: 'Read our look-back to see how Guardian journalism made a difference.',
+    componentName: 'BannerWithLink',
+    ophanComponentId: 'change_me_ophan_component_id',
+    email: 'test@test.com',
+};
+
+WithReminderStory.story = { name: 'BannerWithReminderLink' };

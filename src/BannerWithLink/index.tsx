@@ -4,6 +4,8 @@ import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommo
 import type { TrackClick } from '../utils/tracking';
 import { styles } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';
+import {ContributionsBannerReminder} from "../bannerCommon/reminders/BannerReminder";
+import {buildReminderFields} from "../logic/reminders";
 export { COMPONENT_NAME };
 
 export type BrazeMessageProps = {
@@ -14,11 +16,19 @@ export type BrazeMessageProps = {
     buttonText?: string;
     buttonUrl?: string;
     imageUrl?: string;
+
+    // for reminders
+    // email?: string;
+    // reminderCta?: string;
+    // reminderLabel?: string;
+    // reminderPeriod?: string;
+    // reminderOption?: string;
 };
 
 export type Props = {
     brazeMessageProps: BrazeMessageProps;
     trackClick: TrackClick;
+    email?: string;
 };
 
 const BannerWithLink: React.FC<Props> = (props: Props) => {
@@ -31,15 +41,24 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
             buttonText,
             buttonUrl,
             imageUrl,
+            // reminderCta,
+            // reminderLabel,
+            // reminderPeriod,
+            // reminderOption,
         },
         trackClick,
+        email,
     } = props;
 
     const [showBanner, setShowBanner] = useState(true);
+    const [isReminderOpen, setIsReminderOpen] = useState(true);
 
     if (!canRender(props.brazeMessageProps)) {
         return null;
     }
+
+    const reminderFields = email ? buildReminderFields() : undefined;
+    console.log({reminderFields})
 
     const onCloseClick: OnCloseClick = (evt, internalButtonId) => {
         evt.preventDefault();
@@ -53,6 +72,10 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
             internalButtonId,
             ophanComponentId: ophanComponentId as string,
         });
+    };
+
+    const onReminderCloseClick = () => {
+        setIsReminderOpen(false);
     };
 
     useEscapeShortcut(() => onCloseAction(CLOSE_BUTTON_ID));
@@ -109,6 +132,16 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
                     </div>
                 </div>
             </div>
+            {isReminderOpen && reminderFields && email && (
+                <div css={styles.reminderContainer}>
+                    <div css={styles.reminderLine} />
+                    <ContributionsBannerReminder
+                        reminderFields={reminderFields}
+                        onReminderCloseClick={onReminderCloseClick}
+                        email={email}
+                    />
+                </div>
+            )}
         </div>
     );
 };

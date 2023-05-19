@@ -78,3 +78,12 @@ export const createReminder = (signupData: OneOffSignupRequest): Promise<void> =
             .catch(() => Promise.reject('Error creating reminder'));
     }
 };
+
+const PREPOSITION_REGEX = /^(on|in)/;
+
+const containsPreposition = (text: string): boolean => PREPOSITION_REGEX.test(text);
+
+const addPreposition = (text: string): string => 'in ' + text;
+
+export const ensureHasPreposition = (text: string): string =>
+    containsPreposition(text) ? text : addPreposition(text);

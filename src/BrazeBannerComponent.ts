@@ -23,6 +23,7 @@ export type CommonBannerComponentProps = {
     subscribeToNewsletter: NewsletterSubscribeCallback;
     logButtonClickWithBraze: BrazeClickHandler;
     submitComponentEvent: SubmitComponentEvent;
+    email?: string;
 };
 
 const BANNER_MAPPINGS: ComponentMapping<CommonBannerComponentProps & HasConsolidatedTrackClick> = {
