@@ -33,7 +33,6 @@ export type Props = {
 };
 
 const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
-    console.log(props);
     const {
         brazeMessageProps: {
             ophanComponentId,
