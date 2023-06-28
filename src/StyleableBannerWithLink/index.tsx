@@ -33,7 +33,7 @@ export type Props = {
 };
 
 const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
-    console.log(props)
+    console.log(props);
     const {
         brazeMessageProps: {
             ophanComponentId,
@@ -124,7 +124,13 @@ const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
                         {buttonText}
                     </LinkButton>
                 </div>
-                <div css={imagePosition === 'bottom' ? styles.bottomRightComponent : styles.centeredBottomRightComponent}>
+                <div
+                    css={
+                        imagePosition === 'bottom'
+                            ? styles.bottomRightComponent
+                            : styles.centeredBottomRightComponent
+                    }
+                >
                     <div css={imagePosition === 'bottom' ? styles.image : styles.centeredImage}>
                         <img src={imageUrl} alt={imageAltText} />
                     </div>

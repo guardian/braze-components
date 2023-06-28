@@ -240,7 +240,7 @@ export const styles = {
 };
 
 interface StyleData {
-    styleBackground: string,
+    styleBackground: string;
     styleHeader: string;
     styleBody: string;
     styleHighlight: string;
@@ -249,7 +249,7 @@ interface StyleData {
     styleButtonBackground: string;
     styleButtonHover: string;
     styleCloseButton: string;
-};
+}
 
 export const selfServeStyles = (style: StyleData) => {
     return {
@@ -494,5 +494,5 @@ export const selfServeStyles = (style: StyleData) => {
                 margin-right: 100px;
             }
         `,
-    }
+    };
 };
