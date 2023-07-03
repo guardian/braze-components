@@ -24,7 +24,9 @@ export type BrazeMessageProps = {
     imageUrl?: string;
     imageAltText?: string;
     imagePosition?: string;
-    styleCloseButton?: string;
+    styleClose?: string;
+    styleCloseBackground?: string;
+    styleCloseHover?: string;
 };
 
 const defaultColors: StyleData = {
@@ -36,7 +38,9 @@ const defaultColors: StyleData = {
     styleButton: 'rgb(255, 255, 255)',
     styleButtonBackground: 'rgb(5, 41, 98)',
     styleButtonHover: 'rgb(35, 75, 138)',
-    styleCloseButton: 'rgb(5, 41, 98)',
+    styleClose: 'rgb(5, 41, 98)',
+    styleCloseBackground: 'rgb(237, 237, 237)',
+    styleCloseHover: '#e5e5e5',
 };
 
 export type Props = {
@@ -64,7 +68,9 @@ const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
             imageUrl,
             imageAltText = '',
             imagePosition = 'center',
-            styleCloseButton,
+            styleClose,
+            styleCloseBackground,
+            styleCloseHover,
         },
         trackClick,
     } = props;
@@ -85,7 +91,12 @@ const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
                 defaultColors.styleButtonBackground,
             ),
             styleButtonHover: cssInjectionCheck(styleButtonHover, defaultColors.styleButtonHover),
-            styleCloseButton: cssInjectionCheck(styleCloseButton, defaultColors.styleCloseButton),
+            styleClose: cssInjectionCheck(styleClose, defaultColors.styleClose),
+            styleCloseBackground: cssInjectionCheck(
+                styleCloseBackground,
+                defaultColors.styleCloseBackground,
+            ),
+            styleCloseHover: cssInjectionCheck(styleCloseHover, defaultColors.styleCloseHover),
         },
         defaultColors,
     );

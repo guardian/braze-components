@@ -99,10 +99,20 @@ export default {
             type: { name: 'string', required: false },
             description: 'Image vertical position - options: "bottom", "center" (default)',
         },
-        styleCloseButton: {
-            name: 'styleCloseButton',
+        styleClose: {
+            name: 'styleClose',
             type: { name: 'string', required: false },
             description: 'Close button color - defaults to "rgb(5, 41, 98)"',
+        },
+        styleCloseBackground: {
+            name: 'styleCloseBackground',
+            type: { name: 'string', required: false },
+            description: 'Close button background - defaults to "rgb(237, 237, 237)"',
+        },
+        styleCloseHover: {
+            name: 'styleCloseHover',
+            type: { name: 'string', required: false },
+            description: 'Close button background hover - defaults to "#e5e5e5"',
         },
     },
 };
@@ -129,7 +139,9 @@ const StoryTemplate = (args: BrazeMessageProps & { componentName: string }): Rea
         imageUrl,
         imageAltText: args.imageAltText,
         imagePosition: args.imagePosition,
-        styleCloseButton: args.styleCloseButton,
+        styleClose: args.styleClose,
+        styleCloseBackground: args.styleCloseBackground,
+        styleCloseHover: args.styleCloseHover,
         ophanComponentId: args.ophanComponentId,
     };
 
@@ -172,7 +184,9 @@ DefaultStory.args = {
     styleButtonHover: 'rgb(35, 75, 138)',
     imageAltText: 'Accessible image description',
     imagePosition: 'bottom',
-    styleCloseButton: 'rgb(5, 41, 98)',
+    styleClose: 'rgb(5, 41, 98)',
+    styleCloseBackground: 'rgb(237, 237, 237)',
+    styleCloseHover: '#e5e5e5',
     componentName: 'StyleableBannerWithLink',
     ophanComponentId: 'change_me_ophan_component_id',
 };

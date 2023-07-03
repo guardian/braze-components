@@ -27,7 +27,9 @@ const defaultColors: StyleData = {
     styleButton: 'rgb(255, 255, 255)',
     styleButtonBackground: 'rgb(5, 41, 98)',
     styleButtonHover: 'rgb(35, 75, 138)',
-    styleCloseButton: `${neutral[20]}`,
+    styleClose: `${neutral[20]}`,
+    styleCloseBackground: '#ebe8e8',
+    styleCloseHover: '#ffd213',
 };
 
 export type BrazeMessageProps = {

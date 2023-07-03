@@ -12,7 +12,9 @@ export interface StyleData {
     styleButton: string;
     styleButtonBackground: string;
     styleButtonHover: string;
-    styleCloseButton: string;
+    styleClose: string;
+    styleCloseBackground: string;
+    styleCloseHover: string;
 }
 
 // To prevent malicious (or accidental) CSS injection
@@ -207,11 +209,17 @@ export const selfServeStyles = (style: StyleData, defs: StyleData) => {
             position: absolute;
             top: 15px;
             right: 10px;
-            border: 1px solid ${defs.styleCloseButton};
-            border: 1px solid ${style.styleCloseButton};
+            border: 1px solid ${defs.styleClose};
+            border: 1px solid ${style.styleClose};
+            background-color: ${defs.styleCloseBackground};
+            background-color: ${style.styleCloseBackground};
+            &:hover {
+                background-color: ${defs.styleCloseHover};
+                background-color: ${style.styleCloseHover};
+            }
             & svg {
-                fill: ${defs.styleCloseButton};
-                fill: ${style.styleCloseButton};
+                fill: ${defs.styleClose};
+                fill: ${style.styleClose};
             }
         `,
 
