@@ -5,7 +5,8 @@ import { Button, SvgCross } from '@guardian/source-react-components';
 import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
 import { NewsletterSubscribeCallback, CTA, NewsletterFrequency } from '../newsletterCommon';
 import type { TrackClick } from '../utils/tracking';
-import { styles } from '../styles/bannerCommon';
+import { StyleData, selfServeStyles } from '../styles/bannerCommon';
+import { neutral } from '@guardian/source-foundations';
 import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
 
@@ -27,6 +28,18 @@ const localStyles = {
     bold: css`
         font-weight: bold;
     `,
+};
+
+const defaultColors: StyleData = {
+    styleBackground: '#ebe8e8',
+    styleHeader: `${neutral[20]}`,
+    styleBody: '#666',
+    styleHighlight: `${neutral[20]}`,
+    styleHighlightBackground: '#ebe8e8',
+    styleButton: 'rgb(255, 255, 255)',
+    styleButtonBackground: 'rgb(5, 41, 98)',
+    styleButtonHover: 'rgb(35, 75, 138)',
+    styleCloseButton: `${neutral[20]}`,
 };
 
 export type BrazeMessageProps = {
@@ -61,6 +74,8 @@ const BannerNewsletter: React.FC<Props> = (props: Props) => {
         subscribeToNewsletter,
         trackClick,
     } = props;
+
+    const styles = selfServeStyles(defaultColors, defaultColors);
 
     const [showBanner, setShowBanner] = useState(true);
 

@@ -10,12 +10,25 @@ import type { TrackClick } from '../utils/tracking';
 
 import { AppStore } from '../assets/app-store';
 import { PlayStore } from '../assets/play-store';
-import { styles as commonStyles } from '../styles/bannerCommon';
+import { StyleData, selfServeStyles } from '../styles/bannerCommon';
+import { neutral } from '@guardian/source-foundations';
 import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
 import { styles } from './styles';
 
 import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
+
+const defaultColors: StyleData = {
+    styleBackground: '#ebe8e8',
+    styleHeader: `${neutral[20]}`,
+    styleBody: '#666',
+    styleHighlight: `${neutral[20]}`,
+    styleHighlightBackground: '#ebe8e8',
+    styleButton: 'rgb(255, 255, 255)',
+    styleButtonBackground: 'rgb(5, 41, 98)',
+    styleButtonHover: 'rgb(35, 75, 138)',
+    styleCloseButton: `${neutral[20]}`,
+};
 
 export type BrazeMessageProps = {
     ophanComponentId?: string;
@@ -41,6 +54,8 @@ export const AppBanner = (props: Props): ReactElement | null => {
     if (!canRender(props.brazeMessageProps)) {
         return null;
     }
+
+    const commonStyles = selfServeStyles(defaultColors, defaultColors);
 
     const [showBanner, setShowBanner] = useState(true);
 
@@ -93,7 +108,7 @@ export const AppBanner = (props: Props): ReactElement | null => {
                     <p css={commonStyles.paragraph}>
                         {body}
                         <br />
-                        <strong css={commonStyles.cta}>{cta}</strong>
+                        <strong css={commonStyles.highlight}>{cta}</strong>
                         <span css={styles.storeIcon}>
                             <AppStore />
                             <PlayStore />
