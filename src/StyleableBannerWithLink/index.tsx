@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, LinkButton, SvgCross } from '@guardian/source-react-components';
 import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
 import type { TrackClick } from '../utils/tracking';
-import { selfServeStyles } from '../styles/bannerCommon';
+import { selfServeStyles, cssInjectionCheck } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
 
@@ -36,37 +36,37 @@ const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
     const {
         brazeMessageProps: {
             ophanComponentId,
-            styleBackground = 'rgb(237, 237, 237)',
+            styleBackground,
             header,
-            styleHeader = 'rgb(51, 51, 51)',
+            styleHeader,
             body,
-            styleBody = 'rgb(51, 51, 51)',
+            styleBody,
             highlight,
-            styleHighlight = 'rgb(51, 51, 51)',
-            styleHighlightBackground = 'rgb(237, 237, 237)',
+            styleHighlight,
+            styleHighlightBackground,
             buttonText,
             buttonUrl,
-            styleButton = 'rgb(255, 255, 255)',
-            styleButtonBackground = 'rgb(5, 41, 98)',
-            styleButtonHover = 'rgb(35, 75, 138)',
+            styleButton,
+            styleButtonBackground,
+            styleButtonHover,
             imageUrl,
             imageAltText = '',
             imagePosition = 'center',
-            styleCloseButton = 'rgb(5, 41, 98)',
+            styleCloseButton,
         },
         trackClick,
     } = props;
 
     const styles = selfServeStyles({
-        styleBackground,
-        styleHeader,
-        styleBody,
-        styleHighlight,
-        styleHighlightBackground,
-        styleButton,
-        styleButtonBackground,
-        styleButtonHover,
-        styleCloseButton,
+        styleBackground: cssInjectionCheck(styleBackground, 'rgb(237, 237, 237)'),
+        styleHeader: cssInjectionCheck(styleHeader, 'rgb(51, 51, 51)'),
+        styleBody: cssInjectionCheck(styleBody, 'rgb(51, 51, 51)'),
+        styleHighlight: cssInjectionCheck(styleHighlight, 'rgb(51, 51, 51)'),
+        styleHighlightBackground: cssInjectionCheck(styleHighlightBackground, 'rgb(237, 237, 237)'),
+        styleButton: cssInjectionCheck(styleButton, 'rgb(255, 255, 255)'),
+        styleButtonBackground: cssInjectionCheck(styleButtonBackground, 'rgb(5, 41, 98)'),
+        styleButtonHover: cssInjectionCheck(styleButtonHover, 'rgb(35, 75, 138)'),
+        styleCloseButton: cssInjectionCheck(styleCloseButton, 'rgb(5, 41, 98)'),
     });
 
     const [showBanner, setShowBanner] = useState(true);

@@ -251,7 +251,20 @@ interface StyleData {
     styleCloseButton: string;
 }
 
+// To prevent malicious (or accidental) CSS injection
+export const cssInjectionCheck = (val: string | undefined, def: string): string => {
+    if (!val) {
+        return def;
+    }
+    const items = val.split(';');
+    if (!items.length) {
+        return def;
+    }
+    return items[0];
+};
+
 export const selfServeStyles = (style: StyleData) => {
+    console.log(style);
     return {
         wrapper: css`
             box-sizing: border-box;
