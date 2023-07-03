@@ -239,7 +239,7 @@ export const styles = {
     `,
 };
 
-interface StyleData {
+export interface StyleData {
     styleBackground: string;
     styleHeader: string;
     styleBody: string;
@@ -263,8 +263,7 @@ export const cssInjectionCheck = (val: string | undefined, def: string): string 
     return items[0];
 };
 
-export const selfServeStyles = (style: StyleData) => {
-    console.log(style);
+export const selfServeStyles = (style: StyleData, defs: StyleData) => {
     return {
         wrapper: css`
             box-sizing: border-box;
@@ -273,6 +272,7 @@ export const selfServeStyles = (style: StyleData) => {
             justify-content: center;
             align-items: center;
             width: 100%;
+            background-color: ${defs.styleBackground};
             background-color: ${style.styleBackground};
             color: ${neutral[20]};
 
@@ -347,6 +347,7 @@ export const selfServeStyles = (style: StyleData) => {
             ${headline.small({ fontWeight: 'bold' })};
             margin: 0;
             max-width: 100%;
+            color: ${defs.styleHeader};
             color: ${style.styleHeader};
 
             ${from.mobileLandscape} {
@@ -363,6 +364,7 @@ export const selfServeStyles = (style: StyleData) => {
             line-height: 135%;
             margin: ${space[5]}px 0 ${space[5]}px;
             max-width: 100%;
+            color: ${defs.styleBody};
             color: ${style.styleBody};
 
             ${from.phablet} {
@@ -399,7 +401,9 @@ export const selfServeStyles = (style: StyleData) => {
             margin-top: ${space[5]}px;
             margin-right: ${space[3]}px;
             display: inline-block;
+            color: ${defs.styleHighlight};
             color: ${style.styleHighlight};
+            background-color: ${defs.styleHighlightBackground};
             background-color: ${style.styleHighlightBackground};
         `,
 
@@ -409,9 +413,12 @@ export const selfServeStyles = (style: StyleData) => {
 
         primaryButton: css`
             margin-right: ${space[3]}px;
+            color: ${defs.styleButton};
             color: ${style.styleButton};
+            background-color: ${defs.styleButtonBackground};
             background-color: ${style.styleButtonBackground};
             &:hover {
+                background-color: ${defs.styleButtonHover};
                 background-color: ${style.styleButtonHover};
             }
         `,
@@ -436,8 +443,10 @@ export const selfServeStyles = (style: StyleData) => {
             position: absolute;
             top: 15px;
             right: 10px;
+            border: 1px solid ${defs.styleCloseButton};
             border: 1px solid ${style.styleCloseButton};
             & svg {
+                fill: ${defs.styleCloseButton};
                 fill: ${style.styleCloseButton};
             }
         `,

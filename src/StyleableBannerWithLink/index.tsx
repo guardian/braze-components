@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, LinkButton, SvgCross } from '@guardian/source-react-components';
 import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
 import type { TrackClick } from '../utils/tracking';
-import { selfServeStyles, cssInjectionCheck } from '../styles/bannerCommon';
+import { StyleData, selfServeStyles, cssInjectionCheck } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
 
@@ -25,6 +25,18 @@ export type BrazeMessageProps = {
     imageAltText?: string;
     imagePosition?: string;
     styleCloseButton?: string;
+};
+
+const defaultColors: StyleData = {
+    styleBackground: 'rgb(237, 237, 237)',
+    styleHeader: 'rgb(51, 51, 51)',
+    styleBody: 'rgb(51, 51, 51)',
+    styleHighlight: 'rgb(51, 51, 51)',
+    styleHighlightBackground: 'rgb(237, 237, 237)',
+    styleButton: 'rgb(255, 255, 255)',
+    styleButtonBackground: 'rgb(5, 41, 98)',
+    styleButtonHover: 'rgb(35, 75, 138)',
+    styleCloseButton: 'rgb(5, 41, 98)',
 };
 
 export type Props = {
@@ -57,17 +69,26 @@ const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
         trackClick,
     } = props;
 
-    const styles = selfServeStyles({
-        styleBackground: cssInjectionCheck(styleBackground, 'rgb(237, 237, 237)'),
-        styleHeader: cssInjectionCheck(styleHeader, 'rgb(51, 51, 51)'),
-        styleBody: cssInjectionCheck(styleBody, 'rgb(51, 51, 51)'),
-        styleHighlight: cssInjectionCheck(styleHighlight, 'rgb(51, 51, 51)'),
-        styleHighlightBackground: cssInjectionCheck(styleHighlightBackground, 'rgb(237, 237, 237)'),
-        styleButton: cssInjectionCheck(styleButton, 'rgb(255, 255, 255)'),
-        styleButtonBackground: cssInjectionCheck(styleButtonBackground, 'rgb(5, 41, 98)'),
-        styleButtonHover: cssInjectionCheck(styleButtonHover, 'rgb(35, 75, 138)'),
-        styleCloseButton: cssInjectionCheck(styleCloseButton, 'rgb(5, 41, 98)'),
-    });
+    const styles = selfServeStyles(
+        {
+            styleBackground: cssInjectionCheck(styleBackground, defaultColors.styleBackground),
+            styleHeader: cssInjectionCheck(styleHeader, defaultColors.styleHeader),
+            styleBody: cssInjectionCheck(styleBody, defaultColors.styleBody),
+            styleHighlight: cssInjectionCheck(styleHighlight, defaultColors.styleHighlight),
+            styleHighlightBackground: cssInjectionCheck(
+                styleHighlightBackground,
+                defaultColors.styleHighlightBackground,
+            ),
+            styleButton: cssInjectionCheck(styleButton, defaultColors.styleButton),
+            styleButtonBackground: cssInjectionCheck(
+                styleButtonBackground,
+                defaultColors.styleButtonBackground,
+            ),
+            styleButtonHover: cssInjectionCheck(styleButtonHover, defaultColors.styleButtonHover),
+            styleCloseButton: cssInjectionCheck(styleCloseButton, defaultColors.styleCloseButton),
+        },
+        defaultColors,
+    );
 
     const [showBanner, setShowBanner] = useState(true);
 
