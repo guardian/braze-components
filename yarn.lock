@@ -2402,22 +2402,22 @@
     yaml "^1.7.2"
     yargs "^15.4.1"
 
-"@guardian/source-foundations@^10.0.0":
-  version "10.0.1"
-  resolved "https://registry.yarnpkg.com/@guardian/source-foundations/-/source-foundations-10.0.1.tgz#fe9d5d1bee9dd1b0d3d579d21a99f6051aa47649"
-  integrity sha512-q7FHvQO2JN463SHRjLNKeywW8KUfjoao6oiULoyHssI07saol2rE0W8BdPCeD9337FNztiOxMGOmXWSBUIdYJw==
+"@guardian/source-foundations@^12.0.0":
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/@guardian/source-foundations/-/source-foundations-12.0.0.tgz#3f75d5dd26dae0d3fe13fd93aabe1e837cf0ddbb"
+  integrity sha512-sq+htAsvPlaZBjfSZ8ISZZdAnFQwuZ7xeCrI/C369HA+MDl3pQ1dFWz3YmqCP/vkXS8Wr3qVlxXNqWGwKKrYrw==
   dependencies:
     mini-svg-data-uri "1.4.4"
 
-"@guardian/source-react-components-development-kitchen@^10.0.1":
-  version "10.0.1"
-  resolved "https://registry.yarnpkg.com/@guardian/source-react-components-development-kitchen/-/source-react-components-development-kitchen-10.0.1.tgz#507ae5cc14c84f74661dec5de4e7641ec06c6a50"
-  integrity sha512-pfs4CztLYF1l5klAwiEy0mLidzxBv0xryi6naRkm+RWs8xbI/C97Sm11b+Ai7obvrsamwcFR1fJwKoiYbPfG2Q==
+"@guardian/source-react-components-development-kitchen@^13.0.1":
+  version "13.0.1"
+  resolved "https://registry.yarnpkg.com/@guardian/source-react-components-development-kitchen/-/source-react-components-development-kitchen-13.0.1.tgz#c8072f9369cbb06272d9f9174c2f6637d258c885"
+  integrity sha512-aQ39E0qQ6KCDgJqTnxG7d36HWfmHcLVImbDq/4TnbFGV100CUtPe19VBzMKgGP7/CYYnC22QKDa6cNgVcZysjQ==
 
-"@guardian/source-react-components@^12.0.0":
-  version "12.0.0"
-  resolved "https://registry.yarnpkg.com/@guardian/source-react-components/-/source-react-components-12.0.0.tgz#bee742290ac8223990439c6d672d7c4908207e94"
-  integrity sha512-nqNQVsqJO8wuFVFoCH+tpPwleiSdlizuFtIqrx9jVm2s0Fzn17u6xYGHQAnVuwuKf2RzbzIJkDHqvc1AjbJDsw==
+"@guardian/source-react-components@^15.0.1":
+  version "15.0.1"
+  resolved "https://registry.yarnpkg.com/@guardian/source-react-components/-/source-react-components-15.0.1.tgz#c584f507181fc88761bf702b7a6068b28a54003b"
+  integrity sha512-a4IBy0wmvb7UvnsT41I7VRdxeGaYz7l3LTV8PUE7swmS5UC/6SCQjOmsmXE54UiasdolUGMEt6C5p5oTxTDrdg==
 
 "@hapi/hoek@^9.0.0":
   version "9.2.0"
