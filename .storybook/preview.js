@@ -1,4 +1,3 @@
-import { addParameters } from '@storybook/react';
 import { breakpoints } from '@guardian/source-foundations';
 
 const viewportMeta = {
@@ -50,7 +49,7 @@ const viewportEntries = Object.entries(breakpoints).map(([name, width]) => {
 });
 const viewports = Object.fromEntries(viewportEntries);
 
-addParameters({
+export const parameters = {
     viewport: {
         viewports,
         defaultViewport: 'responsive',
@@ -59,4 +58,4 @@ addParameters({
     grid: {
         disable: true,
     },
-});
+};
