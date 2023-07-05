@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import type { Extras } from '../logic/types';
 import { neutral, space, from, until, body, headline } from '@guardian/source-foundations';
 
 const imgHeight = '280';
@@ -18,10 +19,6 @@ export interface StyleData {
 }
 
 type Styles = keyof StyleData;
-
-interface BrazeObject {
-    [index: string]: string;
-}
 
 // To prevent malicious (or accidental) CSS injection
 // This is the most basic of protections, returning the default if the val is:
@@ -49,9 +46,9 @@ export const cssInjectionCheck = (val: string | undefined, def: string): string 
     return item;
 };
 
-export const selfServeStyles = (userVals: BrazeObject, defs: StyleData) => {
+export const selfServeStyles = (userVals: Extras, defs: StyleData) => {
     const style: StyleData = Object.assign({}, defs);
-    const defKeys: Styles[] = Object.keys(defs);
+    const defKeys: Styles[] = Object.keys(defs) as Styles[];
 
     defKeys.forEach((key) => {
         style[key] = cssInjectionCheck(userVals[key], defs[key]);
