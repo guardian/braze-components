@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, LinkButton, SvgCross } from '@guardian/source-react-components';
 import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
 import type { TrackClick } from '../utils/tracking';
-import { StyleData, selfServeStyles, cssInjectionCheck } from '../styles/bannerCommon';
+import { StyleData, selfServeStyles } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
 
@@ -49,63 +49,28 @@ export type Props = {
 };
 
 const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
+    if (!canRender(props.brazeMessageProps)) {
+        return null;
+    }
+
     const {
         brazeMessageProps: {
             ophanComponentId,
-            styleBackground,
             header,
-            styleHeader,
             body,
-            styleBody,
             highlight,
-            styleHighlight,
-            styleHighlightBackground,
             buttonText,
             buttonUrl,
-            styleButton,
-            styleButtonBackground,
-            styleButtonHover,
             imageUrl,
             imageAltText = '',
             imagePosition = 'center',
-            styleClose,
-            styleCloseBackground,
-            styleCloseHover,
         },
         trackClick,
     } = props;
 
-    const styles = selfServeStyles(
-        {
-            styleBackground: cssInjectionCheck(styleBackground, defaultColors.styleBackground),
-            styleHeader: cssInjectionCheck(styleHeader, defaultColors.styleHeader),
-            styleBody: cssInjectionCheck(styleBody, defaultColors.styleBody),
-            styleHighlight: cssInjectionCheck(styleHighlight, defaultColors.styleHighlight),
-            styleHighlightBackground: cssInjectionCheck(
-                styleHighlightBackground,
-                defaultColors.styleHighlightBackground,
-            ),
-            styleButton: cssInjectionCheck(styleButton, defaultColors.styleButton),
-            styleButtonBackground: cssInjectionCheck(
-                styleButtonBackground,
-                defaultColors.styleButtonBackground,
-            ),
-            styleButtonHover: cssInjectionCheck(styleButtonHover, defaultColors.styleButtonHover),
-            styleClose: cssInjectionCheck(styleClose, defaultColors.styleClose),
-            styleCloseBackground: cssInjectionCheck(
-                styleCloseBackground,
-                defaultColors.styleCloseBackground,
-            ),
-            styleCloseHover: cssInjectionCheck(styleCloseHover, defaultColors.styleCloseHover),
-        },
-        defaultColors,
-    );
+    const styles = selfServeStyles(props.brazeMessageProps, defaultColors);
 
     const [showBanner, setShowBanner] = useState(true);
-
-    if (!canRender(props.brazeMessageProps)) {
-        return null;
-    }
 
     const onCloseClick: OnCloseClick = (evt, internalButtonId) => {
         evt.preventDefault();

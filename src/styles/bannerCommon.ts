@@ -17,7 +17,18 @@ export interface StyleData {
     styleCloseHover: string;
 }
 
+type Styles = keyof StyleData;
+
+interface BrazeObject {
+    [index: string]: string;
+}
+
 // To prevent malicious (or accidental) CSS injection
+// This is the most basic of protections, returning the default if the val is:
+// - undefined
+// - an empty string
+// - includes a ';' anywhere (CSS injection)
+// - has an opening '(' but no closing ')' (for various css color strings)
 export const cssInjectionCheck = (val: string | undefined, def: string): string => {
     if (!val) {
         return def;
@@ -26,10 +37,27 @@ export const cssInjectionCheck = (val: string | undefined, def: string): string 
     if (!items.length) {
         return def;
     }
-    return items[0];
+    const item = items[0];
+    if (!item.length) {
+        return def;
+    }
+    if (item.includes('(')) {
+        if (!item.includes(')')) {
+            return def;
+        }
+    }
+    return item;
 };
 
-export const selfServeStyles = (style: StyleData, defs: StyleData) => {
+export const selfServeStyles = (userVals: BrazeObject, defs: StyleData) => {
+    const style: StyleData = Object.assign({}, defs);
+    const defKeys: Styles[] = Object.keys(defs);
+
+    defKeys.forEach((key) => {
+        style[key] = cssInjectionCheck(userVals[key], defs[key]);
+    });
+
+    // Wherever we insert a user-defined CSS value, we MUST ALSO INCLUDE the related default value immediately before that user-defined value!
     return {
         wrapper: css`
             box-sizing: border-box;

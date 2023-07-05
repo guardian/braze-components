@@ -62,6 +62,10 @@ export type Props = {
 };
 
 const BannerNewsletter: React.FC<Props> = (props: Props) => {
+    if (!canRender(props.brazeMessageProps)) {
+        return null;
+    }
+
     const {
         brazeMessageProps: {
             ophanComponentId,
@@ -77,13 +81,9 @@ const BannerNewsletter: React.FC<Props> = (props: Props) => {
         trackClick,
     } = props;
 
-    const styles = selfServeStyles(defaultColors, defaultColors);
+    const styles = selfServeStyles(props.brazeMessageProps, defaultColors);
 
     const [showBanner, setShowBanner] = useState(true);
-
-    if (!canRender(props.brazeMessageProps)) {
-        return null;
-    }
 
     const onCloseClick: OnCloseClick = (evt, internalButtonId) => {
         evt.preventDefault();

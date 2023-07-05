@@ -48,22 +48,18 @@ export type Props = {
 };
 
 export const AppBanner = (props: Props): ReactElement | null => {
+    if (!canRender(props.brazeMessageProps)) {
+        return null;
+    }
+
     const {
         brazeMessageProps: { ophanComponentId = COMPONENT_NAME, header, body, cta, imageUrl },
         trackClick,
     } = props;
 
-    if (!canRender(props.brazeMessageProps)) {
-        return null;
-    }
-
-    const commonStyles = selfServeStyles(defaultColors, defaultColors);
+    const commonStyles = selfServeStyles(props.brazeMessageProps, defaultColors);
 
     const [showBanner, setShowBanner] = useState(true);
-
-    if (!canRender(props.brazeMessageProps)) {
-        return null;
-    }
 
     const onCloseClick: OnCloseClick = (evt, internalButtonId) => {
         evt.preventDefault();
