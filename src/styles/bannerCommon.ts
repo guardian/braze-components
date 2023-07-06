@@ -25,21 +25,22 @@ type Styles = keyof StyleData;
 // - undefined
 // - an empty string
 // - includes a ';' anywhere (CSS injection)
-// - has an opening '(' but no closing ')' (for various css color strings)
+// - has unequal number of open/close parentheses (for various css color strings)
+// NOTE: does NOT check for CSS color string validity
+// - If we want to do that then the best approach is to add a validator library to the mix
+// - eg: https://github.com/dreamyguy/validate-color
 export const cssInjectionCheck = (val: string | undefined, def: string): string => {
     if (!val) {
         return def;
     }
-    const items = val.split(';');
-    if (!items.length) {
-        return def;
-    }
-    const item = items[0];
-    if (!item.length) {
+    const item = val.split(';')[0];
+    if (item == null || !item.length) {
         return def;
     }
     if (item.includes('(')) {
-        if (!item.includes(')')) {
+        const opens = item.split('').filter(c => c === '(');
+        const closes = item.split('').filter(c => c === ')');
+        if (opens.length !== closes.length) {
             return def;
         }
     }
@@ -54,7 +55,6 @@ export const selfServeStyles = (userVals: Extras, defs: StyleData) => {
         style[key] = cssInjectionCheck(userVals[key], defs[key]);
     });
 
-    // Wherever we insert a user-defined CSS value, we MUST ALSO INCLUDE the related default value immediately before that user-defined value!
     return {
         wrapper: css`
             box-sizing: border-box;
@@ -63,7 +63,6 @@ export const selfServeStyles = (userVals: Extras, defs: StyleData) => {
             justify-content: center;
             align-items: center;
             width: 100%;
-            background-color: ${defs.styleBackground};
             background-color: ${style.styleBackground};
             color: ${neutral[20]};
 
@@ -138,7 +137,6 @@ export const selfServeStyles = (userVals: Extras, defs: StyleData) => {
             ${headline.small({ fontWeight: 'bold' })};
             margin: 0;
             max-width: 100%;
-            color: ${defs.styleHeader};
             color: ${style.styleHeader};
 
             ${from.mobileLandscape} {
@@ -155,7 +153,6 @@ export const selfServeStyles = (userVals: Extras, defs: StyleData) => {
             line-height: 135%;
             margin: ${space[5]}px 0 ${space[5]}px;
             max-width: 100%;
-            color: ${defs.styleBody};
             color: ${style.styleBody};
 
             ${from.phablet} {
@@ -192,9 +189,7 @@ export const selfServeStyles = (userVals: Extras, defs: StyleData) => {
             margin-top: ${space[5]}px;
             margin-right: ${space[3]}px;
             display: inline-block;
-            color: ${defs.styleHighlight};
             color: ${style.styleHighlight};
-            background-color: ${defs.styleHighlightBackground};
             background-color: ${style.styleHighlightBackground};
         `,
 
@@ -204,12 +199,9 @@ export const selfServeStyles = (userVals: Extras, defs: StyleData) => {
 
         primaryButton: css`
             margin-right: ${space[3]}px;
-            color: ${defs.styleButton};
             color: ${style.styleButton};
-            background-color: ${defs.styleButtonBackground};
             background-color: ${style.styleButtonBackground};
             &:hover {
-                background-color: ${defs.styleButtonHover};
                 background-color: ${style.styleButtonHover};
             }
         `,
@@ -234,16 +226,12 @@ export const selfServeStyles = (userVals: Extras, defs: StyleData) => {
             position: absolute;
             top: 15px;
             right: 10px;
-            border: 1px solid ${defs.styleClose};
             border: 1px solid ${style.styleClose};
-            background-color: ${defs.styleCloseBackground};
             background-color: ${style.styleCloseBackground};
             &:hover {
-                background-color: ${defs.styleCloseHover};
                 background-color: ${style.styleCloseHover};
             }
             & svg {
-                fill: ${defs.styleClose};
                 fill: ${style.styleClose};
             }
         `,
