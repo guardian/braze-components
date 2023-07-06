@@ -34,9 +34,9 @@ const colorStringStyles = [
 
 type Styles = keyof StyleData;
 
-export const selfServeStyles = (userVals: Extras, defs: StyleData) => {
-    const style: StyleData = Object.assign({}, defs);
-    const defKeys: Styles[] = Object.keys(defs) as Styles[];
+export const selfServeStyles = (userVals: Extras, defaults: StyleData) => {
+    const style: StyleData = Object.assign({}, defaults);
+    const defKeys: Styles[] = Object.keys(defaults) as Styles[];
 
     const canvas = document.createElement('canvas');
     canvas.width = 1;
@@ -45,12 +45,9 @@ export const selfServeStyles = (userVals: Extras, defs: StyleData) => {
 
     defKeys.forEach((key) => {
         const userVal = userVals[key];
-        const defVal = defs[key];
 
         // If user val is undefined, or an empty string, use default val
-        if (userVal == null || !userVal) {
-            style[key] = defVal;
-        } else {
+        if (userVal != null && userVal.length > 0) {
             let flag = true;
 
             // Protect against CSS injection
@@ -82,7 +79,9 @@ export const selfServeStyles = (userVals: Extras, defs: StyleData) => {
                     }
                 }
             }
-            style[key] = flag ? item : defVal;
+            if (flag) {
+                style[key] = item;
+            }
         }
     });
 
