@@ -38,6 +38,7 @@ export const selfServeStyles = (userVals: Extras, defaults: StyleData) => {
     const style: StyleData = Object.assign({}, defaults);
     const defKeys: Styles[] = Object.keys(defaults) as Styles[];
 
+    // Create a single-pixel virtual canvas, used later for user input validation
     const canvas = document.createElement('canvas');
     canvas.width = 1;
     canvas.height = 1;
@@ -57,8 +58,13 @@ export const selfServeStyles = (userVals: Extras, defaults: StyleData) => {
             }
 
             // The following code is some very naive checks for legitimate CSS color strings
+            // - a more comprehensive solution would be a dedicated CSS colour string checker library
+            // - eg: https://github.com/dreamyguy/validate-color
 
             // Protect against unequal number of open/close parentheses
+            // - we need to catch malformed user-defined colour strings like `rgb(0, 0, 0`
+            // - a missing closing parenthesis invalidates subsequent CSS, leading to layout errors
+            // - this issue not fixed by the canvas check, because Chrome canvas context engine will try to silently fix the missing parenthesis for us
             else if (item.includes('(')) {
                 const opens = item.split('').filter((c) => c === '(');
                 const closes = item.split('').filter((c) => c === ')');
@@ -67,6 +73,10 @@ export const selfServeStyles = (userVals: Extras, defaults: StyleData) => {
                 }
             }
             // Check for legitimate CSS color string values
+            // - canvas context engine fillstyle is set to transparent, then to the user-defined colour
+            // - if the user-defined colour is malformed, the context engine will ignore it
+            // - we then clear the canvas pixel, and paint it with the current fillStyle colour
+            // - if the pixel returned by `getImageData` is transparent, we know the user-defined colour string is malformed, and thus unusable
             if (flag && ctx && colorStringStyles.includes(key)) {
                 ctx.fillStyle = 'transparent';
                 ctx.fillStyle = item;
