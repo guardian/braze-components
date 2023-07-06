@@ -5,7 +5,7 @@ set -m # enable job control
 
 STORYBOOK_HOST=https://braze-components.local.dev-gutools.co.uk
 
-start-storybook -p 6016 --ci --no-manager-cache &
+storybook dev -p 6016 --ci &
 yarn wait-on $STORYBOOK_HOST
 echo "Storybook available at $STORYBOOK_HOST"
 open $STORYBOOK_HOST

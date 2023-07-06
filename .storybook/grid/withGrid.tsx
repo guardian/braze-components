@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import addons from '@storybook/addons';
-import { makeDecorator } from '@storybook/addons';
+import { addons } from '@storybook/addons';
+import { makeDecorator } from '@storybook/preview-api';
 import { STORY_CHANGED, FORCE_RE_RENDER } from '@storybook/core-events';
 
 let gridValue;

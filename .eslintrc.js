@@ -5,6 +5,7 @@ module.exports = {
         'plugin:react/recommended',
         'plugin:prettier/recommended',
         'plugin:@guardian/eslint-plugin-source-react-components/recommended',
+        'plugin:storybook/recommended'
     ],
     plugins: ['@emotion'],
     parserOptions: {
