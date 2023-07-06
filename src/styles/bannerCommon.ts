@@ -18,41 +18,72 @@ export interface StyleData {
     styleCloseHover: string;
 }
 
-type Styles = keyof StyleData;
+const colorStringStyles = [
+    'styleBackground',
+    'styleHeader',
+    'styleBody',
+    'styleHighlight',
+    'styleHighlightBackground',
+    'styleButton',
+    'styleButtonBackground',
+    'styleButtonHover',
+    'styleClose',
+    'styleCloseBackground',
+    'styleCloseHover',
+];
 
-// To prevent malicious (or accidental) CSS injection
-// This is the most basic of protections, returning the default if the val is:
-// - undefined
-// - an empty string
-// - includes a ';' anywhere (CSS injection)
-// - has unequal number of open/close parentheses (for various css color strings)
-// NOTE: does NOT check for CSS color string validity
-// - If we want to do that then the best approach is to add a validator library to the mix
-// - eg: https://github.com/dreamyguy/validate-color
-export const cssInjectionCheck = (val: string | undefined, def: string): string => {
-    if (!val) {
-        return def;
-    }
-    const item = val.split(';')[0];
-    if (item == null || !item.length) {
-        return def;
-    }
-    if (item.includes('(')) {
-        const opens = item.split('').filter(c => c === '(');
-        const closes = item.split('').filter(c => c === ')');
-        if (opens.length !== closes.length) {
-            return def;
-        }
-    }
-    return item;
-};
+type Styles = keyof StyleData;
 
 export const selfServeStyles = (userVals: Extras, defs: StyleData) => {
     const style: StyleData = Object.assign({}, defs);
     const defKeys: Styles[] = Object.keys(defs) as Styles[];
 
+    const canvas = document.createElement('canvas');
+    canvas.width = 1;
+    canvas.height = 1;
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+
     defKeys.forEach((key) => {
-        style[key] = cssInjectionCheck(userVals[key], defs[key]);
+        const userVal = userVals[key];
+        const defVal = defs[key];
+
+        // If user val is undefined, or an empty string, use default val
+        if (userVal == null || !userVal) {
+            style[key] = defVal;
+        } else {
+            let flag = true;
+
+            // Protect against CSS injection
+            const item = userVal.split(';')[0];
+            if (item == null || !item) {
+                flag = false;
+            }
+
+            // The following code is some very naive checks for legitimate CSS color strings
+
+            // Protect against unequal number of open/close parentheses
+            else if (item.includes('(')) {
+                const opens = item.split('').filter((c) => c === '(');
+                const closes = item.split('').filter((c) => c === ')');
+                if (opens.length !== closes.length) {
+                    flag = false;
+                }
+            }
+            // Check for legitimate CSS color string values
+            if (flag && ctx && colorStringStyles.includes(key)) {
+                ctx.fillStyle = 'transparent';
+                ctx.fillStyle = item;
+                ctx.clearRect(0, 0, 1, 1);
+                ctx.fillRect(0, 0, 1, 1);
+                const iData = ctx.getImageData(0, 0, 1, 1);
+                if (iData && iData.data) {
+                    if (iData.data[3] === 0) {
+                        flag = false;
+                    }
+                }
+            }
+            style[key] = flag ? item : defVal;
+        }
     });
 
     return {
