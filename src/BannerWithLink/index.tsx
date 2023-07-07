@@ -3,20 +3,19 @@ import { Button, LinkButton, SvgCross } from '@guardian/source-react-components'
 import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
 import type { TrackClick } from '../utils/tracking';
 import { StyleData, selfServeStyles } from '../styles/bannerCommon';
-import { neutral } from '@guardian/source-foundations';
 import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
 
 const defaultColors: StyleData = {
     styleBackground: '#ebe8e8',
-    styleHeader: `${neutral[20]}`,
-    styleBody: '#666',
-    styleHighlight: `${neutral[20]}`,
+    styleHeader: `#333333`,
+    styleBody: '#666666',
+    styleHighlight: `#333333`,
     styleHighlightBackground: '#ebe8e8',
-    styleButton: 'rgb(255, 255, 255)',
-    styleButtonBackground: 'rgb(5, 41, 98)',
-    styleButtonHover: 'rgb(35, 75, 138)',
-    styleClose: `${neutral[20]}`,
+    styleButton: '#ffffff',
+    styleButtonBackground: '#052962',
+    styleButtonHover: '#234b8a',
+    styleClose: `#333333`,
     styleCloseBackground: '#ebe8e8',
     styleCloseHover: '#e5e5e5',
 };

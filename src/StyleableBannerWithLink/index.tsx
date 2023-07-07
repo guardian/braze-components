@@ -30,16 +30,16 @@ export type BrazeMessageProps = {
 };
 
 const defaultColors: StyleData = {
-    styleBackground: 'rgb(237, 237, 237)',
-    styleHeader: 'rgb(51, 51, 51)',
-    styleBody: 'rgb(51, 51, 51)',
-    styleHighlight: 'rgb(51, 51, 51)',
-    styleHighlightBackground: 'rgb(237, 237, 237)',
-    styleButton: 'rgb(255, 255, 255)',
-    styleButtonBackground: 'rgb(5, 41, 98)',
-    styleButtonHover: 'rgb(35, 75, 138)',
-    styleClose: 'rgb(5, 41, 98)',
-    styleCloseBackground: 'rgb(237, 237, 237)',
+    styleBackground: '#ededed',
+    styleHeader: '#333333',
+    styleBody: '#333333',
+    styleHighlight: '#333333',
+    styleHighlightBackground: '#ededed',
+    styleButton: '#ffffff',
+    styleButtonBackground: '#052962',
+    styleButtonHover: '#234b8a',
+    styleClose: '#052962',
+    styleCloseBackground: '#ededed',
     styleCloseHover: '#e5e5e5',
 };
 
