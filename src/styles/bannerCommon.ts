@@ -49,6 +49,11 @@ export const selfServeStyles = (userVals: Extras, defaults: StyleData) => {
             // Protect against CSS injection
             const item = userVal.split(';')[0].trim();
 
+            // Protect against null or empty user strings
+            if (item == null || !item.length) {
+                flag = false;
+            }
+
             // Check for legitimate CSS color string values
             // - we only support `#abcdef` color format
             if (flag && colorStringStyles.includes(key)) {
