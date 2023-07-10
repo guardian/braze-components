@@ -44,25 +44,17 @@ export const selfServeStyles = (userVals: Extras, defaults: StyleData) => {
 
         // If user val is undefined, or an empty string, use default val
         if (userVal != null && userVal.length > 0) {
-            let flag = true;
-
             // Protect against CSS injection
             const item = userVal.split(';')[0].trim();
 
             // Protect against null or empty user strings
             if (item == null || !item.length) {
-                flag = false;
+                return;
             }
 
             // Check for legitimate CSS color string values
             // - we only support `#abcdef` color format
-            if (flag && colorStringStyles.includes(key)) {
-                if (!regex.test(item)) {
-                    flag = false;
-                }
-            }
-
-            if (flag) {
+            if (colorStringStyles.includes(key) && regex.test(item)) {
                 style[key] = item;
             }
         }

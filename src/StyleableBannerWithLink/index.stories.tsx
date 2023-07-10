@@ -21,7 +21,7 @@ export default {
         styleBackground: {
             name: 'styleBackground',
             type: { name: 'string', required: false },
-            description: 'Banner background color - defaults to "rgb(237, 237, 237)"',
+            description: 'Banner background color - defaults to "#ededed"',
         },
         header: {
             name: 'header',
@@ -31,7 +31,7 @@ export default {
         styleHeader: {
             name: 'styleHeader',
             type: { name: 'string', required: false },
-            description: 'Headline text color - defaults to "rgb(51, 51, 51)"',
+            description: 'Headline text color - defaults to "#333333"',
         },
         body: {
             name: 'body',
@@ -41,7 +41,7 @@ export default {
         styleBody: {
             name: 'styleBody',
             type: { name: 'string', required: false },
-            description: 'Body text color - defaults to "rgb(51, 51, 51)"',
+            description: 'Body text color - defaults to "#333333"',
         },
         highlight: {
             name: 'highlight',
@@ -51,12 +51,12 @@ export default {
         styleHighlight: {
             name: 'styleHighlight',
             type: { name: 'string', required: false },
-            description: 'Highlighted text color - defaults to "rgb(51, 51, 51)"',
+            description: 'Highlighted text color - defaults to "#333333"',
         },
         styleHighlightBackground: {
             name: 'styleHighlightBackground',
             type: { name: 'string', required: false },
-            description: 'Highlighted background color - defaults to "rgb(237, 237, 237)"',
+            description: 'Highlighted background color - defaults to "#ededed"',
         },
         buttonText: {
             name: 'buttonText',
@@ -70,17 +70,17 @@ export default {
         styleButton: {
             name: 'styleButton',
             type: { name: 'string', required: false },
-            description: 'CTA button text color - defaults to "rgb(255, 255, 255)"',
+            description: 'CTA button text color - defaults to "#ffffff"',
         },
         styleButtonBackground: {
             name: 'styleButtonBackground',
             type: { name: 'string', required: false },
-            description: 'CTA button background color - defaults to "rgb(5, 41, 98)"',
+            description: 'CTA button background color - defaults to "#052962"',
         },
         styleButtonHover: {
             name: 'styleButtonHover',
             type: { name: 'string', required: false },
-            description: 'CTA button background hover color - defaults to "rgb(35, 75, 138)"',
+            description: 'CTA button background hover color - defaults to "#234b8a"',
         },
         imageUrl: {
             name: 'imageUrl (use Grid image picker)',
@@ -102,12 +102,12 @@ export default {
         styleClose: {
             name: 'styleClose',
             type: { name: 'string', required: false },
-            description: 'Close button color - defaults to "rgb(5, 41, 98)"',
+            description: 'Close button color - defaults to "#052962"',
         },
         styleCloseBackground: {
             name: 'styleCloseBackground',
             type: { name: 'string', required: false },
-            description: 'Close button background - defaults to "rgb(237, 237, 237)"',
+            description: 'Close button background - defaults to "#ededed"',
         },
         styleCloseHover: {
             name: 'styleCloseHover',
