@@ -103,7 +103,19 @@ This will:
 -   Publish the new release to NPM
 -   Push new commits/tags to GitHub
 
-#### Steps following merge to main
+### Gotchas and notes on releasing
+
+Sometimes when releasing you might see a warning:
+
+```
+The following new files will not be part of your published package
+```
+
+and a list of source files. This is expected for any new source files which
+aren't included in the release package (for example, uncompiled TypeScript) as
+we only ship JS and TS definitions.
+
+### Steps following merge to main
 
 For braze-components:
 -   Merge braze-components PR to main (in GitHub)
