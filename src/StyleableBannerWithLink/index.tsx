@@ -6,28 +6,41 @@ import { StyleData, selfServeStyles } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
 
+export type BrazeMessageProps = {
+    ophanComponentId?: string;
+    styleBackground?: string;
+    header?: string;
+    styleHeader?: string;
+    body?: string;
+    styleBody?: string;
+    highlight?: string;
+    styleHighlight?: string;
+    styleHighlightBackground?: string;
+    buttonText?: string;
+    buttonUrl?: string;
+    styleButton?: string;
+    styleButtonBackground?: string;
+    styleButtonHover?: string;
+    imageUrl?: string;
+    imageAltText?: string;
+    imagePosition?: string;
+    styleClose?: string;
+    styleCloseBackground?: string;
+    styleCloseHover?: string;
+};
+
 const defaultColors: StyleData = {
-    styleBackground: '#ebe8e8',
-    styleHeader: `#333333`,
-    styleBody: '#666666',
-    styleHighlight: `#333333`,
-    styleHighlightBackground: '#ebe8e8',
+    styleBackground: '#ededed',
+    styleHeader: '#333333',
+    styleBody: '#333333',
+    styleHighlight: '#333333',
+    styleHighlightBackground: '#ededed',
     styleButton: '#ffffff',
     styleButtonBackground: '#052962',
     styleButtonHover: '#234b8a',
-    styleClose: `#333333`,
-    styleCloseBackground: '#ebe8e8',
+    styleClose: '#052962',
+    styleCloseBackground: '#ededed',
     styleCloseHover: '#e5e5e5',
-};
-
-export type BrazeMessageProps = {
-    ophanComponentId?: string;
-    header?: string;
-    body?: string;
-    boldText?: string;
-    buttonText?: string;
-    buttonUrl?: string;
-    imageUrl?: string;
 };
 
 export type Props = {
@@ -35,7 +48,7 @@ export type Props = {
     trackClick: TrackClick;
 };
 
-const BannerWithLink: React.FC<Props> = (props: Props) => {
+const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
     if (!canRender(props.brazeMessageProps)) {
         return null;
     }
@@ -45,10 +58,12 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
             ophanComponentId,
             header,
             body,
-            boldText,
+            highlight,
             buttonText,
             buttonUrl,
             imageUrl,
+            imageAltText = '',
+            imagePosition = 'center',
         },
         trackClick,
     } = props;
@@ -85,10 +100,10 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
                     <p css={styles.paragraph}>
                         {body}
 
-                        {boldText ? (
+                        {highlight ? (
                             <>
                                 <br />
-                                <strong css={styles.highlight}>{boldText}</strong>
+                                <strong css={styles.highlight}>{highlight}</strong>
                             </>
                         ) : null}
                     </p>
@@ -105,9 +120,15 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
                         {buttonText}
                     </LinkButton>
                 </div>
-                <div css={styles.bottomRightComponent}>
-                    <div css={styles.image}>
-                        <img src={imageUrl} alt="" />
+                <div
+                    css={
+                        imagePosition === 'bottom'
+                            ? styles.bottomRightComponent
+                            : styles.centeredBottomRightComponent
+                    }
+                >
+                    <div css={imagePosition === 'bottom' ? styles.image : styles.centeredImage}>
+                        <img src={imageUrl} alt={imageAltText} />
                     </div>
                     <div css={styles.iconPanel}>
                         <Button
@@ -129,4 +150,4 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
     );
 };
 
-export { BannerWithLink };
+export { StyleableBannerWithLink };

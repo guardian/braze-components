@@ -10,12 +10,26 @@ import type { TrackClick } from '../utils/tracking';
 
 import { AppStore } from '../assets/app-store';
 import { PlayStore } from '../assets/play-store';
-import { styles as commonStyles } from '../styles/bannerCommon';
+import { StyleData, selfServeStyles } from '../styles/bannerCommon';
 import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
 import { styles } from './styles';
 
 import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
+
+const defaultColors: StyleData = {
+    styleBackground: '#ebe8e8',
+    styleHeader: `#333333`,
+    styleBody: '#666',
+    styleHighlight: `#333333`,
+    styleHighlightBackground: '#ebe8e8',
+    styleButton: '#ffffff',
+    styleButtonBackground: '#052962',
+    styleButtonHover: '#234b8a',
+    styleClose: `#333333`,
+    styleCloseBackground: '#ebe8e8',
+    styleCloseHover: '#ffd213',
+};
 
 export type BrazeMessageProps = {
     ophanComponentId?: string;
@@ -33,20 +47,18 @@ export type Props = {
 };
 
 export const AppBanner = (props: Props): ReactElement | null => {
+    if (!canRender(props.brazeMessageProps)) {
+        return null;
+    }
+
     const {
         brazeMessageProps: { ophanComponentId = COMPONENT_NAME, header, body, cta, imageUrl },
         trackClick,
     } = props;
 
-    if (!canRender(props.brazeMessageProps)) {
-        return null;
-    }
+    const commonStyles = selfServeStyles(props.brazeMessageProps, defaultColors);
 
     const [showBanner, setShowBanner] = useState(true);
-
-    if (!canRender(props.brazeMessageProps)) {
-        return null;
-    }
 
     const onCloseClick: OnCloseClick = (evt, internalButtonId) => {
         evt.preventDefault();
@@ -93,7 +105,7 @@ export const AppBanner = (props: Props): ReactElement | null => {
                     <p css={commonStyles.paragraph}>
                         {body}
                         <br />
-                        <strong css={commonStyles.cta}>{cta}</strong>
+                        <strong css={commonStyles.highlight}>{cta}</strong>
                         <span css={styles.storeIcon}>
                             <AppStore />
                             <PlayStore />

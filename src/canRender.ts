@@ -11,6 +11,11 @@ import {
 } from './BannerWithLink/canRender';
 
 import {
+    COMPONENT_NAME as STYLEABLE_BANNER_WITH_LINK_NAME,
+    canRender as styleableBannerWithLinkCanRender,
+} from './StyleableBannerWithLink/canRender';
+
+import {
     COMPONENT_NAME as BANNER_NEWSLETTER_NAME,
     canRender as bannerNewsletterCanRender,
 } from './BannerNewsletter/canRender';
@@ -76,6 +81,7 @@ const COMPONENT_CAN_RENDER_MAPPINGS: Record<
 > = {
     [APP_BANNER_NAME]: appBannerCanRender,
     [BANNER_WITH_LINK_NAME]: bannerWithLinkCanRender,
+    [STYLEABLE_BANNER_WITH_LINK_NAME]: styleableBannerWithLinkCanRender,
     [BANNER_NEWSLETTER_NAME]: bannerNewsletterCanRender,
 
     [EPIC_NAME]: epicCanRender,

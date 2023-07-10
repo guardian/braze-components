@@ -5,7 +5,7 @@ import { Button, SvgCross } from '@guardian/source-react-components';
 import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
 import { NewsletterSubscribeCallback, CTA, NewsletterFrequency } from '../newsletterCommon';
 import type { TrackClick } from '../utils/tracking';
-import { styles } from '../styles/bannerCommon';
+import { StyleData, selfServeStyles } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
 
@@ -29,6 +29,20 @@ const localStyles = {
     `,
 };
 
+const defaultColors: StyleData = {
+    styleBackground: '#ebe8e8',
+    styleHeader: `#333333`,
+    styleBody: '#666',
+    styleHighlight: `#333333`,
+    styleHighlightBackground: '#ebe8e8',
+    styleButton: '#ffffff',
+    styleButtonBackground: '#052962',
+    styleButtonHover: '#234b8a',
+    styleClose: `#333333`,
+    styleCloseBackground: '#ebe8e8',
+    styleCloseHover: '#e5e5e5',
+};
+
 export type BrazeMessageProps = {
     ophanComponentId?: string;
     header?: string;
@@ -47,6 +61,10 @@ export type Props = {
 };
 
 const BannerNewsletter: React.FC<Props> = (props: Props) => {
+    if (!canRender(props.brazeMessageProps)) {
+        return null;
+    }
+
     const {
         brazeMessageProps: {
             ophanComponentId,
@@ -62,11 +80,9 @@ const BannerNewsletter: React.FC<Props> = (props: Props) => {
         trackClick,
     } = props;
 
-    const [showBanner, setShowBanner] = useState(true);
+    const styles = selfServeStyles(props.brazeMessageProps, defaultColors);
 
-    if (!canRender(props.brazeMessageProps)) {
-        return null;
-    }
+    const [showBanner, setShowBanner] = useState(true);
 
     const onCloseClick: OnCloseClick = (evt, internalButtonId) => {
         evt.preventDefault();
