@@ -96,7 +96,7 @@ const RemindMeButton = ({ remindMeButtonText, onClick }: RemindMeButtonProps) =>
     </div>
 );
 
-const PaymentIcons = () => (
+export const PaymentIcons = () => (
     <img
         width={422}
         height={60}

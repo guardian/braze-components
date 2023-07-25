@@ -204,6 +204,17 @@ export const selfServeStyles = (userVals: Extras, defaults: StyleData) => {
             margin-right: ${space[3]}px;
         `,
 
+        primaryButtonWrapper: css`
+            margin: ${space[4]}px ${space[2]}px ${space[1]}px 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+
+            &.hidden {
+                display: none;
+            }
+        `,
+
         primaryButton: css`
             margin-right: ${space[3]}px;
             color: ${style.styleButton};

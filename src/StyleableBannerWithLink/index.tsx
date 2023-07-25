@@ -4,6 +4,7 @@ import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommo
 import type { TrackClick } from '../utils/tracking';
 import { StyleData, selfServeStyles } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';
+import { PaymentIcons } from '../Epic/ContributionsEpicButtons';
 export { COMPONENT_NAME };
 
 export type BrazeMessageProps = {
@@ -18,6 +19,7 @@ export type BrazeMessageProps = {
     styleHighlightBackground?: string;
     buttonText?: string;
     buttonUrl?: string;
+    showPaymentIcons?: string;
     styleButton?: string;
     styleButtonBackground?: string;
     styleButtonHover?: string;
@@ -61,6 +63,7 @@ const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
             highlight,
             buttonText,
             buttonUrl,
+            showPaymentIcons = 'false',
             imageUrl,
             imageAltText = '',
             imagePosition = 'center',
@@ -107,18 +110,21 @@ const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
                             </>
                         ) : null}
                     </p>
-                    <LinkButton
-                        href={buttonUrl}
-                        css={styles.primaryButton}
-                        onClick={() =>
-                            trackClick({
-                                internalButtonId: 0,
-                                ophanComponentId: ophanComponentId as string,
-                            })
-                        }
-                    >
-                        {buttonText}
-                    </LinkButton>
+                    <div css={styles.primaryButtonWrapper}>
+                        <LinkButton
+                            href={buttonUrl}
+                            css={styles.primaryButton}
+                            onClick={() =>
+                                trackClick({
+                                    internalButtonId: 0,
+                                    ophanComponentId: ophanComponentId as string,
+                                })
+                            }
+                        >
+                            {buttonText}
+                        </LinkButton>
+                        {showPaymentIcons === 'true' && <PaymentIcons />}
+                    </div>
                 </div>
                 <div
                     css={
