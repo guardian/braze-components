@@ -1,7 +1,7 @@
 import { css, ThemeProvider } from '@emotion/react';
 import React from 'react';
 import { brand, news, brandAlt, space, body, headline } from '@guardian/source-foundations';
-import { ContributionsEpicButtons } from './ContributionsEpicButtons';
+import { ContributionButtonWithReminder } from '../components/ContributionButtonWithReminder';
 import { COMPONENT_NAME, canRender, parseParagraphs } from './canRender';
 export { COMPONENT_NAME };
 import { replaceNonArticleCountPlaceholders } from './placeholders';
@@ -151,7 +151,7 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
                         </p>
                     ))}
                     {/* buttonText and buttonUrl will have been checked for not undefined in canRenderEpic */}
-                    <ContributionsEpicButtons
+                    <ContributionButtonWithReminder
                         buttonText={buttonText as string}
                         buttonUrl={buttonUrl as string}
                         hidePaymentIcons={hidePaymentIcons}
@@ -164,7 +164,7 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
                                 ophanComponentId: ophanComponentId as string,
                             })
                         }
-                    ></ContributionsEpicButtons>
+                    ></ContributionButtonWithReminder>
                 </section>
             </div>
         </ThemeProvider>

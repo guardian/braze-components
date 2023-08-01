@@ -40,17 +40,17 @@ const successHeadingStyles = css`
     margin: ${space[2]}px 0;
 `;
 
-type Props = {
+type ReminderCtaConfirmationProps = {
     remindMeConfirmationHeaderText: string;
     remindMeConfirmationText: string;
     onClose: () => void;
 };
 
-export const RemindMeConfirmation = ({
+export const ReminderCtaConfirmation = ({
     remindMeConfirmationText,
     remindMeConfirmationHeaderText,
     onClose,
-}: Props): JSX.Element => {
+}: ReminderCtaConfirmationProps): JSX.Element => {
     return (
         <div css={reminderConfirmationContainerStyles}>
             <div css={closeButtonContainerStyles}>
