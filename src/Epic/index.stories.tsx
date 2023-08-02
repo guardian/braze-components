@@ -45,20 +45,15 @@ export default {
             type: { name: 'string', required: false },
             description: 'Set value to "true" to suppress the payment icons beneath the CTA',
         },
-        remindMeButtonText: {
-            name: 'remindMeButtonText',
+        reminderStage: {
+            name: 'reminderStage',
             type: { name: 'string', required: false },
-            description: 'Text for secondary remind me button (Button 2 in Braze)',
+            description: 'The type of stage (PRE, POST)',
         },
-        remindMeConfirmationText: {
-            name: 'remindMeConfirmationText',
+        reminderOption: {
+            name: 'reminderOption',
             type: { name: 'string', required: false },
-            description: 'Text to display when user clicks the remind me button',
-        },
-        remindMeConfirmationHeaderText: {
-            name: 'remindMeConfirmationHeaderText',
-            type: { name: 'string', required: false },
-            description: 'Header text to display when user clicks the remind me button',
+            description: 'Extra data to be associated with a reminder sign-up',
         },
     },
 };
@@ -82,9 +77,8 @@ const StoryTemplate = (
         paragraph7: args.paragraph7,
         paragraph8: args.paragraph8,
         paragraph9: args.paragraph9,
-        remindMeButtonText: args.remindMeButtonText,
-        remindMeConfirmationText: args.remindMeConfirmationText,
-        remindMeConfirmationHeaderText: args.remindMeConfirmationHeaderText,
+        reminderStage: args.reminderStage,
+        reminderOption: args.reminderOption,
     };
 
     knobsData.set({ ...brazeMessageProps, componentName: args.componentName });
@@ -146,9 +140,8 @@ WithReminderStory.args = {
     ophanComponentId: 'example_ophan_component_id',
     slotName: 'EndOfArticle',
     componentName: 'Epic',
-    remindMeButtonText: 'Remind me in May',
-    remindMeConfirmationText: "Okay, we'll send you an email in May.",
-    remindMeConfirmationHeaderText: 'Thank you! Your reminder is set.',
+    reminderStage: 'UPSELL',
+    reminderOption: 'recurring-contribution-upsell',
 };
 
 WithReminderStory.story = { name: 'Epic with Remind Me CTA' };

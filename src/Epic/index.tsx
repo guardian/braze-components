@@ -6,6 +6,7 @@ import { COMPONENT_NAME, canRender, parseParagraphs } from './canRender';
 export { COMPONENT_NAME };
 import { replaceNonArticleCountPlaceholders } from './placeholders';
 import { TrackClick } from '../utils/tracking';
+import { ReminderStage } from '../logic/reminders';
 import { HeaderSection } from './HeaderSection';
 
 // Custom styles for <a> tags in the Epic content
@@ -69,9 +70,8 @@ export type BrazeMessageProps = {
     paragraph7?: string;
     paragraph8?: string;
     paragraph9?: string;
-    remindMeButtonText?: string;
-    remindMeConfirmationHeaderText?: string;
-    remindMeConfirmationText?: string;
+    reminderStage?: ReminderStage;
+    reminderOption?: string;
     hidePaymentIcons?: string;
     authoredEpicHeader?: string;
     authoredEpicImageUrl?: string;
@@ -95,9 +95,8 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
             buttonText,
             buttonUrl,
             highlightedText,
-            remindMeButtonText,
-            remindMeConfirmationHeaderText,
-            remindMeConfirmationText,
+            reminderStage,
+            reminderOption,
             ophanComponentId,
             hidePaymentIcons,
             authoredEpicHeader,
@@ -155,9 +154,8 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
                         buttonText={buttonText as string}
                         buttonUrl={buttonUrl as string}
                         hidePaymentIcons={hidePaymentIcons}
-                        remindMeButtonText={remindMeButtonText}
-                        remindMeConfirmationText={remindMeConfirmationText}
-                        remindMeConfirmationHeaderText={remindMeConfirmationHeaderText}
+                        reminderStage={reminderStage}
+                        reminderOption={reminderOption}
                         trackClick={(buttonId: number) =>
                             trackClick({
                                 internalButtonId: buttonId,

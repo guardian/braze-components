@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 import { css, ThemeProvider } from '@emotion/react';
-import { neutral, brandAlt, space } from '@guardian/source-foundations';
+import { brandAlt, neutral, space } from '@guardian/source-foundations';
 import { Button, LinkButton, SvgArrowRightStraight } from '@guardian/source-react-components';
+import { PaymentIcons } from './PaymentIcons';
 
 import { ReminderCtaConfirmation } from './ReminderCtaConfirmation';
-import { PaymentIcons } from './PaymentIcons';
+import {
+    buildReminderFields,
+    createReminder,
+    ReminderStage,
+    ReminderStatus,
+} from '../logic/reminders';
 
 const PRIMARY_BUTTON_INTERNAL_ID = 0;
 const REMIND_ME_BUTTON_INTERNAL_ID = 1;
@@ -42,12 +48,13 @@ const contributionsTheme = {
 };
 
 const remindMeButtonOverrides = css`
-    border: 1px solid ${neutral[7]} !important;
-    background-color: transparent !important;
-    color: ${neutral[7]} !important;
-
-    :hover {
-        background-color: ${neutral[86]} !important;
+    :not([disabled]) {
+        border: 1px solid ${neutral[7]} !important;
+        background-color: transparent !important;
+        color: ${neutral[7]} !important;
+        :hover {
+            background-color: ${neutral[86]} !important;
+        }
     }
 `;
 
@@ -76,14 +83,20 @@ const PrimaryButton = ({ buttonUrl, buttonText, trackClick }: PrimaryButtonProps
 );
 
 interface RemindMeButtonProps {
+    disabled: boolean;
     remindMeButtonText: string;
     onClick: () => void;
 }
 
-const RemindMeButton = ({ remindMeButtonText, onClick }: RemindMeButtonProps) => (
+const RemindMeButton = ({ disabled, remindMeButtonText, onClick }: RemindMeButtonProps) => (
     <div css={buttonMargins}>
         <ThemeProvider theme={contributionsTheme}>
-            <Button onClick={() => onClick()} priority="tertiary" css={remindMeButtonOverrides}>
+            <Button
+                disabled={disabled}
+                onClick={() => onClick()}
+                priority="tertiary"
+                css={remindMeButtonOverrides}
+            >
                 {remindMeButtonText}
             </Button>
         </ThemeProvider>
@@ -93,47 +106,33 @@ const RemindMeButton = ({ remindMeButtonText, onClick }: RemindMeButtonProps) =>
 interface ContributionButtonWithReminderProps {
     buttonText: string;
     buttonUrl: string;
-    remindMeButtonText?: string;
-    remindMeConfirmationText?: string;
-    remindMeConfirmationHeaderText?: string;
+    reminderStage?: ReminderStage;
+    reminderOption?: string;
     trackClick: (buttonId: number) => void;
     hidePaymentIcons?: string;
 }
-type SectionState = 'DEFAULT' | 'REMINDER_CONFIRMED' | 'REMINDER_CONFIRMATION_CLOSED';
 
 export const ContributionButtonWithReminder = ({
     buttonText,
     buttonUrl,
-    remindMeButtonText,
-    remindMeConfirmationText,
-    remindMeConfirmationHeaderText,
+    reminderStage,
+    reminderOption,
     trackClick,
     hidePaymentIcons,
 }: ContributionButtonWithReminderProps): JSX.Element => {
-    const [sectionState, setSectionState] = useState<SectionState>('DEFAULT');
+    const { reminderCta, reminderPeriod, reminderLabel } = buildReminderFields();
+    const [reminderStatus, setReminderStatus] = useState<ReminderStatus>(ReminderStatus.Editing);
+    const [reminderConfirmationOpen, setReminderConfirmationOpen] = useState(false);
     const showPaymentIcons = hidePaymentIcons !== 'true';
 
-    if (sectionState === 'REMINDER_CONFIRMED') {
+    if (reminderConfirmationOpen) {
+        // Show instead of the ctas
         return (
             <ReminderCtaConfirmation
-                remindMeConfirmationText={remindMeConfirmationText as string}
-                remindMeConfirmationHeaderText={remindMeConfirmationHeaderText as string}
-                onClose={() => setSectionState('REMINDER_CONFIRMATION_CLOSED')}
+                success={reminderStatus === ReminderStatus.Completed}
+                label={reminderLabel}
+                onClose={() => setReminderConfirmationOpen(false)}
             />
-        );
-    }
-
-    if (sectionState === 'REMINDER_CONFIRMATION_CLOSED') {
-        return (
-            <div css={buttonWrapperStyles}>
-                <PrimaryButton
-                    buttonText={buttonText}
-                    buttonUrl={buttonUrl}
-                    trackClick={trackClick}
-                />
-
-                <PaymentIcons />
-            </div>
         );
     }
 
@@ -141,12 +140,26 @@ export const ContributionButtonWithReminder = ({
         <div css={buttonWrapperStyles}>
             <PrimaryButton buttonText={buttonText} buttonUrl={buttonUrl} trackClick={trackClick} />
 
-            {remindMeButtonText && remindMeConfirmationText && (
+            {reminderStage && !reminderConfirmationOpen && (
                 <RemindMeButton
-                    remindMeButtonText={remindMeButtonText}
+                    disabled={reminderStatus !== ReminderStatus.Editing}
+                    remindMeButtonText={reminderCta}
                     onClick={() => {
                         trackClick(REMIND_ME_BUTTON_INTERNAL_ID);
-                        setSectionState('REMINDER_CONFIRMED');
+
+                        setReminderStatus(ReminderStatus.Submitting);
+
+                        createReminder({
+                            reminderPeriod,
+                            email: 'TODO',
+                            reminderPlatform: 'WEB',
+                            reminderComponent: 'EPIC',
+                            reminderStage,
+                            reminderOption,
+                        })
+                            .then(() => setReminderStatus(ReminderStatus.Completed))
+                            .catch(() => setReminderStatus(ReminderStatus.Error))
+                            .finally(() => setReminderConfirmationOpen(true));
                     }}
                 />
             )}
