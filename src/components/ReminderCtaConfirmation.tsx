@@ -46,7 +46,11 @@ type ReminderCtaConfirmationProps = {
     onClose: () => void;
 };
 
-export const ReminderCtaConfirmation = ({ success, label, onClose }: ReminderCtaConfirmationProps): JSX.Element => {
+export const ReminderCtaConfirmation = ({
+    success,
+    label,
+    onClose,
+}: ReminderCtaConfirmationProps): JSX.Element => {
     if (success) {
         return (
             <div css={reminderConfirmationContainerStyles}>
