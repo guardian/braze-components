@@ -3,7 +3,8 @@ import { css, ThemeProvider } from '@emotion/react';
 import { neutral, brandAlt, space } from '@guardian/source-foundations';
 import { Button, LinkButton, SvgArrowRightStraight } from '@guardian/source-react-components';
 
-import { RemindMeConfirmation } from './RemindMeConfirmation';
+import { ReminderCtaConfirmation } from './ReminderCtaConfirmation';
+import { PaymentIcons } from './PaymentIcons';
 
 const PRIMARY_BUTTON_INTERNAL_ID = 0;
 const REMIND_ME_BUTTON_INTERNAL_ID = 1;
@@ -17,13 +18,6 @@ const buttonWrapperStyles = css`
     &.hidden {
         display: none;
     }
-`;
-
-const paymentImageStyles = css`
-    display: inline-block;
-    width: auto;
-    height: 25px;
-    margin: ${space[1]}px 0;
 `;
 
 const buttonMargins = css`
@@ -96,17 +90,7 @@ const RemindMeButton = ({ remindMeButtonText, onClick }: RemindMeButtonProps) =>
     </div>
 );
 
-export const PaymentIcons = () => (
-    <img
-        width={422}
-        height={60}
-        src="https://assets.guim.co.uk/images/acquisitions/2db3a266287f452355b68d4240df8087/payment-methods.png"
-        alt="Accepted payment methods: Visa, Mastercard, American Express and PayPal"
-        css={paymentImageStyles}
-    />
-);
-
-interface ContributionsEpicButtonsProps {
+interface ContributionButtonWithReminderProps {
     buttonText: string;
     buttonUrl: string;
     remindMeButtonText?: string;
@@ -117,7 +101,7 @@ interface ContributionsEpicButtonsProps {
 }
 type SectionState = 'DEFAULT' | 'REMINDER_CONFIRMED' | 'REMINDER_CONFIRMATION_CLOSED';
 
-export const ContributionsEpicButtons = ({
+export const ContributionButtonWithReminder = ({
     buttonText,
     buttonUrl,
     remindMeButtonText,
@@ -125,13 +109,13 @@ export const ContributionsEpicButtons = ({
     remindMeConfirmationHeaderText,
     trackClick,
     hidePaymentIcons,
-}: ContributionsEpicButtonsProps): JSX.Element => {
+}: ContributionButtonWithReminderProps): JSX.Element => {
     const [sectionState, setSectionState] = useState<SectionState>('DEFAULT');
     const showPaymentIcons = hidePaymentIcons !== 'true';
 
     if (sectionState === 'REMINDER_CONFIRMED') {
         return (
-            <RemindMeConfirmation
+            <ReminderCtaConfirmation
                 remindMeConfirmationText={remindMeConfirmationText as string}
                 remindMeConfirmationHeaderText={remindMeConfirmationHeaderText as string}
                 onClose={() => setSectionState('REMINDER_CONFIRMATION_CLOSED')}

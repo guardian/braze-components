@@ -4,7 +4,7 @@ import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommo
 import type { TrackClick } from '../utils/tracking';
 import { StyleData, selfServeStyles } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';
-import { PaymentIcons } from '../Epic/ContributionsEpicButtons';
+import { PaymentIcons } from '../components/PaymentIcons';
 export { COMPONENT_NAME };
 
 export type BrazeMessageProps = {
