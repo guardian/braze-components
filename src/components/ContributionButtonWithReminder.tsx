@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { css, ThemeProvider } from '@emotion/react';
 import { brandAlt, neutral, space } from '@guardian/source-foundations';
-import { Button, LinkButton, SvgArrowRightStraight } from '@guardian/source-react-components';
+// import { Button, LinkButton, SvgArrowRightStraight } from '@guardian/source-react-components';
+import { Button } from '@guardian/source-react-components';
 import { PaymentIcons } from './PaymentIcons';
+import { PrimaryCtaButton } from './PrimaryCtaButton';
 
 import { ReminderCtaConfirmation } from './ReminderCtaConfirmation';
 import {
@@ -12,7 +14,7 @@ import {
     ReminderStatus,
 } from '../logic/reminders';
 
-const PRIMARY_BUTTON_INTERNAL_ID = 0;
+// const PRIMARY_BUTTON_INTERNAL_ID = 0;
 const REMIND_ME_BUTTON_INTERNAL_ID = 1;
 
 const buttonWrapperStyles = css`
@@ -58,29 +60,29 @@ const remindMeButtonOverrides = css`
     }
 `;
 
-interface PrimaryButtonProps {
-    buttonText: string;
-    buttonUrl: string;
-    trackClick: (buttonId: number) => void;
-}
+// interface PrimaryButtonProps {
+//     buttonText: string;
+//     buttonUrl: string;
+//     trackClick: (buttonId: number) => void;
+// }
 
-const PrimaryButton = ({ buttonUrl, buttonText, trackClick }: PrimaryButtonProps) => (
-    <div css={buttonMargins}>
-        <ThemeProvider theme={contributionsTheme}>
-            <LinkButton
-                href={buttonUrl}
-                icon={<SvgArrowRightStraight />}
-                iconSide="right"
-                target="_blank"
-                rel="noopener noreferrer"
-                priority={'primary'}
-                onClick={() => trackClick(PRIMARY_BUTTON_INTERNAL_ID)}
-            >
-                {buttonText}
-            </LinkButton>
-        </ThemeProvider>
-    </div>
-);
+// const PrimaryButton = ({ buttonUrl, buttonText, trackClick }: PrimaryButtonProps) => (
+//     <div css={buttonMargins}>
+//         <ThemeProvider theme={contributionsTheme}>
+//             <LinkButton
+//                 href={buttonUrl}
+//                 // icon={<SvgArrowRightStraight />}
+//                 // iconSide="right"
+//                 target="_blank"
+//                 rel="noopener noreferrer"
+//                 priority={'primary'}
+//                 onClick={() => trackClick(PRIMARY_BUTTON_INTERNAL_ID)}
+//             >
+//                 {buttonText}
+//             </LinkButton>
+//         </ThemeProvider>
+//     </div>
+// );
 
 interface RemindMeButtonProps {
     disabled: boolean;
@@ -138,7 +140,8 @@ export const ContributionButtonWithReminder = ({
 
     return (
         <div css={buttonWrapperStyles}>
-            <PrimaryButton buttonText={buttonText} buttonUrl={buttonUrl} trackClick={trackClick} />
+            {/*<PrimaryButton buttonText={buttonText} buttonUrl={buttonUrl} trackClick={trackClick} />*/}
+            <PrimaryCtaButton buttonText={buttonText} buttonUrl={buttonUrl} trackClick={trackClick} />
 
             {reminderStage && !reminderConfirmationOpen && (
                 <RemindMeButton
