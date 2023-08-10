@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Common newsletter imports
-import type { NewsletterSubscribeCallback } from './newsletterCommon';
+import type { NewsletterSubscribeCallback, FetchEmail } from './types/dcrTypes';
 
 // Common Epic imports
 import {
@@ -46,6 +46,7 @@ export type CommonEndOfArticleComponentProps = {
     componentName: string;
     brazeMessageProps: BrazeMessageProps;
     subscribeToNewsletter: NewsletterSubscribeCallback;
+    fetchEmail: FetchEmail;
     countryCode?: string;
     logButtonClickWithBraze: BrazeClickHandler;
     submitComponentEvent: SubmitComponentEvent;

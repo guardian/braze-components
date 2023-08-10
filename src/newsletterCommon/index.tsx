@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { css, ThemeProvider, keyframes } from '@emotion/react';
 import { Button, buttonThemeBrandAlt, SvgClock, Link } from '@guardian/source-react-components';
 import type { TrackClick } from '../utils/tracking';
+import type { NewsletterSubscribeCallback } from '../types/dcrTypes';
 
 import { news, neutral, body, textSans } from '@guardian/source-foundations';
 
@@ -28,8 +29,6 @@ const ctaStyles = {
         color: ${neutral[0]};
     `,
 };
-
-export type NewsletterSubscribeCallback = (id: string) => Promise<void>;
 
 type SubscribeClickStatus = 'DEFAULT' | 'IN_PROGRESS' | 'SUCCESS' | 'FAILURE';
 
@@ -203,6 +202,7 @@ const frequencyStyles = {
         margin-left: 4px;
     `,
 };
+
 type NewsletterFrequencyProps = {
     frequency?: string;
 };
