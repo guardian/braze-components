@@ -1,6 +1,11 @@
 import React, { ReactElement } from 'react';
 import { BrazeEndOfArticleComponent } from '../BrazeEndOfArticleComponent';
-import { StorybookWrapper, mockButtonClick, mockComponentEvent } from '../utils/StorybookWrapper';
+import {
+    StorybookWrapper,
+    mockButtonClick,
+    mockComponentEvent,
+    mockRemind,
+} from '../utils/StorybookWrapper';
 import { knobsData } from '../utils/knobsData';
 import { coreArgTypes } from '../storybookCommon/argTypes';
 import type { BrazeMessageProps } from '.';
@@ -68,6 +73,7 @@ const StoryTemplate = (
                         setTimeout(() => (args.simulateFailure ? reject() : resolve()), 1000),
                     );
                 }}
+                fetchEmail={() => mockRemind()}
                 logButtonClickWithBraze={(internalButtonId) => mockButtonClick(internalButtonId)}
                 submitComponentEvent={(componentEvent) => mockComponentEvent(componentEvent)}
             />

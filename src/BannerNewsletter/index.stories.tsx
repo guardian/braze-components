@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import { BrazeBannerComponent } from '../BrazeBannerComponent';
-import { StorybookWrapper, mockSubscribe } from '../utils/StorybookWrapper';
+import { StorybookWrapper, mockSubscribe, mockRemind } from '../utils/StorybookWrapper';
 import { knobsData } from '../utils/knobsData';
 import { coreArgTypes, ophanComponentIdArgType } from '../storybookCommon/argTypes';
 import { BrazeMessageProps } from '.';
@@ -87,6 +87,7 @@ const StoryTemplate = (
             <BrazeBannerComponent
                 componentName={args.componentName}
                 subscribeToNewsletter={() => mockSubscribe(args.newsletterId)}
+                fetchEmail={() => mockRemind()}
                 brazeMessageProps={brazeMessageProps}
                 logButtonClickWithBraze={(internalButtonId) => {
                     console.log(`Button with internal ID ${internalButtonId} clicked`);

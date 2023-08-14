@@ -1,5 +1,5 @@
 import React from 'react';
-import { NewsletterSubscribeCallback } from '../types/dcrTypes';
+import { NewsletterSubscribeCallback, FetchEmail } from '../types/dcrTypes';
 import { fontFaces, cssResets, previewStyles } from './styleUtilities';
 
 type Props = {
@@ -23,6 +23,16 @@ export const mockSubscribe: NewsletterSubscribeCallback = (newsletterId) => {
         setTimeout(() => {
             console.log(`subscribeToNewsletter resolved - ${newsletterId}`);
             resolve();
+        }, 1000);
+    });
+};
+
+export const mockRemind: FetchEmail = () => {
+    console.log(`fetchEmail invoked`);
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            console.log(`fetchEmail resolved`);
+            resolve('some.person@example.com');
         }, 1000);
     });
 };
