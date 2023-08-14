@@ -27,7 +27,7 @@ export const mockSubscribe: NewsletterSubscribeCallback = (newsletterId) => {
     });
 };
 
-export const mockRemind: FetchEmail = () => {
+export const mockFetchEmail: FetchEmail = () => {
     console.log(`fetchEmail invoked`);
     return new Promise((resolve) => {
         setTimeout(() => {

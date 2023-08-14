@@ -4,7 +4,7 @@ import {
     StorybookWrapper,
     mockButtonClick,
     mockComponentEvent,
-    mockRemind,
+    mockFetchEmail,
 } from '../utils/StorybookWrapper';
 import { knobsData } from '../utils/knobsData';
 import { coreArgTypes } from '../storybookCommon/argTypes';
@@ -73,7 +73,7 @@ const StoryTemplate = (
                         setTimeout(() => (args.simulateFailure ? reject() : resolve()), 1000),
                     );
                 }}
-                fetchEmail={() => mockRemind()}
+                fetchEmail={() => mockFetchEmail()}
                 logButtonClickWithBraze={(internalButtonId) => mockButtonClick(internalButtonId)}
                 submitComponentEvent={(componentEvent) => mockComponentEvent(componentEvent)}
             />
