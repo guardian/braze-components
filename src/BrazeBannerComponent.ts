@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Common newsletter imports
-import { NewsletterSubscribeCallback } from './newsletterCommon';
+import { NewsletterSubscribeCallback, FetchEmail } from './types/dcrTypes';
 
 // Common Banner imports
 import {
@@ -25,6 +25,7 @@ export type CommonBannerComponentProps = {
     componentName: string;
     brazeMessageProps: BrazeMessageProps;
     subscribeToNewsletter: NewsletterSubscribeCallback;
+    fetchEmail: FetchEmail;
     logButtonClickWithBraze: BrazeClickHandler;
     submitComponentEvent: SubmitComponentEvent;
 };

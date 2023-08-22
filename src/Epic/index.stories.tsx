@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import { StorybookWrapper } from '../utils/StorybookWrapper';
+import { StorybookWrapper, mockFetchEmail } from '../utils/StorybookWrapper';
 import { BrazeEndOfArticleComponent } from '../BrazeEndOfArticleComponent';
 import { knobsData } from '../utils/knobsData';
 import {
@@ -89,6 +89,7 @@ const StoryTemplate = (
                 brazeMessageProps={brazeMessageProps}
                 componentName={args.componentName}
                 subscribeToNewsletter={() => Promise.resolve()}
+                fetchEmail={() => mockFetchEmail()}
                 logButtonClickWithBraze={(internalButtonId) => {
                     console.log(`Button with internal ID ${internalButtonId} clicked`);
                 }}

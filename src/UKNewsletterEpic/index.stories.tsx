@@ -3,6 +3,7 @@ import { BrazeEndOfArticleComponent } from '../BrazeEndOfArticleComponent';
 import {
     StorybookWrapper,
     mockSubscribe,
+    mockFetchEmail,
     mockButtonClick,
     mockComponentEvent,
 } from '../utils/StorybookWrapper';
@@ -63,6 +64,7 @@ const StoryTemplate = (
                 componentName={args.componentName}
                 brazeMessageProps={brazeMessageProps}
                 subscribeToNewsletter={() => mockSubscribe('4156')}
+                fetchEmail={() => mockFetchEmail()}
                 logButtonClickWithBraze={(internalButtonId) => mockButtonClick(internalButtonId)}
                 submitComponentEvent={(componentEvent) => mockComponentEvent(componentEvent)}
             />
