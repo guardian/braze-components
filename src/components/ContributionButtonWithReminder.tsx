@@ -141,7 +141,11 @@ export const ContributionButtonWithReminder = ({
     return (
         <div css={buttonWrapperStyles}>
             {/*<PrimaryButton buttonText={buttonText} buttonUrl={buttonUrl} trackClick={trackClick} />*/}
-            <PrimaryCtaButton buttonText={buttonText} buttonUrl={buttonUrl} trackClick={trackClick} />
+            <PrimaryCtaButton
+                buttonText={buttonText}
+                buttonUrl={buttonUrl}
+                trackClick={trackClick}
+            />
 
             {reminderStage && !reminderConfirmationOpen && (
                 <RemindMeButton

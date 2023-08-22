@@ -47,4 +47,3 @@ export const PrimaryCtaButton = ({ buttonUrl, buttonText, trackClick }: PrimaryC
         </ThemeProvider>
     </div>
 );
-
