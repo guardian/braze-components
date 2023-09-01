@@ -1,3 +1,9 @@
+/* 
+TODO - check with Marketing/Design that the proposed solution (which doesn't use this confirmation component) is sufficiently good for purpose.
+- If yes, we can delete this file
+- If no, then we'll need to refactor code to make use of this component in some way
+*/
+
 import React from 'react';
 import { css } from '@emotion/react';
 import { body, from, headline, neutral, space } from '@guardian/source-foundations';
@@ -41,45 +47,16 @@ const successHeadingStyles = css`
 `;
 
 type ReminderCtaConfirmationProps = {
-    success: boolean;
-    label: string;
+    remindMeConfirmationHeaderText: string;
+    remindMeConfirmationText: string;
     onClose: () => void;
 };
 
 export const ReminderCtaConfirmation = ({
-    success,
-    label,
+    remindMeConfirmationText,
+    remindMeConfirmationHeaderText,
     onClose,
 }: ReminderCtaConfirmationProps): JSX.Element => {
-    if (success) {
-        return (
-            <div css={reminderConfirmationContainerStyles}>
-                <div css={closeButtonContainerStyles}>
-                    <Button
-                        onClick={() => onClose()}
-                        icon={<SvgCross />}
-                        priority="subdued"
-                        size="small"
-                        hideLabel
-                        css={confirmationCloseButtonStyles}
-                    >
-                        Close
-                    </Button>
-                </div>
-                <StraightLines />
-                <h4 css={successHeadingStyles}>Thank you! Your reminder is set.</h4>
-                <p css={successTextStyles}>
-                    Okay, we&apos;ll send you an email in {label}. You can manage your email
-                    preferences in the My Account area,{' '}
-                    <a href="https://manage.theguardian.com/email-prefs">
-                        emails and marketing section
-                    </a>
-                    .
-                </p>
-            </div>
-        );
-    }
-
     return (
         <div css={reminderConfirmationContainerStyles}>
             <div css={closeButtonContainerStyles}>
@@ -95,8 +72,17 @@ export const ReminderCtaConfirmation = ({
                 </Button>
             </div>
             <StraightLines />
-            <h4 css={successHeadingStyles}>Something went wrong</h4>
-            <p css={successTextStyles}>Sorry, we were not able to sign you up for a reminder.</p>
+            {remindMeConfirmationHeaderText && (
+                <h4 css={successHeadingStyles}>{remindMeConfirmationHeaderText}</h4>
+            )}
+            <p css={successTextStyles}>
+                {remindMeConfirmationText} You can manage your email preferences in the My Account
+                area,{' '}
+                <a href="https://manage.theguardian.com/email-prefs">
+                    emails and marketing section
+                </a>
+                .
+            </p>
         </div>
     );
 };
