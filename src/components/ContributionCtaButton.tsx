@@ -9,8 +9,10 @@ import { TrackClick } from '../utils/tracking';
 const buttonWrapperStyles = css`
     margin: ${space[4]}px ${space[2]}px ${space[1]}px 0;
     display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: flex-start;
 `;
 
 const buttonMargins = css`

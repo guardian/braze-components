@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { css, ThemeProvider } from '@emotion/react';
 import { neutral, brandAlt, news, body, space } from '@guardian/source-foundations';
-import { Button, Link } from '@guardian/source-react-components';
+import { Button } from '@guardian/source-react-components';
 
 import {
     buildReminderFields,
@@ -35,8 +35,11 @@ const styles = {
     buttonWrapperStyles: css`
         margin: ${space[4]}px ${space[2]}px ${space[1]}px 0;
         display: flex;
+        flex-direction: column;
         flex-wrap: wrap;
-        align-items: center;
+        justify-content: flex-start;
+        align-items: flex-start;
+        max-width: 50%;
     `,
     buttonMargins: css`
         margin: ${space[1]}px ${space[2]}px ${space[1]}px 0;
@@ -51,6 +54,7 @@ const styles = {
     thankYouText: css`
         ${body.medium({ fontWeight: 'bold' })};
         color: ${neutral[0]};
+        margin-top: 12px;
     `,
     errorText: css`
         ${body.medium({ fontWeight: 'bold' })};
@@ -58,7 +62,6 @@ const styles = {
         margin-bottom: 16px;
     `,
     remindMeButtonOverrides: css`
-        border: 1px solid ${neutral[7]} !important;
         background-color: transparent !important;
         color: ${neutral[7]} !important;
 
@@ -66,7 +69,9 @@ const styles = {
             background-color: ${neutral[86]} !important;
         }
     `,
-    smallPrint: css``,
+    smallPrint: css`
+        margin-top: 8px;
+    `,
 };
 
 interface RemindMeButtonProps {
@@ -98,7 +103,7 @@ const SmallPrint = ({ month }: SmallPrintProps) => (
     <div css={styles.smallPrint}>
         We will send you a maximum of two emails in {month}. To find out what personal data we
         collect and how we use it, view our{' '}
-        <Link href="https://manage.theguardian.com/email-prefs">Privacy Policy</Link>.
+        <a href="https://manage.theguardian.com/email-prefs">Privacy Policy</a>.
     </div>
 );
 
@@ -149,35 +154,35 @@ export const ReminderCtaButton = ({
     switch (remindState) {
         case 'DEFAULT':
             return (
-                <>
+                <div css={styles.buttonWrapperStyles}>
                     <RemindMeButton onClick={onClick} disabled={false} ctaText={reminderCta} />
                     <SmallPrint month={reminderLabel} />
-                </>
+                </div>
             );
         case 'FAILURE':
             return (
-                <>
+                <div css={styles.buttonWrapperStyles}>
+                    <RemindMeButton onClick={onClick} disabled={false} ctaText={reminderCta} />
                     <div css={styles.errorText}>
                         There was an error creating the reminder. Please try again.
                     </div>
-                    <RemindMeButton onClick={onClick} disabled={false} ctaText={reminderCta} />
                     <SmallPrint month={reminderLabel} />
-                </>
+                </div>
             );
         case 'IN_PROGRESS':
-            return <LoadingDots></LoadingDots>;
+            return (
+                <div css={styles.buttonWrapperStyles}>
+                    <div css={styles.thankYouText}>
+                        <LoadingDots></LoadingDots>
+                    </div>
+                </div>
+            );
+
         case 'SUCCESS':
             return (
-                <>
+                <div css={styles.buttonWrapperStyles}>
                     <div css={styles.thankYouText}>Thank you! Your reminder is set.</div>
-                    <div css={styles.smallPrint}>
-                        You can manage your email preferences in the{' '}
-                        <Link href="https://manage.theguardian.com/email-prefs" priority="primary">
-                            My Account
-                        </Link>{' '}
-                        area, emails and marketing section.
-                    </div>
-                </>
+                </div>
             );
     }
 };
