@@ -61,6 +61,7 @@ const StoryTemplate = (
                 brazeMessageProps={brazeMessageProps}
                 subscribeToNewsletter={() => mockSubscribe('4148')}
                 fetchEmail={() => mockFetchEmail()}
+                isCodeEnvironment={true}
                 logButtonClickWithBraze={(internalButtonId) => mockButtonClick(internalButtonId)}
                 submitComponentEvent={(componentEvent) => mockComponentEvent(componentEvent)}
             />

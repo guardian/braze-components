@@ -29,6 +29,7 @@ describe('Epic', () => {
             brazeMessageProps: messageProps,
             countryCode: 'GB',
             fetchEmail: mockFetchEmail,
+            isCodeEnvironment: true,
         });
 
         it('replaces CURRENCY_SYMBOL for GB (£)', () => {
@@ -61,6 +62,7 @@ describe('Epic', () => {
                 brazeMessageProps,
                 countryCode: 'GB',
                 fetchEmail: mockFetchEmail,
+                isCodeEnvironment: true,
             });
             const { getByText } = render(<Epic {...baseProps()} />);
 

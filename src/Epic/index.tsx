@@ -96,6 +96,7 @@ export type EpicProps = {
     countryCode?: string;
     trackClick: TrackClick;
     fetchEmail: FetchEmail;
+    isCodeEnvironment: boolean;
 };
 
 export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
@@ -119,6 +120,7 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
         countryCode,
         trackClick,
         fetchEmail,
+        isCodeEnvironment,
     } = props;
 
     if (!canRender(props.brazeMessageProps)) {
@@ -181,6 +183,7 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
                                 ophanComponentId={ophanComponentId as string}
                                 trackClick={trackClick}
                                 fetchEmail={fetchEmail}
+                                isCodeEnvironment={isCodeEnvironment}
                             />
                         )}
                     </div>

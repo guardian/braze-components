@@ -1,23 +1,7 @@
 import { isTest } from '../utils/env';
 
-/* 
-TODO: figure out a way to discover/use the environment in which the code is running
-- We do not be setting reminders in PROD when developing/testing in DEV/CODE environments
-- We need a function in '../utils/env' that will give us this data
-- The following endpoints are valid for CODE (incl DEV), and PROD
-*/
-// const CREATE_ONE_OFF_REMINDER_ENDPOINT_PROD = 'https://support.theguardian.com/reminders/create/one-off';
-// const CREATE_ONE_OFF_REMINDER_ENDPOINT_CODE = 'https://support.code.dev-theguardian.com/reminders/create/one-off'
-
-// TODO: replace endpoint with PROD/CODE endpoints -  see above
-const CREATE_ONE_OFF_REMINDER_ENDPOINT = 'https://support.theguardian.com/reminders/create/one-off';
-
-// export enum ReminderStatus {
-//     Editing = 'Editing',
-//     Submitting = 'Submitting',
-//     Error = 'Error',
-//     Completed = 'Completed',
-// }
+const REMINDER_ENDPOINT_PROD = 'https://support.theguardian.com/reminders/create/one-off';
+const REMINDER_ENDPOINT_CODE = 'https://support.code.dev-theguardian.com/reminders/create/one-off';
 
 export type ReminderStatus = 'DEFAULT' | 'IN_PROGRESS' | 'SUCCESS' | 'FAILURE';
 
@@ -70,12 +54,15 @@ export const buildReminderFields = (today: Date = new Date()): ReminderFields =>
     };
 };
 
-export const createReminder = (signupData: OneOffSignupRequest): Promise<void> => {
-    console.log('ENV', process.env.NODE_ENV);
+export const createReminder = (
+    signupData: OneOffSignupRequest,
+    isCodeEnvironment: boolean,
+): Promise<void> => {
+    const url = isCodeEnvironment ? REMINDER_ENDPOINT_CODE : REMINDER_ENDPOINT_PROD;
     if (process.env.STORYBOOK || isTest()) {
         return Promise.resolve();
     } else {
-        return fetch(CREATE_ONE_OFF_REMINDER_ENDPOINT, {
+        return fetch(url, {
             body: JSON.stringify(signupData),
             method: 'POST',
             headers: {

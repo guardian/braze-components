@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import { BrazeBannerComponent } from '../BrazeBannerComponent';
-import { StorybookWrapper, mockFetchEmail } from '../utils/StorybookWrapper';
+import { StorybookWrapper, mockFetchEmail, mockSubscribe } from '../utils/StorybookWrapper';
 import { knobsData } from '../utils/knobsData';
 import { coreArgTypes, ophanComponentIdArgType } from '../storybookCommon/argTypes';
 import { BrazeMessageProps } from '.';
@@ -77,7 +77,9 @@ const StoryTemplate = (args: BrazeMessageProps & { componentName: string }): Rea
                 logButtonClickWithBraze={(internalButtonId) => {
                     console.log(`Button with internal ID ${internalButtonId} clicked`);
                 }}
+                subscribeToNewsletter={() => mockSubscribe('')}
                 fetchEmail={() => mockFetchEmail()}
+                isCodeEnvironment={true}
                 submitComponentEvent={(componentEvent) => {
                     console.log('submitComponentEvent called with: ', componentEvent);
                 }}
