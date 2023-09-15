@@ -57,9 +57,8 @@ const styles = {
         margin-top: 12px;
     `,
     errorText: css`
-        ${body.medium({ fontWeight: 'bold' })};
         color: ${neutral[0]};
-        margin-bottom: 16px;
+        margin-top: 12px;
     `,
     remindMeButtonOverrides: css`
         background-color: transparent !important;
@@ -171,7 +170,6 @@ export const ReminderCtaButton = ({
                     <div css={styles.errorText}>
                         There was an error creating the reminder. Please try again.
                     </div>
-                    <SmallPrint month={reminderLabel} />
                 </div>
             );
         case 'IN_PROGRESS':
