@@ -195,7 +195,7 @@ export const selfServeStyles = (userVals: Extras, defaults: StyleData) => {
             font-weight: 700;
             margin-top: ${space[5]}px;
             margin-right: ${space[3]}px;
-            display: inline-block;
+            display: inline;
             color: ${style.styleHighlight};
             background-color: ${style.styleHighlightBackground};
         `,
@@ -280,6 +280,7 @@ export const selfServeStyles = (userVals: Extras, defaults: StyleData) => {
         centeredBottomRightComponent: css`
             display: flex;
             justify-content: center;
+            align-items: center;
             width: 100%;
             max-height: 100%;
 
