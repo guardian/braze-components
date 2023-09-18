@@ -105,7 +105,9 @@ const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
 
                         {highlight ? (
                             <>
-                                <br />&nbsp;<br />
+                                <br />
+                                &nbsp;
+                                <br />
                                 <strong css={styles.highlight}>{highlight}</strong>
                             </>
                         ) : null}
