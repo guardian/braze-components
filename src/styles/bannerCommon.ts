@@ -191,11 +191,37 @@ export const selfServeStyles = (userVals: Extras, defaults: StyleData) => {
             }
         `,
 
-        highlight: css`
-            font-weight: 700;
+        highlightContainer: css`
+            ${body.medium()}
             margin-top: ${space[5]}px;
             margin-right: ${space[3]}px;
-            display: inline-block;
+            max-width: 100%;
+
+            ${from.phablet} {
+                max-width: 90%;
+            }
+
+            ${from.tablet} {
+                max-width: 100%;
+            }
+
+            ${from.desktop} {
+                font-size: 20px;
+                margin: ${space[3]}px 0 ${space[4]}px;
+                max-width: 42rem;
+            }
+
+            ${from.leftCol} {
+                max-width: 37rem;
+            }
+
+            ${from.wide} {
+                max-width: 42rem;
+            }
+        `,
+
+        highlight: css`
+            font-weight: 700;
             color: ${style.styleHighlight};
             background-color: ${style.styleHighlightBackground};
         `,
@@ -280,6 +306,7 @@ export const selfServeStyles = (userVals: Extras, defaults: StyleData) => {
         centeredBottomRightComponent: css`
             display: flex;
             justify-content: center;
+            align-items: center;
             width: 100%;
             max-height: 100%;
 
