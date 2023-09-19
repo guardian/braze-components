@@ -105,7 +105,7 @@ export const AppBanner = (props: Props): ReactElement | null => {
                     <p css={commonStyles.paragraph}>
                         {body}
                         <br />
-                        <strong css={commonStyles.highlight}>{cta}</strong>
+                        <strong css={commonStyles.highlight}>{cta} &nbsp;</strong>
                         <span css={styles.storeIcon}>
                             <AppStore />
                             <PlayStore />
