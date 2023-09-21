@@ -1,31 +1,7 @@
 import { css } from '@emotion/react';
-import { space, from, until } from '@guardian/source-foundations';
+import { space } from '@guardian/source-foundations';
 
 export const styles = {
-    image: css`
-        max-width: 100%;
-        max-height: 260px;
-        display: flex;
-        justify-content: center;
-        align-items: flex-end;
-        margin-top: -20px;
-
-        img {
-            max-width: 100%;
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        ${until.desktop} {
-            display: none;
-        }
-
-        ${from.wide} {
-            margin-right: 100px;
-        }
-    `,
-
     storeIcon: css`
         height: 10px;
         display: inline-block;

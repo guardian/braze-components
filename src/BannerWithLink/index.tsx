@@ -80,7 +80,7 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
     return (
         <div css={styles.wrapper}>
             <div css={styles.contentContainer}>
-                <div css={styles.topLeftComponent}>
+                <div css={styles.leftPanel}>
                     <div css={styles.heading}>{header}</div>
                     <p css={styles.paragraph}>{body}</p>
 
@@ -103,25 +103,21 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
                         {buttonText}
                     </LinkButton>
                 </div>
-                <div css={styles.bottomRightComponent}>
-                    <div css={styles.image}>
-                        <img src={imageUrl} alt="" />
-                    </div>
-                    <div css={styles.iconPanel}>
-                        <Button
-                            icon={<SvgCross />}
-                            hideLabel={true}
-                            cssOverrides={styles.closeButton}
-                            priority="tertiary"
-                            size="small"
-                            aria-label="Close"
-                            onClick={(e) => onCloseClick(e, CLOSE_BUTTON_ID)}
-                            tabIndex={0}
-                        >
-                            {' '}
-                        </Button>
-                    </div>
+                <div css={[styles.rightPanel, styles.rightPanelBaseAligned]}>
+                    <img src={imageUrl} alt="" css={styles.image} />
                 </div>
+                <Button
+                    icon={<SvgCross />}
+                    hideLabel={true}
+                    cssOverrides={styles.closeButton}
+                    priority="tertiary"
+                    size="small"
+                    aria-label="Close"
+                    onClick={(e) => onCloseClick(e, CLOSE_BUTTON_ID)}
+                    tabIndex={0}
+                >
+                    {' '}
+                </Button>
             </div>
         </div>
     );

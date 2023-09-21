@@ -51,6 +51,7 @@ export type BrazeMessageProps = {
     boldText?: string;
     secondParagraph?: string;
     imageUrl?: string;
+    imageIsSquare?: string;
     newsletterId?: string;
     frequency?: string;
 };
@@ -75,6 +76,7 @@ const BannerNewsletter: React.FC<Props> = (props: Props) => {
             secondParagraph,
             newsletterId,
             imageUrl,
+            imageIsSquare,
             frequency,
         },
         subscribeToNewsletter,
@@ -108,7 +110,7 @@ const BannerNewsletter: React.FC<Props> = (props: Props) => {
     return (
         <div css={styles.wrapper}>
             <div css={styles.contentContainer}>
-                <div css={styles.topLeftComponent}>
+                <div css={styles.leftPanel}>
                     <div css={localStyles.heading}>{header}</div>
                     <NewsletterFrequency frequency={frequency} />
                     <p css={styles.paragraph}>
@@ -124,25 +126,29 @@ const BannerNewsletter: React.FC<Props> = (props: Props) => {
                         trackClick={trackClick}
                     />
                 </div>
-                <div css={styles.centeredBottomRightComponent}>
-                    <div css={styles.centeredImage}>
-                        <img src={imageUrl} alt="" />
-                    </div>
-                    <div css={styles.iconPanel}>
-                        <Button
-                            icon={<SvgCross />}
-                            hideLabel={true}
-                            cssOverrides={styles.closeButton}
-                            priority="tertiary"
-                            size="small"
-                            aria-label="Close"
-                            onClick={(e) => onCloseClick(e, CLOSE_BUTTON_ID)}
-                            tabIndex={0}
-                        >
-                            {' '}
-                        </Button>
-                    </div>
+                <div css={styles.rightPanel}>
+                    <img
+                        src={imageUrl}
+                        alt=""
+                        css={
+                            imageIsSquare === 'true'
+                                ? [styles.image, styles.imageIsSquare]
+                                : styles.image
+                        }
+                    />
                 </div>
+                <Button
+                    icon={<SvgCross />}
+                    hideLabel={true}
+                    cssOverrides={styles.closeButton}
+                    priority="tertiary"
+                    size="small"
+                    aria-label="Close"
+                    onClick={(e) => onCloseClick(e, CLOSE_BUTTON_ID)}
+                    tabIndex={0}
+                >
+                    {' '}
+                </Button>
             </div>
         </div>
     );

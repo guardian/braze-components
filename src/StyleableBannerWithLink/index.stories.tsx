@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import { BrazeBannerComponent } from '../BrazeBannerComponent';
-import { StorybookWrapper, mockFetchEmail } from '../utils/StorybookWrapper';
+import { StorybookWrapper, mockSubscribe, mockFetchEmail } from '../utils/StorybookWrapper';
 import { knobsData } from '../utils/knobsData';
 import { coreArgTypes, ophanComponentIdArgType } from '../storybookCommon/argTypes';
 import { BrazeMessageProps } from '.';
@@ -104,6 +104,12 @@ export default {
             type: { name: 'string', required: false },
             description: 'Image vertical position - options: "bottom", "center" (default)',
         },
+        imageIsSquare: {
+            name: 'imageIsSquare',
+            type: { name: 'string', required: false },
+            description:
+                'Image shape: "true" (default) if image is squarish; other values indicate image width is significantly larger than height',
+        },
         styleClose: {
             name: 'styleClose',
             type: { name: 'string', required: false },
@@ -123,8 +129,12 @@ export default {
 };
 
 const StoryTemplate = (args: BrazeMessageProps & { componentName: string }): ReactElement => {
+    // const imageUrl = grid(
+    //     'https://i.guim.co.uk/img/media/35d403182e4b262d37385281b19b763ee6b32f6a/58_0_1743_1046/master/1743.png?width=930&quality=45&auto=format&s=9ecd82413fef9883c1e7a0df2bf6abb1',
+    // );
+
     const imageUrl = grid(
-        'https://i.guim.co.uk/img/media/35d403182e4b262d37385281b19b763ee6b32f6a/58_0_1743_1046/master/1743.png?width=930&quality=45&auto=format&s=9ecd82413fef9883c1e7a0df2bf6abb1',
+        'https://i.guim.co.uk/img/media/64fe3c6700df501ef6e629f2f2cde094cbfaa389/25_0_2979_2976/master/2979.png?width=930&quality=45&auto=format&s=cebf1ac7ee57e7ea21534147a11926a3',
     );
 
     const brazeMessageProps: BrazeMessageProps = {
@@ -145,6 +155,7 @@ const StoryTemplate = (args: BrazeMessageProps & { componentName: string }): Rea
         imageUrl,
         imageAltText: args.imageAltText,
         imagePosition: args.imagePosition,
+        imageIsSquare: args.imageIsSquare,
         styleClose: args.styleClose,
         styleCloseBackground: args.styleCloseBackground,
         styleCloseHover: args.styleCloseHover,
@@ -161,6 +172,7 @@ const StoryTemplate = (args: BrazeMessageProps & { componentName: string }): Rea
                 logButtonClickWithBraze={(internalButtonId) => {
                     console.log(`Button with internal ID ${internalButtonId} clicked`);
                 }}
+                subscribeToNewsletter={() => mockSubscribe('0')}
                 fetchEmail={() => mockFetchEmail()}
                 submitComponentEvent={(componentEvent) => {
                     console.log('submitComponentEvent called with: ', componentEvent);
@@ -192,6 +204,7 @@ DefaultStory.args = {
     styleButtonHover: '#234b8a',
     imageAltText: 'Accessible image description',
     imagePosition: 'bottom',
+    imageIsSquare: 'true',
     styleClose: '#052962',
     styleCloseBackground: '#ededed',
     styleCloseHover: '#e5e5e5',

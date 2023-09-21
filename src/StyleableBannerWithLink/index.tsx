@@ -26,6 +26,7 @@ export type BrazeMessageProps = {
     imageUrl?: string;
     imageAltText?: string;
     imagePosition?: string;
+    imageIsSquare?: string;
     styleClose?: string;
     styleCloseBackground?: string;
     styleCloseHover?: string;
@@ -67,6 +68,7 @@ const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
             imageUrl,
             imageAltText = '',
             imagePosition = 'center',
+            imageIsSquare = 'true',
         },
         trackClick,
     } = props;
@@ -98,7 +100,7 @@ const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
     return (
         <div css={styles.wrapper}>
             <div css={styles.contentContainer}>
-                <div css={styles.topLeftComponent}>
+                <div css={styles.leftPanel}>
                     <div css={styles.heading}>{header}</div>
                     <p css={styles.paragraph}>{body}</p>
 
@@ -126,28 +128,32 @@ const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
                 <div
                     css={
                         imagePosition === 'bottom'
-                            ? styles.bottomRightComponent
-                            : styles.centeredBottomRightComponent
+                            ? [styles.rightPanel, styles.rightPanelBaseAligned]
+                            : styles.rightPanel
                     }
                 >
-                    <div css={imagePosition === 'bottom' ? styles.image : styles.centeredImage}>
-                        <img src={imageUrl} alt={imageAltText} />
-                    </div>
-                    <div css={styles.iconPanel}>
-                        <Button
-                            icon={<SvgCross />}
-                            hideLabel={true}
-                            cssOverrides={styles.closeButton}
-                            priority="tertiary"
-                            size="small"
-                            aria-label="Close"
-                            onClick={(e) => onCloseClick(e, CLOSE_BUTTON_ID)}
-                            tabIndex={0}
-                        >
-                            {' '}
-                        </Button>
-                    </div>
+                    <img
+                        src={imageUrl}
+                        alt={imageAltText}
+                        css={
+                            imageIsSquare === 'true'
+                                ? [styles.image, styles.imageIsSquare]
+                                : styles.image
+                        }
+                    />
                 </div>
+                <Button
+                    icon={<SvgCross />}
+                    hideLabel={true}
+                    cssOverrides={styles.closeButton}
+                    priority="tertiary"
+                    size="small"
+                    aria-label="Close"
+                    onClick={(e) => onCloseClick(e, CLOSE_BUTTON_ID)}
+                    tabIndex={0}
+                >
+                    {' '}
+                </Button>
             </div>
         </div>
     );

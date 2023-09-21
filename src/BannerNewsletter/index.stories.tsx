@@ -55,6 +55,12 @@ export default {
             description:
                 'i.guim.co.uk URL for the banner image. Use the Grid image picker to select this.',
         },
+        imageIsSquare: {
+            name: 'imageIsSquare',
+            type: { name: 'string', required: false },
+            description:
+                'Image shape: "true" (default) if image is squarish; other values indicate image width is significantly larger than height',
+        },
     },
 };
 
@@ -76,6 +82,7 @@ const StoryTemplate = (
         boldText: args.boldText,
         secondParagraph: args.secondParagraph,
         imageUrl,
+        imageIsSquare: args.imageIsSquare,
         ophanComponentId: args.ophanComponentId,
     };
 
@@ -113,6 +120,7 @@ DefaultStory.args = {
     boldText: 'Sign up today!',
     secondParagraph:
         'We thought you should know this newsletter may contain information about Guardian products and services.',
+    imageIsSquare: 'true',
 };
 
 DefaultStory.story = { name: 'BannerNewsletter' };

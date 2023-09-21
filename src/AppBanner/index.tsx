@@ -100,7 +100,7 @@ export const AppBanner = (props: Props): ReactElement | null => {
     return (
         <div css={commonStyles.wrapper}>
             <div css={commonStyles.contentContainer}>
-                <div css={commonStyles.topLeftComponent}>
+                <div css={commonStyles.leftPanel}>
                     <div css={commonStyles.heading}>{header}</div>
                     <p css={commonStyles.paragraph}>{body}</p>
 
@@ -137,27 +137,23 @@ export const AppBanner = (props: Props): ReactElement | null => {
                         </Button>
                     </ThemeProvider>
                 </div>
-                <div css={commonStyles.bottomRightComponent}>
-                    <div css={styles.image}>
-                        <img src={imageUrl} alt="" />
-                    </div>
-                    <div css={commonStyles.iconPanel}>
-                        <ThemeProvider theme={overrridenReaderRevenueTheme}>
-                            <Button
-                                icon={<SvgCross />}
-                                hideLabel={true}
-                                css={commonStyles.closeButton}
-                                priority="tertiary"
-                                size="small"
-                                aria-label="Close"
-                                onClick={(e) => onCloseClick(e, CLOSE_BUTTON_ID)}
-                                tabIndex={0}
-                            >
-                                {' '}
-                            </Button>
-                        </ThemeProvider>
-                    </div>
+                <div css={[commonStyles.rightPanel, commonStyles.rightPanelBaseAligned]}>
+                    <img src={imageUrl} alt="" css={commonStyles.image} />
                 </div>
+                <ThemeProvider theme={overrridenReaderRevenueTheme}>
+                    <Button
+                        icon={<SvgCross />}
+                        hideLabel={true}
+                        css={commonStyles.closeButton}
+                        priority="tertiary"
+                        size="small"
+                        aria-label="Close"
+                        onClick={(e) => onCloseClick(e, CLOSE_BUTTON_ID)}
+                        tabIndex={0}
+                    >
+                        {' '}
+                    </Button>
+                </ThemeProvider>
             </div>
         </div>
     );
