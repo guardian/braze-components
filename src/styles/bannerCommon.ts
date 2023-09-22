@@ -162,7 +162,6 @@ export const selfServeStyles = (userVals: Extras, defaults: StyleData) => {
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            margin-top: ${space[12]}px;
             margin-right: ${space[4]}px;
             width: 40%;
             display: none;
