@@ -306,7 +306,7 @@ export const selfServeStyles = (userVals: Extras, defaults: StyleData) => {
         centeredBottomRightComponent: css`
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-self: center;
             width: 100%;
             max-height: 100%;
 
@@ -330,6 +330,7 @@ export const selfServeStyles = (userVals: Extras, defaults: StyleData) => {
             justify-content: center;
             align-items: center;
             margin-top: ${space[2]}px;
+            margin-bottom: ${space[2]}px;
 
             img {
                 max-width: 100%;
