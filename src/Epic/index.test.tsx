@@ -55,7 +55,7 @@ describe('Epic', () => {
                 paragraph1: 'Plz donate',
                 buttonText: 'Support The Guardian',
                 buttonUrl: 'http://support.theguardian.com',
-                reminderStage: 'UPSELL',
+                reminderStage: 'POST',
             };
             const baseProps = () => ({
                 trackClick,

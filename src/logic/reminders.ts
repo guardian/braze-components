@@ -9,8 +9,7 @@ export type ReminderPlatform = 'WEB' | 'AMP';
 
 export type ReminderComponent = 'EPIC' | 'BANNER';
 
-// TODO - new UPSELL stage?
-export type ReminderStage = 'PRE' | 'POST' | 'UPSELL';
+export type ReminderStage = 'PRE' | 'POST' | 'WINBACK';
 
 export interface BaseSignupRequest {
     email: string;

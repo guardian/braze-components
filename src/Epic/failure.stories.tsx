@@ -48,7 +48,7 @@ export default {
         reminderStage: {
             name: 'reminderStage',
             type: { name: 'string', required: false },
-            description: 'The type of stage (PRE, POST)',
+            description: 'The type of stage (PRE, POST, WINBACK)',
         },
         reminderOption: {
             name: 'reminderOption',
@@ -118,7 +118,7 @@ DefaultStory.args = {
     ophanComponentId: 'example_ophan_component_id',
     slotName: 'EndOfArticle',
     componentName: 'Epic',
-    reminderStage: 'UPSELL',
+    reminderStage: 'WINBACK',
     reminderOption: 'recurring-contribution-upsell',
 };
 
