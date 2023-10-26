@@ -118,7 +118,7 @@ DefaultStory.args = {
     ophanComponentId: 'example_ophan_component_id',
     slotName: 'EndOfArticle',
     componentName: 'Epic',
-    reminderStage: 'WINBACK',
+    reminderStage: 'PRE',
     reminderOption: 'recurring-contribution-upsell',
 };
 

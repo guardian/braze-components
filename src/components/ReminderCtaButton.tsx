@@ -113,7 +113,6 @@ interface ReminderCtaButtonProps {
     ophanComponentId: string;
     trackClick: TrackClick;
     fetchEmail: FetchEmail;
-    isCodeEnvironment: boolean;
 }
 
 export const ReminderCtaButton = ({
@@ -123,7 +122,6 @@ export const ReminderCtaButton = ({
     ophanComponentId,
     trackClick,
     fetchEmail,
-    isCodeEnvironment,
 }: ReminderCtaButtonProps): JSX.Element => {
     const { reminderCta, reminderPeriod, reminderLabel } = buildReminderFields();
     const [remindState, setRemindState] = useState<ReminderStatus>('DEFAULT');
@@ -136,17 +134,14 @@ export const ReminderCtaButton = ({
         fetchEmail()
             .then((email) => {
                 if (email) {
-                    return createReminder(
-                        {
-                            reminderPeriod,
-                            email,
-                            reminderPlatform: 'WEB',
-                            reminderComponent: 'EPIC',
-                            reminderStage,
-                            reminderOption,
-                        },
-                        isCodeEnvironment,
-                    );
+                    return createReminder({
+                        reminderPeriod,
+                        email,
+                        reminderPlatform: 'WEB',
+                        reminderComponent: 'EPIC',
+                        reminderStage,
+                        reminderOption,
+                    });
                 } else {
                     return Promise.reject();
                 }

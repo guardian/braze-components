@@ -1,7 +1,7 @@
 import { isTest } from '../utils/env';
 
 const REMINDER_ENDPOINT_PROD = 'https://support.theguardian.com/reminders/create/one-off';
-const REMINDER_ENDPOINT_CODE = 'https://support.code.dev-theguardian.com/reminders/create/one-off';
+// const REMINDER_ENDPOINT_CODE = 'https://support.code.dev-theguardian.com/reminders/create/one-off';
 
 export type ReminderStatus = 'DEFAULT' | 'IN_PROGRESS' | 'SUCCESS' | 'FAILURE';
 
@@ -9,6 +9,9 @@ export type ReminderPlatform = 'WEB' | 'AMP';
 
 export type ReminderComponent = 'EPIC' | 'BANNER';
 
+// The oneoff reminder will only be set for unrecognised emails if reminderStage === PRE
+// Not an issue in Prod because only signed in users will see the banner or epic
+// - but can cause heartbreak while testing locally with an unrecognised email address
 export type ReminderStage = 'PRE' | 'POST' | 'WINBACK';
 
 export interface BaseSignupRequest {
@@ -53,11 +56,8 @@ export const buildReminderFields = (today: Date = new Date()): ReminderFields =>
     };
 };
 
-export const createReminder = (
-    signupData: OneOffSignupRequest,
-    isCodeEnvironment: boolean,
-): Promise<void> => {
-    const url = isCodeEnvironment ? REMINDER_ENDPOINT_CODE : REMINDER_ENDPOINT_PROD;
+export const createReminder = (signupData: OneOffSignupRequest): Promise<void> => {
+    const url = REMINDER_ENDPOINT_PROD;
     if (process.env.STORYBOOK || isTest()) {
         return Promise.resolve();
     } else {
@@ -75,6 +75,8 @@ export const createReminder = (
                     return Promise.resolve();
                 }
             })
-            .catch(() => Promise.reject('Error creating reminder'));
+            .catch(() => {
+                return Promise.reject('Error creating reminder');
+            });
     }
 };

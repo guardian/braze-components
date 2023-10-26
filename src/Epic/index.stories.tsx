@@ -142,7 +142,7 @@ WithReminderStory.args = {
     ophanComponentId: 'example_ophan_component_id',
     slotName: 'EndOfArticle',
     componentName: 'Epic',
-    reminderStage: 'POST',
+    reminderStage: 'PRE',
     reminderOption: 'recurring-contribution-upsell',
 };
 
