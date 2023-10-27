@@ -175,6 +175,7 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
                         />
                         {reminderStage && reminderOption && (
                             <ReminderCtaButton
+                                reminderComponent="EPIC"
                                 reminderStage={reminderStage}
                                 reminderOption={reminderOption}
                                 internalButtonId={REMIND_ME_BUTTON_INTERNAL_ID}

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { css, ThemeProvider } from '@emotion/react';
 import { Button, buttonThemeBrandAlt, SvgClock, Link } from '@guardian/source-react-components';
 import type { TrackClick } from '../utils/tracking';
-import { LoadingDots } from '../components/CtaLoadingDotsAnimation';
+import { buildLoadingDots } from '../components/CtaLoadingDotsAnimation';
 import type { NewsletterSubscribeCallback } from '../types/dcrTypes';
 
 import { news, neutral, body, textSans } from '@guardian/source-foundations';
@@ -78,6 +78,7 @@ export const CTA: React.FC<CTAProps> = (props: CTAProps) => {
     switch (subscribeClickStatus) {
         case 'DEFAULT':
             return <SignUpButton onSignUpClick={onSignUpClick} />;
+
         case 'FAILURE':
             return (
                 <>
@@ -87,8 +88,10 @@ export const CTA: React.FC<CTAProps> = (props: CTAProps) => {
                     <SignUpButton onSignUpClick={onSignUpClick}></SignUpButton>
                 </>
             );
+
         case 'IN_PROGRESS':
-            return <LoadingDots></LoadingDots>;
+            return buildLoadingDots();
+
         case 'SUCCESS':
             return (
                 <>

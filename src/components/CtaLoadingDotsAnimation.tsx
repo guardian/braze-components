@@ -36,7 +36,7 @@ const loadingAnimCss = css`
     }
 `;
 
-export const LoadingDots = (): React.ReactElement => {
+export const buildLoadingDots = (fillStyle = '#707070'): React.ReactElement => {
     return (
         <svg
             width="50"
@@ -54,7 +54,7 @@ export const LoadingDots = (): React.ReactElement => {
                         cx="3.0152"
                         cy="3.56641"
                         r="3"
-                        fill="#707070"
+                        fill={fillStyle}
                     />
                     <circle
                         id="dot_2"
@@ -62,7 +62,7 @@ export const LoadingDots = (): React.ReactElement => {
                         cx="17.3748"
                         cy="3.56641"
                         r="3"
-                        fill="#707070"
+                        fill={fillStyle}
                     />
                     <circle
                         id="dot_3"
@@ -70,7 +70,7 @@ export const LoadingDots = (): React.ReactElement => {
                         cx="31.7348"
                         cy="3.56641"
                         r="3"
-                        fill="#707070"
+                        fill={fillStyle}
                     />
                 </g>
             </g>

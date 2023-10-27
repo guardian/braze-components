@@ -23,6 +23,11 @@ export type BrazeMessageProps = {
     styleButton?: string;
     styleButtonBackground?: string;
     styleButtonHover?: string;
+    includeReminderCta?: string;
+    styleReminderButton?: string;
+    styleReminderButtonBackground?: string;
+    styleReminderButtonHover?: string;
+    styleReminderAnimation?: string;
     imageUrl?: string;
     imageAltText?: string;
     imagePosition?: string;
@@ -40,6 +45,10 @@ const defaultColors: StyleData = {
     styleButton: '#ffffff',
     styleButtonBackground: '#052962',
     styleButtonHover: '#234b8a',
+    styleReminderButton: '#121212',
+    styleReminderButtonBackground: '#ededed',
+    styleReminderButtonHover: '#dcdcdc',
+    styleReminderAnimation: '#707070',
     styleClose: '#052962',
     styleCloseBackground: '#ededed',
     styleCloseHover: '#e5e5e5',

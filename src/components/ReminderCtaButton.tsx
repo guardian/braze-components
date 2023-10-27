@@ -6,24 +6,24 @@ import { Button } from '@guardian/source-react-components';
 import {
     buildReminderFields,
     createReminder,
+    ReminderComponent,
     ReminderStage,
     ReminderStatus,
 } from '../logic/reminders';
 
 import { FetchEmail } from '../types/dcrTypes';
 import { TrackClick } from '../utils/tracking';
-import { LoadingDots } from './CtaLoadingDotsAnimation';
+import { buildLoadingDots } from './CtaLoadingDotsAnimation';
 
 // Custom theme for Button/LinkButton
-// See also `tertiaryButtonOverrides` below.
 const buttonStyles = {
-    textPrimary: neutral[7],
-    backgroundPrimary: brandAlt[400],
-    backgroundPrimaryHover: brandAlt[300],
-    textSecondary: neutral[7],
-    backgroundSecondary: neutral[93],
-    backgroundSecondaryHover: neutral[86],
-    borderSecondary: neutral[86],
+    textPrimary: neutral[7], //#121212
+    backgroundPrimary: brandAlt[400], //#ffe500
+    backgroundPrimaryHover: brandAlt[300], //#ffd900
+    textSecondary: neutral[7], //#121212
+    backgroundSecondary: neutral[93], //#ededed
+    backgroundSecondaryHover: neutral[86], //#dcdcdc
+    borderSecondary: neutral[86], //#dcdcdc
 };
 
 const contributionsTheme = {
@@ -45,27 +45,27 @@ const styles = {
         margin: ${space[1]}px ${space[2]}px ${space[1]}px 0;
     `,
     button: css`
-        background-color: ${news[400]};
-        color: ${neutral[100]};
+        background-color: ${news[400]}; /* #c70000 */
+        color: ${neutral[100]}; /* #ffffff */
         &:hover {
-            background-color: ${news[400]};
+            background-color: ${news[400]}; /* #c70000 */
         }
     `,
     thankYouText: css`
         ${body.medium({ fontWeight: 'bold' })};
-        color: ${neutral[0]};
+        color: ${neutral[0]}; /* #000000 */
         margin-top: 12px;
     `,
     errorText: css`
-        color: ${neutral[0]};
+        color: ${neutral[0]}; /* #000000 */
         margin-top: 12px;
     `,
     remindMeButtonOverrides: css`
         background-color: transparent !important;
-        color: ${neutral[7]} !important;
+        color: ${neutral[7]} !important; /* #121212 */
 
         :hover {
-            background-color: ${neutral[86]} !important;
+            background-color: ${neutral[86]} !important; /* #dcdcdc */
         }
     `,
     smallPrint: css`
@@ -107,6 +107,7 @@ const SmallPrint = ({ month }: SmallPrintProps) => (
 );
 
 interface ReminderCtaButtonProps {
+    reminderComponent: ReminderComponent;
     reminderStage: ReminderStage;
     reminderOption?: string;
     internalButtonId: number;
@@ -116,6 +117,7 @@ interface ReminderCtaButtonProps {
 }
 
 export const ReminderCtaButton = ({
+    reminderComponent,
     reminderStage,
     reminderOption,
     internalButtonId,
@@ -138,7 +140,7 @@ export const ReminderCtaButton = ({
                         reminderPeriod,
                         email,
                         reminderPlatform: 'WEB',
-                        reminderComponent: 'EPIC',
+                        reminderComponent,
                         reminderStage,
                         reminderOption,
                     });
@@ -171,7 +173,7 @@ export const ReminderCtaButton = ({
             return (
                 <div css={styles.buttonWrapperStyles}>
                     <div css={styles.thankYouText}>
-                        <LoadingDots></LoadingDots>
+                        {buildLoadingDots()}
                     </div>
                 </div>
             );

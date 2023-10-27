@@ -8,7 +8,21 @@ const buttonMargins = css`
 `;
 
 // Custom theme for Button/LinkButton
-// See also `tertiaryButtonOverrides` below.
+// const buttonStyles = {
+//     textPrimary: neutral[7], //#121212
+//     backgroundPrimary: brandAlt[400], //#ffe500
+//     backgroundPrimaryHover: brandAlt[300], //#ffd900
+//     textSecondary: neutral[7], //#121212
+//     backgroundSecondary: neutral[93], //#ededed
+//     backgroundSecondaryHover: neutral[86], //#dcdcdc
+//     borderSecondary: neutral[86], //#dcdcdc
+// };
+
+// const contributionsTheme = {
+//     button: buttonStyles,
+//     link: buttonStyles,
+// };
+
 const buttonStyles = {
     textPrimary: neutral[7],
     backgroundPrimary: brandAlt[400],
