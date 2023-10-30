@@ -105,7 +105,6 @@ const SmallPrint = ({ month }: SmallPrintProps) => (
 interface ReminderCtaButtonProps {
     reminderStage: ReminderStage;
     reminderOption?: string;
-    internalButtonId: number;
     ophanComponentId: string;
     trackClick: TrackClick;
     fetchEmail: FetchEmail;
@@ -114,13 +113,13 @@ interface ReminderCtaButtonProps {
 export const ReminderCtaButton = ({
     reminderStage,
     reminderOption,
-    internalButtonId,
     ophanComponentId,
     trackClick,
     fetchEmail,
 }: ReminderCtaButtonProps): JSX.Element => {
     const { reminderCta, reminderPeriod, reminderLabel } = buildReminderFields();
     const [remindState, setRemindState] = useState<InteractiveButtonStatus>('DEFAULT');
+    const internalButtonId = 1;
 
     const onClick = () => {
         trackClick({ internalButtonId, ophanComponentId });

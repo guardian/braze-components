@@ -40,7 +40,6 @@ interface ContributionCtaButtonProps {
     buttonText: string;
     buttonUrl: string;
     hidePaymentIcons: string;
-    internalButtonId: number;
     ophanComponentId: string;
     trackClick: TrackClick;
 }
@@ -49,12 +48,14 @@ export const ContributionCtaButton = ({
     buttonUrl,
     buttonText,
     hidePaymentIcons,
-    internalButtonId,
     ophanComponentId,
     trackClick,
 }: ContributionCtaButtonProps) => {
     const showPaymentIcons = hidePaymentIcons !== 'true';
+    const internalButtonId = 0;
+
     const onClick = () => trackClick({ internalButtonId, ophanComponentId });
+
     return (
         <div css={buttonWrapperStyles}>
             <div css={buttonMargins}>

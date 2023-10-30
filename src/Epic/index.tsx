@@ -129,9 +129,6 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
         replaceNonArticleCountPlaceholders(paragraph, countryCode),
     );
 
-    const PRIMARY_BUTTON_INTERNAL_ID = 0;
-    const REMIND_ME_BUTTON_INTERNAL_ID = 1;
-
     const highlightTextClean = replaceNonArticleCountPlaceholders(highlightedText, countryCode);
 
     return (
@@ -169,7 +166,6 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
                             buttonText={buttonText as string}
                             buttonUrl={buttonUrl as string}
                             hidePaymentIcons={hidePaymentIcons as string}
-                            internalButtonId={PRIMARY_BUTTON_INTERNAL_ID}
                             ophanComponentId={ophanComponentId as string}
                             trackClick={trackClick}
                         />
@@ -177,7 +173,6 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
                             <ReminderCtaButton
                                 reminderStage={reminderStage}
                                 reminderOption={reminderOption}
-                                internalButtonId={REMIND_ME_BUTTON_INTERNAL_ID}
                                 ophanComponentId={ophanComponentId as string}
                                 trackClick={trackClick}
                                 fetchEmail={fetchEmail}
