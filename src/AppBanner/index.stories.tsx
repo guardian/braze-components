@@ -66,7 +66,6 @@ const StoryTemplate = (args: BrazeMessageProps & { componentName: string }): Rea
                 }}
                 subscribeToNewsletter={() => mockSubscribe('')}
                 fetchEmail={() => mockFetchEmail()}
-                isCodeEnvironment={true}
                 submitComponentEvent={(componentEvent) => {
                     console.log('submitComponentEvent called with: ', componentEvent);
                 }}

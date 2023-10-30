@@ -88,7 +88,6 @@ const StoryTemplate = (
                 componentName={args.componentName}
                 subscribeToNewsletter={() => mockSubscribe(args.newsletterId)}
                 fetchEmail={() => mockFetchEmail()}
-                isCodeEnvironment={true}
                 brazeMessageProps={brazeMessageProps}
                 logButtonClickWithBraze={(internalButtonId) => {
                     console.log(`Button with internal ID ${internalButtonId} clicked`);

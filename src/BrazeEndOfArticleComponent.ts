@@ -47,7 +47,6 @@ export type CommonEndOfArticleComponentProps = {
     brazeMessageProps: BrazeMessageProps;
     subscribeToNewsletter: NewsletterSubscribeCallback;
     fetchEmail: FetchEmail;
-    isCodeEnvironment: boolean;
     countryCode?: string;
     logButtonClickWithBraze: BrazeClickHandler;
     submitComponentEvent: SubmitComponentEvent;
