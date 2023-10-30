@@ -1,10 +1,5 @@
 import { isTest } from '../utils/env';
 
-const REMINDER_ENDPOINT_PROD = 'https://support.theguardian.com/reminders/create/one-off';
-// const REMINDER_ENDPOINT_CODE = 'https://support.code.dev-theguardian.com/reminders/create/one-off';
-
-export type ReminderStatus = 'DEFAULT' | 'IN_PROGRESS' | 'SUCCESS' | 'FAILURE';
-
 export type ReminderPlatform = 'WEB' | 'AMP';
 
 export type ReminderComponent = 'EPIC' | 'BANNER';
@@ -57,7 +52,7 @@ export const buildReminderFields = (today: Date = new Date()): ReminderFields =>
 };
 
 export const createReminder = (signupData: OneOffSignupRequest): Promise<void> => {
-    const url = REMINDER_ENDPOINT_PROD;
+    const url = 'https://support.theguardian.com/reminders/create/one-off';
     if (process.env.STORYBOOK || isTest()) {
         return Promise.resolve();
     } else {

@@ -3,12 +3,8 @@ import { css, ThemeProvider } from '@emotion/react';
 import { neutral, brandAlt, news, body, space } from '@guardian/source-foundations';
 import { Button } from '@guardian/source-react-components';
 
-import {
-    buildReminderFields,
-    createReminder,
-    ReminderStage,
-    ReminderStatus,
-} from '../logic/reminders';
+import { buildReminderFields, createReminder, ReminderStage } from '../logic/reminders';
+import type { InteractiveButtonStatus } from '../logic/types';
 
 import { FetchEmail } from '../types/dcrTypes';
 import { TrackClick } from '../utils/tracking';
@@ -124,7 +120,7 @@ export const ReminderCtaButton = ({
     fetchEmail,
 }: ReminderCtaButtonProps): JSX.Element => {
     const { reminderCta, reminderPeriod, reminderLabel } = buildReminderFields();
-    const [remindState, setRemindState] = useState<ReminderStatus>('DEFAULT');
+    const [remindState, setRemindState] = useState<InteractiveButtonStatus>('DEFAULT');
 
     const onClick = () => {
         trackClick({ internalButtonId, ophanComponentId });

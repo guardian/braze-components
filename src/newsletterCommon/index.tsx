@@ -4,6 +4,7 @@ import { Button, buttonThemeBrandAlt, SvgClock, Link } from '@guardian/source-re
 import type { TrackClick } from '../utils/tracking';
 import { LoadingDots } from '../components/CtaLoadingDotsAnimation';
 import type { NewsletterSubscribeCallback } from '../types/dcrTypes';
+import type { InteractiveButtonStatus } from '../logic/types';
 
 import { news, neutral, body, textSans } from '@guardian/source-foundations';
 
@@ -31,8 +32,6 @@ const ctaStyles = {
     `,
 };
 
-type SubscribeClickStatus = 'DEFAULT' | 'IN_PROGRESS' | 'SUCCESS' | 'FAILURE';
-
 type SignUpButtonProps = { onSignUpClick: () => void };
 
 const SignUpButton: React.FC<SignUpButtonProps> = (props: SignUpButtonProps) => {
@@ -56,7 +55,7 @@ export const CTA: React.FC<CTAProps> = (props: CTAProps) => {
     const { subscribeToNewsletter, newsletterId, ophanComponentId, trackClick } = props;
 
     const [subscribeClickStatus, setSubscribeClickStatus] =
-        useState<SubscribeClickStatus>('DEFAULT');
+        useState<InteractiveButtonStatus>('DEFAULT');
 
     const onSignUpClick = () => {
         setSubscribeClickStatus('IN_PROGRESS');
