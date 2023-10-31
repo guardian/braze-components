@@ -74,7 +74,6 @@ const StoryTemplate = (
                     );
                 }}
                 fetchEmail={() => mockFetchEmail()}
-                s
                 logButtonClickWithBraze={(internalButtonId) => mockButtonClick(internalButtonId)}
                 submitComponentEvent={(componentEvent) => mockComponentEvent(componentEvent)}
             />

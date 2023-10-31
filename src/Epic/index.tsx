@@ -169,7 +169,7 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
                             ophanComponentId={ophanComponentId as string}
                             trackClick={trackClick}
                         />
-                        {reminderStage && reminderOption && (
+                        {reminderStage && (
                             <ReminderCtaButton
                                 reminderStage={reminderStage}
                                 reminderOption={reminderOption}
