@@ -50,11 +50,7 @@ const styles = {
     thankYouText: css`
         ${body.medium({ fontWeight: 'bold' })};
         color: ${neutral[0]};
-        margin-top: 12px;
-    `,
-    errorText: css`
-        color: ${neutral[0]};
-        margin-top: 12px;
+        margin-top: ${space[3]}px;
     `,
     remindMeButtonOverrides: css`
         background-color: transparent !important;
@@ -65,7 +61,8 @@ const styles = {
         }
     `,
     smallPrint: css`
-        margin-top: 8px;
+        color: ${neutral[0]};
+        margin-top: ${space[2]}px;
         ${body.small()};
     `,
 };
@@ -158,7 +155,7 @@ export const ReminderCtaButton = ({
             return (
                 <div css={styles.buttonWrapperStyles}>
                     <RemindMeButton onClick={onClick} disabled={false} ctaText={reminderCta} />
-                    <div css={styles.errorText}>
+                    <div css={styles.smallPrint}>
                         There was an error creating the reminder. Please try again.
                     </div>
                 </div>
