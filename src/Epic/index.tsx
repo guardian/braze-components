@@ -32,6 +32,7 @@ const styles = {
         background-color: #f6f6f6;
         display: flex;
         flex-direction: column;
+        ${body.medium()}
 
         b,
         strong {
@@ -41,7 +42,6 @@ const styles = {
     paragraph: css`
         margin-top: 0;
         margin-bottom: ${space[2]}px;
-        ${body.medium()}
         ${linkStyles}
     `,
     heading: css`

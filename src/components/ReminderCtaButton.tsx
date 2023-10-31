@@ -66,6 +66,7 @@ const styles = {
     `,
     smallPrint: css`
         margin-top: 8px;
+        ${body.small()};
     `,
 };
 
