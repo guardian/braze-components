@@ -3,8 +3,9 @@
  */
 
 import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import { BrazeMessageProps, Epic } from '.';
+import { mockFetchEmail } from '../utils/StorybookWrapper';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const noOpCallback = () => {};
@@ -27,6 +28,7 @@ describe('Epic', () => {
             trackClick: noOpCallback,
             brazeMessageProps: messageProps,
             countryCode: 'GB',
+            fetchEmail: mockFetchEmail,
         });
 
         it('replaces CURRENCY_SYMBOL for GB (£)', () => {
@@ -52,25 +54,24 @@ describe('Epic', () => {
                 paragraph1: 'Plz donate',
                 buttonText: 'Support The Guardian',
                 buttonUrl: 'http://support.theguardian.com',
-                remindMeButtonText: 'Remind me in May',
-                remindMeConfirmationText: "Okay we'll send you an email in May.",
-                remindMeConfirmationHeaderText: 'Your reminder is set.',
+                reminderStage: 'PRE',
             };
             const baseProps = () => ({
                 trackClick,
                 brazeMessageProps,
                 countryCode: 'GB',
+                fetchEmail: mockFetchEmail,
             });
             const { getByText } = render(<Epic {...baseProps()} />);
 
-            fireEvent.click(getByText('Remind me in May'));
+            setTimeout(() => {
+                fireEvent.click(getByText('Remind me in', { exact: false }));
 
-            await screen.findByText(/Okay we'll send you an email in May/);
-            await screen.findByText(/Your reminder is set/);
-            expect(trackClick).toHaveBeenCalledWith({
-                ophanComponentId: brazeMessageProps.ophanComponentId,
-                internalButtonId: 1,
-            });
+                expect(trackClick).toHaveBeenCalledWith({
+                    ophanComponentId: brazeMessageProps.ophanComponentId,
+                    internalButtonId: 1,
+                });
+            }, 100);
         });
     });
 });

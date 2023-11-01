@@ -37,6 +37,16 @@ export const mockFetchEmail: FetchEmail = () => {
     });
 };
 
+export const mockFetchEmailFail: FetchEmail = () => {
+    console.log(`fetchEmail invoked`);
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            console.log(`fetchEmail rejected`);
+            resolve(null);
+        }, 1000);
+    });
+};
+
 type MockButtonClick = (id: number) => void;
 export const mockButtonClick: MockButtonClick = (internalButtonId) => {
     console.log(`Button with internal ID ${internalButtonId} clicked`);

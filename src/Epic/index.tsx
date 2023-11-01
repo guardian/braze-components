@@ -1,11 +1,14 @@
 import { css, ThemeProvider } from '@emotion/react';
 import React from 'react';
 import { brand, news, brandAlt, space, body, headline } from '@guardian/source-foundations';
-import { ContributionButtonWithReminder } from '../components/ContributionButtonWithReminder';
+import { ContributionCtaButton } from '../components/ContributionCtaButton';
+import { ReminderCtaButton } from '../components/ReminderCtaButton';
 import { COMPONENT_NAME, canRender, parseParagraphs } from './canRender';
 export { COMPONENT_NAME };
 import { replaceNonArticleCountPlaceholders } from './placeholders';
 import { TrackClick } from '../utils/tracking';
+import { FetchEmail } from '../types/dcrTypes';
+import { ReminderStage } from '../logic/reminders';
 import { HeaderSection } from './HeaderSection';
 
 // Custom styles for <a> tags in the Epic content
@@ -29,6 +32,7 @@ const styles = {
         background-color: #f6f6f6;
         display: flex;
         flex-direction: column;
+        ${body.medium()}
 
         b,
         strong {
@@ -38,7 +42,6 @@ const styles = {
     paragraph: css`
         margin-top: 0;
         margin-bottom: ${space[2]}px;
-        ${body.medium()}
         ${linkStyles}
     `,
     heading: css`
@@ -51,6 +54,13 @@ const styles = {
         ${linkStyles}
         padding: 2px;
         background-color: ${brandAlt[400]};
+    `,
+    buttonWrapperStyles: css`
+        margin: ${space[4]}px ${space[2]}px ${space[1]}px 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: flex-start;
     `,
 };
 
@@ -69,9 +79,8 @@ export type BrazeMessageProps = {
     paragraph7?: string;
     paragraph8?: string;
     paragraph9?: string;
-    remindMeButtonText?: string;
-    remindMeConfirmationHeaderText?: string;
-    remindMeConfirmationText?: string;
+    reminderStage?: ReminderStage;
+    reminderOption?: string;
     hidePaymentIcons?: string;
     authoredEpicHeader?: string;
     authoredEpicImageUrl?: string;
@@ -86,6 +95,7 @@ export type EpicProps = {
     brazeMessageProps: BrazeMessageProps;
     countryCode?: string;
     trackClick: TrackClick;
+    fetchEmail: FetchEmail;
 };
 
 export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
@@ -95,9 +105,8 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
             buttonText,
             buttonUrl,
             highlightedText,
-            remindMeButtonText,
-            remindMeConfirmationHeaderText,
-            remindMeConfirmationText,
+            reminderStage,
+            reminderOption,
             ophanComponentId,
             hidePaymentIcons,
             authoredEpicHeader,
@@ -109,6 +118,7 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
         },
         countryCode,
         trackClick,
+        fetchEmail,
     } = props;
 
     if (!canRender(props.brazeMessageProps)) {
@@ -151,20 +161,24 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
                         </p>
                     ))}
                     {/* buttonText and buttonUrl will have been checked for not undefined in canRenderEpic */}
-                    <ContributionButtonWithReminder
-                        buttonText={buttonText as string}
-                        buttonUrl={buttonUrl as string}
-                        hidePaymentIcons={hidePaymentIcons}
-                        remindMeButtonText={remindMeButtonText}
-                        remindMeConfirmationText={remindMeConfirmationText}
-                        remindMeConfirmationHeaderText={remindMeConfirmationHeaderText}
-                        trackClick={(buttonId: number) =>
-                            trackClick({
-                                internalButtonId: buttonId,
-                                ophanComponentId: ophanComponentId as string,
-                            })
-                        }
-                    ></ContributionButtonWithReminder>
+                    <div css={styles.buttonWrapperStyles}>
+                        <ContributionCtaButton
+                            buttonText={buttonText as string}
+                            buttonUrl={buttonUrl as string}
+                            hidePaymentIcons={hidePaymentIcons as string}
+                            ophanComponentId={ophanComponentId as string}
+                            trackClick={trackClick}
+                        />
+                        {reminderStage && (
+                            <ReminderCtaButton
+                                reminderStage={reminderStage}
+                                reminderOption={reminderOption}
+                                ophanComponentId={ophanComponentId as string}
+                                trackClick={trackClick}
+                                fetchEmail={fetchEmail}
+                            />
+                        )}
+                    </div>
                 </section>
             </div>
         </ThemeProvider>

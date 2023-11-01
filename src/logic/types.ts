@@ -14,4 +14,14 @@ enum CardSlotNames {
 }
 type CardSlotName = keyof typeof CardSlotNames;
 
-export { Extras, ErrorHandler, MessageSlotNames, MessageSlotName, CardSlotNames, CardSlotName };
+type InteractiveButtonStatus = 'DEFAULT' | 'IN_PROGRESS' | 'SUCCESS' | 'FAILURE';
+
+export {
+    Extras,
+    ErrorHandler,
+    MessageSlotNames,
+    MessageSlotName,
+    CardSlotNames,
+    CardSlotName,
+    InteractiveButtonStatus,
+};

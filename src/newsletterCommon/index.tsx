@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { css, ThemeProvider, keyframes } from '@emotion/react';
+import { css, ThemeProvider } from '@emotion/react';
 import { Button, buttonThemeBrandAlt, SvgClock, Link } from '@guardian/source-react-components';
 import type { TrackClick } from '../utils/tracking';
+import { LoadingDots } from '../components/CtaLoadingDotsAnimation';
 import type { NewsletterSubscribeCallback } from '../types/dcrTypes';
+import type { InteractiveButtonStatus } from '../logic/types';
 
 import { news, neutral, body, textSans } from '@guardian/source-foundations';
 
@@ -30,8 +32,6 @@ const ctaStyles = {
     `,
 };
 
-type SubscribeClickStatus = 'DEFAULT' | 'IN_PROGRESS' | 'SUCCESS' | 'FAILURE';
-
 type SignUpButtonProps = { onSignUpClick: () => void };
 
 const SignUpButton: React.FC<SignUpButtonProps> = (props: SignUpButtonProps) => {
@@ -55,7 +55,7 @@ export const CTA: React.FC<CTAProps> = (props: CTAProps) => {
     const { subscribeToNewsletter, newsletterId, ophanComponentId, trackClick } = props;
 
     const [subscribeClickStatus, setSubscribeClickStatus] =
-        useState<SubscribeClickStatus>('DEFAULT');
+        useState<InteractiveButtonStatus>('DEFAULT');
 
     const onSignUpClick = () => {
         setSubscribeClickStatus('IN_PROGRESS');
@@ -101,83 +101,6 @@ export const CTA: React.FC<CTAProps> = (props: CTAProps) => {
                 </>
             );
     }
-};
-
-// Newsletter CTA dots animation
-// -------------------------------------------------------
-const loadingAnimKeyframes = keyframes`
-    0% {
-        transform: scale(1);
-        filter: brightness(1);
-    }
-    15% {
-        transform: scale(1.333);
-        filter: brightness(0.7);
-    }
-    30% {
-        transform: scale(1);
-        filter: brightness(1);
-    }
-`;
-
-const loadingAnimCss = css`
-    circle {
-        animation: ${loadingAnimKeyframes} 1.5s ease infinite;
-    }
-    #dot_1 {
-        animation-delay: 0ms;
-        transform-origin: 3px 3.5px;
-    }
-    #dot_2 {
-        animation-delay: 400ms;
-        transform-origin: 17.4px 3.5px;
-    }
-    #dot_3 {
-        animation-delay: 800ms;
-        transform-origin: 31.7px 3.5px;
-    }
-`;
-
-const LoadingDots = (): React.ReactElement => {
-    return (
-        <svg
-            width="50"
-            height="17"
-            viewBox="-5 -5 45 12"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            css={loadingAnimCss}
-        >
-            <g id="Dots step 1">
-                <g id="Group 660">
-                    <circle
-                        id="dot_1"
-                        opacity="0.5"
-                        cx="3.0152"
-                        cy="3.56641"
-                        r="3"
-                        fill="#707070"
-                    />
-                    <circle
-                        id="dot_2"
-                        opacity="0.5"
-                        cx="17.3748"
-                        cy="3.56641"
-                        r="3"
-                        fill="#707070"
-                    />
-                    <circle
-                        id="dot_3"
-                        opacity="0.5"
-                        cx="31.7348"
-                        cy="3.56641"
-                        r="3"
-                        fill="#707070"
-                    />
-                </g>
-            </g>
-        </svg>
-    );
 };
 
 // Newsletter Frequency Block
