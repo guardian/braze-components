@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { Button, LinkButton, SvgCross } from '@guardian/source-react-components';
 import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
 import type { TrackClick } from '../utils/tracking';
-import { StyleData } from '../styles/colorData';
+import { BannerStyleData } from '../styles/colorData';
 import { selfServeStyles } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
 
-const defaultColors: StyleData = {
+const defaultColors: BannerStyleData = {
     styleBackground: '#ebe8e8',
     styleHeader: `#333333`,
     styleBody: '#666666',

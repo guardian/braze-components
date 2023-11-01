@@ -15,7 +15,7 @@ export const contributionsTheme = {
     link: buttonStyles,
 };
 
-export interface StyleData {
+export interface BannerStyleData {
     styleBackground: string;
     styleHeader: string;
     styleBody: string;
@@ -31,6 +31,13 @@ export interface StyleData {
     styleClose: string;
     styleCloseBackground: string;
     styleCloseHover: string;
+}
+
+export interface EpicStyleData {
+    styleReminderButton: string;
+    styleReminderButtonBackground: string;
+    styleReminderButtonHover: string;
+    styleReminderAnimation: string;
 }
 
 export const colorStringStyles = [
@@ -51,4 +58,5 @@ export const colorStringStyles = [
     'styleCloseHover',
 ];
 
-export type Styles = keyof StyleData;
+export type BannerStyles = keyof BannerStyleData;
+export type EpicStyles = keyof EpicStyleData;

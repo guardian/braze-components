@@ -1,13 +1,13 @@
 import { css } from '@emotion/react';
 import type { Extras } from '../logic/types';
 import { neutral, space, from, until, body, headline } from '@guardian/source-foundations';
-import { Styles, StyleData, colorStringStyles } from './colorData';
+import { BannerStyles, BannerStyleData, colorStringStyles } from './colorData';
 
 const imgHeight = '280';
 
-export const selfServeStyles = (userVals: Extras, defaults: StyleData) => {
-    const style: StyleData = Object.assign({}, defaults);
-    const defKeys: Styles[] = Object.keys(defaults) as Styles[];
+export const selfServeStyles = (userVals: Extras, defaults: BannerStyleData) => {
+    const style: BannerStyleData = Object.assign({}, defaults);
+    const defKeys: BannerStyles[] = Object.keys(defaults) as BannerStyles[];
     const regex = new RegExp(/^#([A-Fa-f0-9]{6})$/);
 
     defKeys.forEach((key) => {

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, LinkButton, SvgCross } from '@guardian/source-react-components';
 import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
 import type { TrackClick } from '../utils/tracking';
-import { StyleData } from '../styles/colorData';
+import { BannerStyleData } from '../styles/colorData';
 import { selfServeStyles } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';
 import { PaymentIcons } from '../components/PaymentIcons';
@@ -37,7 +37,7 @@ export type BrazeMessageProps = {
     styleCloseHover?: string;
 };
 
-const defaultColors: StyleData = {
+const defaultColors: BannerStyleData = {
     styleBackground: '#ededed',
     styleHeader: '#333333',
     styleBody: '#333333',

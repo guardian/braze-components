@@ -9,6 +9,7 @@ import { replaceNonArticleCountPlaceholders } from './placeholders';
 import { TrackClick } from '../utils/tracking';
 import { FetchEmail } from '../types/dcrTypes';
 import { ReminderStage } from '../logic/reminders';
+import { EpicStyleData } from '../styles/colorData';
 import { HeaderSection } from './HeaderSection';
 
 // Custom styles for <a> tags in the Epic content
@@ -63,6 +64,15 @@ const styles = {
         align-items: flex-start;
     `,
 };
+
+const defaultColors: EpicStyleData = {
+    styleReminderButton: '#121212',
+    styleReminderButtonBackground: '#ededed',
+    styleReminderButtonHover: '#dcdcdc',
+    styleReminderAnimation: '#707070',
+};
+
+console.log(defaultColors);
 
 export type BrazeMessageProps = {
     buttonText?: string;

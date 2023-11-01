@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { css, ThemeProvider } from '@emotion/react';
-import { neutral, news, body, space } from '@guardian/source-foundations';
+import { neutral, body, space } from '@guardian/source-foundations';
 import { Button } from '@guardian/source-react-components';
 
 import {
@@ -29,16 +29,9 @@ const styles = {
     buttonMargins: css`
         margin: ${space[1]}px ${space[2]}px ${space[1]}px 0;
     `,
-    button: css`
-        background-color: ${news[400]}; /* #c70000 */
-        color: ${neutral[100]}; /* #ffffff */
-        &:hover {
-            background-color: ${news[400]}; /* #c70000 */
-        }
-    `,
     thankYouText: css`
         ${body.medium({ fontWeight: 'bold' })};
-        color: ${neutral[0]};
+        color: ${neutral[0]}; /* #000000 */
         margin-top: ${space[3]}px;
     `,
     remindMeButtonOverrides: css`
@@ -50,7 +43,7 @@ const styles = {
         }
     `,
     smallPrint: css`
-        color: ${neutral[0]};
+        color: ${neutral[0]}; /* #000000 */
         margin-top: ${space[2]}px;
         ${body.small()};
     `,
@@ -74,18 +67,6 @@ const RemindMeButton = ({ disabled, ctaText, onClick }: RemindMeButtonProps) => 
                 {ctaText}
             </Button>
         </ThemeProvider>
-    </div>
-);
-
-interface SmallPrintProps {
-    month: string;
-}
-
-const SmallPrint = ({ month }: SmallPrintProps) => (
-    <div css={styles.smallPrint}>
-        We will send you a maximum of two emails in {month}. To find out what personal data we
-        collect and how we use it, view our{' '}
-        <a href="https://manage.theguardian.com/email-prefs">Privacy Policy</a>.
     </div>
 );
 
@@ -139,7 +120,11 @@ export const ReminderCtaButton = ({
             return (
                 <div css={styles.buttonWrapperStyles}>
                     <RemindMeButton onClick={onClick} disabled={false} ctaText={reminderCta} />
-                    <SmallPrint month={reminderLabel} />
+                    <div css={styles.smallPrint}>
+                        We will send you a maximum of two emails in {reminderLabel}. To find out
+                        what personal data we collect and how we use it, view our{' '}
+                        <a href="https://manage.theguardian.com/email-prefs">Privacy Policy</a>.
+                    </div>
                 </div>
             );
         case 'FAILURE':
