@@ -86,16 +86,14 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
             <div css={styles.contentContainer}>
                 <div css={styles.topLeftComponent}>
                     <div css={styles.heading}>{header}</div>
-                    <p css={styles.paragraph}>
-                        {body}
+                    <p css={styles.paragraph}>{body}</p>
 
-                        {boldText ? (
-                            <>
-                                <br />
-                                <strong css={styles.highlight}>{boldText}</strong>
-                            </>
-                        ) : null}
-                    </p>
+                    {boldText ? (
+                        <p css={styles.highlightContainer}>
+                            <strong css={styles.highlight}>{boldText}</strong>
+                        </p>
+                    ) : null}
+
                     <LinkButton
                         href={buttonUrl}
                         css={styles.primaryButton}

@@ -3,13 +3,8 @@ import { css, ThemeProvider } from '@emotion/react';
 import { neutral, brandAlt, news, body, space } from '@guardian/source-foundations';
 import { Button } from '@guardian/source-react-components';
 
-import {
-    buildReminderFields,
-    createReminder,
-    ReminderComponent,
-    ReminderStage,
-    ReminderStatus,
-} from '../logic/reminders';
+import { buildReminderFields, createReminder, ReminderStage, ReminderComponent } from '../logic/reminders';
+import type { InteractiveButtonStatus } from '../logic/types';
 
 import { FetchEmail } from '../types/dcrTypes';
 import { TrackClick } from '../utils/tracking';
@@ -53,12 +48,8 @@ const styles = {
     `,
     thankYouText: css`
         ${body.medium({ fontWeight: 'bold' })};
-        color: ${neutral[0]}; /* #000000 */
-        margin-top: 12px;
-    `,
-    errorText: css`
-        color: ${neutral[0]}; /* #000000 */
-        margin-top: 12px;
+        color: ${neutral[0]};
+        margin-top: ${space[3]}px;
     `,
     remindMeButtonOverrides: css`
         background-color: transparent !important;
@@ -69,7 +60,9 @@ const styles = {
         }
     `,
     smallPrint: css`
-        margin-top: 8px;
+        color: ${neutral[0]};
+        margin-top: ${space[2]}px;
+        ${body.small()};
     `,
 };
 
@@ -110,7 +103,6 @@ interface ReminderCtaButtonProps {
     reminderComponent: ReminderComponent;
     reminderStage: ReminderStage;
     reminderOption?: string;
-    internalButtonId: number;
     ophanComponentId: string;
     trackClick: TrackClick;
     fetchEmail: FetchEmail;
@@ -120,13 +112,13 @@ export const ReminderCtaButton = ({
     reminderComponent,
     reminderStage,
     reminderOption,
-    internalButtonId,
     ophanComponentId,
     trackClick,
     fetchEmail,
 }: ReminderCtaButtonProps): JSX.Element => {
     const { reminderCta, reminderPeriod, reminderLabel } = buildReminderFields();
-    const [remindState, setRemindState] = useState<ReminderStatus>('DEFAULT');
+    const [remindState, setRemindState] = useState<InteractiveButtonStatus>('DEFAULT');
+    const internalButtonId = 1;
 
     const onClick = () => {
         trackClick({ internalButtonId, ophanComponentId });
@@ -164,7 +156,7 @@ export const ReminderCtaButton = ({
             return (
                 <div css={styles.buttonWrapperStyles}>
                     <RemindMeButton onClick={onClick} disabled={false} ctaText={reminderCta} />
-                    <div css={styles.errorText}>
+                    <div css={styles.smallPrint}>
                         There was an error creating the reminder. Please try again.
                     </div>
                 </div>

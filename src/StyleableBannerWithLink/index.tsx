@@ -109,16 +109,13 @@ const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
             <div css={styles.contentContainer}>
                 <div css={styles.topLeftComponent}>
                     <div css={styles.heading}>{header}</div>
-                    <p css={styles.paragraph}>
-                        {body}
+                    <p css={styles.paragraph}>{body}</p>
 
-                        {highlight ? (
-                            <>
-                                <br />
-                                <strong css={styles.highlight}>{highlight}</strong>
-                            </>
-                        ) : null}
-                    </p>
+                    {highlight ? (
+                        <p css={styles.highlightContainer}>
+                            <strong css={styles.highlight}>{highlight}</strong>
+                        </p>
+                    ) : null}
                     <div css={styles.primaryButtonWrapper}>
                         <LinkButton
                             href={buttonUrl}

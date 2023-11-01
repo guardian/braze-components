@@ -106,15 +106,16 @@ export const AppBanner = (props: Props): ReactElement | null => {
             <div css={commonStyles.contentContainer}>
                 <div css={commonStyles.topLeftComponent}>
                     <div css={commonStyles.heading}>{header}</div>
-                    <p css={commonStyles.paragraph}>
-                        {body}
-                        <br />
-                        <strong css={commonStyles.highlight}>{cta}</strong>
+                    <p css={commonStyles.paragraph}>{body}</p>
+
+                    <p css={commonStyles.highlightContainer}>
+                        <strong css={commonStyles.highlight}>{cta} &nbsp;</strong>
                         <span css={styles.storeIcon}>
                             <AppStore />
                             <PlayStore />
                         </span>
                     </p>
+
                     <ThemeProvider theme={overrridenReaderRevenueTheme}>
                         <Button
                             onClick={(e) => onCloseClick(e, 0)}

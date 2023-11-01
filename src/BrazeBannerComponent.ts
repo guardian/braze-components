@@ -26,7 +26,6 @@ export type CommonBannerComponentProps = {
     brazeMessageProps: BrazeMessageProps;
     subscribeToNewsletter: NewsletterSubscribeCallback;
     fetchEmail: FetchEmail;
-    isCodeEnvironment: boolean;
     logButtonClickWithBraze: BrazeClickHandler;
     submitComponentEvent: SubmitComponentEvent;
 };

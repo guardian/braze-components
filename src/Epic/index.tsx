@@ -32,6 +32,7 @@ const styles = {
         background-color: #f6f6f6;
         display: flex;
         flex-direction: column;
+        ${body.medium()}
 
         b,
         strong {
@@ -41,7 +42,6 @@ const styles = {
     paragraph: css`
         margin-top: 0;
         margin-bottom: ${space[2]}px;
-        ${body.medium()}
         ${linkStyles}
     `,
     heading: css`
@@ -129,9 +129,6 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
         replaceNonArticleCountPlaceholders(paragraph, countryCode),
     );
 
-    const PRIMARY_BUTTON_INTERNAL_ID = 0;
-    const REMIND_ME_BUTTON_INTERNAL_ID = 1;
-
     const highlightTextClean = replaceNonArticleCountPlaceholders(highlightedText, countryCode);
 
     return (
@@ -169,16 +166,14 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
                             buttonText={buttonText as string}
                             buttonUrl={buttonUrl as string}
                             hidePaymentIcons={hidePaymentIcons as string}
-                            internalButtonId={PRIMARY_BUTTON_INTERNAL_ID}
                             ophanComponentId={ophanComponentId as string}
                             trackClick={trackClick}
                         />
-                        {reminderStage && reminderOption && (
+                        {reminderStage && (
                             <ReminderCtaButton
                                 reminderComponent="EPIC"
                                 reminderStage={reminderStage}
                                 reminderOption={reminderOption}
-                                internalButtonId={REMIND_ME_BUTTON_INTERNAL_ID}
                                 ophanComponentId={ophanComponentId as string}
                                 trackClick={trackClick}
                                 fetchEmail={fetchEmail}

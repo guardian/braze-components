@@ -54,37 +54,45 @@ This means you won't need to run the login service locally.
 
 ### Point a project to your local version of @guardian/braze-components
 
-Use [`yarn link`] to develop against a locally checked out version of this
-library:
+Sometimes it's useful to test a braze-components change against a locally
+running version of a project which uses it, for example DCR.
 
-In your local checkout of `@guardian/braze-components`:
+It is recommended to use [`yalc`](https://github.com/wclr/yalc) to do this.
 
-```
-$ yarn link
-```
+#### Install yalc
 
-And then in the project consuming the client (e.g. DCR/frontend):
+Follow the instructions in the [yalc README](https://github.com/wclr/yalc#installation).
 
-```
-$ yarn link "@guardian/braze-components"
-```
-
-To revert back to using the published version of the package:
+#### Build @guardian/braze-components locally
 
 ```
-$ yarn unlink "@guardian/braze-components"
-$ yarn install --force
+$ yarn build
 ```
 
-[`yarn link`]: https://classic.yarnpkg.com/en/docs/cli/link/
+#### Publish your local @guardian/braze-components to the local yalc registry
 
-NOTE:
+In your local checkout of `@guardian/braze-components`, at the root:
 
--   Ensure you build this library before adding it locally to your project,
-    by running `yarn build`. You can also use `yarn watch` to build automatically
-    when the source code is changed.
+```
+$ yalc publish
+```
 
--   The external project (e.g. DCR/frontend) may not be set up to watch changes from linked modules. Removing: `ignored: /node_modules/,` from [`watchOptions`](https://github.com/guardian/frontend/blob/main/dev/watch.js#L30) in frontend will enable `make watch` (in frontend) to also track changes to `braze-components`.
+#### Use the version of braze-components from the local yalc registry
+
+```
+$ yalc add @guardian/braze-components
+```
+
+For example, for DCR this should be run from within the dotcom-rendering
+sub-project.
+
+This will update the local package.json with a yalc ref. This is expected, but
+the change shouldn't be committed.
+
+#### Notes
+
+The steps above should be repeated when you make a change to braze-components
+and you want to see it locally. Don't forget to re run `yarn build`!
 
 ## Publishing to NPM
 
