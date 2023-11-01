@@ -10,7 +10,8 @@ import type { TrackClick } from '../utils/tracking';
 
 import { AppStore } from '../assets/app-store';
 import { PlayStore } from '../assets/play-store';
-import { StyleData, selfServeStyles } from '../styles/bannerCommon';
+import { StyleData } from '../styles/colorData';
+import { selfServeStyles } from '../styles/bannerCommon';
 import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
 import { styles } from './styles';
 

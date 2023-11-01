@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Button, LinkButton, SvgCross } from '@guardian/source-react-components';
 import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
 import type { TrackClick } from '../utils/tracking';
-import { StyleData, selfServeStyles } from '../styles/bannerCommon';
+import { StyleData } from '../styles/colorData';
+import { selfServeStyles } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
 

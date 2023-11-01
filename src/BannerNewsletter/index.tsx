@@ -6,7 +6,8 @@ import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommo
 import { CTA, NewsletterFrequency } from '../newsletterCommon';
 import { NewsletterSubscribeCallback } from '../types/dcrTypes';
 import type { TrackClick } from '../utils/tracking';
-import { StyleData, selfServeStyles } from '../styles/bannerCommon';
+import { StyleData } from '../styles/colorData';
+import { selfServeStyles } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
 
