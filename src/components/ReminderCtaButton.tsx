@@ -1,30 +1,20 @@
 import React, { useState } from 'react';
 import { css, ThemeProvider } from '@emotion/react';
-import { neutral, brandAlt, news, body, space } from '@guardian/source-foundations';
+import { neutral, news, body, space } from '@guardian/source-foundations';
 import { Button } from '@guardian/source-react-components';
 
-import { buildReminderFields, createReminder, ReminderStage, ReminderComponent } from '../logic/reminders';
+import {
+    buildReminderFields,
+    createReminder,
+    ReminderStage,
+    ReminderComponent,
+} from '../logic/reminders';
 import type { InteractiveButtonStatus } from '../logic/types';
 
 import { FetchEmail } from '../types/dcrTypes';
 import { TrackClick } from '../utils/tracking';
 import { buildLoadingDots } from './CtaLoadingDotsAnimation';
-
-// Custom theme for Button/LinkButton
-const buttonStyles = {
-    textPrimary: neutral[7], //#121212
-    backgroundPrimary: brandAlt[400], //#ffe500
-    backgroundPrimaryHover: brandAlt[300], //#ffd900
-    textSecondary: neutral[7], //#121212
-    backgroundSecondary: neutral[93], //#ededed
-    backgroundSecondaryHover: neutral[86], //#dcdcdc
-    borderSecondary: neutral[86], //#dcdcdc
-};
-
-const contributionsTheme = {
-    button: buttonStyles,
-    link: buttonStyles,
-};
+import { contributionsTheme } from '../styles/colorData';
 
 const styles = {
     buttonWrapperStyles: css`
@@ -164,9 +154,7 @@ export const ReminderCtaButton = ({
         case 'IN_PROGRESS':
             return (
                 <div css={styles.buttonWrapperStyles}>
-                    <div css={styles.thankYouText}>
-                        {buildLoadingDots()}
-                    </div>
+                    <div css={styles.thankYouText}>{buildLoadingDots()}</div>
                 </div>
             );
 

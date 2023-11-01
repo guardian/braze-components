@@ -1,46 +1,9 @@
 import { css } from '@emotion/react';
 import type { Extras } from '../logic/types';
 import { neutral, space, from, until, body, headline } from '@guardian/source-foundations';
+import { Styles, StyleData, colorStringStyles } from './colorData';
 
 const imgHeight = '280';
-
-export interface StyleData {
-    styleBackground: string;
-    styleHeader: string;
-    styleBody: string;
-    styleHighlight: string;
-    styleHighlightBackground: string;
-    styleButton: string;
-    styleButtonBackground: string;
-    styleButtonHover: string;
-    styleReminderButton: string;
-    styleReminderButtonBackground: string;
-    styleReminderButtonHover: string;
-    styleReminderAnimation: string;
-    styleClose: string;
-    styleCloseBackground: string;
-    styleCloseHover: string;
-}
-
-const colorStringStyles = [
-    'styleBackground',
-    'styleHeader',
-    'styleBody',
-    'styleHighlight',
-    'styleHighlightBackground',
-    'styleButton',
-    'styleButtonBackground',
-    'styleButtonHover',
-    'styleReminderButton',
-    'styleReminderButtonBackground',
-    'styleReminderButtonHover',
-    'styleReminderAnimation',
-    'styleClose',
-    'styleCloseBackground',
-    'styleCloseHover',
-];
-
-type Styles = keyof StyleData;
 
 export const selfServeStyles = (userVals: Extras, defaults: StyleData) => {
     const style: StyleData = Object.assign({}, defaults);
