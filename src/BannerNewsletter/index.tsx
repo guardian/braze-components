@@ -6,7 +6,7 @@ import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommo
 import { CTA, NewsletterFrequency } from '../newsletterCommon';
 import { NewsletterSubscribeCallback } from '../types/dcrTypes';
 import type { TrackClick } from '../utils/tracking';
-import { BannerStyleData } from '../styles/colorData';
+import { ColorStylesData } from '../styles/colorData';
 import { selfServeStyles } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
@@ -31,7 +31,7 @@ const localStyles = {
     `,
 };
 
-const defaultColors: BannerStyleData = {
+const defaultColors: ColorStylesData = {
     styleBackground: '#ebe8e8',
     styleHeader: `#333333`,
     styleBody: '#666',
@@ -40,10 +40,6 @@ const defaultColors: BannerStyleData = {
     styleButton: '#ffffff',
     styleButtonBackground: '#052962',
     styleButtonHover: '#234b8a',
-    styleReminderButton: '#121212',
-    styleReminderButtonBackground: '#ededed',
-    styleReminderButtonHover: '#dcdcdc',
-    styleReminderAnimation: '#707070',
     styleClose: `#333333`,
     styleCloseBackground: '#ebe8e8',
     styleCloseHover: '#e5e5e5',

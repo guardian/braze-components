@@ -2,42 +2,28 @@ import React, { useState } from 'react';
 import { Button, LinkButton, SvgCross } from '@guardian/source-react-components';
 import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
 import type { TrackClick } from '../utils/tracking';
-import { BannerStyleData } from '../styles/colorData';
+import type { Extras } from '../logic/types';
+import { ColorStylesData } from '../styles/colorData';
 import { selfServeStyles } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';
 import { PaymentIcons } from '../components/PaymentIcons';
 export { COMPONENT_NAME };
 
-export type BrazeMessageProps = {
+export interface BrazeMessageProps extends ColorStylesData {
     ophanComponentId?: string;
-    styleBackground?: string;
     header?: string;
-    styleHeader?: string;
     body?: string;
-    styleBody?: string;
     highlight?: string;
-    styleHighlight?: string;
-    styleHighlightBackground?: string;
     buttonText?: string;
     buttonUrl?: string;
     showPaymentIcons?: string;
-    styleButton?: string;
-    styleButtonBackground?: string;
-    styleButtonHover?: string;
     includeReminderCta?: string;
-    styleReminderButton?: string;
-    styleReminderButtonBackground?: string;
-    styleReminderButtonHover?: string;
-    styleReminderAnimation?: string;
     imageUrl?: string;
     imageAltText?: string;
     imagePosition?: string;
-    styleClose?: string;
-    styleCloseBackground?: string;
-    styleCloseHover?: string;
-};
+}
 
-const defaultColors: BannerStyleData = {
+const defaultColors: ColorStylesData = {
     styleBackground: '#ededed',
     styleHeader: '#333333',
     styleBody: '#333333',
@@ -81,7 +67,7 @@ const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
         trackClick,
     } = props;
 
-    const styles = selfServeStyles(props.brazeMessageProps, defaultColors);
+    const styles = selfServeStyles(props.brazeMessageProps as Extras, defaultColors);
 
     const [showBanner, setShowBanner] = useState(true);
 

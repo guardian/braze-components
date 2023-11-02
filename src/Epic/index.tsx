@@ -9,7 +9,7 @@ import { replaceNonArticleCountPlaceholders } from './placeholders';
 import { TrackClick } from '../utils/tracking';
 import { FetchEmail } from '../types/dcrTypes';
 import { ReminderStage } from '../logic/reminders';
-import { EpicStyleData } from '../styles/colorData';
+import { ColorStylesData } from '../styles/colorData';
 import { HeaderSection } from './HeaderSection';
 
 // Custom styles for <a> tags in the Epic content
@@ -65,7 +65,7 @@ const styles = {
     `,
 };
 
-const defaultColors: EpicStyleData = {
+const defaultColors: ColorStylesData = {
     styleReminderButton: '#121212',
     styleReminderButtonBackground: '#ededed',
     styleReminderButtonHover: '#dcdcdc',

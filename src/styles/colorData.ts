@@ -1,4 +1,5 @@
 import { brandAlt, neutral } from '@guardian/source-foundations';
+import type { Extras } from '../logic/types';
 
 const buttonStyles = {
     textPrimary: neutral[7],
@@ -15,29 +16,22 @@ export const contributionsTheme = {
     link: buttonStyles,
 };
 
-export interface BannerStyleData {
-    styleBackground: string;
-    styleHeader: string;
-    styleBody: string;
-    styleHighlight: string;
-    styleHighlightBackground: string;
-    styleButton: string;
-    styleButtonBackground: string;
-    styleButtonHover: string;
-    styleReminderButton: string;
-    styleReminderButtonBackground: string;
-    styleReminderButtonHover: string;
-    styleReminderAnimation: string;
-    styleClose: string;
-    styleCloseBackground: string;
-    styleCloseHover: string;
-}
-
-export interface EpicStyleData {
-    styleReminderButton: string;
-    styleReminderButtonBackground: string;
-    styleReminderButtonHover: string;
-    styleReminderAnimation: string;
+export interface ColorStylesData {
+    styleBackground?: string;
+    styleHeader?: string;
+    styleBody?: string;
+    styleHighlight?: string;
+    styleHighlightBackground?: string;
+    styleButton?: string;
+    styleButtonBackground?: string;
+    styleButtonHover?: string;
+    styleReminderButton?: string;
+    styleReminderButtonBackground?: string;
+    styleReminderButtonHover?: string;
+    styleReminderAnimation?: string;
+    styleClose?: string;
+    styleCloseBackground?: string;
+    styleCloseHover?: string;
 }
 
 export const colorStringStyles = [
@@ -58,5 +52,35 @@ export const colorStringStyles = [
     'styleCloseHover',
 ];
 
-export type BannerStyles = keyof BannerStyleData;
-export type EpicStyles = keyof EpicStyleData;
+type ColorStyles = keyof ColorStylesData;
+
+export function getColors(userVals: Extras, defaults: ColorStylesData) {
+    const style: ColorStylesData = Object.assign({}, defaults);
+    const defKeys: ColorStyles[] = Object.keys(defaults) as ColorStyles[];
+    const regex = new RegExp(/^#([A-Fa-f0-9]{6})$/);
+
+    defKeys.forEach((key) => {
+        const userVal = userVals[key];
+
+        // If user val is undefined, or an empty string, use default val
+        if (userVal == null || !userVal.length) {
+            return;
+        }
+
+        // Protect against CSS injection
+        const item = userVal.split(';')[0].trim();
+
+        // Protect against null or empty user strings
+        if (item == null || !item.length) {
+            return;
+        }
+
+        // Check for legitimate CSS color string values
+        // - we only support `#abcdef` color format
+        if (colorStringStyles.includes(key) && regex.test(item)) {
+            style[key] = item;
+        }
+    });
+
+    return style;
+}
