@@ -10,6 +10,7 @@ import { TrackClick } from '../utils/tracking';
 import { FetchEmail } from '../types/dcrTypes';
 import { ReminderStage } from '../logic/reminders';
 import { ColorStylesData } from '../styles/colorData';
+import type { Extras } from '../logic/types';
 import { HeaderSection } from './HeaderSection';
 
 // Custom styles for <a> tags in the Epic content
@@ -71,8 +72,6 @@ const defaultColors: ColorStylesData = {
     styleReminderButtonHover: '#dcdcdc',
     styleReminderAnimation: '#707070',
 };
-
-console.log(defaultColors);
 
 export type BrazeMessageProps = {
     buttonText?: string;
@@ -187,6 +186,7 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
                                 ophanComponentId={ophanComponentId as string}
                                 trackClick={trackClick}
                                 fetchEmail={fetchEmail}
+                                userStyles={defaultColors as Extras}
                             />
                         )}
                     </div>

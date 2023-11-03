@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { css, ThemeProvider } from '@emotion/react';
-import { neutral, body, space } from '@guardian/source-foundations';
+import { css, SerializedStyles, ThemeProvider } from '@emotion/react';
+import { body, space } from '@guardian/source-foundations';
 import { Button } from '@guardian/source-react-components';
 
 import {
@@ -9,60 +9,101 @@ import {
     ReminderStage,
     ReminderComponent,
 } from '../logic/reminders';
-import type { InteractiveButtonStatus } from '../logic/types';
+import type { InteractiveButtonStatus, Extras } from '../logic/types';
 
 import { FetchEmail } from '../types/dcrTypes';
 import { TrackClick } from '../utils/tracking';
 import { buildLoadingDots } from './CtaLoadingDotsAnimation';
-import { contributionsTheme } from '../styles/colorData';
+import { contributionsTheme, getColors, ColorStylesData } from '../styles/colorData';
 
-const styles = {
-    buttonWrapperStyles: css`
-        margin: ${space[4]}px ${space[2]}px ${space[1]}px 0;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        align-items: flex-start;
-        max-width: 50%;
-    `,
-    buttonMargins: css`
-        margin: ${space[1]}px ${space[2]}px ${space[1]}px 0;
-    `,
-    thankYouText: css`
-        ${body.medium({ fontWeight: 'bold' })};
-        color: ${neutral[0]}; /* #000000 */
-        margin-top: ${space[3]}px;
-    `,
-    remindMeButtonOverrides: css`
-        background-color: transparent !important;
-        color: ${neutral[7]} !important; /* #121212 */
+const defaultButtonColors: ColorStylesData = {
+    styleReminderButton: '#121212',
+    styleReminderButtonBackground: '#f6f6f6;',
+    styleReminderButtonHover: '#dcdcdc',
+};
 
-        :hover {
-            background-color: ${neutral[86]} !important; /* #dcdcdc */
-        }
-    `,
-    smallPrint: css`
-        color: ${neutral[0]}; /* #000000 */
-        margin-top: ${space[2]}px;
-        ${body.small()};
-    `,
+const getButtonStyles = (userVals: Extras, defaults: ColorStylesData) => {
+    const styles = getColors(userVals as Extras, defaults);
+    console.log(styles);
+    // return {
+    //     buttonWrapperStyles: css`
+    //         margin: ${space[4]}px ${space[2]}px ${space[1]}px 0;
+    //         display: flex;
+    //         flex-direction: column;
+    //         flex-wrap: wrap;
+    //         justify-content: flex-start;
+    //         align-items: flex-start;
+    //         max-width: 50%;
+    //     `,
+    //     buttonMargins: css`
+    //         margin: ${space[1]}px ${space[2]}px ${space[1]}px 0;
+    //     `,
+    //     thankYouText: css`
+    //         ${body.medium({ fontWeight: 'bold' })};
+    //         color: ${neutral[0]}; /* #000000 */
+    //         margin-top: ${space[3]}px;
+    //     `,
+    //     remindMeButtonOverrides: css`
+    //         background-color: transparent !important;
+    //         color: ${neutral[7]} !important; /* #121212 */
+
+    //         :hover {
+    //             background-color: ${neutral[86]} !important; /* #dcdcdc */
+    //         }
+    //     `,
+    //     smallPrint: css`
+    //         color: ${neutral[0]}; /* #000000 */
+    //         margin-top: ${space[2]}px;
+    //         ${body.small()};
+    //     `,
+    // };
+    return {
+        buttonWrapperStyles: css`
+            margin: ${space[4]}px ${space[2]}px ${space[1]}px 0;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            align-items: flex-start;
+            max-width: 50%;
+        `,
+        buttonMargins: css`
+            margin: ${space[1]}px ${space[2]}px ${space[1]}px 0;
+        `,
+        thankYouText: css`
+            ${body.medium({ fontWeight: 'bold' })};
+            margin-top: ${space[3]}px;
+        `,
+        remindMeButtonOverrides: css`
+            background-color: {styles.styleReminderButtonBackground} !important;
+            color: ${styles.styleReminderButton} !important;
+
+            :hover {
+                background-color: ${styles.styleReminderButtonHover} !important;
+            }
+        `,
+        smallPrint: css`
+            margin-top: ${space[2]}px;
+            ${body.small()};
+        `,
+    };
 };
 
 interface RemindMeButtonProps {
+    buttonStyles: Record<string, SerializedStyles>;
     disabled: boolean;
     ctaText: string;
     onClick: () => void;
 }
 
-const RemindMeButton = ({ disabled, ctaText, onClick }: RemindMeButtonProps) => (
-    <div css={styles.buttonMargins}>
+const RemindMeButton = ({ buttonStyles, disabled, ctaText, onClick }: RemindMeButtonProps) => (
+    <div css={buttonStyles.buttonMargins}>
         <ThemeProvider theme={contributionsTheme}>
             <Button
                 disabled={disabled}
                 onClick={() => onClick()}
                 priority="tertiary"
-                css={styles.remindMeButtonOverrides}
+                css={buttonStyles.remindMeButtonOverrides}
             >
                 {ctaText}
             </Button>
@@ -77,6 +118,7 @@ interface ReminderCtaButtonProps {
     ophanComponentId: string;
     trackClick: TrackClick;
     fetchEmail: FetchEmail;
+    userStyles: Extras;
 }
 
 export const ReminderCtaButton = ({
@@ -86,10 +128,12 @@ export const ReminderCtaButton = ({
     ophanComponentId,
     trackClick,
     fetchEmail,
+    userStyles = {},
 }: ReminderCtaButtonProps): JSX.Element => {
     const { reminderCta, reminderPeriod, reminderLabel } = buildReminderFields();
     const [remindState, setRemindState] = useState<InteractiveButtonStatus>('DEFAULT');
     const internalButtonId = 1;
+    const styles = getButtonStyles(userStyles, defaultButtonColors);
 
     const onClick = () => {
         trackClick({ internalButtonId, ophanComponentId });
@@ -119,7 +163,12 @@ export const ReminderCtaButton = ({
         case 'DEFAULT':
             return (
                 <div css={styles.buttonWrapperStyles}>
-                    <RemindMeButton onClick={onClick} disabled={false} ctaText={reminderCta} />
+                    <RemindMeButton
+                        buttonStyles={styles}
+                        onClick={onClick}
+                        disabled={false}
+                        ctaText={reminderCta}
+                    />
                     <div css={styles.smallPrint}>
                         We will send you a maximum of two emails in {reminderLabel}. To find out
                         what personal data we collect and how we use it, view our{' '}
@@ -130,7 +179,12 @@ export const ReminderCtaButton = ({
         case 'FAILURE':
             return (
                 <div css={styles.buttonWrapperStyles}>
-                    <RemindMeButton onClick={onClick} disabled={false} ctaText={reminderCta} />
+                    <RemindMeButton
+                        buttonStyles={styles}
+                        onClick={onClick}
+                        disabled={false}
+                        ctaText={reminderCta}
+                    />
                     <div css={styles.smallPrint}>
                         There was an error creating the reminder. Please try again.
                     </div>
@@ -139,7 +193,7 @@ export const ReminderCtaButton = ({
         case 'IN_PROGRESS':
             return (
                 <div css={styles.buttonWrapperStyles}>
-                    <div css={styles.thankYouText}>{buildLoadingDots()}</div>
+                    <div css={styles.thankYouText}>{buildLoadingDots(userStyles.styleReminderAnimation)}</div>
                 </div>
             );
 

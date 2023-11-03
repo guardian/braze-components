@@ -9,7 +9,7 @@ import { canRender, COMPONENT_NAME } from './canRender';
 import { PaymentIcons } from '../components/PaymentIcons';
 export { COMPONENT_NAME };
 
-export interface BrazeMessageProps extends ColorStylesData {
+export type BrazeMessageProps = {
     ophanComponentId?: string;
     header?: string;
     body?: string;
@@ -21,6 +21,21 @@ export interface BrazeMessageProps extends ColorStylesData {
     imageUrl?: string;
     imageAltText?: string;
     imagePosition?: string;
+    styleBackground?: string;
+    styleHeader?: string;
+    styleBody?: string;
+    styleHighlight?: string;
+    styleHighlightBackground?: string;
+    styleButton?: string;
+    styleButtonBackground?: string;
+    styleButtonHover?: string;
+    styleReminderButton?: string;
+    styleReminderButtonBackground?: string;
+    styleReminderButtonHover?: string;
+    styleReminderAnimation?: string;
+    styleClose?: string;
+    styleCloseBackground?: string;
+    styleCloseHover?: string;
 }
 
 const defaultColors: ColorStylesData = {
