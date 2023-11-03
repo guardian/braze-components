@@ -36,7 +36,7 @@ export type BrazeMessageProps = {
     styleClose?: string;
     styleCloseBackground?: string;
     styleCloseHover?: string;
-}
+};
 
 const defaultColors: ColorStylesData = {
     styleBackground: '#ededed',

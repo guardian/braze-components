@@ -24,39 +24,6 @@ const defaultButtonColors: ColorStylesData = {
 
 const getButtonStyles = (userVals: Extras, defaults: ColorStylesData) => {
     const styles = getColors(userVals as Extras, defaults);
-    console.log(styles);
-    // return {
-    //     buttonWrapperStyles: css`
-    //         margin: ${space[4]}px ${space[2]}px ${space[1]}px 0;
-    //         display: flex;
-    //         flex-direction: column;
-    //         flex-wrap: wrap;
-    //         justify-content: flex-start;
-    //         align-items: flex-start;
-    //         max-width: 50%;
-    //     `,
-    //     buttonMargins: css`
-    //         margin: ${space[1]}px ${space[2]}px ${space[1]}px 0;
-    //     `,
-    //     thankYouText: css`
-    //         ${body.medium({ fontWeight: 'bold' })};
-    //         color: ${neutral[0]}; /* #000000 */
-    //         margin-top: ${space[3]}px;
-    //     `,
-    //     remindMeButtonOverrides: css`
-    //         background-color: transparent !important;
-    //         color: ${neutral[7]} !important; /* #121212 */
-
-    //         :hover {
-    //             background-color: ${neutral[86]} !important; /* #dcdcdc */
-    //         }
-    //     `,
-    //     smallPrint: css`
-    //         color: ${neutral[0]}; /* #000000 */
-    //         margin-top: ${space[2]}px;
-    //         ${body.small()};
-    //     `,
-    // };
     return {
         buttonWrapperStyles: css`
             margin: ${space[4]}px ${space[2]}px ${space[1]}px 0;
@@ -193,7 +160,9 @@ export const ReminderCtaButton = ({
         case 'IN_PROGRESS':
             return (
                 <div css={styles.buttonWrapperStyles}>
-                    <div css={styles.thankYouText}>{buildLoadingDots(userStyles.styleReminderAnimation)}</div>
+                    <div css={styles.thankYouText}>
+                        {buildLoadingDots(userStyles.styleReminderAnimation)}
+                    </div>
                 </div>
             );
 
