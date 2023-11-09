@@ -42,6 +42,7 @@ export interface BannerColorStyles {
 
 export interface StyleableBannerColorStyles extends ReminderButtonColorStyles, BannerColorStyles {}
 
+// This will become an interface once we build a more generic newsletter epic with limited styling around the newsletter 1-click signup button
 export type EpicColorStyles = ReminderButtonColorStyles;
 
 interface AllAvailableColorStyles
