@@ -1,6 +1,6 @@
 import React from 'react';
 import { css, keyframes } from '@emotion/react';
-import type { ColorValueHex } from '../logic/types';
+import type { LoadingDotsColorStyles } from '../styles/colorData';
 
 // CTA dots animation
 // -------------------------------------------------------
@@ -37,11 +37,7 @@ const loadingAnimCss = css`
     }
 `;
 
-interface LoadingDotsParams {
-    fillStyle: ColorValueHex;
-}
-
-export const LoadingDots = ({ fillStyle }: LoadingDotsParams) => (
+export const LoadingDots = ({ styleReminderAnimation }: LoadingDotsColorStyles) => (
     <svg
         width="50"
         height="17"
@@ -52,9 +48,30 @@ export const LoadingDots = ({ fillStyle }: LoadingDotsParams) => (
     >
         <g id="Dots step 1">
             <g id="Group 660">
-                <circle id="dot_1" opacity="0.5" cx="3.0152" cy="3.56641" r="3" fill={fillStyle} />
-                <circle id="dot_2" opacity="0.5" cx="17.3748" cy="3.56641" r="3" fill={fillStyle} />
-                <circle id="dot_3" opacity="0.5" cx="31.7348" cy="3.56641" r="3" fill={fillStyle} />
+                <circle
+                    id="dot_1"
+                    opacity="0.5"
+                    cx="3.0152"
+                    cy="3.56641"
+                    r="3"
+                    fill={styleReminderAnimation}
+                />
+                <circle
+                    id="dot_2"
+                    opacity="0.5"
+                    cx="17.3748"
+                    cy="3.56641"
+                    r="3"
+                    fill={styleReminderAnimation}
+                />
+                <circle
+                    id="dot_3"
+                    opacity="0.5"
+                    cx="31.7348"
+                    cy="3.56641"
+                    r="3"
+                    fill={styleReminderAnimation}
+                />
             </g>
         </g>
     </svg>
