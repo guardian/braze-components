@@ -166,7 +166,9 @@ export const ReminderCtaButton = ({
                 <div css={styles.buttonWrapperStyles}>
                     <div css={styles.thankYouText}>
                         <LoadingDots
-                            styleReminderAnimation={userStyles.styleReminderAnimation as ColorValueHex}
+                            styleReminderAnimation={
+                                userStyles.styleReminderAnimation as ColorValueHex
+                            }
                         />
                     </div>
                 </div>
