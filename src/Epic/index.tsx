@@ -9,8 +9,7 @@ import { replaceNonArticleCountPlaceholders } from './placeholders';
 import { TrackClick } from '../utils/tracking';
 import { FetchEmail } from '../types/dcrTypes';
 import { ReminderStage } from '../logic/reminders';
-import { ColorStylesData } from '../styles/colorData';
-import type { Extras } from '../logic/types';
+import { ReminderButtonColorStyles } from '../styles/colorData';
 import { HeaderSection } from './HeaderSection';
 
 // Custom styles for <a> tags in the Epic content
@@ -66,7 +65,7 @@ const styles = {
     `,
 };
 
-const defaultColors: ColorStylesData = {
+const defaultColors: ReminderButtonColorStyles = {
     styleReminderButton: '#121212',
     styleReminderButtonBackground: '#ededed',
     styleReminderButtonHover: '#dcdcdc',
@@ -186,7 +185,7 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
                                 ophanComponentId={ophanComponentId as string}
                                 trackClick={trackClick}
                                 fetchEmail={fetchEmail}
-                                userStyles={defaultColors as Extras}
+                                userStyles={defaultColors}
                             />
                         )}
                     </div>

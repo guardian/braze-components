@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { Button, LinkButton, SvgCross } from '@guardian/source-react-components';
 import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
 import type { TrackClick } from '../utils/tracking';
-import type { Extras } from '../logic/types';
-import { BannerColorStyles } from '../styles/colorData';
+import { StyleableBannerColorStyles } from '../styles/colorData';
 import { selfServeStyles } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';
 import { PaymentIcons } from '../components/PaymentIcons';
@@ -38,7 +37,7 @@ export type BrazeMessageProps = {
     styleCloseHover?: string;
 };
 
-const defaultColors: BannerColorStyles = {
+const defaultColors: StyleableBannerColorStyles = {
     styleBackground: '#ededed',
     styleHeader: '#333333',
     styleBody: '#333333',
@@ -82,7 +81,7 @@ const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
         trackClick,
     } = props;
 
-    const styles = selfServeStyles(props.brazeMessageProps as Extras, defaultColors);
+    const styles = selfServeStyles(props.brazeMessageProps, defaultColors);
 
     const [showBanner, setShowBanner] = useState(true);
 

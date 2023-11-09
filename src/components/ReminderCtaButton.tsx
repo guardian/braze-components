@@ -9,7 +9,7 @@ import {
     ReminderStage,
     ReminderComponent,
 } from '../logic/reminders';
-import type { InteractiveButtonStatus, Extras, ColorValueHex } from '../logic/types';
+import type { InteractiveButtonStatus, ColorValueHex } from '../logic/types';
 
 import { FetchEmail } from '../types/dcrTypes';
 import { TrackClick } from '../utils/tracking';
@@ -20,10 +20,14 @@ const defaultButtonColors: ReminderButtonColorStyles = {
     styleReminderButton: '#121212',
     styleReminderButtonBackground: '#f6f6f6;',
     styleReminderButtonHover: '#dcdcdc',
+    styleReminderAnimation: '#707070',
 };
 
-const getButtonStyles = (userVals: Extras, defaults: ReminderButtonColorStyles) => {
-    const styles = getColors(userVals as Extras, defaults);
+const getButtonStyles = (
+    userVals: Partial<ReminderButtonColorStyles>,
+    defaults: ReminderButtonColorStyles,
+) => {
+    const styles = getColors(userVals as Partial<ReminderButtonColorStyles>, defaults);
     return {
         buttonWrapperStyles: css`
             margin: ${space[4]}px ${space[2]}px ${space[1]}px 0;
@@ -85,7 +89,7 @@ interface ReminderCtaButtonProps {
     ophanComponentId: string;
     trackClick: TrackClick;
     fetchEmail: FetchEmail;
-    userStyles: Extras;
+    userStyles: Partial<ReminderButtonColorStyles>;
 }
 
 export const ReminderCtaButton = ({

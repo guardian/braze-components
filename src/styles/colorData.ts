@@ -16,31 +16,17 @@ export const contributionsTheme = {
     link: buttonStyles,
 };
 
-export interface ColorStylesData {
-    styleBackground?: ColorValueHex;
-    styleHeader?: ColorValueHex;
-    styleBody?: ColorValueHex;
-    styleHighlight?: ColorValueHex;
-    styleHighlightBackground?: ColorValueHex;
-    styleButton?: ColorValueHex;
-    styleButtonBackground?: ColorValueHex;
-    styleButtonHover?: ColorValueHex;
-    styleReminderButton?: ColorValueHex;
-    styleReminderButtonBackground?: ColorValueHex;
-    styleReminderButtonHover?: ColorValueHex;
-    styleReminderAnimation?: ColorValueHex;
-    styleClose?: ColorValueHex;
-    styleCloseBackground?: ColorValueHex;
-    styleCloseHover?: ColorValueHex;
+export interface LoadingDotsColorStyles {
+    styleReminderAnimation: ColorValueHex;
 }
 
-export interface ReminderButtonColorStyles {
+export interface ReminderButtonColorStyles extends LoadingDotsColorStyles {
     styleReminderButton: ColorValueHex;
     styleReminderButtonBackground: ColorValueHex;
     styleReminderButtonHover: ColorValueHex;
 }
 
-export interface BannerColorStyles extends ReminderButtonColorStyles {
+export interface BannerColorStyles {
     styleBackground: ColorValueHex;
     styleHeader: ColorValueHex;
     styleBody: ColorValueHex;
@@ -49,13 +35,22 @@ export interface BannerColorStyles extends ReminderButtonColorStyles {
     styleButton: ColorValueHex;
     styleButtonBackground: ColorValueHex;
     styleButtonHover: ColorValueHex;
-    styleReminderAnimation: ColorValueHex;
     styleClose: ColorValueHex;
     styleCloseBackground: ColorValueHex;
     styleCloseHover: ColorValueHex;
 }
 
-export const colorStringStyles = [
+export interface StyleableBannerColorStyles extends ReminderButtonColorStyles, BannerColorStyles {}
+
+export type EpicColorStyles = ReminderButtonColorStyles;
+
+interface AllAvailableColorStyles
+    extends LoadingDotsColorStyles,
+        ReminderButtonColorStyles,
+        BannerColorStyles,
+        EpicColorStyles {}
+
+const colorStringStyles = [
     'styleBackground',
     'styleHeader',
     'styleBody',
@@ -73,11 +68,11 @@ export const colorStringStyles = [
     'styleCloseHover',
 ];
 
-type ColorStyles = keyof ColorStylesData;
+type ColorStylesType = keyof AllAvailableColorStyles;
 
-export function getColors(userVals: Extras, defaults: ColorStylesData) {
-    const style: ColorStylesData = Object.assign({}, defaults);
-    const defKeys: ColorStyles[] = Object.keys(defaults) as ColorStyles[];
+export function getColors(userVals: Extras, defaults: Partial<AllAvailableColorStyles>) {
+    const style: Partial<AllAvailableColorStyles> = Object.assign({}, defaults);
+    const defKeys: ColorStylesType[] = Object.keys(defaults) as ColorStylesType[];
     const regex = new RegExp(/^#([A-Fa-f0-9]{6})$/);
 
     defKeys.forEach((key) => {
