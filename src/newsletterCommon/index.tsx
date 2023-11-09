@@ -89,7 +89,7 @@ export const CTA: React.FC<CTAProps> = (props: CTAProps) => {
             );
 
         case 'IN_PROGRESS':
-            return <LoadingDots fillStyle="#707070" />;
+            return <LoadingDots styleReminderAnimation="#707070" />;
 
         case 'SUCCESS':
             return (
