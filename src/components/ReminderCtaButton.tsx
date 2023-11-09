@@ -9,20 +9,20 @@ import {
     ReminderStage,
     ReminderComponent,
 } from '../logic/reminders';
-import type { InteractiveButtonStatus, Extras } from '../logic/types';
+import type { InteractiveButtonStatus, Extras, ColorValueHex } from '../logic/types';
 
 import { FetchEmail } from '../types/dcrTypes';
 import { TrackClick } from '../utils/tracking';
-import { buildLoadingDots } from './CtaLoadingDotsAnimation';
-import { contributionsTheme, getColors, ColorStylesData } from '../styles/colorData';
+import { LoadingDots } from './CtaLoadingDotsAnimation';
+import { contributionsTheme, getColors, ReminderButtonColorStyles } from '../styles/colorData';
 
-const defaultButtonColors: ColorStylesData = {
+const defaultButtonColors: ReminderButtonColorStyles = {
     styleReminderButton: '#121212',
     styleReminderButtonBackground: '#f6f6f6;',
     styleReminderButtonHover: '#dcdcdc',
 };
 
-const getButtonStyles = (userVals: Extras, defaults: ColorStylesData) => {
+const getButtonStyles = (userVals: Extras, defaults: ReminderButtonColorStyles) => {
     const styles = getColors(userVals as Extras, defaults);
     return {
         buttonWrapperStyles: css`
@@ -161,7 +161,9 @@ export const ReminderCtaButton = ({
             return (
                 <div css={styles.buttonWrapperStyles}>
                     <div css={styles.thankYouText}>
-                        {buildLoadingDots(userStyles.styleReminderAnimation)}
+                        <LoadingDots
+                            fillStyle={userStyles.styleReminderAnimation as ColorValueHex}
+                        />
                     </div>
                 </div>
             );

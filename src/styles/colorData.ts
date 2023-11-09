@@ -1,5 +1,5 @@
 import { brandAlt, neutral } from '@guardian/source-foundations';
-import type { Extras } from '../logic/types';
+import type { Extras, ColorValueHex } from '../logic/types';
 
 const buttonStyles = {
     textPrimary: neutral[7],
@@ -17,21 +17,42 @@ export const contributionsTheme = {
 };
 
 export interface ColorStylesData {
-    styleBackground?: string;
-    styleHeader?: string;
-    styleBody?: string;
-    styleHighlight?: string;
-    styleHighlightBackground?: string;
-    styleButton?: string;
-    styleButtonBackground?: string;
-    styleButtonHover?: string;
-    styleReminderButton?: string;
-    styleReminderButtonBackground?: string;
-    styleReminderButtonHover?: string;
-    styleReminderAnimation?: string;
-    styleClose?: string;
-    styleCloseBackground?: string;
-    styleCloseHover?: string;
+    styleBackground?: ColorValueHex;
+    styleHeader?: ColorValueHex;
+    styleBody?: ColorValueHex;
+    styleHighlight?: ColorValueHex;
+    styleHighlightBackground?: ColorValueHex;
+    styleButton?: ColorValueHex;
+    styleButtonBackground?: ColorValueHex;
+    styleButtonHover?: ColorValueHex;
+    styleReminderButton?: ColorValueHex;
+    styleReminderButtonBackground?: ColorValueHex;
+    styleReminderButtonHover?: ColorValueHex;
+    styleReminderAnimation?: ColorValueHex;
+    styleClose?: ColorValueHex;
+    styleCloseBackground?: ColorValueHex;
+    styleCloseHover?: ColorValueHex;
+}
+
+export interface ReminderButtonColorStyles {
+    styleReminderButton: ColorValueHex;
+    styleReminderButtonBackground: ColorValueHex;
+    styleReminderButtonHover: ColorValueHex;
+}
+
+export interface BannerColorStyles extends ReminderButtonColorStyles {
+    styleBackground: ColorValueHex;
+    styleHeader: ColorValueHex;
+    styleBody: ColorValueHex;
+    styleHighlight: ColorValueHex;
+    styleHighlightBackground: ColorValueHex;
+    styleButton: ColorValueHex;
+    styleButtonBackground: ColorValueHex;
+    styleButtonHover: ColorValueHex;
+    styleReminderAnimation: ColorValueHex;
+    styleClose: ColorValueHex;
+    styleCloseBackground: ColorValueHex;
+    styleCloseHover: ColorValueHex;
 }
 
 export const colorStringStyles = [
@@ -78,7 +99,7 @@ export function getColors(userVals: Extras, defaults: ColorStylesData) {
         // Check for legitimate CSS color string values
         // - we only support `#abcdef` color format
         if (colorStringStyles.includes(key) && regex.test(item)) {
-            style[key] = item;
+            style[key] = item as ColorValueHex;
         }
     });
 

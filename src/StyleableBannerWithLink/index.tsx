@@ -3,7 +3,7 @@ import { Button, LinkButton, SvgCross } from '@guardian/source-react-components'
 import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
 import type { TrackClick } from '../utils/tracking';
 import type { Extras } from '../logic/types';
-import { ColorStylesData } from '../styles/colorData';
+import { BannerColorStyles } from '../styles/colorData';
 import { selfServeStyles } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';
 import { PaymentIcons } from '../components/PaymentIcons';
@@ -38,7 +38,7 @@ export type BrazeMessageProps = {
     styleCloseHover?: string;
 };
 
-const defaultColors: ColorStylesData = {
+const defaultColors: BannerColorStyles = {
     styleBackground: '#ededed',
     styleHeader: '#333333',
     styleBody: '#333333',

@@ -1,5 +1,6 @@
 import React from 'react';
 import { css, keyframes } from '@emotion/react';
+import type { ColorValueHex } from '../logic/types';
 
 // CTA dots animation
 // -------------------------------------------------------
@@ -36,44 +37,25 @@ const loadingAnimCss = css`
     }
 `;
 
-export const buildLoadingDots = (fillStyle = '#707070'): React.ReactElement => {
-    return (
-        <svg
-            width="50"
-            height="17"
-            viewBox="-5 -5 45 12"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            css={loadingAnimCss}
-        >
-            <g id="Dots step 1">
-                <g id="Group 660">
-                    <circle
-                        id="dot_1"
-                        opacity="0.5"
-                        cx="3.0152"
-                        cy="3.56641"
-                        r="3"
-                        fill={fillStyle}
-                    />
-                    <circle
-                        id="dot_2"
-                        opacity="0.5"
-                        cx="17.3748"
-                        cy="3.56641"
-                        r="3"
-                        fill={fillStyle}
-                    />
-                    <circle
-                        id="dot_3"
-                        opacity="0.5"
-                        cx="31.7348"
-                        cy="3.56641"
-                        r="3"
-                        fill={fillStyle}
-                    />
-                </g>
+interface LoadingDotsParams {
+    fillStyle: ColorValueHex;
+}
+
+export const LoadingDots = ({ fillStyle }: LoadingDotsParams) => (
+    <svg
+        width="50"
+        height="17"
+        viewBox="-5 -5 45 12"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        css={loadingAnimCss}
+    >
+        <g id="Dots step 1">
+            <g id="Group 660">
+                <circle id="dot_1" opacity="0.5" cx="3.0152" cy="3.56641" r="3" fill={fillStyle} />
+                <circle id="dot_2" opacity="0.5" cx="17.3748" cy="3.56641" r="3" fill={fillStyle} />
+                <circle id="dot_3" opacity="0.5" cx="31.7348" cy="3.56641" r="3" fill={fillStyle} />
             </g>
-        </svg>
-    );
-};
+        </g>
+    </svg>
+);

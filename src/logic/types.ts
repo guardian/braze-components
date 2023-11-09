@@ -1,4 +1,6 @@
-type Extras = Record<string, string>;
+type ColorValueHex = `#${string}`;
+
+type Extras = Record<string, ColorValueHex | string>;
 type ErrorHandler = (error: Error, identifier: string) => void;
 
 // slots that support one-shot messages (using Braze's in-app messages)
@@ -17,6 +19,7 @@ type CardSlotName = keyof typeof CardSlotNames;
 type InteractiveButtonStatus = 'DEFAULT' | 'IN_PROGRESS' | 'SUCCESS' | 'FAILURE';
 
 export {
+    ColorValueHex,
     Extras,
     ErrorHandler,
     MessageSlotNames,

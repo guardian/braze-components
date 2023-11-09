@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { css, ThemeProvider } from '@emotion/react';
 import { Button, buttonThemeBrandAlt, SvgClock, Link } from '@guardian/source-react-components';
 import type { TrackClick } from '../utils/tracking';
-import { buildLoadingDots } from '../components/CtaLoadingDotsAnimation';
+import { LoadingDots } from '../components/CtaLoadingDotsAnimation';
 import type { NewsletterSubscribeCallback } from '../types/dcrTypes';
 import type { InteractiveButtonStatus } from '../logic/types';
 
@@ -89,7 +89,7 @@ export const CTA: React.FC<CTAProps> = (props: CTAProps) => {
             );
 
         case 'IN_PROGRESS':
-            return buildLoadingDots();
+            return <LoadingDots fillStyle="#707070" />;
 
         case 'SUCCESS':
             return (
