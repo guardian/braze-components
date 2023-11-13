@@ -1,5 +1,6 @@
 import { brandAlt, neutral } from '@guardian/source-foundations';
 import type { Extras, ColorValueHex } from '../logic/types';
+import { stringIsColorValueHex } from '../logic/types';
 
 const buttonStyles = {
     textPrimary: neutral[7],
@@ -51,30 +52,14 @@ interface AllAvailableColorStyles
         BannerColorStyles,
         EpicColorStyles {}
 
-const colorStringStyles = [
-    'styleBackground',
-    'styleHeader',
-    'styleBody',
-    'styleHighlight',
-    'styleHighlightBackground',
-    'styleButton',
-    'styleButtonBackground',
-    'styleButtonHover',
-    'styleReminderButton',
-    'styleReminderButtonBackground',
-    'styleReminderButtonHover',
-    'styleReminderAnimation',
-    'styleClose',
-    'styleCloseBackground',
-    'styleCloseHover',
-];
-
 type ColorStylesType = keyof AllAvailableColorStyles;
 
-export function getColors(userVals: Extras, defaults: Partial<AllAvailableColorStyles>) {
-    const style: Partial<AllAvailableColorStyles> = Object.assign({}, defaults);
-    const defKeys: ColorStylesType[] = Object.keys(defaults) as ColorStylesType[];
-    const regex = new RegExp(/^#([A-Fa-f0-9]{6})$/);
+export function getColors<T extends Partial<Record<ColorStylesType, ColorValueHex>>>(
+    userVals: Extras,
+    defaults: T,
+): T {
+    const style: T = Object.assign({}, defaults);
+    const defKeys = Object.keys(defaults) as ColorStylesType[];
 
     defKeys.forEach((key) => {
         const userVal = userVals[key];
@@ -88,14 +73,14 @@ export function getColors(userVals: Extras, defaults: Partial<AllAvailableColorS
         const item = userVal.split(';')[0].trim();
 
         // Protect against null or empty user strings
-        if (item == null || !item.length) {
+        if (!item) {
             return;
         }
 
         // Check for legitimate CSS color string values
         // - we only support `#abcdef` color format
-        if (colorStringStyles.includes(key) && regex.test(item)) {
-            style[key] = item as ColorValueHex;
+        if (stringIsColorValueHex(item)) {
+            style[key] = item;
         }
     });
 
