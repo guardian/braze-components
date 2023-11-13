@@ -21,7 +21,7 @@ export default {
         ...ophanComponentIdArgType,
         heading: {
             name: 'heading',
-            type: { name: 'string', required: true },
+            type: { name: 'string', required: false },
             description: 'Header text',
         },
         ...Object.fromEntries(paragraphDocs),
