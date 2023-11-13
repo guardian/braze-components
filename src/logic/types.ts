@@ -1,5 +1,11 @@
 type ColorValueHex = `#${string}`;
 
+const colorValueHexRegex = new RegExp(/^#([A-Fa-f0-9]{6})$/);
+
+export const stringIsColorValueHex = (x: string): x is ColorValueHex => {
+    return colorValueHexRegex.test(x);
+};
+
 type Extras = Record<string, ColorValueHex | string>;
 type ErrorHandler = (error: Error, identifier: string) => void;
 

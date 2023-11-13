@@ -27,7 +27,7 @@ const getButtonStyles = (
     userVals: Partial<ReminderButtonColorStyles>,
     defaults: ReminderButtonColorStyles,
 ) => {
-    const styles = getColors(userVals as Partial<ReminderButtonColorStyles>, defaults);
+    const styles = getColors(userVals, defaults);
     return {
         buttonWrapperStyles: css`
             margin: ${space[4]}px ${space[2]}px ${space[1]}px 0;
