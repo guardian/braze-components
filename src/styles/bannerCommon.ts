@@ -1,66 +1,11 @@
 import { css } from '@emotion/react';
-import type { Extras } from '../logic/types';
 import { neutral, space, from, until, body, headline } from '@guardian/source-foundations';
+import { BannerColorStyles, getColors } from './colorData';
 
 const imgHeight = '280';
 
-export interface StyleData {
-    styleBackground: string;
-    styleHeader: string;
-    styleBody: string;
-    styleHighlight: string;
-    styleHighlightBackground: string;
-    styleButton: string;
-    styleButtonBackground: string;
-    styleButtonHover: string;
-    styleClose: string;
-    styleCloseBackground: string;
-    styleCloseHover: string;
-}
-
-const colorStringStyles = [
-    'styleBackground',
-    'styleHeader',
-    'styleBody',
-    'styleHighlight',
-    'styleHighlightBackground',
-    'styleButton',
-    'styleButtonBackground',
-    'styleButtonHover',
-    'styleClose',
-    'styleCloseBackground',
-    'styleCloseHover',
-];
-
-type Styles = keyof StyleData;
-
-export const selfServeStyles = (userVals: Extras, defaults: StyleData) => {
-    const style: StyleData = Object.assign({}, defaults);
-    const defKeys: Styles[] = Object.keys(defaults) as Styles[];
-    const regex = new RegExp(/^#([A-Fa-f0-9]{6})$/);
-
-    defKeys.forEach((key) => {
-        const userVal = userVals[key];
-
-        // If user val is undefined, or an empty string, use default val
-        if (userVal == null || !userVal.length) {
-            return;
-        }
-
-        // Protect against CSS injection
-        const item = userVal.split(';')[0].trim();
-
-        // Protect against null or empty user strings
-        if (item == null || !item.length) {
-            return;
-        }
-
-        // Check for legitimate CSS color string values
-        // - we only support `#abcdef` color format
-        if (colorStringStyles.includes(key) && regex.test(item)) {
-            style[key] = item;
-        }
-    });
+export const selfServeStyles = (userVals: Record<string, string>, defaults: BannerColorStyles) => {
+    const style = getColors(userVals, defaults);
 
     return {
         wrapper: css`

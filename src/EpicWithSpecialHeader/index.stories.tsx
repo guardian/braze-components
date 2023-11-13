@@ -58,7 +58,7 @@ export default {
         },
         heading: {
             name: 'heading',
-            type: { name: 'string', required: true },
+            type: { name: 'string', required: false },
             description: 'Copy header text',
         },
         ...Object.fromEntries(paragraphDocs),
@@ -83,6 +83,16 @@ export default {
             type: { name: 'string', required: false },
             description: 'Set value to "true" to suppress the payment icons beneath the CTA',
         },
+        reminderStage: {
+            name: 'reminderStage',
+            type: { name: 'string', required: false },
+            description: 'The type of stage (PRE, POST, WINBACK)',
+        },
+        reminderOption: {
+            name: 'reminderOption',
+            type: { name: 'string', required: false },
+            description: 'Extra data to be associated with a reminder sign-up',
+        },
     },
 };
 
@@ -100,6 +110,8 @@ const StoryTemplate = (
         buttonText: args.buttonText,
         buttonUrl: args.buttonUrl,
         hidePaymentIcons: args.hidePaymentIcons,
+        reminderStage: args.reminderStage,
+        reminderOption: args.reminderOption,
         paragraph1: args.paragraph1,
         paragraph2: args.paragraph2,
         paragraph3: args.paragraph3,
@@ -161,6 +173,8 @@ DefaultStory.args = {
     ophanComponentId: 'example_ophan_component_id',
     slotName: 'EndOfArticle',
     componentName: 'EpicWithSpecialHeader',
+    reminderStage: 'PRE',
+    reminderOption: 'recurring-contribution-upsell',
 };
 
 DefaultStory.story = { name: 'EpicWithSpecialHeader' };

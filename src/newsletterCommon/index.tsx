@@ -77,6 +77,7 @@ export const CTA: React.FC<CTAProps> = (props: CTAProps) => {
     switch (subscribeClickStatus) {
         case 'DEFAULT':
             return <SignUpButton onSignUpClick={onSignUpClick} />;
+
         case 'FAILURE':
             return (
                 <>
@@ -86,8 +87,10 @@ export const CTA: React.FC<CTAProps> = (props: CTAProps) => {
                     <SignUpButton onSignUpClick={onSignUpClick}></SignUpButton>
                 </>
             );
+
         case 'IN_PROGRESS':
-            return <LoadingDots></LoadingDots>;
+            return <LoadingDots styleReminderAnimation="#707070" />;
+
         case 'SUCCESS':
             return (
                 <>

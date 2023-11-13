@@ -2,36 +2,42 @@ import React, { useState } from 'react';
 import { Button, LinkButton, SvgCross } from '@guardian/source-react-components';
 import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
 import type { TrackClick } from '../utils/tracking';
-import { StyleData, selfServeStyles } from '../styles/bannerCommon';
+import { StyleableBannerColorStyles } from '../styles/colorData';
+import { selfServeStyles } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';
 import { PaymentIcons } from '../components/PaymentIcons';
 export { COMPONENT_NAME };
 
 export type BrazeMessageProps = {
     ophanComponentId?: string;
-    styleBackground?: string;
     header?: string;
-    styleHeader?: string;
     body?: string;
-    styleBody?: string;
     highlight?: string;
-    styleHighlight?: string;
-    styleHighlightBackground?: string;
     buttonText?: string;
     buttonUrl?: string;
     showPaymentIcons?: string;
-    styleButton?: string;
-    styleButtonBackground?: string;
-    styleButtonHover?: string;
+    includeReminderCta?: string;
     imageUrl?: string;
     imageAltText?: string;
     imagePosition?: string;
+    styleBackground?: string;
+    styleHeader?: string;
+    styleBody?: string;
+    styleHighlight?: string;
+    styleHighlightBackground?: string;
+    styleButton?: string;
+    styleButtonBackground?: string;
+    styleButtonHover?: string;
+    styleReminderButton?: string;
+    styleReminderButtonBackground?: string;
+    styleReminderButtonHover?: string;
+    styleReminderAnimation?: string;
     styleClose?: string;
     styleCloseBackground?: string;
     styleCloseHover?: string;
 };
 
-const defaultColors: StyleData = {
+const defaultColors: StyleableBannerColorStyles = {
     styleBackground: '#ededed',
     styleHeader: '#333333',
     styleBody: '#333333',
@@ -40,6 +46,10 @@ const defaultColors: StyleData = {
     styleButton: '#ffffff',
     styleButtonBackground: '#052962',
     styleButtonHover: '#234b8a',
+    styleReminderButton: '#121212',
+    styleReminderButtonBackground: '#ededed',
+    styleReminderButtonHover: '#dcdcdc',
+    styleReminderAnimation: '#707070',
     styleClose: '#052962',
     styleCloseBackground: '#ededed',
     styleCloseHover: '#e5e5e5',

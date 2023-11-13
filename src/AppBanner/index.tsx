@@ -10,14 +10,15 @@ import type { TrackClick } from '../utils/tracking';
 
 import { AppStore } from '../assets/app-store';
 import { PlayStore } from '../assets/play-store';
-import { StyleData, selfServeStyles } from '../styles/bannerCommon';
+import { BannerColorStyles } from '../styles/colorData';
+import { selfServeStyles } from '../styles/bannerCommon';
 import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
 import { styles } from './styles';
 
 import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
 
-const defaultColors: StyleData = {
+const defaultColors: BannerColorStyles = {
     styleBackground: '#ebe8e8',
     styleHeader: `#333333`,
     styleBody: '#666',

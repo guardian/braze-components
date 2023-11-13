@@ -9,6 +9,7 @@ import { replaceNonArticleCountPlaceholders } from './placeholders';
 import { TrackClick } from '../utils/tracking';
 import { FetchEmail } from '../types/dcrTypes';
 import { ReminderStage } from '../logic/reminders';
+import { ReminderButtonColorStyles } from '../styles/colorData';
 import { HeaderSection } from './HeaderSection';
 
 // Custom styles for <a> tags in the Epic content
@@ -62,6 +63,13 @@ const styles = {
         justify-content: flex-start;
         align-items: flex-start;
     `,
+};
+
+const defaultColors: ReminderButtonColorStyles = {
+    styleReminderButton: '#121212',
+    styleReminderButtonBackground: '#ededed',
+    styleReminderButtonHover: '#dcdcdc',
+    styleReminderAnimation: '#707070',
 };
 
 export type BrazeMessageProps = {
@@ -171,11 +179,13 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
                         />
                         {reminderStage && (
                             <ReminderCtaButton
+                                reminderComponent="EPIC"
                                 reminderStage={reminderStage}
                                 reminderOption={reminderOption}
                                 ophanComponentId={ophanComponentId as string}
                                 trackClick={trackClick}
                                 fetchEmail={fetchEmail}
+                                userStyles={defaultColors}
                             />
                         )}
                     </div>

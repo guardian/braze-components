@@ -1,3 +1,5 @@
+import type { Extras } from './logic/types';
+
 // Banners
 // --------------------------------------------
 import {
@@ -72,8 +74,6 @@ import {
 // --------------------------------------------
 // These are in a seperate file to enable tree shaking of the logic deciding if a Braze message can be rendered
 // + This means the user won't download the Braze components bundle when the component can't be shown.
-
-export type Extras = Record<string, string>;
 
 const COMPONENT_CAN_RENDER_MAPPINGS: Record<
     string,

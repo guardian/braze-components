@@ -1,4 +1,12 @@
-type Extras = Record<string, string>;
+type ColorValueHex = `#${string}`;
+
+const colorValueHexRegex = new RegExp(/^#([A-Fa-f0-9]{6})$/);
+
+export const stringIsColorValueHex = (x: string): x is ColorValueHex => {
+    return colorValueHexRegex.test(x);
+};
+
+type Extras = Record<string, ColorValueHex | string>;
 type ErrorHandler = (error: Error, identifier: string) => void;
 
 // slots that support one-shot messages (using Braze's in-app messages)
@@ -17,6 +25,7 @@ type CardSlotName = keyof typeof CardSlotNames;
 type InteractiveButtonStatus = 'DEFAULT' | 'IN_PROGRESS' | 'SUCCESS' | 'FAILURE';
 
 export {
+    ColorValueHex,
     Extras,
     ErrorHandler,
     MessageSlotNames,
