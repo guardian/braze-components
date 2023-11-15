@@ -179,11 +179,8 @@ export const selfServeStyles = (userVals: Record<string, string>, defaults: Bann
             margin: ${space[4]}px ${space[2]}px ${space[1]}px 0;
             display: flex;
             flex-wrap: wrap;
-            align-items: center;
-
-            &.hidden {
-                display: none;
-            }
+            justify-content: flex-start;
+            align-items: flex-start;
         `,
 
         primaryButton: css`

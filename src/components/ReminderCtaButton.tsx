@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { css, SerializedStyles, ThemeProvider } from '@emotion/react';
 import { body, space } from '@guardian/source-foundations';
-import { Button } from '@guardian/source-react-components';
+import { LinkButton } from '@guardian/source-react-components';
 
 import {
     buildReminderFields,
@@ -46,7 +46,7 @@ const getButtonStyles = (
             margin-top: ${space[3]}px;
         `,
         remindMeButtonOverrides: css`
-            background-color: {styles.styleReminderButtonBackground} !important;
+            background-color: ${styles.styleReminderButtonBackground} !important;
             color: ${styles.styleReminderButton} !important;
 
             :hover {
@@ -62,22 +62,20 @@ const getButtonStyles = (
 
 interface RemindMeButtonProps {
     buttonStyles: Record<string, SerializedStyles>;
-    disabled: boolean;
     ctaText: string;
     onClick: () => void;
 }
 
-const RemindMeButton = ({ buttonStyles, disabled, ctaText, onClick }: RemindMeButtonProps) => (
+const RemindMeButton = ({ buttonStyles, ctaText, onClick }: RemindMeButtonProps) => (
     <div css={buttonStyles.buttonMargins}>
         <ThemeProvider theme={contributionsTheme}>
-            <Button
-                disabled={disabled}
+            <LinkButton
                 onClick={() => onClick()}
                 priority="tertiary"
                 css={buttonStyles.remindMeButtonOverrides}
             >
                 {ctaText}
-            </Button>
+            </LinkButton>
         </ThemeProvider>
     </div>
 );
@@ -90,6 +88,7 @@ interface ReminderCtaButtonProps {
     trackClick: TrackClick;
     fetchEmail: FetchEmail;
     userStyles: Partial<ReminderButtonColorStyles>;
+    isBanner?: boolean;
 }
 
 export const ReminderCtaButton = ({
@@ -100,6 +99,7 @@ export const ReminderCtaButton = ({
     trackClick,
     fetchEmail,
     userStyles = {},
+    isBanner,
 }: ReminderCtaButtonProps): JSX.Element => {
     const { reminderCta, reminderPeriod, reminderLabel } = buildReminderFields();
     const [remindState, setRemindState] = useState<InteractiveButtonStatus>('DEFAULT');
@@ -134,28 +134,20 @@ export const ReminderCtaButton = ({
         case 'DEFAULT':
             return (
                 <div css={styles.buttonWrapperStyles}>
-                    <RemindMeButton
-                        buttonStyles={styles}
-                        onClick={onClick}
-                        disabled={false}
-                        ctaText={reminderCta}
-                    />
-                    <div css={styles.smallPrint}>
-                        We will send you a maximum of two emails in {reminderLabel}. To find out
-                        what personal data we collect and how we use it, view our{' '}
-                        <a href="https://manage.theguardian.com/email-prefs">Privacy Policy</a>.
-                    </div>
+                    <RemindMeButton buttonStyles={styles} onClick={onClick} ctaText={reminderCta} />
+                    {!isBanner && (
+                        <div css={styles.smallPrint}>
+                            We will send you a maximum of two emails in {reminderLabel}. To find out
+                            what personal data we collect and how we use it, view our{' '}
+                            <a href="https://manage.theguardian.com/email-prefs">Privacy Policy</a>.
+                        </div>
+                    )}
                 </div>
             );
         case 'FAILURE':
             return (
                 <div css={styles.buttonWrapperStyles}>
-                    <RemindMeButton
-                        buttonStyles={styles}
-                        onClick={onClick}
-                        disabled={false}
-                        ctaText={reminderCta}
-                    />
+                    <RemindMeButton buttonStyles={styles} onClick={onClick} ctaText={reminderCta} />
                     <div css={styles.smallPrint}>
                         There was an error creating the reminder. Please try again.
                     </div>

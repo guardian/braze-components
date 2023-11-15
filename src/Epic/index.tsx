@@ -9,7 +9,7 @@ import { replaceNonArticleCountPlaceholders } from './placeholders';
 import { TrackClick } from '../utils/tracking';
 import { FetchEmail } from '../types/dcrTypes';
 import { ReminderStage } from '../logic/reminders';
-import { ReminderButtonColorStyles } from '../styles/colorData';
+import { ReminderButtonColorStyles, ContributionButtonColorStyles } from '../styles/colorData';
 import { HeaderSection } from './HeaderSection';
 
 // Custom styles for <a> tags in the Epic content
@@ -65,11 +65,17 @@ const styles = {
     `,
 };
 
-const defaultColors: ReminderButtonColorStyles = {
+const defaultReminderColors: ReminderButtonColorStyles = {
     styleReminderButton: '#121212',
     styleReminderButtonBackground: '#ededed',
     styleReminderButtonHover: '#dcdcdc',
     styleReminderAnimation: '#707070',
+};
+
+const defaultContributeColors: ContributionButtonColorStyles = {
+    styleButton: '#ffffff',
+    styleButtonBackground: '#052962',
+    styleButtonHover: '#234b8a',
 };
 
 export type BrazeMessageProps = {
@@ -173,8 +179,9 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
                         <ContributionCtaButton
                             buttonText={buttonText as string}
                             buttonUrl={buttonUrl as string}
-                            hidePaymentIcons={hidePaymentIcons as string}
+                            showPaymentIcons={hidePaymentIcons !== 'true'}
                             ophanComponentId={ophanComponentId as string}
+                            userStyles={defaultContributeColors}
                             trackClick={trackClick}
                         />
                         {reminderStage && (
@@ -185,7 +192,7 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
                                 ophanComponentId={ophanComponentId as string}
                                 trackClick={trackClick}
                                 fetchEmail={fetchEmail}
-                                userStyles={defaultColors}
+                                userStyles={defaultReminderColors}
                             />
                         )}
                     </div>
