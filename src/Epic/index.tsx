@@ -73,7 +73,7 @@ const defaultReminderColors: ReminderButtonColorStyles = {
 };
 
 const defaultContributeColors: ContributionButtonColorStyles = {
-    styleButton: '#052962',
+    styleButton: '#121212',
     styleButtonBackground: '#ffe500',
     styleButtonHover: '#ffd213',
 };
