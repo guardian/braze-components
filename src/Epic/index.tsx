@@ -73,9 +73,9 @@ const defaultReminderColors: ReminderButtonColorStyles = {
 };
 
 const defaultContributeColors: ContributionButtonColorStyles = {
-    styleButton: '#ffffff',
-    styleButtonBackground: '#052962',
-    styleButtonHover: '#234b8a',
+    styleButton: '#052962',
+    styleButtonBackground: '#ffe500',
+    styleButtonHover: '#ffd213',
 };
 
 export type BrazeMessageProps = {
