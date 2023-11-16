@@ -57,7 +57,7 @@ const styles = {
         background-color: ${brandAlt[400]};
     `,
     buttonWrapperStyles: css`
-        margin: ${space[4]}px ${space[2]}px ${space[1]}px 0;
+        margin: ${space[6]}px ${space[2]}px ${space[1]}px 0;
         display: flex;
         flex-wrap: wrap;
         justify-content: flex-start;
