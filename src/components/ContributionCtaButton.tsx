@@ -20,7 +20,7 @@ const getButtonStyles = (
     const styles = getColors(userVals, defaults);
     return {
         buttonWrapperStyles: css`
-            margin: ${space[4]}px ${space[2]}px ${space[1]}px 0;
+            margin: 0 ${space[2]}px ${space[1]}px 0;
             display: flex;
             flex-direction: column;
             flex-wrap: wrap;
