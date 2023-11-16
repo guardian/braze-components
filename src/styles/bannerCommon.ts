@@ -176,7 +176,7 @@ export const selfServeStyles = (userVals: Record<string, string>, defaults: Bann
         `,
 
         primaryButtonWrapper: css`
-            margin: ${space[4]}px ${space[2]}px ${space[1]}px 0;
+            margin: ${space[3]}px ${space[2]}px ${space[1]}px 0;
             display: flex;
             flex-wrap: wrap;
             justify-content: flex-start;
