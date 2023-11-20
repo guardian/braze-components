@@ -3,19 +3,14 @@ name: Build braze-components
 on: push
 
 jobs:
-  braze-components-build:
-    name: braze-components-test-and-build
+  tests:
+    name: Tests
     runs-on: ubuntu-latest
 
     if: >-
       (github.actor != 'dependabot[bot]') &&
         (github.event.pull_request.head.repo.owner.login == 'guardian' ||
           github.event_name == 'push')
-
-    # Required by actions-assume-aws-role
-    permissions:
-      id-token: write
-      contents: read
 
     steps:
       - name: Checkout repo
@@ -37,6 +32,32 @@ jobs:
 
       - name: Run tests
         run: CI=true yarn test
+
+  hosted-storybook-build:
+    name: Hosted Storybook build
+    runs-on: ubuntu-latest
+    needs: [tests]
+
+    if: >-
+      (github.actor != 'dependabot[bot]') &&
+        (github.event.pull_request.head.repo.owner.login == 'guardian' ||
+          github.event_name == 'push')
+
+    # Required by actions-assume-aws-role
+    permissions:
+      id-token: write
+      contents: read
+
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+            node-version-file: '.nvmrc'
+
+      - name: Install dependencies
+        run: yarn install
 
       - name: Storybook build
         run: yarn build-storybook
