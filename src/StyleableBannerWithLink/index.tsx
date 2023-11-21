@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, SvgCross } from '@guardian/source-react-components';
 import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
-import { ContributionCtaButton } from '../components/ContributionCtaButton';
+import { PrimaryCtaButton } from '../components/PrimaryCtaButton';
 import { ReminderCtaButton } from '../components/ReminderCtaButton';
 import { ReminderStage } from '../logic/reminders';
 import type { TrackClick } from '../utils/tracking';
@@ -144,7 +144,7 @@ const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
                     ) : null}
 
                     <div css={styles.primaryButtonWrapper}>
-                        <ContributionCtaButton
+                        <PrimaryCtaButton
                             buttonText={buttonText as string}
                             buttonUrl={buttonUrl as string}
                             showPaymentIcons={showPaymentIcons === 'true'}

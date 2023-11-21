@@ -5,22 +5,22 @@ import { LinkButton } from '@guardian/source-react-components';
 
 import { PaymentIcons } from './PaymentIcons';
 import { TrackClick } from '../utils/tracking';
-import { contributionsTheme, getColors, ContributionButtonColorStyles } from '../styles/colorData';
+import { contributionsTheme, getColors, PrimaryButtonColorStyles } from '../styles/colorData';
 
-const defaultButtonColors: ContributionButtonColorStyles = {
+const defaultButtonColors: PrimaryButtonColorStyles = {
     styleButton: '#ffffff',
     styleButtonBackground: '#052962',
     styleButtonHover: '#234b8a',
 };
 
 const getButtonStyles = (
-    userVals: Partial<ContributionButtonColorStyles>,
-    defaults: ContributionButtonColorStyles,
+    userVals: Partial<PrimaryButtonColorStyles>,
+    defaults: PrimaryButtonColorStyles,
 ) => {
     const styles = getColors(userVals, defaults);
     return {
         buttonWrapperStyles: css`
-            margin: 0 ${space[2]}px ${space[1]}px 0;
+            margin: ${space[1]}px ${space[2]}px ${space[1]}px 0;
             display: flex;
             flex-direction: column;
             flex-wrap: wrap;
@@ -42,23 +42,23 @@ const getButtonStyles = (
     };
 };
 
-interface ContributionCtaButtonProps {
+interface PrimaryCtaButtonProps {
     buttonText: string;
     buttonUrl: string;
     showPaymentIcons: boolean;
     ophanComponentId: string;
     trackClick: TrackClick;
-    userStyles: Partial<ContributionButtonColorStyles>;
+    userStyles: Partial<PrimaryButtonColorStyles>;
 }
 
-export const ContributionCtaButton = ({
+export const PrimaryCtaButton = ({
     buttonUrl,
     buttonText,
     showPaymentIcons,
     ophanComponentId,
     trackClick,
     userStyles = {},
-}: ContributionCtaButtonProps) => {
+}: PrimaryCtaButtonProps) => {
     const internalButtonId = 0;
 
     const styles = getButtonStyles(userStyles, defaultButtonColors);

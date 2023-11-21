@@ -1,7 +1,7 @@
 import { css, ThemeProvider } from '@emotion/react';
 import React from 'react';
 import { brand, news, brandAlt, space, body, headline } from '@guardian/source-foundations';
-import { ContributionCtaButton } from '../components/ContributionCtaButton';
+import { PrimaryCtaButton } from '../components/PrimaryCtaButton';
 import { ReminderCtaButton } from '../components/ReminderCtaButton';
 import { COMPONENT_NAME, canRender, parseParagraphs } from './canRender';
 export { COMPONENT_NAME };
@@ -9,7 +9,7 @@ import { replaceNonArticleCountPlaceholders } from './placeholders';
 import { TrackClick } from '../utils/tracking';
 import { FetchEmail } from '../types/dcrTypes';
 import { ReminderStage } from '../logic/reminders';
-import { ReminderButtonColorStyles, ContributionButtonColorStyles } from '../styles/colorData';
+import { ReminderButtonColorStyles, PrimaryButtonColorStyles } from '../styles/colorData';
 import { HeaderSection } from './HeaderSection';
 
 // Custom styles for <a> tags in the Epic content
@@ -72,7 +72,7 @@ const defaultReminderColors: ReminderButtonColorStyles = {
     styleReminderAnimation: '#707070',
 };
 
-const defaultContributeColors: ContributionButtonColorStyles = {
+const defaultContributeColors: PrimaryButtonColorStyles = {
     styleButton: '#121212',
     styleButtonBackground: '#ffe500',
     styleButtonHover: '#ffd213',
@@ -176,7 +176,7 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
                     ))}
                     {/* buttonText and buttonUrl will have been checked for not undefined in canRenderEpic */}
                     <div css={styles.buttonWrapperStyles}>
-                        <ContributionCtaButton
+                        <PrimaryCtaButton
                             buttonText={buttonText as string}
                             buttonUrl={buttonUrl as string}
                             showPaymentIcons={hidePaymentIcons !== 'true'}
