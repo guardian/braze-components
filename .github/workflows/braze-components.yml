@@ -79,7 +79,7 @@ jobs:
           export GITHUB_RUN_NUMBER=$(( $GITHUB_RUN_NUMBER + $LAST_TEAMCITY_BUILD ))
           yarn upload-artifact
 
-release:
+  release:
     name: Release
     needs: [build]
     if: github.ref == 'refs/heads/main'
