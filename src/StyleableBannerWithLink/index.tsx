@@ -9,7 +9,7 @@ import { FetchEmail } from '../types/dcrTypes';
 import { StyleableBannerColorStyles } from '../styles/colorData';
 import { selfServeStyles } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';
-import { ColorValueHex } from '../logic/types';
+import { OptionalColorValueHex } from '../logic/types';
 export { COMPONENT_NAME };
 
 export type BrazeMessageProps = {
@@ -96,16 +96,17 @@ const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
     const styles = selfServeStyles(brazeProps, defaultColors);
 
     const reminderStyles = {
-        styleReminderButton: brazeProps?.styleReminderButton as ColorValueHex,
-        styleReminderButtonBackground: brazeProps?.styleReminderButtonBackground as ColorValueHex,
-        styleReminderButtonHover: brazeProps?.styleReminderButtonHover as ColorValueHex,
-        styleReminderAnimation: brazeProps?.styleReminderAnimation as ColorValueHex,
+        styleReminderButton: brazeProps?.styleReminderButton as OptionalColorValueHex,
+        styleReminderButtonBackground:
+            brazeProps?.styleReminderButtonBackground as OptionalColorValueHex,
+        styleReminderButtonHover: brazeProps?.styleReminderButtonHover as OptionalColorValueHex,
+        styleReminderAnimation: brazeProps?.styleReminderAnimation as OptionalColorValueHex,
     };
 
     const contributeStyles = {
-        styleButton: brazeProps?.styleButton as ColorValueHex,
-        styleButtonBackground: brazeProps?.styleButtonBackground as ColorValueHex,
-        styleButtonHover: brazeProps?.styleButtonHover as ColorValueHex,
+        styleButton: brazeProps?.styleButton as OptionalColorValueHex,
+        styleButtonBackground: brazeProps?.styleButtonBackground as OptionalColorValueHex,
+        styleButtonHover: brazeProps?.styleButtonHover as OptionalColorValueHex,
     };
 
     const [showBanner, setShowBanner] = useState(true);
