@@ -65,14 +65,14 @@ const styles = {
     `,
 };
 
-const defaultReminderColors: ReminderButtonColorStyles = {
+const defaultReminderCtaColors: ReminderButtonColorStyles = {
     styleReminderButton: '#121212',
     styleReminderButtonBackground: '#ededed',
     styleReminderButtonHover: '#dcdcdc',
     styleReminderAnimation: '#707070',
 };
 
-const defaultContributeColors: PrimaryButtonColorStyles = {
+const defaultPrimaryCtaColors: PrimaryButtonColorStyles = {
     styleButton: '#121212',
     styleButtonBackground: '#ffe500',
     styleButtonHover: '#ffd213',
@@ -185,7 +185,7 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
                             buttonUrl={buttonUrl as string}
                             showPaymentIcons={hidePaymentIcons !== 'true'}
                             ophanComponentId={ophanComponentId as string}
-                            userStyles={defaultContributeColors}
+                            userStyles={defaultPrimaryCtaColors}
                             trackClick={trackClick}
                         />
                         {reminderStage && (
@@ -196,7 +196,7 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
                                 ophanComponentId={ophanComponentId as string}
                                 trackClick={trackClick}
                                 fetchEmail={fetchEmail}
-                                userStyles={defaultReminderColors}
+                                userStyles={defaultReminderCtaColors}
                                 showPrivacyText={showPrivacyTextBoolean}
                             />
                         )}

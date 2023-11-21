@@ -97,7 +97,7 @@ const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
 
     const styles = selfServeStyles(brazeProps, defaultColors);
 
-    const reminderStyles = {
+    const reminderCtaStyles = {
         styleReminderButton: brazeProps?.styleReminderButton as OptionalColorValueHex,
         styleReminderButtonBackground:
             brazeProps?.styleReminderButtonBackground as OptionalColorValueHex,
@@ -107,7 +107,7 @@ const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
 
     const showPrivacyTextBoolean = showPrivacyText === 'true';
 
-    const contributeStyles = {
+    const primaryCtaStyles = {
         styleButton: brazeProps?.styleButton as OptionalColorValueHex,
         styleButtonBackground: brazeProps?.styleButtonBackground as OptionalColorValueHex,
         styleButtonHover: brazeProps?.styleButtonHover as OptionalColorValueHex,
@@ -154,7 +154,7 @@ const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
                             buttonUrl={buttonUrl as string}
                             showPaymentIcons={showPaymentIcons === 'true'}
                             ophanComponentId={ophanComponentId as string}
-                            userStyles={contributeStyles}
+                            userStyles={primaryCtaStyles}
                             trackClick={trackClick}
                         />
                         {reminderStage && (
@@ -165,7 +165,7 @@ const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
                                 ophanComponentId={ophanComponentId as string}
                                 trackClick={trackClick}
                                 fetchEmail={fetchEmail}
-                                userStyles={reminderStyles}
+                                userStyles={reminderCtaStyles}
                                 showPrivacyText={showPrivacyTextBoolean}
                             />
                         )}
