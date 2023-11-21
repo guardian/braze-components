@@ -95,6 +95,7 @@ export type BrazeMessageProps = {
     paragraph9?: string;
     reminderStage?: ReminderStage;
     reminderOption?: string;
+    showPrivacyText?: string;
     hidePaymentIcons?: string;
     authoredEpicHeader?: string;
     authoredEpicImageUrl?: string;
@@ -129,6 +130,7 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
             authoredEpicBylineName,
             authoredEpicBylineCopy1,
             authoredEpicBylineCopy2,
+            showPrivacyText = 'true',
         },
         countryCode,
         trackClick,
@@ -144,6 +146,8 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
     );
 
     const highlightTextClean = replaceNonArticleCountPlaceholders(highlightedText, countryCode);
+
+    const showPrivacyTextBoolean = showPrivacyText === 'true';
 
     return (
         <ThemeProvider theme={brand}>
@@ -193,6 +197,7 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
                                 trackClick={trackClick}
                                 fetchEmail={fetchEmail}
                                 userStyles={defaultReminderColors}
+                                showPrivacyText={showPrivacyTextBoolean}
                             />
                         )}
                     </div>

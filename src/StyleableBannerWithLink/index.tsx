@@ -41,6 +41,7 @@ export type BrazeMessageProps = {
     styleClose?: string;
     styleCloseBackground?: string;
     styleCloseHover?: string;
+    showPrivacyText?: string;
 };
 
 const defaultColors: StyleableBannerColorStyles = {
@@ -86,6 +87,7 @@ const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
             imageUrl,
             imageAltText = '',
             imagePosition = 'center',
+            showPrivacyText = '',
         },
         trackClick,
         fetchEmail,
@@ -102,6 +104,8 @@ const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
         styleReminderButtonHover: brazeProps?.styleReminderButtonHover as OptionalColorValueHex,
         styleReminderAnimation: brazeProps?.styleReminderAnimation as OptionalColorValueHex,
     };
+
+    const showPrivacyTextBoolean = showPrivacyText === 'true';
 
     const contributeStyles = {
         styleButton: brazeProps?.styleButton as OptionalColorValueHex,
@@ -162,7 +166,7 @@ const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
                                 trackClick={trackClick}
                                 fetchEmail={fetchEmail}
                                 userStyles={reminderStyles}
-                                isBanner={true}
+                                showPrivacyText={showPrivacyTextBoolean}
                             />
                         )}
                     </div>

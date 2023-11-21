@@ -88,7 +88,7 @@ interface ReminderCtaButtonProps {
     trackClick: TrackClick;
     fetchEmail: FetchEmail;
     userStyles: Partial<ReminderButtonColorStyles>;
-    isBanner?: boolean;
+    showPrivacyText: boolean;
 }
 
 export const ReminderCtaButton = ({
@@ -99,7 +99,7 @@ export const ReminderCtaButton = ({
     trackClick,
     fetchEmail,
     userStyles = {},
-    isBanner,
+    showPrivacyText,
 }: ReminderCtaButtonProps): JSX.Element => {
     const { reminderCta, reminderPeriod, reminderLabel } = buildReminderFields();
     const [remindState, setRemindState] = useState<InteractiveButtonStatus>('DEFAULT');
@@ -135,7 +135,7 @@ export const ReminderCtaButton = ({
             return (
                 <div css={styles.buttonWrapperStyles}>
                     <RemindMeButton buttonStyles={styles} onClick={onClick} ctaText={reminderCta} />
-                    {!isBanner && (
+                    {showPrivacyText && (
                         <div css={styles.smallPrint}>
                             We will send you a maximum of two emails in {reminderLabel}. To find out
                             what personal data we collect and how we use it, view our{' '}

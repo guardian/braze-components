@@ -97,6 +97,11 @@ export default {
             type: { name: 'string', required: false },
             description: 'Extra data to be associated with a reminder sign-up',
         },
+        showPrivacyText: {
+            name: 'showPrivacyText',
+            type: { name: 'string', required: false },
+            description: 'Set value to "true" to display the privacy text under the Reminder CTA',
+        },
         styleReminderButton: {
             name: 'styleReminderButton',
             type: { name: 'string', required: false },
@@ -181,6 +186,7 @@ const StoryTemplate = (args: BrazeMessageProps & { componentName: string }): Rea
         ophanComponentId: args.ophanComponentId,
         reminderStage: args.reminderStage,
         reminderOption: args.reminderOption,
+        showPrivacyText: args.showPrivacyText,
         styleReminderButton: args.styleReminderButton,
         styleReminderButtonBackground: args.styleReminderButtonBackground,
         styleReminderButtonHover: args.styleReminderButtonHover,
@@ -229,6 +235,7 @@ DefaultStory.args = {
     styleButtonHover: '#234b8a',
     reminderStage: 'PRE',
     reminderOption: 'recurring-contribution-upsell',
+    showPrivacyText: 'false',
     styleReminderButton: '#121212',
     styleReminderButtonBackground: '#ededed',
     styleReminderButtonHover: '#dcdcdc',
