@@ -185,7 +185,7 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
                             buttonUrl={buttonUrl as string}
                             showPaymentIcons={hidePaymentIcons !== 'true'}
                             ophanComponentId={ophanComponentId as string}
-                            userStyles={defaultPrimaryCtaColors}
+                            colors={defaultPrimaryCtaColors}
                             trackClick={trackClick}
                         />
                         {reminderStage && (

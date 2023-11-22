@@ -5,19 +5,15 @@ import { LinkButton } from '@guardian/source-react-components';
 
 import { PaymentIcons } from './PaymentIcons';
 import { TrackClick } from '../utils/tracking';
-import { contributionsTheme, getColors, PrimaryButtonColorStyles } from '../styles/colorData';
+import { contributionsTheme, PrimaryButtonColorStyles } from '../styles/colorData';
 
-const defaultButtonColors: PrimaryButtonColorStyles = {
+export const defaultButtonColors: PrimaryButtonColorStyles = {
     styleButton: '#ffffff',
     styleButtonBackground: '#052962',
     styleButtonHover: '#234b8a',
 };
 
-const getButtonStyles = (
-    userVals: Partial<PrimaryButtonColorStyles>,
-    defaults: PrimaryButtonColorStyles,
-) => {
-    const styles = getColors(userVals, defaults);
+const getButtonStyles = (styles: PrimaryButtonColorStyles) => {
     return {
         buttonWrapperStyles: css`
             margin: ${space[1]}px ${space[2]}px ${space[1]}px 0;
@@ -48,7 +44,7 @@ interface PrimaryCtaButtonProps {
     showPaymentIcons: boolean;
     ophanComponentId: string;
     trackClick: TrackClick;
-    userStyles: Partial<PrimaryButtonColorStyles>;
+    colors?: PrimaryButtonColorStyles;
 }
 
 export const PrimaryCtaButton = ({
@@ -57,11 +53,11 @@ export const PrimaryCtaButton = ({
     showPaymentIcons,
     ophanComponentId,
     trackClick,
-    userStyles = {},
+    colors = defaultButtonColors,
 }: PrimaryCtaButtonProps) => {
     const internalButtonId = 0;
 
-    const styles = getButtonStyles(userStyles, defaultButtonColors);
+    const styles = getButtonStyles(colors);
 
     const onClick = () => trackClick({ internalButtonId, ophanComponentId });
 
