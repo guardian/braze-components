@@ -23,9 +23,7 @@ export const defaultReminderCtaButtonColors: ReminderButtonColorStyles = {
     styleReminderAnimation: '#707070',
 };
 
-const getButtonStyles = (
-    styles: ReminderButtonColorStyles,
-) => {
+const getButtonStyles = (styles: ReminderButtonColorStyles) => {
     return {
         buttonWrapperStyles: css`
             margin: ${space[1]}px ${space[2]}px ${space[1]}px 0;
@@ -155,11 +153,7 @@ export const ReminderCtaButton = ({
             return (
                 <div css={styles.buttonWrapperStyles}>
                     <div css={styles.thankYouText}>
-                        <LoadingDots
-                            styleReminderAnimation={
-                                colors.styleReminderAnimation
-                            }
-                        />
+                        <LoadingDots styleReminderAnimation={colors.styleReminderAnimation} />
                     </div>
                 </div>
             );
