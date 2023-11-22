@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, SvgCross } from '@guardian/source-react-components';
 import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
-import { PrimaryCtaButton } from '../components/PrimaryCtaButton';
+import { PrimaryCtaButton, defaultButtonColors } from '../components/PrimaryCtaButton';
 import { ReminderCtaButton } from '../components/ReminderCtaButton';
 import { ReminderStage } from '../logic/reminders';
 import type { TrackClick } from '../utils/tracking';
@@ -9,6 +9,7 @@ import { FetchEmail } from '../types/dcrTypes';
 import { StyleableBannerColorStyles } from '../styles/colorData';
 import { selfServeStyles } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';
+import { getColors } from '../styles/colorData';
 import { OptionalColorValueHex } from '../logic/types';
 export { COMPONENT_NAME };
 
@@ -107,11 +108,7 @@ const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
 
     const showPrivacyTextBoolean = showPrivacyText === 'true';
 
-    const primaryCtaStyles = {
-        styleButton: brazeProps?.styleButton as OptionalColorValueHex,
-        styleButtonBackground: brazeProps?.styleButtonBackground as OptionalColorValueHex,
-        styleButtonHover: brazeProps?.styleButtonHover as OptionalColorValueHex,
-    };
+    const primaryCtaStyles = getColors(brazeProps, defaultButtonColors);
 
     const [showBanner, setShowBanner] = useState(true);
 
@@ -154,7 +151,7 @@ const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
                             buttonUrl={buttonUrl as string}
                             showPaymentIcons={showPaymentIcons === 'true'}
                             ophanComponentId={ophanComponentId as string}
-                            userStyles={primaryCtaStyles}
+                            colors={primaryCtaStyles}
                             trackClick={trackClick}
                         />
                         {reminderStage && (
