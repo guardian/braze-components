@@ -7,7 +7,7 @@ import { PaymentIcons } from './PaymentIcons';
 import { TrackClick } from '../utils/tracking';
 import { contributionsTheme, PrimaryButtonColorStyles } from '../styles/colorData';
 
-export const defaultButtonColors: PrimaryButtonColorStyles = {
+export const defaultPrimaryCtaButtonColors: PrimaryButtonColorStyles = {
     styleButton: '#ffffff',
     styleButtonBackground: '#052962',
     styleButtonHover: '#234b8a',
@@ -53,7 +53,7 @@ export const PrimaryCtaButton = ({
     showPaymentIcons,
     ophanComponentId,
     trackClick,
-    colors = defaultButtonColors,
+    colors = defaultPrimaryCtaButtonColors,
 }: PrimaryCtaButtonProps) => {
     const internalButtonId = 0;
 

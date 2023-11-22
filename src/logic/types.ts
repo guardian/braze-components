@@ -1,5 +1,4 @@
 export type ColorValueHex = `#${string}`;
-export type OptionalColorValueHex = `#${string}` | undefined;
 
 const colorValueHexRegex = new RegExp(/^#([A-Fa-f0-9]{6})$/);
 

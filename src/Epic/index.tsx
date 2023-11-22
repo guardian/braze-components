@@ -196,7 +196,7 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
                                 ophanComponentId={ophanComponentId as string}
                                 trackClick={trackClick}
                                 fetchEmail={fetchEmail}
-                                userStyles={defaultReminderCtaColors}
+                                colors={defaultReminderCtaColors}
                                 showPrivacyText={showPrivacyTextBoolean}
                             />
                         )}

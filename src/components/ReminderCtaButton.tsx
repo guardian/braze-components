@@ -9,14 +9,14 @@ import {
     ReminderStage,
     ReminderComponent,
 } from '../logic/reminders';
-import type { InteractiveButtonStatus, ColorValueHex } from '../logic/types';
+import type { InteractiveButtonStatus } from '../logic/types';
 
 import { FetchEmail } from '../types/dcrTypes';
 import { TrackClick } from '../utils/tracking';
 import { LoadingDots } from './CtaLoadingDotsAnimation';
-import { contributionsTheme, getColors, ReminderButtonColorStyles } from '../styles/colorData';
+import { contributionsTheme, ReminderButtonColorStyles } from '../styles/colorData';
 
-const defaultButtonColors: ReminderButtonColorStyles = {
+export const defaultReminderCtaButtonColors: ReminderButtonColorStyles = {
     styleReminderButton: '#121212',
     styleReminderButtonBackground: '#f6f6f6;',
     styleReminderButtonHover: '#dcdcdc',
@@ -24,13 +24,11 @@ const defaultButtonColors: ReminderButtonColorStyles = {
 };
 
 const getButtonStyles = (
-    userVals: Partial<ReminderButtonColorStyles>,
-    defaults: ReminderButtonColorStyles,
+    styles: ReminderButtonColorStyles,
 ) => {
-    const styles = getColors(userVals, defaults);
     return {
         buttonWrapperStyles: css`
-            margin: 0 ${space[2]}px ${space[1]}px 0;
+            margin: ${space[1]}px ${space[2]}px ${space[1]}px 0;
             display: flex;
             flex-direction: column;
             flex-wrap: wrap;
@@ -87,7 +85,7 @@ interface ReminderCtaButtonProps {
     ophanComponentId: string;
     trackClick: TrackClick;
     fetchEmail: FetchEmail;
-    userStyles: Partial<ReminderButtonColorStyles>;
+    colors?: ReminderButtonColorStyles;
     showPrivacyText: boolean;
 }
 
@@ -98,13 +96,13 @@ export const ReminderCtaButton = ({
     ophanComponentId,
     trackClick,
     fetchEmail,
-    userStyles = {},
+    colors = defaultReminderCtaButtonColors,
     showPrivacyText,
 }: ReminderCtaButtonProps): JSX.Element => {
     const { reminderCta, reminderPeriod, reminderLabel } = buildReminderFields();
     const [remindState, setRemindState] = useState<InteractiveButtonStatus>('DEFAULT');
     const internalButtonId = 1;
-    const styles = getButtonStyles(userStyles, defaultButtonColors);
+    const styles = getButtonStyles(colors);
 
     const onClick = () => {
         trackClick({ internalButtonId, ophanComponentId });
@@ -159,7 +157,7 @@ export const ReminderCtaButton = ({
                     <div css={styles.thankYouText}>
                         <LoadingDots
                             styleReminderAnimation={
-                                userStyles.styleReminderAnimation as ColorValueHex
+                                colors.styleReminderAnimation
                             }
                         />
                     </div>

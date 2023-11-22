@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Button, SvgCross } from '@guardian/source-react-components';
 import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
-import { PrimaryCtaButton, defaultButtonColors } from '../components/PrimaryCtaButton';
-import { ReminderCtaButton } from '../components/ReminderCtaButton';
+import { PrimaryCtaButton, defaultPrimaryCtaButtonColors } from '../components/PrimaryCtaButton';
+import { ReminderCtaButton, defaultReminderCtaButtonColors } from '../components/ReminderCtaButton';
 import { ReminderStage } from '../logic/reminders';
 import type { TrackClick } from '../utils/tracking';
 import { FetchEmail } from '../types/dcrTypes';
@@ -10,7 +10,6 @@ import { StyleableBannerColorStyles } from '../styles/colorData';
 import { selfServeStyles } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';
 import { getColors } from '../styles/colorData';
-import { OptionalColorValueHex } from '../logic/types';
 export { COMPONENT_NAME };
 
 export type BrazeMessageProps = {
@@ -98,17 +97,10 @@ const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
 
     const styles = selfServeStyles(brazeProps, defaultColors);
 
-    const reminderCtaStyles = {
-        styleReminderButton: brazeProps?.styleReminderButton as OptionalColorValueHex,
-        styleReminderButtonBackground:
-            brazeProps?.styleReminderButtonBackground as OptionalColorValueHex,
-        styleReminderButtonHover: brazeProps?.styleReminderButtonHover as OptionalColorValueHex,
-        styleReminderAnimation: brazeProps?.styleReminderAnimation as OptionalColorValueHex,
-    };
-
     const showPrivacyTextBoolean = showPrivacyText === 'true';
 
-    const primaryCtaStyles = getColors(brazeProps, defaultButtonColors);
+    const primaryCtaStyles = getColors(brazeProps, defaultPrimaryCtaButtonColors);
+    const reminderCtaStyles = getColors(brazeProps, defaultReminderCtaButtonColors);
 
     const [showBanner, setShowBanner] = useState(true);
 
@@ -162,7 +154,7 @@ const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
                                 ophanComponentId={ophanComponentId as string}
                                 trackClick={trackClick}
                                 fetchEmail={fetchEmail}
-                                userStyles={reminderCtaStyles}
+                                colors={reminderCtaStyles}
                                 showPrivacyText={showPrivacyTextBoolean}
                             />
                         )}
