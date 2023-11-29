@@ -1,6 +1,6 @@
 {
   "name": "@guardian/braze-components",
-  "version": "15.0.1",
+  "version": "16.0.0",
   "description": "React components to render messages from Braze",
   "repository": "https://github.com/guardian/braze-components",
   "author": "The Guardian",
@@ -39,6 +39,7 @@
     "@babel/preset-react": "^7.22.5",
     "@babel/preset-typescript": "^7.22.5",
     "@braze/web-sdk-core": "3.5.1",
+    "@changesets/cli": "^2.26.2",
     "@emotion/babel-preset-css-prop": "^11.1.2",
     "@emotion/eslint-plugin": "^11.10.0",
     "@emotion/react": "^11.1.2",

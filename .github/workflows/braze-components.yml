@@ -3,9 +3,40 @@ name: Build braze-components
 on: push
 
 jobs:
-  braze-components-build:
-    name: braze-components-test-and-build
+  tests:
+    name: Tests
     runs-on: ubuntu-latest
+
+    if: >-
+      (github.actor != 'dependabot[bot]') &&
+        (github.event.pull_request.head.repo.owner.login == 'guardian' ||
+          github.event_name == 'push')
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+            node-version-file: '.nvmrc'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Check typescript
+        run: yarn tsc
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Run tests
+        run: CI=true yarn test
+
+  hosted-storybook-build:
+    name: Hosted Storybook build
+    runs-on: ubuntu-latest
+    needs: [tests]
 
     if: >-
       (github.actor != 'dependabot[bot]') &&
@@ -29,15 +60,6 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      - name: Check typescript
-        run: yarn tsc
-
-      - name: Lint
-        run: yarn lint
-
-      - name: Run tests
-        run: CI=true yarn test
-
       - name: Storybook build
         run: yarn build-storybook
 
@@ -56,3 +78,38 @@ jobs:
           export LAST_TEAMCITY_BUILD=1000
           export GITHUB_RUN_NUMBER=$(( $GITHUB_RUN_NUMBER + $LAST_TEAMCITY_BUILD ))
           yarn upload-artifact
+
+  release:
+    name: Release
+    needs: [tests]
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # in order to write labels to main branch?
+      pull-requests: write # to be able to comment on released pull requests
+      id-token: write # to enable use of OIDC for npm provenance
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Build
+        run: yarn build
+
+      - name: Release
+        uses: changesets/action@v1
+        with:
+          publish: yarn changeset publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

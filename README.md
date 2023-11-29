@@ -96,40 +96,25 @@ and you want to see it locally. Don't forget to re run `yarn build`!
 
 ## Publishing to NPM
 
-You'll need to be part of the @guardian NPM org. Ask someone to add you if
-you're not already.
+Releasing to NPM is handled with [changesets] and is performed by CI.
 
-```
-$ yarn release
-```
+On your feature branch, before merging, run `yarn changeset`. This will
+interactively ask you what kind of change this is (major, minor, patch) and
+allow you to describe the change. Commit the generated changeset file to git and
+push to your branch.
 
-This will:
+When you merge the branch, a version release PR will be automatically opened.
+When this PR is merged, a new release will be pushed to NPM. The version change
+will be based on the information in your changeset file. If the version release
+PR isn't merged straight away, that's fine. Any other PRs with changesets merged
+in the meantime will cause the release PR to be updated.
 
--   Build the package
--   Interactively ask for a new version number (and create a commit for the
-    version change in package.json)
--   Publish the new release to NPM
--   Push new commits/tags to GitHub
+Not all PRs require releasing and therefore don't need a changeset. For example
+a change to the README.
 
-### Gotchas and notes on releasing
-
-Sometimes when releasing you might see a warning:
-
-```
-The following new files will not be part of your published package
-```
-
-and a list of source files. This is expected for any new source files which
-aren't included in the release package (for example, uncompiled TypeScript) as
-we only ship JS and TS definitions.
+[changesets]: https://github.com/changesets/changesets
 
 ### Steps following merge to main
-
-For braze-components:
--   Merge braze-components PR to main (in GitHub)
--   In local iTerm, checkout main branch and git pull
--   Run yarn release and follow instructions to bump the repo version and generate NPM
--   When the GitHub release page displays in the browser, review and complete release
 
 For dotcom-rendering:
 -   Run `checkout` main branch and git pull
