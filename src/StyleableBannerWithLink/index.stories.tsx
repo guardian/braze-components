@@ -100,7 +100,7 @@ export default {
         showPrivacyText: {
             name: 'showPrivacyText',
             type: { name: 'string', required: false },
-            description: 'Set value to "true" to display the privacy text under the Reminder CTA',
+            description: 'Set value to "true" to display the privacy text under the Reminder CTA. The default value for the banner is "false" (to minimise the height of the banner)',
         },
         styleReminderButton: {
             name: 'styleReminderButton',
