@@ -1,5 +1,11 @@
 # @guardian/braze-components
 
+## 16.1.0
+
+### Minor Changes
+
+-   7d7f1bb: Adds the ability to include reminder button to the styleable banner
+
 ## 16.0.0
 
 ### Major Changes
