@@ -21,27 +21,35 @@ export interface LoadingDotsColorStyles {
     styleReminderAnimation: ColorValueHex;
 }
 
+export interface PrimaryButtonColorStyles {
+    styleButton: ColorValueHex;
+    styleButtonBackground: ColorValueHex;
+    styleButtonHover: ColorValueHex;
+}
+
 export interface ReminderButtonColorStyles extends LoadingDotsColorStyles {
     styleReminderButton: ColorValueHex;
     styleReminderButtonBackground: ColorValueHex;
     styleReminderButtonHover: ColorValueHex;
 }
 
-export interface BannerColorStyles {
+export interface BannerCopyColorStyles {
     styleBackground: ColorValueHex;
     styleHeader: ColorValueHex;
     styleBody: ColorValueHex;
     styleHighlight: ColorValueHex;
     styleHighlightBackground: ColorValueHex;
-    styleButton: ColorValueHex;
-    styleButtonBackground: ColorValueHex;
-    styleButtonHover: ColorValueHex;
     styleClose: ColorValueHex;
     styleCloseBackground: ColorValueHex;
     styleCloseHover: ColorValueHex;
 }
 
-export interface StyleableBannerColorStyles extends ReminderButtonColorStyles, BannerColorStyles {}
+export interface BannerColorStyles extends BannerCopyColorStyles, PrimaryButtonColorStyles {}
+
+export interface StyleableBannerColorStyles
+    extends ReminderButtonColorStyles,
+        PrimaryButtonColorStyles,
+        BannerCopyColorStyles {}
 
 // This will become an interface once we build a more generic newsletter epic with limited styling around the newsletter 1-click signup button
 export type EpicColorStyles = ReminderButtonColorStyles;
@@ -49,6 +57,7 @@ export type EpicColorStyles = ReminderButtonColorStyles;
 interface AllAvailableColorStyles
     extends LoadingDotsColorStyles,
         ReminderButtonColorStyles,
+        PrimaryButtonColorStyles,
         BannerColorStyles,
         EpicColorStyles {}
 

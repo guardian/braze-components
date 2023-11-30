@@ -87,6 +87,42 @@ export default {
             type: { name: 'string', required: false },
             description: 'CTA button background hover color - defaults to "#234b8a"',
         },
+        reminderStage: {
+            name: 'reminderStage',
+            type: { name: 'string', required: false },
+            description: 'The type of stage (PRE, POST, WINBACK)',
+        },
+        reminderOption: {
+            name: 'reminderOption',
+            type: { name: 'string', required: false },
+            description: 'Extra data to be associated with a reminder sign-up',
+        },
+        showPrivacyText: {
+            name: 'showPrivacyText',
+            type: { name: 'string', required: false },
+            description:
+                'Set value to "true" to display the privacy text under the Reminder CTA. The default value for the banner is "false" (to minimise the height of the banner)',
+        },
+        styleReminderButton: {
+            name: 'styleReminderButton',
+            type: { name: 'string', required: false },
+            description: 'Reminder button text color - defaults to "#121212"',
+        },
+        styleReminderButtonBackground: {
+            name: 'styleReminderButtonBackground',
+            type: { name: 'string', required: false },
+            description: 'Reminder button background color - defaults to "#ededed"',
+        },
+        styleReminderButtonHover: {
+            name: 'styleReminderButtonHover',
+            type: { name: 'string', required: false },
+            description: 'Reminder button background hover color - defaults to "#dcdcdc"',
+        },
+        styleReminderAnimation: {
+            name: 'styleReminderAnimation',
+            type: { name: 'string', required: false },
+            description: 'Reminder button animated dots color - defaults to "#707070"',
+        },
         imageUrl: {
             name: 'imageUrl (use Grid image picker)',
             type: { name: 'string', required: true },
@@ -149,6 +185,13 @@ const StoryTemplate = (args: BrazeMessageProps & { componentName: string }): Rea
         styleCloseBackground: args.styleCloseBackground,
         styleCloseHover: args.styleCloseHover,
         ophanComponentId: args.ophanComponentId,
+        reminderStage: args.reminderStage,
+        reminderOption: args.reminderOption,
+        showPrivacyText: args.showPrivacyText,
+        styleReminderButton: args.styleReminderButton,
+        styleReminderButtonBackground: args.styleReminderButtonBackground,
+        styleReminderButtonHover: args.styleReminderButtonHover,
+        styleReminderAnimation: args.styleReminderAnimation,
     };
 
     // This is to make the data available to the guPreview add-on:
@@ -191,6 +234,13 @@ DefaultStory.args = {
     styleButton: '#ffffff',
     styleButtonBackground: '#052962',
     styleButtonHover: '#234b8a',
+    reminderStage: 'PRE',
+    reminderOption: 'recurring-contribution-upsell',
+    showPrivacyText: 'false',
+    styleReminderButton: '#121212',
+    styleReminderButtonBackground: '#ededed',
+    styleReminderButtonHover: '#dcdcdc',
+    styleReminderAnimation: '#707070',
     imageAltText: 'Accessible image description',
     imagePosition: 'bottom',
     styleClose: '#052962',

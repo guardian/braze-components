@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { css, SerializedStyles, ThemeProvider } from '@emotion/react';
 import { body, space } from '@guardian/source-foundations';
-import { Button } from '@guardian/source-react-components';
+import { LinkButton } from '@guardian/source-react-components';
 
 import {
     buildReminderFields,
@@ -9,28 +9,24 @@ import {
     ReminderStage,
     ReminderComponent,
 } from '../logic/reminders';
-import type { InteractiveButtonStatus, ColorValueHex } from '../logic/types';
+import type { InteractiveButtonStatus } from '../logic/types';
 
 import { FetchEmail } from '../types/dcrTypes';
 import { TrackClick } from '../utils/tracking';
 import { LoadingDots } from './CtaLoadingDotsAnimation';
-import { contributionsTheme, getColors, ReminderButtonColorStyles } from '../styles/colorData';
+import { contributionsTheme, ReminderButtonColorStyles } from '../styles/colorData';
 
-const defaultButtonColors: ReminderButtonColorStyles = {
+export const defaultReminderCtaButtonColors: ReminderButtonColorStyles = {
     styleReminderButton: '#121212',
     styleReminderButtonBackground: '#f6f6f6;',
     styleReminderButtonHover: '#dcdcdc',
     styleReminderAnimation: '#707070',
 };
 
-const getButtonStyles = (
-    userVals: Partial<ReminderButtonColorStyles>,
-    defaults: ReminderButtonColorStyles,
-) => {
-    const styles = getColors(userVals, defaults);
+const getButtonStyles = (styles: ReminderButtonColorStyles) => {
     return {
         buttonWrapperStyles: css`
-            margin: ${space[4]}px ${space[2]}px ${space[1]}px 0;
+            margin: ${space[1]}px ${space[2]}px ${space[1]}px 0;
             display: flex;
             flex-direction: column;
             flex-wrap: wrap;
@@ -46,7 +42,7 @@ const getButtonStyles = (
             margin-top: ${space[3]}px;
         `,
         remindMeButtonOverrides: css`
-            background-color: {styles.styleReminderButtonBackground} !important;
+            background-color: ${styles.styleReminderButtonBackground} !important;
             color: ${styles.styleReminderButton} !important;
 
             :hover {
@@ -62,22 +58,20 @@ const getButtonStyles = (
 
 interface RemindMeButtonProps {
     buttonStyles: Record<string, SerializedStyles>;
-    disabled: boolean;
     ctaText: string;
     onClick: () => void;
 }
 
-const RemindMeButton = ({ buttonStyles, disabled, ctaText, onClick }: RemindMeButtonProps) => (
+const RemindMeButton = ({ buttonStyles, ctaText, onClick }: RemindMeButtonProps) => (
     <div css={buttonStyles.buttonMargins}>
         <ThemeProvider theme={contributionsTheme}>
-            <Button
-                disabled={disabled}
+            <LinkButton
                 onClick={() => onClick()}
                 priority="tertiary"
                 css={buttonStyles.remindMeButtonOverrides}
             >
                 {ctaText}
-            </Button>
+            </LinkButton>
         </ThemeProvider>
     </div>
 );
@@ -89,7 +83,8 @@ interface ReminderCtaButtonProps {
     ophanComponentId: string;
     trackClick: TrackClick;
     fetchEmail: FetchEmail;
-    userStyles: Partial<ReminderButtonColorStyles>;
+    colors?: ReminderButtonColorStyles;
+    showPrivacyText: boolean;
 }
 
 export const ReminderCtaButton = ({
@@ -99,12 +94,13 @@ export const ReminderCtaButton = ({
     ophanComponentId,
     trackClick,
     fetchEmail,
-    userStyles = {},
+    colors = defaultReminderCtaButtonColors,
+    showPrivacyText,
 }: ReminderCtaButtonProps): JSX.Element => {
     const { reminderCta, reminderPeriod, reminderLabel } = buildReminderFields();
     const [remindState, setRemindState] = useState<InteractiveButtonStatus>('DEFAULT');
     const internalButtonId = 1;
-    const styles = getButtonStyles(userStyles, defaultButtonColors);
+    const styles = getButtonStyles(colors);
 
     const onClick = () => {
         trackClick({ internalButtonId, ophanComponentId });
@@ -134,28 +130,20 @@ export const ReminderCtaButton = ({
         case 'DEFAULT':
             return (
                 <div css={styles.buttonWrapperStyles}>
-                    <RemindMeButton
-                        buttonStyles={styles}
-                        onClick={onClick}
-                        disabled={false}
-                        ctaText={reminderCta}
-                    />
-                    <div css={styles.smallPrint}>
-                        We will send you a maximum of two emails in {reminderLabel}. To find out
-                        what personal data we collect and how we use it, view our{' '}
-                        <a href="https://manage.theguardian.com/email-prefs">Privacy Policy</a>.
-                    </div>
+                    <RemindMeButton buttonStyles={styles} onClick={onClick} ctaText={reminderCta} />
+                    {showPrivacyText && (
+                        <div css={styles.smallPrint}>
+                            We will send you a maximum of two emails in {reminderLabel}. To find out
+                            what personal data we collect and how we use it, view our{' '}
+                            <a href="https://manage.theguardian.com/email-prefs">Privacy Policy</a>.
+                        </div>
+                    )}
                 </div>
             );
         case 'FAILURE':
             return (
                 <div css={styles.buttonWrapperStyles}>
-                    <RemindMeButton
-                        buttonStyles={styles}
-                        onClick={onClick}
-                        disabled={false}
-                        ctaText={reminderCta}
-                    />
+                    <RemindMeButton buttonStyles={styles} onClick={onClick} ctaText={reminderCta} />
                     <div css={styles.smallPrint}>
                         There was an error creating the reminder. Please try again.
                     </div>
@@ -165,11 +153,7 @@ export const ReminderCtaButton = ({
             return (
                 <div css={styles.buttonWrapperStyles}>
                     <div css={styles.thankYouText}>
-                        <LoadingDots
-                            styleReminderAnimation={
-                                userStyles.styleReminderAnimation as ColorValueHex
-                            }
-                        />
+                        <LoadingDots styleReminderAnimation={colors.styleReminderAnimation} />
                     </div>
                 </div>
             );

@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
-import { Button, LinkButton, SvgCross } from '@guardian/source-react-components';
+import { Button, SvgCross } from '@guardian/source-react-components';
 import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
+import { PrimaryCtaButton, defaultPrimaryCtaButtonColors } from '../components/PrimaryCtaButton';
+import { ReminderCtaButton, defaultReminderCtaButtonColors } from '../components/ReminderCtaButton';
+import { ReminderStage } from '../logic/reminders';
 import type { TrackClick } from '../utils/tracking';
+import { FetchEmail } from '../types/dcrTypes';
 import { StyleableBannerColorStyles } from '../styles/colorData';
 import { selfServeStyles } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';
-import { PaymentIcons } from '../components/PaymentIcons';
+import { getColors } from '../styles/colorData';
 export { COMPONENT_NAME };
 
 export type BrazeMessageProps = {
@@ -16,6 +20,8 @@ export type BrazeMessageProps = {
     buttonText?: string;
     buttonUrl?: string;
     showPaymentIcons?: string;
+    reminderStage?: ReminderStage;
+    reminderOption?: string;
     includeReminderCta?: string;
     imageUrl?: string;
     imageAltText?: string;
@@ -35,6 +41,7 @@ export type BrazeMessageProps = {
     styleClose?: string;
     styleCloseBackground?: string;
     styleCloseHover?: string;
+    showPrivacyText?: string;
 };
 
 const defaultColors: StyleableBannerColorStyles = {
@@ -58,6 +65,7 @@ const defaultColors: StyleableBannerColorStyles = {
 export type Props = {
     brazeMessageProps: BrazeMessageProps;
     trackClick: TrackClick;
+    fetchEmail: FetchEmail;
 };
 
 const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
@@ -74,14 +82,25 @@ const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
             buttonText,
             buttonUrl,
             showPaymentIcons = 'false',
+            reminderStage,
+            reminderOption,
             imageUrl,
             imageAltText = '',
             imagePosition = 'center',
+            showPrivacyText = '',
         },
         trackClick,
+        fetchEmail,
     } = props;
 
-    const styles = selfServeStyles(props.brazeMessageProps, defaultColors);
+    const brazeProps = props.brazeMessageProps;
+
+    const styles = selfServeStyles(brazeProps, defaultColors);
+
+    const showPrivacyTextBoolean = showPrivacyText === 'true';
+
+    const primaryCtaStyles = getColors(brazeProps, defaultPrimaryCtaButtonColors);
+    const reminderCtaStyles = getColors(brazeProps, defaultReminderCtaButtonColors);
 
     const [showBanner, setShowBanner] = useState(true);
 
@@ -117,20 +136,28 @@ const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
                             <strong css={styles.highlight}>{highlight}</strong>
                         </p>
                     ) : null}
+
                     <div css={styles.primaryButtonWrapper}>
-                        <LinkButton
-                            href={buttonUrl}
-                            css={styles.primaryButton}
-                            onClick={() =>
-                                trackClick({
-                                    internalButtonId: 0,
-                                    ophanComponentId: ophanComponentId as string,
-                                })
-                            }
-                        >
-                            {buttonText}
-                        </LinkButton>
-                        {showPaymentIcons === 'true' && <PaymentIcons />}
+                        <PrimaryCtaButton
+                            buttonText={buttonText as string}
+                            buttonUrl={buttonUrl as string}
+                            showPaymentIcons={showPaymentIcons === 'true'}
+                            ophanComponentId={ophanComponentId as string}
+                            colors={primaryCtaStyles}
+                            trackClick={trackClick}
+                        />
+                        {reminderStage && (
+                            <ReminderCtaButton
+                                reminderComponent="BANNER"
+                                reminderStage={reminderStage}
+                                reminderOption={reminderOption}
+                                ophanComponentId={ophanComponentId as string}
+                                trackClick={trackClick}
+                                fetchEmail={fetchEmail}
+                                colors={reminderCtaStyles}
+                                showPrivacyText={showPrivacyTextBoolean}
+                            />
+                        )}
                     </div>
                 </div>
                 <div

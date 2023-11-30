@@ -1,7 +1,7 @@
 import { css, ThemeProvider } from '@emotion/react';
 import React from 'react';
 import { brand, news, brandAlt, space, body, headline } from '@guardian/source-foundations';
-import { ContributionCtaButton } from '../components/ContributionCtaButton';
+import { PrimaryCtaButton } from '../components/PrimaryCtaButton';
 import { ReminderCtaButton } from '../components/ReminderCtaButton';
 import { COMPONENT_NAME, canRender, parseParagraphs } from './canRender';
 export { COMPONENT_NAME };
@@ -9,7 +9,7 @@ import { replaceNonArticleCountPlaceholders } from './placeholders';
 import { TrackClick } from '../utils/tracking';
 import { FetchEmail } from '../types/dcrTypes';
 import { ReminderStage } from '../logic/reminders';
-import { ReminderButtonColorStyles } from '../styles/colorData';
+import { ReminderButtonColorStyles, PrimaryButtonColorStyles } from '../styles/colorData';
 import { HeaderSection } from './HeaderSection';
 
 // Custom styles for <a> tags in the Epic content
@@ -57,7 +57,7 @@ const styles = {
         background-color: ${brandAlt[400]};
     `,
     buttonWrapperStyles: css`
-        margin: ${space[4]}px ${space[2]}px ${space[1]}px 0;
+        margin: ${space[6]}px ${space[2]}px ${space[1]}px 0;
         display: flex;
         flex-wrap: wrap;
         justify-content: flex-start;
@@ -65,11 +65,17 @@ const styles = {
     `,
 };
 
-const defaultColors: ReminderButtonColorStyles = {
+const defaultReminderCtaColors: ReminderButtonColorStyles = {
     styleReminderButton: '#121212',
     styleReminderButtonBackground: '#ededed',
     styleReminderButtonHover: '#dcdcdc',
     styleReminderAnimation: '#707070',
+};
+
+const defaultPrimaryCtaColors: PrimaryButtonColorStyles = {
+    styleButton: '#121212',
+    styleButtonBackground: '#ffe500',
+    styleButtonHover: '#ffd213',
 };
 
 export type BrazeMessageProps = {
@@ -89,6 +95,7 @@ export type BrazeMessageProps = {
     paragraph9?: string;
     reminderStage?: ReminderStage;
     reminderOption?: string;
+    showPrivacyText?: string;
     hidePaymentIcons?: string;
     authoredEpicHeader?: string;
     authoredEpicImageUrl?: string;
@@ -123,6 +130,7 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
             authoredEpicBylineName,
             authoredEpicBylineCopy1,
             authoredEpicBylineCopy2,
+            showPrivacyText = 'true',
         },
         countryCode,
         trackClick,
@@ -138,6 +146,8 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
     );
 
     const highlightTextClean = replaceNonArticleCountPlaceholders(highlightedText, countryCode);
+
+    const showPrivacyTextBoolean = showPrivacyText === 'true';
 
     return (
         <ThemeProvider theme={brand}>
@@ -170,11 +180,12 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
                     ))}
                     {/* buttonText and buttonUrl will have been checked for not undefined in canRenderEpic */}
                     <div css={styles.buttonWrapperStyles}>
-                        <ContributionCtaButton
+                        <PrimaryCtaButton
                             buttonText={buttonText as string}
                             buttonUrl={buttonUrl as string}
-                            hidePaymentIcons={hidePaymentIcons as string}
+                            showPaymentIcons={hidePaymentIcons !== 'true'}
                             ophanComponentId={ophanComponentId as string}
+                            colors={defaultPrimaryCtaColors}
                             trackClick={trackClick}
                         />
                         {reminderStage && (
@@ -185,7 +196,8 @@ export const Epic: React.FC<EpicProps> = (props: EpicProps) => {
                                 ophanComponentId={ophanComponentId as string}
                                 trackClick={trackClick}
                                 fetchEmail={fetchEmail}
-                                userStyles={defaultColors}
+                                colors={defaultReminderCtaColors}
+                                showPrivacyText={showPrivacyTextBoolean}
                             />
                         )}
                     </div>

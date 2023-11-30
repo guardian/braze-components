@@ -55,6 +55,11 @@ export default {
             type: { name: 'string', required: false },
             description: 'Extra data to be associated with a reminder sign-up',
         },
+        showPrivacyText: {
+            name: 'showPrivacyText',
+            type: { name: 'string', required: false },
+            description: 'Set value to "true" to display the privacy text under the Reminder CTA',
+        },
     },
 };
 
@@ -79,6 +84,7 @@ const StoryTemplate = (
         paragraph9: args.paragraph9,
         reminderStage: args.reminderStage,
         reminderOption: args.reminderOption,
+        showPrivacyText: args.showPrivacyText,
     };
 
     knobsData.set({ ...brazeMessageProps, componentName: args.componentName });
@@ -118,6 +124,7 @@ DefaultStory.args = {
     buttonText: 'Support The Guardian',
     buttonUrl: 'https://support.theguardian.com/contribute',
     hidePaymentIcons: '',
+    showPrivacyText: '',
     ophanComponentId: 'example_ophan_component_id',
     slotName: 'EndOfArticle',
     componentName: 'Epic',
@@ -138,6 +145,7 @@ WithReminderStory.args = {
     buttonText: 'Support The Guardian',
     buttonUrl: 'https://support.theguardian.com/contribute',
     hidePaymentIcons: '',
+    showPrivacyText: 'true',
     ophanComponentId: 'example_ophan_component_id',
     slotName: 'EndOfArticle',
     componentName: 'Epic',
