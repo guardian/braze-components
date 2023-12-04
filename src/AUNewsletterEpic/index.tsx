@@ -5,7 +5,7 @@ import { NewsletterSubscribeCallback } from '../types/dcrTypes';
 import type { TrackClick } from '../utils/tracking';
 
 const IMAGE_URL =
-    'https://i.guim.co.uk/img/media/9f9f9c06ed5a323b13be816d5c160728c81d1bf9/0_0_784_784/master/784.png?width=196&quality=45&auto=format&s=87f06d1d5322f1fb8e2262d202f70e99';
+    'https://i.guim.co.uk/img/media/ad66f0f437d2e919f08ab5d402e4be9891425940/0_0_2000_2000/2000.png?width=400&quality=75&s=23aad591d8878d830e7f6a5fd43a010f';
 
 const newsletterId = '4148';
 
