@@ -1,5 +1,11 @@
 # @guardian/braze-components
 
+## 16.1.1
+
+### Patch Changes
+
+-   715fca6: Update Aus newsletter epic images
+
 ## 16.1.0
 
 ### Minor Changes
