@@ -3,7 +3,7 @@
 export const isDevelopment = (): boolean => process.env.NODE_ENV === 'development';
 export const isTest = (): boolean => process.env.NODE_ENV === 'test';
 
-// isStorybook is safe to use client side because we attempt to determins if
+// isStorybook is safe to use client side because we attempt to determine if
 // process is defined before using
 export const isStorybook = (): boolean => {
     if (typeof process === 'object') {
