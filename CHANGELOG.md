@@ -1,5 +1,11 @@
 # @guardian/braze-components
 
+## 16.2.0
+
+### Minor Changes
+
+-   7ede328: Fix createReminder function
+
 ## 16.1.1
 
 ### Patch Changes
