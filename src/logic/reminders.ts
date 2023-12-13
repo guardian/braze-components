@@ -1,4 +1,4 @@
-import { isTest } from '../utils/env';
+import { isStorybook, isTest } from '../utils/env';
 
 export type ReminderPlatform = 'WEB' | 'AMP';
 
@@ -53,7 +53,7 @@ export const buildReminderFields = (today: Date = new Date()): ReminderFields =>
 
 export const createReminder = (signupData: OneOffSignupRequest): Promise<void> => {
     const url = 'https://support.theguardian.com/reminders/create/one-off';
-    if (process.env.STORYBOOK || isTest()) {
+    if (isStorybook() || isTest()) {
         return Promise.resolve();
     } else {
         return fetch(url, {
