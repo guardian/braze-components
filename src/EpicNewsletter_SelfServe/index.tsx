@@ -26,11 +26,7 @@ export const EpicNewsletter_SelfServe: React.FC<Props> = (props: Props) => {
         return null;
     }
 
-    return (
-        <NewsletterEpic
-            {...props}
-        ></NewsletterEpic>
-    );
+    return <NewsletterEpic {...props}></NewsletterEpic>;
 };
 
 export { COMPONENT_NAME };

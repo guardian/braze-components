@@ -12,14 +12,16 @@ import {
 } from './buildBrazeMessageComponent';
 import type { BrazeClickHandler, SubmitComponentEvent } from './utils/tracking';
 
-
 // Generic Epic Templates
 import { COMPONENT_NAME as EPIC_NAME, Epic } from './Epic';
 import {
     COMPONENT_NAME as EPIC_WITH_HEADER_IMAGE_NAME,
     EpicWithSpecialHeader,
 } from './EpicWithSpecialHeader';
-import { COMPONENT_NAME as EPICNEWSLETTER_SELFSERVE_NAME, EpicNewsletter_SelfServe } from './EpicNewsletter_SelfServe';
+import {
+    COMPONENT_NAME as EPICNEWSLETTER_SELFSERVE_NAME,
+    EpicNewsletter_SelfServe,
+} from './EpicNewsletter_SelfServe';
 
 // Old name Newsletter Epics
 import { COMPONENT_NAME as US_NEWSLETTER_EPIC_NAME, USNewsletterEpic } from './USNewsletterEpic';
