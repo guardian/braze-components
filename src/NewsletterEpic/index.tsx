@@ -94,6 +94,7 @@ export type Props = {
 };
 
 export const NewsletterEpic: React.FC<Props> = (props: Props) => {
+    console.log(props)
     const {
         brazeMessageProps: {
             header,

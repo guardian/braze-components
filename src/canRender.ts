@@ -34,11 +34,6 @@ import {
 // Old newsletter Epics
 // --------------------------------------------
 import {
-    COMPONENT_NAME as NEWSLETTER_EPIC_NAME,
-    canRender as newsletterEpicCanRender,
-} from './NewsletterEpic/canRender';
-
-import {
     COMPONENT_NAME as US_NEWSLETTER_EPIC_NAME,
     canRender as usNewsletterEpicCanRender,
 } from './USNewsletterEpic/canRender';
@@ -70,6 +65,11 @@ import {
     canRender as EpicNewsletter_TheGuide_canRender,
 } from './EpicNewsletter_TheGuide/canRender';
 
+import {
+    COMPONENT_NAME as EPICNEWSLETTER_GENERIC,
+    canRender as EpicNewsletter_canRender,
+} from './EpicNewsletter_SelfServe/canRender';
+
 // Types, functionality, exports
 // --------------------------------------------
 // These are in a seperate file to enable tree shaking of the logic deciding if a Braze message can be rendered
@@ -87,7 +87,6 @@ const COMPONENT_CAN_RENDER_MAPPINGS: Record<
     [EPIC_NAME]: epicCanRender,
     [EPIC_WITH_IMAGE_NAME]: epicWithImageCanRender,
 
-    [NEWSLETTER_EPIC_NAME]: newsletterEpicCanRender,
     [US_NEWSLETTER_EPIC_NAME]: usNewsletterEpicCanRender,
     [AU_NEWSLETTER_EPIC_NAME]: auNewsletterEpicCanRender,
     [UK_NEWSLETTER_EPIC_NAME]: ukNewsletterEpicCanRender,
@@ -95,7 +94,10 @@ const COMPONENT_CAN_RENDER_MAPPINGS: Record<
 
     [EPICNEWSLETTER_AU_AFTERNOONUPDATE]: EpicNewsletter_AU_AfternoonUpdate_canRender,
     [EPICNEWSLETTER_THEGUIDE]: EpicNewsletter_TheGuide_canRender,
+
+    [EPICNEWSLETTER_GENERIC]: EpicNewsletter_canRender,
 };
+console.log(COMPONENT_CAN_RENDER_MAPPINGS);
 
 export const canRenderBrazeMsg = (msgExtras: Extras | undefined): boolean => {
     if (!msgExtras) {
