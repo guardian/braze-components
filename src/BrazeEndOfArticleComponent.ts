@@ -58,8 +58,6 @@ const END_OF_ARTICLE_MAPPINGS: ComponentMapping<
     [EPIC_NAME]: Epic,
     [EPIC_WITH_HEADER_IMAGE_NAME]: EpicWithSpecialHeader,
 
-    // [NEWSLETTER_EPIC_NAME]: NewsletterEpic,
-
     // Old name Newsletter Epics
     [US_NEWSLETTER_EPIC_NAME]: USNewsletterEpic,
     [AU_NEWSLETTER_EPIC_NAME]: AUNewsletterEpic,

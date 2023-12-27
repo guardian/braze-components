@@ -97,7 +97,6 @@ const COMPONENT_CAN_RENDER_MAPPINGS: Record<
 
     [EPICNEWSLETTER_GENERIC]: EpicNewsletter_canRender,
 };
-console.log(COMPONENT_CAN_RENDER_MAPPINGS);
 
 export const canRenderBrazeMsg = (msgExtras: Extras | undefined): boolean => {
     if (!msgExtras) {
