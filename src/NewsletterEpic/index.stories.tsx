@@ -13,8 +13,8 @@ import { BrazeMessageProps } from '.';
 import { grid, withGrid } from '../../.storybook/grid/withGrid';
 
 export default {
-    component: 'EpicNewsletter_SelfServe',
-    title: 'EndOfArticle/EpicNewsletter_SelfServe',
+    component: 'NewsletterEpic',
+    title: 'EndOfArticle/NewsletterEpic',
     decorators: [withGrid],
     parameters: {
         grid: {
@@ -106,8 +106,8 @@ DefaultStory.args = {
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     paragraph2:
         'We thought you should know this newsletter may contain information about Guardian products and services.',
-    componentName: 'EpicNewsletter_SelfServe',
+    componentName: 'NewsletterEpic',
     ophanComponentId: 'example_ophan_component_id',
 };
 
-DefaultStory.storyName = { name: 'EpicNewsletter_SelfServe' };
+DefaultStory.storyName = { name: 'NewsletterEpic' };

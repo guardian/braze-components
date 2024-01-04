@@ -19,9 +19,9 @@ import {
     EpicWithSpecialHeader,
 } from './EpicWithSpecialHeader';
 import {
-    COMPONENT_NAME as EPICNEWSLETTER_SELFSERVE_NAME,
-    EpicNewsletter_SelfServe,
-} from './EpicNewsletter_SelfServe';
+    COMPONENT_NAME as NEWSLETTEREPIC_NAME,
+    NewsletterEpic,
+} from './NewsletterEpic';
 
 // Old name Newsletter Epics
 import { COMPONENT_NAME as US_NEWSLETTER_EPIC_NAME, USNewsletterEpic } from './USNewsletterEpic';
@@ -67,7 +67,7 @@ const END_OF_ARTICLE_MAPPINGS: ComponentMapping<
     // New name Newsletter Epics
     [EPICNEWSLETTER_AU_AFTERNOONUPDATE_NAME]: EpicNewsletter_AU_AfternoonUpdate,
     [EPICNEWSLETTER_THEGUIDE_NAME]: EpicNewsletter_TheGuide,
-    [EPICNEWSLETTER_SELFSERVE_NAME]: EpicNewsletter_SelfServe,
+    [NEWSLETTEREPIC_NAME]: NewsletterEpic,
 };
 
 export const BrazeEndOfArticleComponent: React.FC<CommonEndOfArticleComponentProps> =

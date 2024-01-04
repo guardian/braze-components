@@ -66,9 +66,9 @@ import {
 } from './EpicNewsletter_TheGuide/canRender';
 
 import {
-    COMPONENT_NAME as EPICNEWSLETTER_GENERIC,
-    canRender as EpicNewsletter_canRender,
-} from './EpicNewsletter_SelfServe/canRender';
+    COMPONENT_NAME as NEWSLETTEREPIC_NAME,
+    canRender as NewsletterEpic_canRender,
+} from './NewsletterEpic/canRender';
 
 // Types, functionality, exports
 // --------------------------------------------
@@ -95,7 +95,7 @@ const COMPONENT_CAN_RENDER_MAPPINGS: Record<
     [EPICNEWSLETTER_AU_AFTERNOONUPDATE]: EpicNewsletter_AU_AfternoonUpdate_canRender,
     [EPICNEWSLETTER_THEGUIDE]: EpicNewsletter_TheGuide_canRender,
 
-    [EPICNEWSLETTER_GENERIC]: EpicNewsletter_canRender,
+    [NEWSLETTEREPIC_NAME]: NewsletterEpic_canRender,
 };
 
 export const canRenderBrazeMsg = (msgExtras: Extras | undefined): boolean => {
