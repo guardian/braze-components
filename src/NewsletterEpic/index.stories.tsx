@@ -66,7 +66,7 @@ const StoryTemplate = (
     },
 ): ReactElement | null => {
     const imageUrl = grid(
-        'https://i.guim.co.uk/img/media/898c5401ab51b983dc4b2508aaaf0735e6bda0e2/0_0_2000_2000/2000.png?width=400&quality=75&s=9191ec413d946058f37caced7edd0b90',
+        'https://i.guim.co.uk/img/media/898c5401ab51b983dc4b2508aaaf0735e6bda0e2/0_0_2000_2000/2000.png?width=400&quality=75&s=9191ec413d946058f37caced7edd0b90'
     );
 
     const brazeMessageProps = {
