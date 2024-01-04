@@ -18,10 +18,7 @@ import {
     COMPONENT_NAME as EPIC_WITH_HEADER_IMAGE_NAME,
     EpicWithSpecialHeader,
 } from './EpicWithSpecialHeader';
-import {
-    COMPONENT_NAME as NEWSLETTEREPIC_NAME,
-    NewsletterEpic,
-} from './NewsletterEpic';
+import { COMPONENT_NAME as NEWSLETTEREPIC_NAME, NewsletterEpic } from './NewsletterEpic';
 
 // Old name Newsletter Epics
 import { COMPONENT_NAME as US_NEWSLETTER_EPIC_NAME, USNewsletterEpic } from './USNewsletterEpic';
