@@ -54,7 +54,7 @@
     "@rollup/plugin-babel": "^5.1.0",
     "@rollup/plugin-commonjs": "^14.0.0",
     "@rollup/plugin-node-resolve": "^8.4.0",
-    "@rollup/plugin-replace": "^2.3.3",
+    "@rollup/plugin-replace": "^5.0.5",
     "@storybook/addon-controls": "^7.0.25",
     "@storybook/addon-docs": "^7.0.25",
     "@storybook/addon-toolbars": "^7.0.25",
