@@ -110,4 +110,4 @@ DefaultStory.args = {
     ophanComponentId: 'example_ophan_component_id',
 };
 
-DefaultStory.storyName = { name: 'NewsletterEpic' };
+DefaultStory.story = { name: 'NewsletterEpic' };
