@@ -1,5 +1,11 @@
 # @guardian/braze-components
 
+## 16.3.0
+
+### Minor Changes
+
+-   70a8be8: Add a new self-serve Newsletter Epic
+
 ## 16.2.0
 
 ### Minor Changes
