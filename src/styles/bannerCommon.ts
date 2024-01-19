@@ -248,7 +248,7 @@ export const selfServeStyles = (userVals: Record<string, string>, defaults: Bann
         centeredBottomRightComponent: css`
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-self: center;
             width: 100%;
             max-height: 100%;
 
@@ -272,6 +272,7 @@ export const selfServeStyles = (userVals: Record<string, string>, defaults: Bann
             justify-content: center;
             align-items: center;
             margin-top: ${space[2]}px;
+            margin-bottom: ${space[2]}px;
 
             img {
                 max-width: 100%;
