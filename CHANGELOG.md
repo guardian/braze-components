@@ -1,5 +1,11 @@
 # @guardian/braze-components
 
+## 17.0.0
+
+### Major Changes
+
+-   d123e38: Bump peer dependencies
+
 ## 16.3.0
 
 ### Minor Changes
