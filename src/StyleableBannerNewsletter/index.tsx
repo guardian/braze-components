@@ -3,6 +3,7 @@ import { css } from '@emotion/react';
 import { from, headline } from '@guardian/source-foundations';
 import { Button, SvgCross } from '@guardian/source-react-components';
 import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
+// import { StyleableCTA, NewsletterFrequency } from '../newsletterCommon';
 import { NewsletterCtaButton } from '../components/NewsletterCtaButton';
 import { NewsletterFrequencyBlock } from '../components/NewsletterFrequencyBlock';
 import { selfServeStyles } from '../styles/bannerCommon';
@@ -10,7 +11,7 @@ import { canRender, COMPONENT_NAME } from './canRender';
 
 import type { NewsletterSubscribeCallback } from '../types/dcrTypes';
 import type { TrackClick } from '../utils/tracking';
-import type { BannerNewsletterColorStyles } from '../styles/colorData';
+import type { StyleableBannerNewsletterColorStyles } from '../styles/colorData';
 
 export { COMPONENT_NAME };
 
@@ -34,7 +35,7 @@ const localStyles = {
     `,
 };
 
-const defaultColors: BannerNewsletterColorStyles = {
+const defaultColors: StyleableBannerNewsletterColorStyles = {
     styleBackground: '#ebe8e8',
     styleHeader: `#333333`,
     styleBody: '#666',
@@ -53,11 +54,26 @@ export type BrazeMessageProps = {
     ophanComponentId?: string;
     header?: string;
     body?: string;
-    boldText?: string;
+    highlight?: string;
     secondParagraph?: string;
+    buttonCopy?: string;
     imageUrl?: string;
     newsletterId?: string;
     frequency?: string;
+
+    styleBackground?: string;
+    styleHeader?: string;
+    styleBody?: string;
+    styleSecondParagraph?: string;
+    styleHighlight?: string;
+    styleHighlightBackground?: string;
+    styleNewsletterButton?: string;
+    styleNewsletterButtonBackground?: string;
+    styleNewsletterButtonHover?: string;
+    styleReminderAnimation?: string;
+    styleClose?: string;
+    styleCloseBackground?: string;
+    styleCloseHover?: string;
 };
 
 export type Props = {
@@ -66,7 +82,7 @@ export type Props = {
     subscribeToNewsletter: NewsletterSubscribeCallback;
 };
 
-const BannerNewsletter: React.FC<Props> = (props: Props) => {
+const StyleableBannerNewsletter: React.FC<Props> = (props: Props) => {
     if (!canRender(props.brazeMessageProps)) {
         return null;
     }
@@ -76,8 +92,9 @@ const BannerNewsletter: React.FC<Props> = (props: Props) => {
             ophanComponentId,
             header,
             body,
-            boldText,
+            highlight,
             secondParagraph,
+            buttonCopy,
             newsletterId,
             imageUrl,
             frequency,
@@ -117,7 +134,7 @@ const BannerNewsletter: React.FC<Props> = (props: Props) => {
                     <div css={localStyles.heading}>{header}</div>
                     <NewsletterFrequencyBlock frequency={frequency} />
                     <p css={styles.paragraph}>
-                        {body} {boldText && <span css={localStyles.bold}>{boldText}</span>}
+                        {body} {highlight && <span css={localStyles.bold}>{highlight}</span>}
                     </p>
                     {secondParagraph && (
                         <p css={[styles.paragraph, styles.secondParagraph]}>{secondParagraph}</p>
@@ -125,9 +142,9 @@ const BannerNewsletter: React.FC<Props> = (props: Props) => {
                     <NewsletterCtaButton
                         subscribeToNewsletter={subscribeToNewsletter}
                         newsletterId={newsletterId as string}
-                        ophanComponentId={ophanComponentId as string}
+                        ophanComponentId={ophanComponentId}
                         trackClick={trackClick}
-                        reminderCta="Sign up"
+                        buttonCopy={buttonCopy}
                     />
                 </div>
                 <div css={styles.centeredBottomRightComponent}>
@@ -154,4 +171,4 @@ const BannerNewsletter: React.FC<Props> = (props: Props) => {
     );
 };
 
-export { BannerNewsletter };
+export { StyleableBannerNewsletter };

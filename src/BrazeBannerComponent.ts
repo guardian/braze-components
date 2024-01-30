@@ -20,6 +20,10 @@ import {
     StyleableBannerWithLink,
 } from './StyleableBannerWithLink';
 import { COMPONENT_NAME as BANNER_NEWSLETTER_NAME, BannerNewsletter } from './BannerNewsletter';
+import {
+    COMPONENT_NAME as STYLEABLE_BANNER_NEWSLETTER_NAME,
+    StyleableBannerNewsletter
+} from './StyleableBannerNewsletter';
 
 export type CommonBannerComponentProps = {
     componentName: string;
@@ -35,6 +39,7 @@ const BANNER_MAPPINGS: ComponentMapping<CommonBannerComponentProps & HasConsolid
     [BANNER_WITH_LINK_NAME]: BannerWithLink,
     [STYLEABLE_BANNER_WITH_LINK_NAME]: StyleableBannerWithLink,
     [BANNER_NEWSLETTER_NAME]: BannerNewsletter,
+    [STYLEABLE_BANNER_NEWSLETTER_NAME]: StyleableBannerNewsletter,
 };
 
 export const BrazeBannerComponent: React.FC<CommonBannerComponentProps> =

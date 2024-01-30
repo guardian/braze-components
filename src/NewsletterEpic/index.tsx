@@ -11,9 +11,11 @@ import {
     headline,
 } from '@guardian/source-foundations';
 import { COMPONENT_NAME, canRender } from './canRender';
+import { NewsletterCtaButton } from '../components/NewsletterCtaButton';
+import { NewsletterFrequencyBlock } from '../components/NewsletterFrequencyBlock';
+
 import type { TrackClick } from '../utils/tracking';
-import { CTA, NewsletterFrequency } from '../newsletterCommon';
-import { NewsletterSubscribeCallback } from '../types/dcrTypes';
+import type { NewsletterSubscribeCallback } from '../types/dcrTypes';
 
 const styles = {
     epicContainer: css`
@@ -120,14 +122,15 @@ export const NewsletterEpic: React.FC<Props> = (props: Props) => {
                 </div>
                 <div css={styles.rightSection}>
                     <span css={styles.heading}>{header}</span>
-                    <NewsletterFrequency frequency={frequency} />
+                    <NewsletterFrequencyBlock frequency={frequency} />
                     <p css={styles.paragraph}>{paragraph1}</p>
                     {paragraph2 ? <p css={styles.paragraph}>{paragraph2}</p> : null}
-                    <CTA
+                    <NewsletterCtaButton
                         subscribeToNewsletter={subscribeToNewsletter}
                         newsletterId={newsletterId as string}
-                        ophanComponentId={ophanComponentId}
+                        ophanComponentId={ophanComponentId as string}
                         trackClick={trackClick}
+                        reminderCta="Sign up"
                     />
                 </div>
             </section>

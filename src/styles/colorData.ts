@@ -33,7 +33,13 @@ export interface ReminderButtonColorStyles extends LoadingDotsColorStyles {
     styleReminderButtonHover: ColorValueHex;
 }
 
-export interface BannerCopyColorStyles {
+export interface NewsletterButtonColorStyles extends LoadingDotsColorStyles {
+    styleNewsletterButton: ColorValueHex;
+    styleNewsletterButtonBackground: ColorValueHex;
+    styleNewsletterButtonHover: ColorValueHex;
+}
+
+export interface BannerWithLinkCopyColorStyles {
     styleBackground: ColorValueHex;
     styleHeader: ColorValueHex;
     styleBody: ColorValueHex;
@@ -44,21 +50,38 @@ export interface BannerCopyColorStyles {
     styleCloseHover: ColorValueHex;
 }
 
-export interface BannerColorStyles extends BannerCopyColorStyles, PrimaryButtonColorStyles {}
+export interface BannerNewsletterCopyColorStyles {
+    styleBackground: ColorValueHex;
+    styleHeader: ColorValueHex;
+    styleBody: ColorValueHex;
+    styleHighlight: ColorValueHex;
+    styleHighlightBackground: ColorValueHex;
+    styleClose: ColorValueHex;
+    styleCloseBackground: ColorValueHex;
+    styleCloseHover: ColorValueHex;
+}
 
-export interface StyleableBannerColorStyles
+export interface BannerWithLinkColorStyles extends BannerWithLinkCopyColorStyles, PrimaryButtonColorStyles {}
+
+export interface StyleableBannerWithLinkColorStyles
     extends ReminderButtonColorStyles,
         PrimaryButtonColorStyles,
-        BannerCopyColorStyles {}
+        BannerWithLinkCopyColorStyles {}
+
+export interface BannerNewsletterColorStyles extends BannerNewsletterCopyColorStyles, NewsletterButtonColorStyles {}
+
+export interface StyleableBannerNewsletterColorStyles
+    extends BannerNewsletterCopyColorStyles, NewsletterButtonColorStyles {}
 
 // This will become an interface once we build a more generic newsletter epic with limited styling around the newsletter 1-click signup button
 export type EpicColorStyles = ReminderButtonColorStyles;
 
 interface AllAvailableColorStyles
     extends LoadingDotsColorStyles,
+        NewsletterButtonColorStyles,
         ReminderButtonColorStyles,
         PrimaryButtonColorStyles,
-        BannerColorStyles,
+        BannerWithLinkColorStyles,
         EpicColorStyles {}
 
 type ColorStylesType = keyof AllAvailableColorStyles;

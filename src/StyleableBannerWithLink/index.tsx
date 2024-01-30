@@ -3,13 +3,15 @@ import { Button, SvgCross } from '@guardian/source-react-components';
 import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
 import { PrimaryCtaButton, defaultPrimaryCtaButtonColors } from '../components/PrimaryCtaButton';
 import { ReminderCtaButton, defaultReminderCtaButtonColors } from '../components/ReminderCtaButton';
-import { ReminderStage } from '../logic/reminders';
-import type { TrackClick } from '../utils/tracking';
-import { FetchEmail } from '../types/dcrTypes';
-import { StyleableBannerColorStyles } from '../styles/colorData';
 import { selfServeStyles } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';
 import { getColors } from '../styles/colorData';
+
+import type { ReminderStage } from '../logic/reminders';
+import type { TrackClick } from '../utils/tracking';
+import type { FetchEmail } from '../types/dcrTypes';
+import type { StyleableBannerWithLinkColorStyles } from '../styles/colorData';
+
 export { COMPONENT_NAME };
 
 export type BrazeMessageProps = {
@@ -44,7 +46,7 @@ export type BrazeMessageProps = {
     showPrivacyText?: string;
 };
 
-const defaultColors: StyleableBannerColorStyles = {
+const defaultColors: StyleableBannerWithLinkColorStyles = {
     styleBackground: '#ededed',
     styleHeader: '#333333',
     styleBody: '#333333',
