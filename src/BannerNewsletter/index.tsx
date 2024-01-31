@@ -2,15 +2,23 @@ import React, { useState } from 'react';
 import { css } from '@emotion/react';
 import { from, headline } from '@guardian/source-foundations';
 import { Button, SvgCross } from '@guardian/source-react-components';
-import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
-import { NewsletterCtaButton } from '../components/NewsletterCtaButton';
-import { NewsletterFrequencyBlock } from '../components/NewsletterFrequencyBlock';
-import { selfServeStyles } from '../styles/bannerCommon';
-import { canRender, COMPONENT_NAME } from './canRender';
 
+import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
 import type { NewsletterSubscribeCallback } from '../types/dcrTypes';
 import type { TrackClick } from '../utils/tracking';
-import type { BannerNewsletterColorStyles } from '../styles/colorData';
+
+import {
+    NewsletterCtaButton,
+    defaultNewsletterCtaButtonColors
+} from '../components/NewsletterCtaButton';
+import {
+    NewsletterFrequencyBlock,
+    defaultNewsletterFrequencyColors
+} from '../components/NewsletterFrequencyBlock';
+import { defaultBannerNewsletterColors } from '../StyleableBannerNewsletter';
+import { selfServeStyles } from '../styles/bannerCommon';
+
+import { canRender, COMPONENT_NAME } from './canRender';
 
 export { COMPONENT_NAME };
 
@@ -32,21 +40,6 @@ const localStyles = {
     bold: css`
         font-weight: bold;
     `,
-};
-
-const defaultColors: BannerNewsletterColorStyles = {
-    styleBackground: '#ebe8e8',
-    styleHeader: `#333333`,
-    styleBody: '#666',
-    styleHighlight: `#333333`,
-    styleHighlightBackground: '#ebe8e8',
-    styleNewsletterButton: '#ffffff',
-    styleNewsletterButtonBackground: '#c70000',
-    styleNewsletterButtonHover: '#c70000',
-    styleReminderAnimation: '#707070',
-    styleClose: `#333333`,
-    styleCloseBackground: '#ebe8e8',
-    styleCloseHover: '#e5e5e5',
 };
 
 export type BrazeMessageProps = {
@@ -86,7 +79,7 @@ const BannerNewsletter: React.FC<Props> = (props: Props) => {
         trackClick,
     } = props;
 
-    const styles = selfServeStyles(props.brazeMessageProps, defaultColors);
+    const styles = selfServeStyles(props.brazeMessageProps, defaultBannerNewsletterColors);
 
     const [showBanner, setShowBanner] = useState(true);
 
@@ -115,7 +108,10 @@ const BannerNewsletter: React.FC<Props> = (props: Props) => {
             <div css={styles.contentContainer}>
                 <div css={styles.topLeftComponent}>
                     <div css={localStyles.heading}>{header}</div>
-                    <NewsletterFrequencyBlock frequency={frequency} />
+                    <NewsletterFrequencyBlock
+                        frequency={frequency}
+                        colors={defaultNewsletterFrequencyColors}
+                    />
                     <p css={styles.paragraph}>
                         {body} {boldText && <span css={localStyles.bold}>{boldText}</span>}
                     </p>
@@ -127,7 +123,8 @@ const BannerNewsletter: React.FC<Props> = (props: Props) => {
                         newsletterId={newsletterId as string}
                         ophanComponentId={ophanComponentId as string}
                         trackClick={trackClick}
-                        reminderCta="Sign up"
+                        newsletterCta="Sign up"
+                        colors={defaultNewsletterCtaButtonColors}
                     />
                 </div>
                 <div css={styles.centeredBottomRightComponent}>

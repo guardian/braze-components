@@ -22,7 +22,7 @@ import {
 import { COMPONENT_NAME as BANNER_NEWSLETTER_NAME, BannerNewsletter } from './BannerNewsletter';
 import {
     COMPONENT_NAME as STYLEABLE_BANNER_NEWSLETTER_NAME,
-    StyleableBannerNewsletter
+    StyleableBannerNewsletter,
 } from './StyleableBannerNewsletter';
 
 export type CommonBannerComponentProps = {

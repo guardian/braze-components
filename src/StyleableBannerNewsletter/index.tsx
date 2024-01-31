@@ -3,16 +3,25 @@ import { css } from '@emotion/react';
 import { from, headline } from '@guardian/source-foundations';
 import { Button, SvgCross } from '@guardian/source-react-components';
 import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
-// import { StyleableCTA, NewsletterFrequency } from '../newsletterCommon';
-import { NewsletterCtaButton } from '../components/NewsletterCtaButton';
-import { NewsletterFrequencyBlock } from '../components/NewsletterFrequencyBlock';
-import { selfServeStyles } from '../styles/bannerCommon';
-import { canRender, COMPONENT_NAME } from './canRender';
 
+import { defaultPrimaryCtaButtonColors } from '../components/PrimaryCtaButton';
+import {
+    NewsletterCtaButton,
+    defaultNewsletterCtaButtonColors
+} from '../components/NewsletterCtaButton';
+import {
+    NewsletterFrequencyBlock,
+    defaultNewsletterFrequencyColors
+} from '../components/NewsletterFrequencyBlock';
+import { selfServeStyles } from '../styles/bannerCommon';
+import { getColors } from '../styles/colorData';
+
+import type { StyleableBannerNewsletterColorStyles, BannerNewsletterCopyColorStyles } from '../styles/colorData';
+import type { Extras } from '../logic/types';
 import type { NewsletterSubscribeCallback } from '../types/dcrTypes';
 import type { TrackClick } from '../utils/tracking';
-import type { StyleableBannerNewsletterColorStyles } from '../styles/colorData';
 
+import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
 
 const localStyles = {
@@ -35,45 +44,27 @@ const localStyles = {
     `,
 };
 
-const defaultColors: StyleableBannerNewsletterColorStyles = {
+export const defaultBannerNewsletterColors: BannerNewsletterCopyColorStyles = {
     styleBackground: '#ebe8e8',
     styleHeader: `#333333`,
     styleBody: '#666',
     styleHighlight: `#333333`,
     styleHighlightBackground: '#ebe8e8',
-    styleNewsletterButton: '#ffffff',
-    styleNewsletterButtonBackground: '#c70000',
-    styleNewsletterButtonHover: '#c70000',
-    styleReminderAnimation: '#707070',
     styleClose: `#333333`,
     styleCloseBackground: '#ebe8e8',
     styleCloseHover: '#e5e5e5',
 };
 
-export type BrazeMessageProps = {
+export type BrazeMessageProps = Extras & StyleableBannerNewsletterColorStyles & {
     ophanComponentId?: string;
     header?: string;
+    frequency?: string;
     body?: string;
     highlight?: string;
     secondParagraph?: string;
-    buttonCopy?: string;
+    newsletterCta?: string;
     imageUrl?: string;
     newsletterId?: string;
-    frequency?: string;
-
-    styleBackground?: string;
-    styleHeader?: string;
-    styleBody?: string;
-    styleSecondParagraph?: string;
-    styleHighlight?: string;
-    styleHighlightBackground?: string;
-    styleNewsletterButton?: string;
-    styleNewsletterButtonBackground?: string;
-    styleNewsletterButtonHover?: string;
-    styleReminderAnimation?: string;
-    styleClose?: string;
-    styleCloseBackground?: string;
-    styleCloseHover?: string;
 };
 
 export type Props = {
@@ -94,7 +85,7 @@ const StyleableBannerNewsletter: React.FC<Props> = (props: Props) => {
             body,
             highlight,
             secondParagraph,
-            buttonCopy,
+            newsletterCta = 'Sign up',
             newsletterId,
             imageUrl,
             frequency,
@@ -103,7 +94,15 @@ const StyleableBannerNewsletter: React.FC<Props> = (props: Props) => {
         trackClick,
     } = props;
 
-    const styles = selfServeStyles(props.brazeMessageProps, defaultColors);
+    const brazeProps = props.brazeMessageProps;
+
+    const newsletterCtaStyles = getColors(brazeProps, defaultNewsletterCtaButtonColors);
+    const newsletterFrequencyStyles = getColors(brazeProps, defaultNewsletterFrequencyColors);
+
+    const styles = selfServeStyles(props.brazeMessageProps, {
+        ...defaultBannerNewsletterColors,
+        ...defaultPrimaryCtaButtonColors,
+    });
 
     const [showBanner, setShowBanner] = useState(true);
 
@@ -132,9 +131,12 @@ const StyleableBannerNewsletter: React.FC<Props> = (props: Props) => {
             <div css={styles.contentContainer}>
                 <div css={styles.topLeftComponent}>
                     <div css={localStyles.heading}>{header}</div>
-                    <NewsletterFrequencyBlock frequency={frequency} />
+                    <NewsletterFrequencyBlock
+                        frequency={frequency}
+                        colors={newsletterFrequencyStyles}
+                    />
                     <p css={styles.paragraph}>
-                        {body} {highlight && <span css={localStyles.bold}>{highlight}</span>}
+                        {body} {highlight && <span css={[localStyles.bold, styles.highlight]}>{highlight}</span>}
                     </p>
                     {secondParagraph && (
                         <p css={[styles.paragraph, styles.secondParagraph]}>{secondParagraph}</p>
@@ -144,7 +146,8 @@ const StyleableBannerNewsletter: React.FC<Props> = (props: Props) => {
                         newsletterId={newsletterId as string}
                         ophanComponentId={ophanComponentId}
                         trackClick={trackClick}
-                        buttonCopy={buttonCopy}
+                        newsletterCta={newsletterCta}
+                        colors={newsletterCtaStyles}
                     />
                 </div>
                 <div css={styles.centeredBottomRightComponent}>

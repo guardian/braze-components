@@ -1,25 +1,18 @@
 import React, { useState } from 'react';
-import { Button, LinkButton, SvgCross } from '@guardian/source-react-components';
+import { Button, SvgCross } from '@guardian/source-react-components';
 import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
 import type { TrackClick } from '../utils/tracking';
-import { BannerColorStyles } from '../styles/colorData';
-import { selfServeStyles } from '../styles/bannerCommon';
-import { canRender, COMPONENT_NAME } from './canRender';
-export { COMPONENT_NAME };
 
-const defaultColors: BannerColorStyles = {
-    styleBackground: '#ebe8e8',
-    styleHeader: `#333333`,
-    styleBody: '#666666',
-    styleHighlight: `#333333`,
-    styleHighlightBackground: '#ebe8e8',
-    styleButton: '#ffffff',
-    styleButtonBackground: '#052962',
-    styleButtonHover: '#234b8a',
-    styleClose: `#333333`,
-    styleCloseBackground: '#ebe8e8',
-    styleCloseHover: '#e5e5e5',
-};
+import {
+    PrimaryCtaButton,
+    defaultPrimaryCtaButtonColors
+} from '../components/PrimaryCtaButton';
+import { defaultBannerWithLinkColors } from '../StyleableBannerWithLink';
+import { selfServeStyles } from '../styles/bannerCommon';
+
+import { canRender, COMPONENT_NAME } from './canRender';
+
+export { COMPONENT_NAME };
 
 export type BrazeMessageProps = {
     ophanComponentId?: string;
@@ -54,7 +47,10 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
         trackClick,
     } = props;
 
-    const styles = selfServeStyles(props.brazeMessageProps, defaultColors);
+    const styles = selfServeStyles(props.brazeMessageProps, {
+        ...defaultBannerWithLinkColors,
+        ...defaultPrimaryCtaButtonColors,
+    });
 
     const [showBanner, setShowBanner] = useState(true);
 
@@ -91,18 +87,14 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
                         </p>
                     ) : null}
 
-                    <LinkButton
-                        href={buttonUrl}
-                        css={styles.primaryButton}
-                        onClick={() =>
-                            trackClick({
-                                internalButtonId: 0,
-                                ophanComponentId: ophanComponentId as string,
-                            })
-                        }
-                    >
-                        {buttonText}
-                    </LinkButton>
+                    <PrimaryCtaButton
+                        buttonText={buttonText as string}
+                        buttonUrl={buttonUrl as string}
+                        showPaymentIcons={false}
+                        ophanComponentId={ophanComponentId as string}
+                        colors={defaultPrimaryCtaButtonColors}
+                        trackClick={trackClick}
+                    />
                 </div>
                 <div css={styles.bottomRightComponent}>
                     <div css={styles.image}>

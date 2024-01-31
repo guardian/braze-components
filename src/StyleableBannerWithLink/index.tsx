@@ -1,20 +1,33 @@
 import React, { useState } from 'react';
 import { Button, SvgCross } from '@guardian/source-react-components';
 import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
+import { canRender, COMPONENT_NAME } from './canRender';
+
 import { PrimaryCtaButton, defaultPrimaryCtaButtonColors } from '../components/PrimaryCtaButton';
 import { ReminderCtaButton, defaultReminderCtaButtonColors } from '../components/ReminderCtaButton';
 import { selfServeStyles } from '../styles/bannerCommon';
-import { canRender, COMPONENT_NAME } from './canRender';
 import { getColors } from '../styles/colorData';
 
+import type { Extras } from '../logic/types';
 import type { ReminderStage } from '../logic/reminders';
 import type { TrackClick } from '../utils/tracking';
 import type { FetchEmail } from '../types/dcrTypes';
-import type { StyleableBannerWithLinkColorStyles } from '../styles/colorData';
+import type { StyleableBannerWithLinkColorStyles, BannerWithLinkCopyColorStyles } from '../styles/colorData';
 
 export { COMPONENT_NAME };
 
-export type BrazeMessageProps = {
+export const defaultBannerWithLinkColors: BannerWithLinkCopyColorStyles = {
+    styleBackground: '#ededed',
+    styleHeader: '#333333',
+    styleBody: '#333333',
+    styleHighlight: '#333333',
+    styleHighlightBackground: '#ededed',
+    styleClose: '#052962',
+    styleCloseBackground: '#ededed',
+    styleCloseHover: '#e5e5e5',
+};
+
+export type BrazeMessageProps = Extras & StyleableBannerWithLinkColorStyles & {
     ophanComponentId?: string;
     header?: string;
     body?: string;
@@ -28,40 +41,7 @@ export type BrazeMessageProps = {
     imageUrl?: string;
     imageAltText?: string;
     imagePosition?: string;
-    styleBackground?: string;
-    styleHeader?: string;
-    styleBody?: string;
-    styleHighlight?: string;
-    styleHighlightBackground?: string;
-    styleButton?: string;
-    styleButtonBackground?: string;
-    styleButtonHover?: string;
-    styleReminderButton?: string;
-    styleReminderButtonBackground?: string;
-    styleReminderButtonHover?: string;
-    styleReminderAnimation?: string;
-    styleClose?: string;
-    styleCloseBackground?: string;
-    styleCloseHover?: string;
     showPrivacyText?: string;
-};
-
-const defaultColors: StyleableBannerWithLinkColorStyles = {
-    styleBackground: '#ededed',
-    styleHeader: '#333333',
-    styleBody: '#333333',
-    styleHighlight: '#333333',
-    styleHighlightBackground: '#ededed',
-    styleButton: '#ffffff',
-    styleButtonBackground: '#052962',
-    styleButtonHover: '#234b8a',
-    styleReminderButton: '#121212',
-    styleReminderButtonBackground: '#ededed',
-    styleReminderButtonHover: '#dcdcdc',
-    styleReminderAnimation: '#707070',
-    styleClose: '#052962',
-    styleCloseBackground: '#ededed',
-    styleCloseHover: '#e5e5e5',
 };
 
 export type Props = {
@@ -97,12 +77,15 @@ const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
 
     const brazeProps = props.brazeMessageProps;
 
-    const styles = selfServeStyles(brazeProps, defaultColors);
-
-    const showPrivacyTextBoolean = showPrivacyText === 'true';
-
     const primaryCtaStyles = getColors(brazeProps, defaultPrimaryCtaButtonColors);
     const reminderCtaStyles = getColors(brazeProps, defaultReminderCtaButtonColors);
+
+    const styles = selfServeStyles(brazeProps, {
+        ...defaultBannerWithLinkColors,
+        ...defaultPrimaryCtaButtonColors,
+    });
+
+    const showPrivacyTextBoolean = showPrivacyText === 'true';
 
     const [showBanner, setShowBanner] = useState(true);
 

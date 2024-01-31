@@ -1,10 +1,18 @@
 import { css } from '@emotion/react';
 import { neutral, space, from, until, body, headline } from '@guardian/source-foundations';
-import { BannerColorStyles, getColors } from './colorData';
+import { 
+    BannerWithLinkCopyColorStyles,
+    BannerNewsletterCopyColorStyles,
+    PrimaryButtonColorStyles,
+    getColors
+} from './colorData';
 
 const imgHeight = '280';
 
-export const selfServeStyles = (userVals: Record<string, string>, defaults: BannerColorStyles) => {
+type BannerColorStyles = BannerWithLinkCopyColorStyles | BannerNewsletterCopyColorStyles;
+
+
+export const selfServeStyles = (userVals: Record<string, string>, defaults: BannerColorStyles & PrimaryButtonColorStyles) => {
     const style = getColors(userVals, defaults);
 
     return {

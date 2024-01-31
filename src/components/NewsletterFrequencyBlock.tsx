@@ -1,50 +1,63 @@
 import React from 'react';
 import { css } from '@emotion/react';
 import { SvgClock } from '@guardian/source-react-components';
-import { neutral, textSans } from '@guardian/source-foundations';
+import { textSans } from '@guardian/source-foundations';
 
-// Newsletter Frequency Block
-// -------------------------------------------------------
-const frequencyStyles = {
-    container: css`
-        padding: 4px;
-    `,
-    clock: css`
-        position: relative;
-        top: 2px;
-        margin-right: 4px;
-        svg {
-            fill: #999999;
-            height: 16px;
-            width: 16px;
-        }
-    `,
-    text: css`
-        color: ${neutral[20]};
-        ${textSans.medium()}
-        margin-left: 4px;
-    `,
+import type { NewsletterFrequencyColorStyles } from '../styles/colorData';
+
+export const defaultNewsletterFrequencyColors: NewsletterFrequencyColorStyles = {
+    styleClockColor: '#999999',
+    styleFrequencyText: '#333333',
+};
+
+const getFrequencyStyles = (styles: NewsletterFrequencyColorStyles) => {
+    return {
+        container: css`
+            padding: 4px;
+        `,
+        clock: css`
+            position: relative;
+            top: 2px;
+            margin-right: 4px;
+            svg {
+                fill: ${styles.styleClockColor};
+                height: 16px;
+                width: 16px;
+            }
+        `,
+        text: css`
+            color: ${styles.styleFrequencyText};
+            ${textSans.medium()}
+            margin-left: 4px;
+        `,
+    }
 };
 
 type NewsletterFrequencyBlockProps = {
     frequency?: string;
+    colors?: NewsletterFrequencyColorStyles;
 };
 
 export const NewsletterFrequencyBlock: React.FC<NewsletterFrequencyBlockProps> = (
     props: NewsletterFrequencyBlockProps,
 ) => {
-    const { frequency } = props;
+    const {
+        frequency,
+        colors = defaultNewsletterFrequencyColors,
+    } = props;
 
     if (!frequency) {
         return null;
     }
 
+    const styles = getFrequencyStyles(colors)
+
     return (
-        <div css={frequencyStyles.container}>
-            <span css={frequencyStyles.clock}>
+        <div css={styles.container}>
+            <span css={styles.clock}>
                 <SvgClock />
             </span>
-            <span css={frequencyStyles.text}>{frequency}</span>
+            <span css={styles.text}>{frequency}</span>
         </div>
     );
 };

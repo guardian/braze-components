@@ -18,20 +18,15 @@ export default {
     argTypes: {
         ...coreArgTypes,
         ...ophanComponentIdArgType,
-        newsletterId: {
-            name: 'newsletterId',
-            type: { name: 'string', required: true },
-            description: 'The newsletter Id value',
-        },
-        frequency: {
-            name: 'frequency',
-            type: { name: 'string', required: true },
-            description: 'Text description of how often the email is sent',
-        },
         styleBackground: {
             name: 'styleBackground',
             type: { name: 'string', required: false },
             description: 'Banner background color - defaults to "#ededed"',
+        },
+        newsletterId: {
+            name: 'newsletterId',
+            type: { name: 'string', required: true },
+            description: 'The newsletter Id value',
         },
         header: {
             name: 'header',
@@ -40,6 +35,21 @@ export default {
         },
         styleHeader: {
             name: 'styleHeader',
+            type: { name: 'string', required: false },
+            description: 'Headline text color - defaults to "#333333"',
+        },
+        frequency: {
+            name: 'frequency',
+            type: { name: 'string', required: true },
+            description: 'Text description of how often the email is sent',
+        },
+        styleClockColor: {
+            name: 'styleClockColor',
+            type: { name: 'string', required: false },
+            description: 'Headline text color - defaults to "#333333"',
+        },
+        styleFrequencyText: {
+            name: 'styleFrequencyText',
             type: { name: 'string', required: false },
             description: 'Headline text color - defaults to "#333333"',
         },
@@ -54,12 +64,6 @@ export default {
             description: 'Body text color - defaults to "#333333"',
         },
 
-        // CHANGED: attribute boldText -> highlight (consistency with bannerWithLink)
-        // boldText: {
-        //     name: 'boldText',
-        //     type: { name: 'string', required: false },
-        //     description: 'Bold text',
-        // },
         highlight: {
             name: 'boldText',
             type: { name: 'string', required: false },
@@ -76,7 +80,6 @@ export default {
             description: 'Highlighted background color - defaults to "#ededed"',
         },
 
-        // NEW!
         secondParagraph: {
             name: 'secondParagraph',
             type: { name: 'string', required: false },
@@ -88,8 +91,8 @@ export default {
             description: 'Second paragraph text color - defaults to "#333333"',
         },
 
-        buttonCopy: {
-            name: 'buttonCopy',
+        newsletterCta: {
+            name: 'newsletterCta',
             type: { name: 'string', required: false },
             description: 'CTA button copy',
         },
@@ -154,6 +157,8 @@ const StoryTemplate = (
         newsletterId: args.newsletterId,
         styleBackground: args.styleBackground,
         frequency: args.frequency,
+        styleClockColor: args.styleClockColor,
+        styleFrequencyText: args.styleFrequencyText,
         header: args.header,
         styleHeader: args.styleHeader,
         body: args.body,
@@ -163,12 +168,13 @@ const StoryTemplate = (
         highlight: args.highlight,
         styleHighlight: args.styleHighlight,
         styleHighlightBackground: args.styleHighlightBackground,
-        buttonCopy: args.buttonCopy,
+        newsletterCta: args.newsletterCta,
         styleNewsletterButton: args.styleNewsletterButton,
         styleNewsletterButtonBackground: args.styleNewsletterButtonBackground,
         styleNewsletterButtonHover: args.styleNewsletterButtonHover,
         styleReminderAnimation: args.styleReminderAnimation,
         imageUrl,
+        ophanComponentId: args.ophanComponentId,
     };
 
     // This is to make the data available to the guPreview add-on:
@@ -206,24 +212,27 @@ DefaultStory.args = {
     header: 'The Morning Briefing',
     styleHeader: `#333333`,
 
+    frequency: 'Every day',
+    styleClockColor: '#999999',
+    styleFrequencyText: '#333333',
+
     body: 'Whether it’s the latest manoeuvring in global politics or the ‘and finally’ story that everyone’s talking about, you’ll be bang up to date with the news that counts.',
     styleBody: '#666',
-
-    frequency: 'Every day',
 
     highlight: 'Sign up today!',
     styleHighlight: `#333333`,
     styleHighlightBackground: '#ebe8e8',
 
-    secondParagraph: 'We thought you should know this newsletter may contain information about Guardian products and services.',
+    secondParagraph:
+        'We thought you should know this newsletter may contain information about Guardian products and services.',
     styleSecondParagraph: '',
 
-    buttonCopy: 'Sign up',
+    newsletterCta: 'Sign up',
     styleNewsletterButton: '#ffffff',
     styleNewsletterButtonBackground: '#c70000',
     styleNewsletterButtonHover: '#c70000',
     styleReminderAnimation: '#707070',
-    
+
     styleClose: `#333333`,
     styleCloseBackground: '#ebe8e8',
     styleCloseHover: '#e5e5e5',

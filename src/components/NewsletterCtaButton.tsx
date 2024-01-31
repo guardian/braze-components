@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { css, SerializedStyles, ThemeProvider } from '@emotion/react';
 import { Button, buttonThemeBrandAlt, Link } from '@guardian/source-react-components';
-import type { TrackClick } from '../utils/tracking';
 import { LoadingDots } from '../components/CtaLoadingDotsAnimation';
+
+import type { TrackClick } from '../utils/tracking';
 import type { NewsletterSubscribeCallback } from '../types/dcrTypes';
 import type { InteractiveButtonStatus } from '../logic/types';
+import type { NewsletterButtonColorStyles } from '../styles/colorData';
 
 import { neutral, body } from '@guardian/source-foundations';
-import { NewsletterButtonColorStyles } from '../styles/colorData';
 
 export const defaultNewsletterCtaButtonColors: NewsletterButtonColorStyles = {
     styleNewsletterButton: '#ffffff',
@@ -42,14 +43,14 @@ const getButtonStyles = (styles: NewsletterButtonColorStyles) => {
 
 type SignUpButtonProps = {
     buttonStyles: Record<string, SerializedStyles>;
-    ctaText: string;
+    newsletterCta: string;
     onClick: () => void;
 };
 
-const SignUpButton = ({ buttonStyles, ctaText, onClick }: SignUpButtonProps) => (
+const SignUpButton = ({ buttonStyles, newsletterCta, onClick }: SignUpButtonProps) => (
     <ThemeProvider theme={buttonThemeBrandAlt}>
         <Button css={buttonStyles.button} onClick={onClick}>
-            {ctaText}
+            {newsletterCta}
         </Button>
     </ThemeProvider>
 );
@@ -60,17 +61,19 @@ interface NewsletterCtaButtonProps {
     ophanComponentId?: string;
     trackClick: TrackClick;
     colors?: NewsletterButtonColorStyles;
-    reminderCta: string;
+    newsletterCta: string;
 }
 
-export const NewsletterCtaButton: React.FC<NewsletterCtaButtonProps> = (props: NewsletterCtaButtonProps) => {
+export const NewsletterCtaButton: React.FC<NewsletterCtaButtonProps> = (
+    props: NewsletterCtaButtonProps,
+) => {
     const {
         subscribeToNewsletter,
         newsletterId,
         ophanComponentId,
         trackClick,
         colors = defaultNewsletterCtaButtonColors,
-        reminderCta,
+        newsletterCta,
     } = props;
     const styles = getButtonStyles(colors);
 
@@ -95,11 +98,13 @@ export const NewsletterCtaButton: React.FC<NewsletterCtaButtonProps> = (props: N
 
     switch (subscribeClickStatus) {
         case 'DEFAULT':
-            return <SignUpButton
-                buttonStyles={styles}
-                onClick={onSignUpClick}
-                ctaText={reminderCta}
-            />
+            return (
+                <SignUpButton
+                    buttonStyles={styles}
+                    onClick={onSignUpClick}
+                    newsletterCta={newsletterCta}
+                />
+            );
         case 'FAILURE':
             return (
                 <>
@@ -109,13 +114,13 @@ export const NewsletterCtaButton: React.FC<NewsletterCtaButtonProps> = (props: N
                     <SignUpButton
                         buttonStyles={styles}
                         onClick={onSignUpClick}
-                        ctaText={reminderCta}
+                        newsletterCta={newsletterCta}
                     />
                 </>
             );
 
         case 'IN_PROGRESS':
-            return <LoadingDots styleReminderAnimation={colors.styleReminderAnimation} />
+            return <LoadingDots styleReminderAnimation={colors.styleReminderAnimation} />;
 
         case 'SUCCESS':
             return (
