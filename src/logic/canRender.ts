@@ -1,74 +1,74 @@
-import type { Extras } from './logic/types';
+import type { Extras } from './types';
 
 // Banners
 // --------------------------------------------
 import {
     COMPONENT_NAME as APP_BANNER_NAME,
     canRender as appBannerCanRender,
-} from './AppBanner/canRender';
+} from '../AppBanner/canRender';
 
 import {
     COMPONENT_NAME as BANNER_WITH_LINK_NAME,
     canRender as bannerWithLinkCanRender,
-} from './BannerWithLink/canRender';
+} from '../BannerWithLink/canRender';
 
 import {
     COMPONENT_NAME as STYLEABLE_BANNER_WITH_LINK_NAME,
     canRender as styleableBannerWithLinkCanRender,
-} from './StyleableBannerWithLink/canRender';
+} from '../StyleableBannerWithLink/canRender';
 
 import {
     COMPONENT_NAME as BANNER_NEWSLETTER_NAME,
     canRender as bannerNewsletterCanRender,
-} from './BannerNewsletter/canRender';
+} from '../BannerNewsletter/canRender';
 
 // Default Epics
 // --------------------------------------------
-import { COMPONENT_NAME as EPIC_NAME, canRender as epicCanRender } from './Epic/canRender';
+import { COMPONENT_NAME as EPIC_NAME, canRender as epicCanRender } from '../Epic/canRender';
 
 import {
     COMPONENT_NAME as EPIC_WITH_IMAGE_NAME,
     canRender as epicWithImageCanRender,
-} from './EpicWithSpecialHeader/canRender';
+} from '../EpicWithSpecialHeader/canRender';
 
 // Old newsletter Epics
 // --------------------------------------------
 import {
     COMPONENT_NAME as US_NEWSLETTER_EPIC_NAME,
     canRender as usNewsletterEpicCanRender,
-} from './USNewsletterEpic/canRender';
+} from '../USNewsletterEpic/canRender';
 
 import {
     COMPONENT_NAME as AU_NEWSLETTER_EPIC_NAME,
     canRender as auNewsletterEpicCanRender,
-} from './AUNewsletterEpic/canRender';
+} from '../AUNewsletterEpic/canRender';
 
 import {
     COMPONENT_NAME as UK_NEWSLETTER_EPIC_NAME,
     canRender as ukNewsletterEpicCanRender,
-} from './UKNewsletterEpic/canRender';
+} from '../UKNewsletterEpic/canRender';
 
 import {
     COMPONENT_NAME as DTE_NEWSLETTER_EPIC_NAME,
     canRender as dteNewsletterEpicCanRender,
-} from './DownToEarthNewsletterEpic/canRender';
+} from '../DownToEarthNewsletterEpic/canRender';
 
 // 2023 newsletter Epics
 // --------------------------------------------
 import {
     COMPONENT_NAME as EPICNEWSLETTER_AU_AFTERNOONUPDATE,
     canRender as EpicNewsletter_AU_AfternoonUpdate_canRender,
-} from './EpicNewsletter_AU_AfternoonUpdate/canRender';
+} from '../EpicNewsletter_AU_AfternoonUpdate/canRender';
 
 import {
     COMPONENT_NAME as EPICNEWSLETTER_THEGUIDE,
     canRender as EpicNewsletter_TheGuide_canRender,
-} from './EpicNewsletter_TheGuide/canRender';
+} from '../EpicNewsletter_TheGuide/canRender';
 
 import {
     COMPONENT_NAME as NEWSLETTEREPIC_NAME,
     canRender as NewsletterEpic_canRender,
-} from './NewsletterEpic/canRender';
+} from '../NewsletterEpic/canRender';
 
 // Types, functionality, exports
 // --------------------------------------------
