@@ -1,17 +1,12 @@
 import React, { useState } from 'react';
-import { Button, SvgCross } from '@guardian/source-react-components';
-import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
+
+import { PrimaryCtaButton, defaultPrimaryCtaButtonColors } from '../components/PrimaryCtaButton';
+import { getBannerWithLinkStyles, defaultBannerWithLinkColors } from '../StyleableBannerWithLink';
+import { BannerCloseButton, defaultBannerCloseButtonColors } from '../components/BannerCloseButton';
+
 import type { TrackClick } from '../utils/tracking';
 
-import {
-    PrimaryCtaButton,
-    defaultPrimaryCtaButtonColors
-} from '../components/PrimaryCtaButton';
-import { defaultBannerWithLinkColors } from '../StyleableBannerWithLink';
-import { selfServeStyles } from '../styles/bannerCommon';
-
 import { canRender, COMPONENT_NAME } from './canRender';
-
 export { COMPONENT_NAME };
 
 export type BrazeMessageProps = {
@@ -47,28 +42,9 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
         trackClick,
     } = props;
 
-    const styles = selfServeStyles(props.brazeMessageProps, {
-        ...defaultBannerWithLinkColors,
-        ...defaultPrimaryCtaButtonColors,
-    });
+    const styles = getBannerWithLinkStyles(props.brazeMessageProps, defaultBannerWithLinkColors);
 
     const [showBanner, setShowBanner] = useState(true);
-
-    const onCloseClick: OnCloseClick = (evt, internalButtonId) => {
-        evt.preventDefault();
-        onCloseAction(internalButtonId);
-    };
-
-    const onCloseAction = (internalButtonId: number): void => {
-        setShowBanner(false);
-        document.body.focus();
-        trackClick({
-            internalButtonId,
-            ophanComponentId: ophanComponentId as string,
-        });
-    };
-
-    useEscapeShortcut(() => onCloseAction(CLOSE_BUTTON_ID));
 
     if (!showBanner) {
         return null;
@@ -100,20 +76,12 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
                     <div css={styles.image}>
                         <img src={imageUrl} alt="" />
                     </div>
-                    <div css={styles.iconPanel}>
-                        <Button
-                            icon={<SvgCross />}
-                            hideLabel={true}
-                            cssOverrides={styles.closeButton}
-                            priority="tertiary"
-                            size="small"
-                            aria-label="Close"
-                            onClick={(e) => onCloseClick(e, CLOSE_BUTTON_ID)}
-                            tabIndex={0}
-                        >
-                            {' '}
-                        </Button>
-                    </div>
+                    <BannerCloseButton
+                        trackClick={trackClick}
+                        setShowBanner={setShowBanner}
+                        ophanComponentId={ophanComponentId}
+                        colors={defaultBannerCloseButtonColors}
+                    />
                 </div>
             </div>
         </div>

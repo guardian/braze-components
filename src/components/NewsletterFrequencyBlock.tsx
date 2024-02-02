@@ -30,7 +30,7 @@ const getFrequencyStyles = (styles: NewsletterFrequencyColorStyles) => {
             ${textSans.medium()}
             margin-left: 4px;
         `,
-    }
+    };
 };
 
 type NewsletterFrequencyBlockProps = {
@@ -41,16 +41,13 @@ type NewsletterFrequencyBlockProps = {
 export const NewsletterFrequencyBlock: React.FC<NewsletterFrequencyBlockProps> = (
     props: NewsletterFrequencyBlockProps,
 ) => {
-    const {
-        frequency,
-        colors = defaultNewsletterFrequencyColors,
-    } = props;
+    const { frequency, colors = defaultNewsletterFrequencyColors } = props;
 
     if (!frequency) {
         return null;
     }
 
-    const styles = getFrequencyStyles(colors)
+    const styles = getFrequencyStyles(colors);
 
     return (
         <div css={styles.container}>

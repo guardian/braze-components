@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import { space, from, until } from '@guardian/source-foundations';
+import { brand, space, from, neutral, until } from '@guardian/source-foundations';
 
 export const styles = {
     image: css`
@@ -39,4 +39,19 @@ export const styles = {
             padding-right: ${space[2]}px;
         }
     `,
+
+    primaryButton: css`
+        margin-right: ${space[3]}px;
+        color: ${neutral[100]};
+        background-color: ${brand[400]};
+        &:hover {
+            background-color: ${brand[300]};
+        }
+    `,
 };
+
+// export const defaultPrimaryCtaButtonColors: PrimaryButtonColorStyles = {
+//     styleButton: '#ffffff',    neutral[100]
+//     styleButtonBackground: '#052962', brand[400]
+//     styleButtonHover: '#234b8a', brand[300]
+// };

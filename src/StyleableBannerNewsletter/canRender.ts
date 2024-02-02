@@ -8,7 +8,7 @@ export const COMPONENT_NAME = 'StyleableBannerNewsletter';
 
 export const canRender = (brazeMessageProps: BrazeMessageProps): boolean => {
     const { header, body, imageUrl, ophanComponentId, newsletterId, frequency } = brazeMessageProps;
-    console.log(header, body, imageUrl, ophanComponentId, newsletterId, frequency )
+    console.log(header, body, imageUrl, ophanComponentId, newsletterId, frequency);
     if (imageUrl && !isImageUrlAllowed(imageUrl)) {
         console.log(`Image URL ${imageUrl} is not allowed`);
         return false;

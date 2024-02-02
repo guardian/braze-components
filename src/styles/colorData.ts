@@ -17,6 +17,10 @@ export const contributionsTheme = {
     link: buttonStyles,
 };
 
+export interface BannerFrameColorStyles {
+    styleBackground: ColorValueHex;
+}
+
 export interface LoadingDotsColorStyles {
     styleReminderAnimation: ColorValueHex;
 }
@@ -44,58 +48,63 @@ export interface NewsletterButtonColorStyles extends LoadingDotsColorStyles {
     styleNewsletterButtonHover: ColorValueHex;
 }
 
-export interface BannerWithLinkCopyColorStyles {
-    styleBackground: ColorValueHex;
-    styleHeader: ColorValueHex;
-    styleBody: ColorValueHex;
-    styleHighlight: ColorValueHex;
-    styleHighlightBackground: ColorValueHex;
+export interface CloseButtonColorStyles {
     styleClose: ColorValueHex;
     styleCloseBackground: ColorValueHex;
     styleCloseHover: ColorValueHex;
 }
 
-export interface BannerNewsletterCopyColorStyles {
-    styleBackground: ColorValueHex;
+export interface BannerWithLinkBaseColorStyles extends BannerFrameColorStyles {
     styleHeader: ColorValueHex;
     styleBody: ColorValueHex;
     styleHighlight: ColorValueHex;
     styleHighlightBackground: ColorValueHex;
-    styleClose: ColorValueHex;
-    styleCloseBackground: ColorValueHex;
-    styleCloseHover: ColorValueHex;
 }
+
+export interface BannerNewsletterBaseColorStyles extends BannerFrameColorStyles {
+    styleHeader: ColorValueHex;
+    styleBody: ColorValueHex;
+    styleSecondParagraph: ColorValueHex;
+    styleHighlight: ColorValueHex;
+    styleHighlightBackground: ColorValueHex;
+}
+
+interface AllAvailableColorStyles
+    extends BannerFrameColorStyles,
+        BannerWithLinkBaseColorStyles,
+        BannerNewsletterBaseColorStyles,
+        NewsletterFrequencyColorStyles,
+        PrimaryButtonColorStyles,
+        NewsletterButtonColorStyles,
+        ReminderButtonColorStyles,
+        LoadingDotsColorStyles,
+        CloseButtonColorStyles {}
 
 export interface BannerWithLinkColorStyles
-    extends BannerWithLinkCopyColorStyles,
-        PrimaryButtonColorStyles {}
+    extends BannerWithLinkBaseColorStyles,
+        PrimaryButtonColorStyles,
+        CloseButtonColorStyles {}
 
 export interface StyleableBannerWithLinkColorStyles
-    extends ReminderButtonColorStyles,
+    extends BannerWithLinkBaseColorStyles,
         PrimaryButtonColorStyles,
-        BannerWithLinkCopyColorStyles {}
+        ReminderButtonColorStyles,
+        CloseButtonColorStyles {}
 
 export interface BannerNewsletterColorStyles
-    extends NewsletterFrequencyColorStyles,
-        BannerNewsletterCopyColorStyles,
-        NewsletterButtonColorStyles {}
+    extends BannerNewsletterBaseColorStyles,
+        NewsletterFrequencyColorStyles,
+        NewsletterButtonColorStyles,
+        CloseButtonColorStyles {}
 
 export interface StyleableBannerNewsletterColorStyles
-    extends NewsletterFrequencyColorStyles,
-        BannerNewsletterCopyColorStyles,
-        NewsletterButtonColorStyles {}
+    extends BannerNewsletterBaseColorStyles,
+        NewsletterFrequencyColorStyles,
+        NewsletterButtonColorStyles,
+        CloseButtonColorStyles {}
 
 // This will become an interface once we build a more generic newsletter epic with limited styling around the newsletter 1-click signup button
 export type EpicColorStyles = ReminderButtonColorStyles;
-
-interface AllAvailableColorStyles
-    extends LoadingDotsColorStyles,
-        NewsletterFrequencyColorStyles,
-        NewsletterButtonColorStyles,
-        ReminderButtonColorStyles,
-        PrimaryButtonColorStyles,
-        BannerWithLinkColorStyles,
-        EpicColorStyles {}
 
 type ColorStylesType = keyof AllAvailableColorStyles;
 

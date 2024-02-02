@@ -18,16 +18,18 @@ export default {
     argTypes: {
         ...coreArgTypes,
         ...ophanComponentIdArgType,
-        styleBackground: {
-            name: 'styleBackground',
-            type: { name: 'string', required: false },
-            description: 'Banner background color - defaults to "#ededed"',
-        },
         newsletterId: {
             name: 'newsletterId',
             type: { name: 'string', required: true },
             description: 'The newsletter Id value',
         },
+
+        styleBackground: {
+            name: 'styleBackground',
+            type: { name: 'string', required: false },
+            description: 'Banner background color - defaults to "#ededed"',
+        },
+
         header: {
             name: 'header',
             type: { name: 'string', required: true },
@@ -38,6 +40,7 @@ export default {
             type: { name: 'string', required: false },
             description: 'Headline text color - defaults to "#333333"',
         },
+
         frequency: {
             name: 'frequency',
             type: { name: 'string', required: true },
@@ -53,6 +56,7 @@ export default {
             type: { name: 'string', required: false },
             description: 'Headline text color - defaults to "#333333"',
         },
+
         body: {
             name: 'body',
             type: { name: 'string', required: true },
@@ -153,14 +157,14 @@ const StoryTemplate = (
         'https://i.guim.co.uk/img/media/568c6031be78dab6f6c28336010884f3ebd0f97c/0_0_1936_1936/master/1936.png?width=196&quality=45&auto=format&s=2a3630e9625620d5726c31c5cdbf4772',
     );
 
-    const brazeMessageProps: BrazeMessageProps = {
+    const brazeMessageProps = {
         newsletterId: args.newsletterId,
         styleBackground: args.styleBackground,
+        header: args.header,
+        styleHeader: args.styleHeader,
         frequency: args.frequency,
         styleClockColor: args.styleClockColor,
         styleFrequencyText: args.styleFrequencyText,
-        header: args.header,
-        styleHeader: args.styleHeader,
         body: args.body,
         styleBody: args.styleBody,
         secondParagraph: args.secondParagraph,
@@ -173,6 +177,9 @@ const StoryTemplate = (
         styleNewsletterButtonBackground: args.styleNewsletterButtonBackground,
         styleNewsletterButtonHover: args.styleNewsletterButtonHover,
         styleReminderAnimation: args.styleReminderAnimation,
+        styleClose: args.styleClose,
+        styleCloseBackground: args.styleCloseBackground,
+        styleCloseHover: args.styleCloseHover,
         imageUrl,
         ophanComponentId: args.ophanComponentId,
     };
@@ -217,7 +224,7 @@ DefaultStory.args = {
     styleFrequencyText: '#333333',
 
     body: 'Whether it’s the latest manoeuvring in global politics or the ‘and finally’ story that everyone’s talking about, you’ll be bang up to date with the news that counts.',
-    styleBody: '#666',
+    styleBody: '#666666',
 
     highlight: 'Sign up today!',
     styleHighlight: `#333333`,
@@ -225,7 +232,7 @@ DefaultStory.args = {
 
     secondParagraph:
         'We thought you should know this newsletter may contain information about Guardian products and services.',
-    styleSecondParagraph: '',
+    styleSecondParagraph: '#666666',
 
     newsletterCta: 'Sign up',
     styleNewsletterButton: '#ffffff',

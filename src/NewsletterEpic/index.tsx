@@ -130,7 +130,7 @@ export const NewsletterEpic: React.FC<Props> = (props: Props) => {
                         newsletterId={newsletterId as string}
                         ophanComponentId={ophanComponentId as string}
                         trackClick={trackClick}
-                        reminderCta="Sign up"
+                        newsletterCta="Sign up"
                     />
                 </div>
             </section>

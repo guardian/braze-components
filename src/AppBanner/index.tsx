@@ -1,22 +1,21 @@
 import React, { useState, ReactElement } from 'react';
-import { css } from '@emotion/react';
-import { ThemeProvider } from '@emotion/react';
+import { css, ThemeProvider } from '@emotion/react';
 import {
     Button,
+    ButtonTheme,
     buttonThemeReaderRevenueBrandAlt,
-    SvgCross,
 } from '@guardian/source-react-components';
-import type { TrackClick } from '../utils/tracking';
 
 import { AppStore } from '../assets/app-store';
 import { PlayStore } from '../assets/play-store';
 
-import { defaultBannerWithLinkColors } from '../StyleableBannerWithLink';
-import { defaultPrimaryCtaButtonColors } from '../components/PrimaryCtaButton';
-import { selfServeStyles } from '../styles/bannerCommon';
+import { getBannerWithLinkStyles, defaultBannerWithLinkColors } from '../StyleableBannerWithLink';
+import { BannerCloseButton, defaultBannerCloseButtonColors } from '../components/BannerCloseButton';
 
 import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
-import { styles } from './styles';
+import { styles as localStyles } from './styles';
+
+import type { TrackClick } from '../utils/tracking';
 
 import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
@@ -28,8 +27,6 @@ export type BrazeMessageProps = {
     cta?: string;
     imageUrl?: string;
 };
-
-import type { ButtonTheme } from '@guardian/source-react-components';
 
 export type Props = {
     brazeMessageProps: BrazeMessageProps;
@@ -46,10 +43,10 @@ export const AppBanner = (props: Props): ReactElement | null => {
         trackClick,
     } = props;
 
-    const commonStyles = selfServeStyles(props.brazeMessageProps, {
-        ...defaultBannerWithLinkColors,
-        ...defaultPrimaryCtaButtonColors,
-    });
+    const commonStyles = getBannerWithLinkStyles(
+        props.brazeMessageProps,
+        defaultBannerWithLinkColors,
+    );
 
     const [showBanner, setShowBanner] = useState(true);
 
@@ -99,18 +96,14 @@ export const AppBanner = (props: Props): ReactElement | null => {
 
                     <p css={commonStyles.highlightContainer}>
                         <strong css={commonStyles.highlight}>{cta} &nbsp;</strong>
-                        <span css={styles.storeIcon}>
+                        <span css={localStyles.storeIcon}>
                             <AppStore />
                             <PlayStore />
                         </span>
                     </p>
-
                     <ThemeProvider theme={overrridenReaderRevenueTheme}>
-                        <Button
-                            onClick={(e) => onCloseClick(e, 0)}
-                            css={commonStyles.primaryButton}
-                        >
-                            Ok, got it
+                        <Button onClick={(e) => onCloseClick(e, 0)} css={localStyles.primaryButton}>
+                            {'Ok, got it'}
                         </Button>
                     </ThemeProvider>
                     <ThemeProvider theme={notInterestedTheme}>
@@ -131,25 +124,15 @@ export const AppBanner = (props: Props): ReactElement | null => {
                     </ThemeProvider>
                 </div>
                 <div css={commonStyles.bottomRightComponent}>
-                    <div css={styles.image}>
+                    <div css={localStyles.image}>
                         <img src={imageUrl} alt="" />
                     </div>
-                    <div css={commonStyles.iconPanel}>
-                        <ThemeProvider theme={overrridenReaderRevenueTheme}>
-                            <Button
-                                icon={<SvgCross />}
-                                hideLabel={true}
-                                css={commonStyles.closeButton}
-                                priority="tertiary"
-                                size="small"
-                                aria-label="Close"
-                                onClick={(e) => onCloseClick(e, CLOSE_BUTTON_ID)}
-                                tabIndex={0}
-                            >
-                                {' '}
-                            </Button>
-                        </ThemeProvider>
-                    </div>
+                    <BannerCloseButton
+                        trackClick={trackClick}
+                        setShowBanner={setShowBanner}
+                        ophanComponentId={ophanComponentId}
+                        colors={defaultBannerCloseButtonColors}
+                    />
                 </div>
             </div>
         </div>
