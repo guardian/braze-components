@@ -10,29 +10,41 @@ import {
 } from '../components/NewsletterFrequencyBlock';
 import { BannerCloseButton, defaultBannerCloseButtonColors } from '../components/BannerCloseButton';
 
-import type { Extras } from '../logic/types';
+import type { ColorValueHex } from '../logic/types';
 import type { NewsletterSubscribeCallback } from '../types/dcrTypes';
 import type { TrackClick } from '../utils/tracking';
-import type {
-    StyleableBannerNewsletterColorStyles,
-    BannerNewsletterBaseColorStyles,
-} from '../styles/colorData';
+import type { BannerNewsletterBaseColorStyles } from '../styles/colorData';
 
 import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
 
-export type BrazeMessageProps = Extras &
-    StyleableBannerNewsletterColorStyles & {
-        ophanComponentId?: string;
-        header?: string;
-        frequency?: string;
-        body?: string;
-        highlight?: string;
-        secondParagraph?: string;
-        newsletterCta?: string;
-        imageUrl?: string;
-        newsletterId?: string;
-    };
+export type BrazeMessageProps = {
+    ophanComponentId?: string;
+    header?: string;
+    frequency?: string;
+    body?: string;
+    highlight?: string;
+    secondParagraph?: string;
+    newsletterCta?: string;
+    imageUrl?: string;
+    newsletterId?: string;
+
+    styleBackground?: ColorValueHex;
+    styleHeader?: ColorValueHex;
+    styleBody?: ColorValueHex;
+    styleSecondParagraph?: ColorValueHex;
+    styleHighlight?: ColorValueHex;
+    styleHighlightBackground?: ColorValueHex;
+    styleClockColor?: ColorValueHex;
+    styleFrequencyText?: ColorValueHex;
+    styleNewsletterButton?: ColorValueHex;
+    styleNewsletterButtonBackground?: ColorValueHex;
+    styleNewsletterButtonHover?: ColorValueHex;
+    styleReminderAnimation?: ColorValueHex;
+    styleClose?: ColorValueHex;
+    styleCloseBackground?: ColorValueHex;
+    styleCloseHover?: ColorValueHex;
+};
 
 export type Props = {
     brazeMessageProps: BrazeMessageProps;

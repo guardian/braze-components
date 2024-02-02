@@ -4,35 +4,47 @@ import { PrimaryCtaButton, defaultPrimaryCtaButtonColors } from '../components/P
 import { ReminderCtaButton, defaultReminderCtaButtonColors } from '../components/ReminderCtaButton';
 import { BannerCloseButton, defaultBannerCloseButtonColors } from '../components/BannerCloseButton';
 
-import type { Extras } from '../logic/types';
+import type { ColorValueHex } from '../logic/types';
 import type { ReminderStage } from '../logic/reminders';
 import type { TrackClick } from '../utils/tracking';
 import type { FetchEmail } from '../types/dcrTypes';
-import type {
-    StyleableBannerWithLinkColorStyles,
-    BannerWithLinkBaseColorStyles,
-} from '../styles/colorData';
+import type { BannerWithLinkBaseColorStyles } from '../styles/colorData';
 
 import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
 
-export type BrazeMessageProps = Extras &
-    StyleableBannerWithLinkColorStyles & {
-        ophanComponentId?: string;
-        header?: string;
-        body?: string;
-        highlight?: string;
-        buttonText?: string;
-        buttonUrl?: string;
-        showPaymentIcons?: string;
-        reminderStage?: ReminderStage;
-        reminderOption?: string;
-        includeReminderCta?: string;
-        imageUrl?: string;
-        imageAltText?: string;
-        imagePosition?: string;
-        showPrivacyText?: string;
-    };
+export type BrazeMessageProps = {
+    ophanComponentId?: string;
+    header?: string;
+    body?: string;
+    highlight?: string;
+    buttonText?: string;
+    buttonUrl?: string;
+    showPaymentIcons?: string;
+    reminderStage?: ReminderStage;
+    reminderOption?: string;
+    includeReminderCta?: string;
+    imageUrl?: string;
+    imageAltText?: string;
+    imagePosition?: string;
+    showPrivacyText?: string;
+
+    styleBackground?: ColorValueHex;
+    styleHeader?: ColorValueHex;
+    styleBody?: ColorValueHex;
+    styleHighlight?: ColorValueHex;
+    styleHighlightBackground?: ColorValueHex;
+    styleButton?: ColorValueHex;
+    styleButtonBackground?: ColorValueHex;
+    styleButtonHover?: ColorValueHex;
+    styleReminderButton?: ColorValueHex;
+    styleReminderButtonBackground?: ColorValueHex;
+    styleReminderButtonHover?: ColorValueHex;
+    styleReminderAnimation?: ColorValueHex;
+    styleClose?: ColorValueHex;
+    styleCloseBackground?: ColorValueHex;
+    styleCloseHover?: ColorValueHex;
+};
 
 export type Props = {
     brazeMessageProps: BrazeMessageProps;

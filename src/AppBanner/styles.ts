@@ -49,9 +49,3 @@ export const styles = {
         }
     `,
 };
-
-// export const defaultPrimaryCtaButtonColors: PrimaryButtonColorStyles = {
-//     styleButton: '#ffffff',    neutral[100]
-//     styleButtonBackground: '#052962', brand[400]
-//     styleButtonHover: '#234b8a', brand[300]
-// };
