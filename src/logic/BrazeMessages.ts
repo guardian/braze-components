@@ -3,7 +3,6 @@
 import type appboy from '@braze/web-sdk-core';
 import { MessageCache, MessageWithId } from './LocalMessageCache';
 import type { ErrorHandler, Extras, MessageSlotName } from './types';
-import { canRenderBrazeMsg } from '../canRender';
 
 interface BrazeArticleContext {
     section?: string;
@@ -98,7 +97,14 @@ class BrazeMessages implements BrazeMessagesInterface {
 
     errorHandler: ErrorHandler;
 
-    constructor(appboyInstance: typeof appboy, cache: MessageCache, errorHandler: ErrorHandler) {
+    canRender: (extras: Extras | undefined) => boolean;
+
+    constructor(
+        appboyInstance: typeof appboy,
+        cache: MessageCache,
+        errorHandler: ErrorHandler,
+        canRender: (extras: Extras | undefined) => boolean,
+    ) {
         this.appboy = appboyInstance;
         this.cache = cache;
         this.freshMessageBySlot = {
@@ -106,6 +112,7 @@ class BrazeMessages implements BrazeMessagesInterface {
             EndOfArticle: this.getFreshMessagesForSlot('EndOfArticle'),
         };
         this.errorHandler = errorHandler;
+        this.canRender = canRender;
     }
 
     // Generally we only expect a single message per slot max in a pageview. This method
@@ -178,7 +185,7 @@ class BrazeMessages implements BrazeMessagesInterface {
         const messagesFromCache = this.cache.all(slotName, this.appboy, this.errorHandler);
 
         const allRenderableMessages = messagesFromCache.filter((msg) =>
-            canRenderBrazeMsg(msg.message.extras),
+            this.canRender(msg.message.extras),
         );
 
         // We want to prioritise messages with a filter if any of those match
