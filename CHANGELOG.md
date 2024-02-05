@@ -1,5 +1,11 @@
 # @guardian/braze-components
 
+## 18.0.0
+
+### Major Changes
+
+-   a69104c: The BrazeMessages constructor now expects a canRender function to be passed
+
 ## 17.0.0
 
 ### Major Changes
