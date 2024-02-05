@@ -69,7 +69,7 @@ export default {
         },
 
         highlight: {
-            name: 'boldText',
+            name: 'highlight',
             type: { name: 'string', required: false },
             description: 'Bold text',
         },
