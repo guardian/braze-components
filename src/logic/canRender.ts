@@ -25,7 +25,7 @@ import {
 import {
     COMPONENT_NAME as STYLEABLE_BANNER_NEWSLETTER_NAME,
     canRender as styleableBannerNewsletterCanRender,
-} from './StyleableBannerNewsletter/canRender';
+} from '../StyleableBannerNewsletter/canRender';
 
 // Default Epics
 // --------------------------------------------
