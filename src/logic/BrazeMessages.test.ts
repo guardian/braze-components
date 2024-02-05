@@ -3,8 +3,6 @@ import { createNanoEvents, Emitter } from 'nanoevents';
 import { BrazeArticleContext, BrazeMessages } from './BrazeMessages';
 import { LocalMessageCache, hydrateMessage, MessageData } from './LocalMessageCache';
 
-import { COMPONENT_NAME as BANNER_WITH_LINK_NAME } from '../BannerWithLink/canRender';
-
 const logInAppMessageImpressionSpy = jest.fn();
 
 const message1Json = `{"message":"","messageAlignment":"CENTER","duration":5000,"slideFrom":"BOTTOM","extras":{"heading":"Tom Epic Title 1","slotName":"EndOfArticle","step":"1","componentName":"Epic","highlightedText":"This text is important %%CURRENCY_SYMBOL%%1","buttonText":"Button","buttonUrl":"https://www.example.com","paragraph1":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", "ophanComponentId": "Epic"},"triggerId":"NjAzNjhmNDFkZTNmMTAxMjE4YmE5Y2E0XyRfY2MmZGkmbXY9NjAzNjhmNDFkZTNmMTAxMjE4YmE5YzZiJnBpPXdmcyZ3PTYwMzY4ZjQxZGUzZjEwMTIxOGJhOWM1OCZ3cD0xNjE0MjQxNTkyJnd2PTYwMzY4ZjQxZGUzZjEwMTIxOGJhOWM5ZA==","clickAction":"NONE","uri":null,"openTarget":"NONE","dismissType":"SWIPE","icon":null,"imageUrl":null,"imageStyle":"TOP","iconColor":4294967295,"iconBackgroundColor":4278219733,"backgroundColor":4294967295,"textColor":4281545523,"closeButtonColor":4288387995,"animateIn":true,"animateOut":true,"header":null,"headerAlignment":"CENTER","headerTextColor":4281545523,"frameColor":3224580915,"buttons":[],"cropType":"FIT_CENTER","Rd":true,"Ma":false,"Qd":false,"X":{"qb":{}},"Ub":{"qb":{}},"Lg":false,"Uf":"WEB_HTML"}`;
@@ -12,7 +10,7 @@ const message2Json = `{"message":"","messageAlignment":"CENTER","duration":5000,
 
 const bannerExtras = {
     slotName: 'Banner',
-    componentName: BANNER_WITH_LINK_NAME,
+    componentName: 'BannerWithLink',
     ophanComponentId: 'banner_ophan_component_id',
     header: 'Header',
     body: 'Body',
@@ -72,10 +70,12 @@ describe('BrazeMessages', () => {
         describe('getMessageForBanner & getMessageForEndOfArticle', () => {
             it('returns a promise which resolves with message data for the correct slot', async () => {
                 const fakeAppBoy = new FakeAppBoy();
+                const canRender = () => true;
                 const brazeMessages = new BrazeMessages(
                     fakeAppBoy as unknown as typeof appboy,
                     LocalMessageCache,
                     (error, identifier) => console.log(identifier, error),
+                    canRender,
                 );
 
                 const bannerPromise = brazeMessages.getMessageForBanner();
@@ -100,10 +100,12 @@ describe('BrazeMessages', () => {
 
             it('returns a promise which resolves with message data for the correct slot when queried in different order', async () => {
                 const fakeAppBoy = new FakeAppBoy();
+                const canRender = () => true;
                 const brazeMessages = new BrazeMessages(
                     fakeAppBoy as unknown as typeof appboy,
                     LocalMessageCache,
                     (error, identifier) => console.log(identifier, error),
+                    canRender,
                 );
 
                 const bannerPromise = brazeMessages.getMessageForBanner();
@@ -130,10 +132,12 @@ describe('BrazeMessages', () => {
 
             it('returns a message which is capable of logging an impression', async () => {
                 const fakeAppBoy = new FakeAppBoy();
+                const canRender = () => true;
                 const brazeMessages = new BrazeMessages(
                     fakeAppBoy as unknown as typeof appboy,
                     LocalMessageCache,
                     (error, identifier) => console.log(identifier, error),
+                    canRender,
                 );
 
                 const bannerPromise = brazeMessages.getMessageForBanner();
@@ -152,10 +156,12 @@ describe('BrazeMessages', () => {
 
             it('returns a message with an id', async () => {
                 const fakeAppBoy = new FakeAppBoy();
+                const canRender = () => true;
                 const brazeMessages = new BrazeMessages(
                     fakeAppBoy as unknown as typeof appboy,
                     LocalMessageCache,
                     (error, identifier) => console.log(identifier, error),
+                    canRender,
                 );
 
                 const bannerPromise = brazeMessages.getMessageForBanner();
@@ -183,10 +189,12 @@ describe('BrazeMessages', () => {
                 );
                 const freshMessage = buildMessage(JSON.parse(message2Json));
                 const fakeAppBoy = new FakeAppBoy();
+                const canRender = () => true;
                 const brazeMessages = new BrazeMessages(
                     fakeAppBoy as unknown as typeof appboy,
                     LocalMessageCache,
                     (error, identifier) => console.log(identifier, error),
+                    canRender,
                 );
                 fakeAppBoy.emit(freshMessage);
 
@@ -207,10 +215,12 @@ describe('BrazeMessages', () => {
                 );
                 const freshMessage = buildMessage(JSON.parse(message2Json));
                 const fakeAppBoy = new FakeAppBoy();
+                const canRender = () => true;
                 const brazeMessages = new BrazeMessages(
                     fakeAppBoy as unknown as typeof appboy,
                     LocalMessageCache,
                     (error, identifier) => console.log(identifier, error),
+                    canRender,
                 );
                 fakeAppBoy.emit(freshMessage);
 
@@ -233,10 +243,12 @@ describe('BrazeMessages', () => {
                 );
                 const freshMessage = buildMessage(JSON.parse(message2Json));
                 const fakeAppBoy = new FakeAppBoy();
+                const canRender = () => true;
                 const brazeMessages = new BrazeMessages(
                     fakeAppBoy as unknown as typeof appboy,
                     LocalMessageCache,
                     (error, identifier) => console.log(identifier, error),
+                    canRender,
                 );
                 fakeAppBoy.emit(freshMessage);
 
@@ -267,10 +279,12 @@ describe('BrazeMessages', () => {
                     (e) => console.log(e),
                 );
                 const fakeAppBoy = new FakeAppBoy();
+                const canRender = () => true;
                 const brazeMessages = new BrazeMessages(
                     fakeAppBoy as unknown as typeof appboy,
                     LocalMessageCache,
                     (error, identifier) => console.log(identifier, error),
+                    canRender,
                 );
                 const articleContext: BrazeArticleContext = {
                     section: 'environment',
@@ -293,10 +307,12 @@ describe('BrazeMessages', () => {
                     (e) => console.log(e),
                 );
                 const fakeAppBoy = new FakeAppBoy();
+                const canRender = () => true;
                 const brazeMessages = new BrazeMessages(
                     fakeAppBoy as unknown as typeof appboy,
                     LocalMessageCache,
                     (error, identifier) => console.log(identifier, error),
+                    canRender,
                 );
                 const articleContext: BrazeArticleContext = {
                     section: 'environment',
