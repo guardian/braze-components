@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { LinkButton } from '@guardian/source-react-components';
 import type { TrackClick } from '../utils/tracking';
-import { BannerColorStyles, CloseButtonColorStyles } from '../styles/colorData';
+import { BannerColorStyles } from '../styles/colorData';
 import { BannerCloseButton } from '../components/BannerCloseButton';
 import { selfServeStyles } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';
@@ -83,7 +83,6 @@ export const BannerWithLink: React.FC<Props> = (props: Props) => {
                         trackClick={trackClick}
                         setShowBanner={setShowBanner}
                         ophanComponentId={ophanComponentId}
-                        colors={closeButtonColors}
                     />
                 </div>
             </div>
@@ -100,10 +99,4 @@ const defaultColors: BannerColorStyles = {
     styleButton: '#ffffff',
     styleButtonBackground: '#052962',
     styleButtonHover: '#234b8a',
-};
-
-const closeButtonColors: CloseButtonColorStyles = {
-    styleClose: `#333333`,
-    styleCloseBackground: '#ebe8e8',
-    styleCloseHover: '#e5e5e5',
 };

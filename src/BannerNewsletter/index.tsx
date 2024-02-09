@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { css } from '@emotion/react';
 import { from, headline } from '@guardian/source-foundations';
-import { BannerColorStyles, CloseButtonColorStyles } from '../styles/colorData';
+import { BannerColorStyles } from '../styles/colorData';
 import { BannerCloseButton } from '../components/BannerCloseButton';
 import { CTA, NewsletterFrequency } from '../newsletterCommon';
 import { NewsletterSubscribeCallback } from '../types/dcrTypes';
@@ -82,7 +82,6 @@ export const BannerNewsletter: React.FC<Props> = (props: Props) => {
                         trackClick={trackClick}
                         setShowBanner={setShowBanner}
                         ophanComponentId={ophanComponentId}
-                        colors={closeButtonColors}
                     />
                 </div>
             </div>
@@ -119,10 +118,4 @@ const defaultColors: BannerColorStyles = {
     styleButton: '#ffffff',
     styleButtonBackground: '#052962',
     styleButtonHover: '#234b8a',
-};
-
-const closeButtonColors: CloseButtonColorStyles = {
-    styleClose: `#333333`,
-    styleCloseBackground: '#ebe8e8',
-    styleCloseHover: '#e5e5e5',
 };

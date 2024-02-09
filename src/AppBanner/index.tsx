@@ -7,7 +7,7 @@ import type { TrackClick } from '../utils/tracking';
 
 import { AppStore } from '../assets/app-store';
 import { PlayStore } from '../assets/play-store';
-import { BannerColorStyles, CloseButtonColorStyles } from '../styles/colorData';
+import { BannerColorStyles } from '../styles/colorData';
 import { selfServeStyles } from '../styles/bannerCommon';
 import { BannerCloseButton, OnCloseClick } from '../components/BannerCloseButton';
 
@@ -123,7 +123,6 @@ export const AppBanner = (props: Props): ReactElement | null => {
                         trackClick={trackClick}
                         setShowBanner={setShowBanner}
                         ophanComponentId={ophanComponentId}
-                        colors={closeButtonColors}
                     />
                 </div>
             </div>
@@ -140,12 +139,6 @@ const defaultColors: BannerColorStyles = {
     styleButton: '#ffffff',
     styleButtonBackground: '#052962',
     styleButtonHover: '#234b8a',
-};
-
-const closeButtonColors: CloseButtonColorStyles = {
-    styleClose: `#333333`,
-    styleCloseBackground: '#ebe8e8',
-    styleCloseHover: '#e5e5e5',
 };
 
 const localStyles = {

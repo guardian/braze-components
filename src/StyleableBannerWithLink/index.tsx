@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { PrimaryCtaButton, defaultPrimaryCtaButtonColors } from '../components/PrimaryCtaButton';
 import { ReminderCtaButton, defaultReminderCtaButtonColors } from '../components/ReminderCtaButton';
-import { BannerCloseButton } from '../components/BannerCloseButton';
+import { BannerCloseButton, defaultBannerCloseButtonColors } from '../components/BannerCloseButton';
 import { ReminderStage } from '../logic/reminders';
 import type { TrackClick } from '../utils/tracking';
 import { FetchEmail } from '../types/dcrTypes';
-import { StyleableBannerColorStyles, CloseButtonColorStyles } from '../styles/colorData';
+import { StyleableBannerColorStyles } from '../styles/colorData';
 import { selfServeStyles } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';
 import { getColors } from '../styles/colorData';
@@ -82,7 +82,7 @@ export const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
 
     const primaryCtaColors = getColors(brazeProps, defaultPrimaryCtaButtonColors);
     const reminderCtaColors = getColors(brazeProps, defaultReminderCtaButtonColors);
-    const closeButtonColors = getColors(brazeProps, localDefaultCloseButtonColors);
+    const closeButtonColors = getColors(brazeProps, defaultBannerCloseButtonColors);
 
     const [showBanner, setShowBanner] = useState(true);
 
@@ -161,10 +161,4 @@ const defaultColors: StyleableBannerColorStyles = {
     styleReminderButtonBackground: '#ededed',
     styleReminderButtonHover: '#dcdcdc',
     styleReminderAnimation: '#707070',
-};
-
-const localDefaultCloseButtonColors: CloseButtonColorStyles = {
-    styleClose: '#052962',
-    styleCloseBackground: '#ededed',
-    styleCloseHover: '#e5e5e5',
 };

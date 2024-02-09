@@ -87,8 +87,8 @@ export const BannerCloseButton: React.FC<BannerCloseButtonProps> = (
 };
 
 export const defaultBannerCloseButtonColors: CloseButtonColorStyles = {
-    styleClose: '#052962',
-    styleCloseBackground: '#ededed',
+    styleClose: '#333333',
+    styleCloseBackground: '#ebe8e8',
     styleCloseHover: '#e5e5e5',
 };
 
