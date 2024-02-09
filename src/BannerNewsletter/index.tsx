@@ -3,33 +3,17 @@ import { css } from '@emotion/react';
 import { from, headline } from '@guardian/source-foundations';
 import { Button, SvgCross } from '@guardian/source-react-components';
 import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
-import { CTA, NewsletterFrequency } from '../newsletterCommon';
+import { CTA } from '../newsletterCommon';
+import {
+    NewsletterFrequencyBlock,
+    defaultNewsletterFrequencyColors,
+} from '../components/NewsletterFrequencyBlock';
 import { NewsletterSubscribeCallback } from '../types/dcrTypes';
 import type { TrackClick } from '../utils/tracking';
 import { BannerColorStyles } from '../styles/colorData';
 import { selfServeStyles } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
-
-const localStyles = {
-    heading: css`
-        ${headline.small({ fontWeight: 'bold' })};
-        margin: 0;
-        max-width: 100%;
-
-        ${from.mobileLandscape} {
-            ${headline.small({ fontWeight: 'bold' })};
-        }
-
-        ${from.tablet} {
-            ${headline.medium({ fontWeight: 'bold' })};
-            max-width: 100%;
-        }
-    `,
-    bold: css`
-        font-weight: bold;
-    `,
-};
 
 const defaultColors: BannerColorStyles = {
     styleBackground: '#ebe8e8',
@@ -62,7 +46,7 @@ export type Props = {
     subscribeToNewsletter: NewsletterSubscribeCallback;
 };
 
-const BannerNewsletter: React.FC<Props> = (props: Props) => {
+export const BannerNewsletter: React.FC<Props> = (props: Props) => {
     if (!canRender(props.brazeMessageProps)) {
         return null;
     }
@@ -111,7 +95,10 @@ const BannerNewsletter: React.FC<Props> = (props: Props) => {
             <div css={styles.contentContainer}>
                 <div css={styles.topLeftComponent}>
                     <div css={localStyles.heading}>{header}</div>
-                    <NewsletterFrequency frequency={frequency} />
+                    <NewsletterFrequencyBlock
+                        frequency={frequency}
+                        colors={defaultNewsletterFrequencyColors}
+                    />
                     <p css={styles.paragraph}>
                         {body} {boldText && <span css={localStyles.bold}>{boldText}</span>}
                     </p>
@@ -149,4 +136,22 @@ const BannerNewsletter: React.FC<Props> = (props: Props) => {
     );
 };
 
-export { BannerNewsletter };
+const localStyles = {
+    heading: css`
+        ${headline.small({ fontWeight: 'bold' })};
+        margin: 0;
+        max-width: 100%;
+
+        ${from.mobileLandscape} {
+            ${headline.small({ fontWeight: 'bold' })};
+        }
+
+        ${from.tablet} {
+            ${headline.medium({ fontWeight: 'bold' })};
+            max-width: 100%;
+        }
+    `,
+    bold: css`
+        font-weight: bold;
+    `,
+};

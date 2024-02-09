@@ -12,8 +12,75 @@ import {
 } from '@guardian/source-foundations';
 import { COMPONENT_NAME, canRender } from './canRender';
 import type { TrackClick } from '../utils/tracking';
-import { CTA, NewsletterFrequency } from '../newsletterCommon';
+import { CTA } from '../newsletterCommon';
+import {
+    NewsletterFrequencyBlock,
+    defaultNewsletterFrequencyColors,
+} from '../components/NewsletterFrequencyBlock';
 import { NewsletterSubscribeCallback } from '../types/dcrTypes';
+
+export { COMPONENT_NAME };
+
+export type BrazeMessageProps = {
+    header?: string;
+    frequency?: string;
+    paragraph1?: string;
+    paragraph2?: string;
+    imageUrl?: string;
+    newsletterId?: string;
+    ophanComponentId?: string;
+};
+
+export type Props = {
+    brazeMessageProps: BrazeMessageProps;
+    subscribeToNewsletter: NewsletterSubscribeCallback;
+    trackClick: TrackClick;
+};
+
+export const NewsletterEpic: React.FC<Props> = (props: Props) => {
+    const {
+        brazeMessageProps: {
+            header,
+            frequency,
+            paragraph1,
+            paragraph2,
+            imageUrl,
+            newsletterId,
+            ophanComponentId,
+        },
+        subscribeToNewsletter,
+        trackClick,
+    } = props;
+
+    if (!canRender(props.brazeMessageProps)) {
+        return null;
+    }
+
+    return (
+        <ThemeProvider theme={brand}>
+            <section css={styles.epicContainer}>
+                <div>
+                    <img css={styles.image} src={imageUrl}></img>
+                </div>
+                <div css={styles.rightSection}>
+                    <span css={styles.heading}>{header}</span>
+                    <NewsletterFrequencyBlock
+                        frequency={frequency}
+                        colors={defaultNewsletterFrequencyColors}
+                    />
+                    <p css={styles.paragraph}>{paragraph1}</p>
+                    {paragraph2 ? <p css={styles.paragraph}>{paragraph2}</p> : null}
+                    <CTA
+                        subscribeToNewsletter={subscribeToNewsletter}
+                        newsletterId={newsletterId as string}
+                        ophanComponentId={ophanComponentId}
+                        trackClick={trackClick}
+                    />
+                </div>
+            </section>
+        </ThemeProvider>
+    );
+};
 
 const styles = {
     epicContainer: css`
@@ -76,63 +143,3 @@ const styles = {
         }
     `,
 };
-
-export type BrazeMessageProps = {
-    header?: string;
-    frequency?: string;
-    paragraph1?: string;
-    paragraph2?: string;
-    imageUrl?: string;
-    newsletterId?: string;
-    ophanComponentId?: string;
-};
-
-export type Props = {
-    brazeMessageProps: BrazeMessageProps;
-    subscribeToNewsletter: NewsletterSubscribeCallback;
-    trackClick: TrackClick;
-};
-
-export const NewsletterEpic: React.FC<Props> = (props: Props) => {
-    const {
-        brazeMessageProps: {
-            header,
-            frequency,
-            paragraph1,
-            paragraph2,
-            imageUrl,
-            newsletterId,
-            ophanComponentId,
-        },
-        subscribeToNewsletter,
-        trackClick,
-    } = props;
-
-    if (!canRender(props.brazeMessageProps)) {
-        return null;
-    }
-
-    return (
-        <ThemeProvider theme={brand}>
-            <section css={styles.epicContainer}>
-                <div>
-                    <img css={styles.image} src={imageUrl}></img>
-                </div>
-                <div css={styles.rightSection}>
-                    <span css={styles.heading}>{header}</span>
-                    <NewsletterFrequency frequency={frequency} />
-                    <p css={styles.paragraph}>{paragraph1}</p>
-                    {paragraph2 ? <p css={styles.paragraph}>{paragraph2}</p> : null}
-                    <CTA
-                        subscribeToNewsletter={subscribeToNewsletter}
-                        newsletterId={newsletterId as string}
-                        ophanComponentId={ophanComponentId}
-                        trackClick={trackClick}
-                    />
-                </div>
-            </section>
-        </ThemeProvider>
-    );
-};
-
-export { COMPONENT_NAME };

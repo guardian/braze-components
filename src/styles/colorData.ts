@@ -21,6 +21,11 @@ export interface LoadingDotsColorStyles {
     styleReminderAnimation: ColorValueHex;
 }
 
+export interface NewsletterFrequencyColorStyles {
+    styleClockColor: ColorValueHex;
+    styleFrequencyText: ColorValueHex;
+}
+
 export interface PrimaryButtonColorStyles {
     styleButton: ColorValueHex;
     styleButtonBackground: ColorValueHex;
@@ -56,6 +61,7 @@ export type EpicColorStyles = ReminderButtonColorStyles;
 
 interface AllAvailableColorStyles
     extends LoadingDotsColorStyles,
+        NewsletterFrequencyColorStyles,
         ReminderButtonColorStyles,
         PrimaryButtonColorStyles,
         BannerColorStyles,
