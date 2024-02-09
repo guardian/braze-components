@@ -12,11 +12,11 @@ import {
 } from '@guardian/source-foundations';
 import { COMPONENT_NAME, canRender } from './canRender';
 import type { TrackClick } from '../utils/tracking';
-import { CTA } from '../newsletterCommon';
 import {
     NewsletterFrequencyBlock,
     defaultNewsletterFrequencyColors,
 } from '../components/NewsletterFrequencyBlock';
+import { NewsletterCtaButton } from '../components/NewsletterCtaButton';
 import { NewsletterSubscribeCallback } from '../types/dcrTypes';
 
 export { COMPONENT_NAME };
@@ -70,11 +70,12 @@ export const NewsletterEpic: React.FC<Props> = (props: Props) => {
                     />
                     <p css={styles.paragraph}>{paragraph1}</p>
                     {paragraph2 ? <p css={styles.paragraph}>{paragraph2}</p> : null}
-                    <CTA
+                    <NewsletterCtaButton
                         subscribeToNewsletter={subscribeToNewsletter}
                         newsletterId={newsletterId as string}
                         ophanComponentId={ophanComponentId}
                         trackClick={trackClick}
+                        newsletterCta="Sign up"
                     />
                 </div>
             </section>

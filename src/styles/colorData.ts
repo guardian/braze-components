@@ -38,6 +38,12 @@ export interface ReminderButtonColorStyles extends LoadingDotsColorStyles {
     styleReminderButtonHover: ColorValueHex;
 }
 
+export interface NewsletterButtonColorStyles extends LoadingDotsColorStyles {
+    styleNewsletterButton: ColorValueHex;
+    styleNewsletterButtonBackground: ColorValueHex;
+    styleNewsletterButtonHover: ColorValueHex;
+}
+
 export interface BannerCopyColorStyles {
     styleBackground: ColorValueHex;
     styleHeader: ColorValueHex;
@@ -64,6 +70,7 @@ interface AllAvailableColorStyles
         NewsletterFrequencyColorStyles,
         ReminderButtonColorStyles,
         PrimaryButtonColorStyles,
+        NewsletterButtonColorStyles,
         BannerColorStyles,
         EpicColorStyles {}
 

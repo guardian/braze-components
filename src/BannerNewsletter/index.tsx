@@ -3,11 +3,11 @@ import { css } from '@emotion/react';
 import { from, headline } from '@guardian/source-foundations';
 import { Button, SvgCross } from '@guardian/source-react-components';
 import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
-import { CTA } from '../newsletterCommon';
 import {
     NewsletterFrequencyBlock,
     defaultNewsletterFrequencyColors,
 } from '../components/NewsletterFrequencyBlock';
+import { NewsletterCtaButton } from '../components/NewsletterCtaButton';
 import { NewsletterSubscribeCallback } from '../types/dcrTypes';
 import type { TrackClick } from '../utils/tracking';
 import { BannerColorStyles } from '../styles/colorData';
@@ -105,11 +105,12 @@ export const BannerNewsletter: React.FC<Props> = (props: Props) => {
                     {secondParagraph && (
                         <p css={[styles.paragraph, styles.secondParagraph]}>{secondParagraph}</p>
                     )}
-                    <CTA
+                    <NewsletterCtaButton
                         subscribeToNewsletter={subscribeToNewsletter}
                         newsletterId={newsletterId as string}
                         ophanComponentId={ophanComponentId}
                         trackClick={trackClick}
+                        newsletterCta="Sign up"
                     />
                 </div>
                 <div css={styles.centeredBottomRightComponent}>
