@@ -61,9 +61,7 @@ export const NewsletterEpic: React.FC<Props> = (props: Props) => {
                 </div>
                 <div css={styles.rightSection}>
                     <span css={styles.heading}>{header}</span>
-                    <NewsletterFrequencyBlock
-                        frequency={frequency}
-                    />
+                    <NewsletterFrequencyBlock frequency={frequency} />
                     <p css={styles.paragraph}>{paragraph1}</p>
                     {paragraph2 ? <p css={styles.paragraph}>{paragraph2}</p> : null}
                     <NewsletterCtaButton

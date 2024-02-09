@@ -92,9 +92,7 @@ export const BannerNewsletter: React.FC<Props> = (props: Props) => {
             <div css={styles.contentContainer}>
                 <div css={styles.topLeftComponent}>
                     <div css={localStyles.heading}>{header}</div>
-                    <NewsletterFrequencyBlock
-                        frequency={frequency}
-                    />
+                    <NewsletterFrequencyBlock frequency={frequency} />
                     <p css={styles.paragraph}>
                         {body} {boldText && <span css={localStyles.bold}>{boldText}</span>}
                     </p>
