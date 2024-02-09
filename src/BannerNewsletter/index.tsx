@@ -3,10 +3,7 @@ import { css } from '@emotion/react';
 import { from, headline } from '@guardian/source-foundations';
 import { Button, SvgCross } from '@guardian/source-react-components';
 import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
-import {
-    NewsletterFrequencyBlock,
-    defaultNewsletterFrequencyColors,
-} from '../components/NewsletterFrequencyBlock';
+import { NewsletterFrequencyBlock } from '../components/NewsletterFrequencyBlock';
 import { NewsletterCtaButton } from '../components/NewsletterCtaButton';
 import { NewsletterSubscribeCallback } from '../types/dcrTypes';
 import type { TrackClick } from '../utils/tracking';
@@ -97,7 +94,6 @@ export const BannerNewsletter: React.FC<Props> = (props: Props) => {
                     <div css={localStyles.heading}>{header}</div>
                     <NewsletterFrequencyBlock
                         frequency={frequency}
-                        colors={defaultNewsletterFrequencyColors}
                     />
                     <p css={styles.paragraph}>
                         {body} {boldText && <span css={localStyles.bold}>{boldText}</span>}

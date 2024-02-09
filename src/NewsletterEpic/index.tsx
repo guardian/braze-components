@@ -12,10 +12,7 @@ import {
 } from '@guardian/source-foundations';
 import { COMPONENT_NAME, canRender } from './canRender';
 import type { TrackClick } from '../utils/tracking';
-import {
-    NewsletterFrequencyBlock,
-    defaultNewsletterFrequencyColors,
-} from '../components/NewsletterFrequencyBlock';
+import { NewsletterFrequencyBlock } from '../components/NewsletterFrequencyBlock';
 import { NewsletterCtaButton } from '../components/NewsletterCtaButton';
 import { NewsletterSubscribeCallback } from '../types/dcrTypes';
 
@@ -66,7 +63,6 @@ export const NewsletterEpic: React.FC<Props> = (props: Props) => {
                     <span css={styles.heading}>{header}</span>
                     <NewsletterFrequencyBlock
                         frequency={frequency}
-                        colors={defaultNewsletterFrequencyColors}
                     />
                     <p css={styles.paragraph}>{paragraph1}</p>
                     {paragraph2 ? <p css={styles.paragraph}>{paragraph2}</p> : null}
