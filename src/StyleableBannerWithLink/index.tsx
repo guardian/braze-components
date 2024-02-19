@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Button, SvgCross } from '@guardian/source-react-components';
-import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
 import { PrimaryCtaButton, defaultPrimaryCtaButtonColors } from '../components/PrimaryCtaButton';
 import { ReminderCtaButton, defaultReminderCtaButtonColors } from '../components/ReminderCtaButton';
+import { BannerCloseButton, defaultBannerCloseButtonColors } from '../components/BannerCloseButton';
 import { ReminderStage } from '../logic/reminders';
 import type { TrackClick } from '../utils/tracking';
 import { FetchEmail } from '../types/dcrTypes';
@@ -44,31 +43,13 @@ export type BrazeMessageProps = {
     showPrivacyText?: string;
 };
 
-const defaultColors: StyleableBannerColorStyles = {
-    styleBackground: '#ededed',
-    styleHeader: '#333333',
-    styleBody: '#333333',
-    styleHighlight: '#333333',
-    styleHighlightBackground: '#ededed',
-    styleButton: '#ffffff',
-    styleButtonBackground: '#052962',
-    styleButtonHover: '#234b8a',
-    styleReminderButton: '#121212',
-    styleReminderButtonBackground: '#ededed',
-    styleReminderButtonHover: '#dcdcdc',
-    styleReminderAnimation: '#707070',
-    styleClose: '#052962',
-    styleCloseBackground: '#ededed',
-    styleCloseHover: '#e5e5e5',
-};
-
 export type Props = {
     brazeMessageProps: BrazeMessageProps;
     trackClick: TrackClick;
     fetchEmail: FetchEmail;
 };
 
-const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
+export const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
     if (!canRender(props.brazeMessageProps)) {
         return null;
     }
@@ -99,26 +80,11 @@ const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
 
     const showPrivacyTextBoolean = showPrivacyText === 'true';
 
-    const primaryCtaStyles = getColors(brazeProps, defaultPrimaryCtaButtonColors);
-    const reminderCtaStyles = getColors(brazeProps, defaultReminderCtaButtonColors);
+    const primaryCtaColors = getColors(brazeProps, defaultPrimaryCtaButtonColors);
+    const reminderCtaColors = getColors(brazeProps, defaultReminderCtaButtonColors);
+    const closeButtonColors = getColors(brazeProps, defaultBannerCloseButtonColors);
 
     const [showBanner, setShowBanner] = useState(true);
-
-    const onCloseClick: OnCloseClick = (evt, internalButtonId) => {
-        evt.preventDefault();
-        onCloseAction(internalButtonId);
-    };
-
-    const onCloseAction = (internalButtonId: number): void => {
-        setShowBanner(false);
-        document.body.focus();
-        trackClick({
-            internalButtonId,
-            ophanComponentId: ophanComponentId as string,
-        });
-    };
-
-    useEscapeShortcut(() => onCloseAction(CLOSE_BUTTON_ID));
 
     if (!showBanner) {
         return null;
@@ -143,7 +109,7 @@ const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
                             buttonUrl={buttonUrl as string}
                             showPaymentIcons={showPaymentIcons === 'true'}
                             ophanComponentId={ophanComponentId as string}
-                            colors={primaryCtaStyles}
+                            colors={primaryCtaColors}
                             trackClick={trackClick}
                         />
                         {reminderStage && (
@@ -154,7 +120,7 @@ const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
                                 ophanComponentId={ophanComponentId as string}
                                 trackClick={trackClick}
                                 fetchEmail={fetchEmail}
-                                colors={reminderCtaStyles}
+                                colors={reminderCtaColors}
                                 showPrivacyText={showPrivacyTextBoolean}
                             />
                         )}
@@ -170,24 +136,29 @@ const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
                     <div css={imagePosition === 'bottom' ? styles.image : styles.centeredImage}>
                         <img src={imageUrl} alt={imageAltText} />
                     </div>
-                    <div css={styles.iconPanel}>
-                        <Button
-                            icon={<SvgCross />}
-                            hideLabel={true}
-                            cssOverrides={styles.closeButton}
-                            priority="tertiary"
-                            size="small"
-                            aria-label="Close"
-                            onClick={(e) => onCloseClick(e, CLOSE_BUTTON_ID)}
-                            tabIndex={0}
-                        >
-                            {' '}
-                        </Button>
-                    </div>
+                    <BannerCloseButton
+                        trackClick={trackClick}
+                        setShowBanner={setShowBanner}
+                        ophanComponentId={ophanComponentId}
+                        colors={closeButtonColors}
+                    />
                 </div>
             </div>
         </div>
     );
 };
 
-export { StyleableBannerWithLink };
+const defaultColors: StyleableBannerColorStyles = {
+    styleBackground: '#ededed',
+    styleHeader: '#333333',
+    styleBody: '#333333',
+    styleHighlight: '#333333',
+    styleHighlightBackground: '#ededed',
+    styleButton: '#ffffff',
+    styleButtonBackground: '#052962',
+    styleButtonHover: '#234b8a',
+    styleReminderButton: '#121212',
+    styleReminderButtonBackground: '#ededed',
+    styleReminderButtonHover: '#dcdcdc',
+    styleReminderAnimation: '#707070',
+};

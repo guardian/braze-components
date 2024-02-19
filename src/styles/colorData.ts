@@ -44,15 +44,18 @@ export interface NewsletterButtonColorStyles extends LoadingDotsColorStyles {
     styleNewsletterButtonHover: ColorValueHex;
 }
 
+export interface CloseButtonColorStyles {
+    styleClose: ColorValueHex;
+    styleCloseBackground: ColorValueHex;
+    styleCloseHover: ColorValueHex;
+}
+
 export interface BannerCopyColorStyles {
     styleBackground: ColorValueHex;
     styleHeader: ColorValueHex;
     styleBody: ColorValueHex;
     styleHighlight: ColorValueHex;
     styleHighlightBackground: ColorValueHex;
-    styleClose: ColorValueHex;
-    styleCloseBackground: ColorValueHex;
-    styleCloseHover: ColorValueHex;
 }
 
 export interface BannerColorStyles extends BannerCopyColorStyles, PrimaryButtonColorStyles {}
@@ -72,7 +75,10 @@ interface AllAvailableColorStyles
         PrimaryButtonColorStyles,
         NewsletterButtonColorStyles,
         BannerColorStyles,
-        EpicColorStyles {}
+        LoadingDotsColorStyles,
+        PrimaryButtonColorStyles,
+        ReminderButtonColorStyles,
+        CloseButtonColorStyles {}
 
 type ColorStylesType = keyof AllAvailableColorStyles;
 

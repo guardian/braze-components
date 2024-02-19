@@ -1,30 +1,15 @@
 import React, { useState } from 'react';
 import { css } from '@emotion/react';
 import { from, headline } from '@guardian/source-foundations';
-import { Button, SvgCross } from '@guardian/source-react-components';
-import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
 import { NewsletterFrequencyBlock } from '../components/NewsletterFrequencyBlock';
 import { NewsletterCtaButton } from '../components/NewsletterCtaButton';
+import { BannerColorStyles } from '../styles/colorData';
+import { BannerCloseButton } from '../components/BannerCloseButton';
 import { NewsletterSubscribeCallback } from '../types/dcrTypes';
 import type { TrackClick } from '../utils/tracking';
-import { BannerColorStyles } from '../styles/colorData';
 import { selfServeStyles } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
-
-const defaultColors: BannerColorStyles = {
-    styleBackground: '#ebe8e8',
-    styleHeader: `#333333`,
-    styleBody: '#666',
-    styleHighlight: `#333333`,
-    styleHighlightBackground: '#ebe8e8',
-    styleButton: '#ffffff',
-    styleButtonBackground: '#052962',
-    styleButtonHover: '#234b8a',
-    styleClose: `#333333`,
-    styleCloseBackground: '#ebe8e8',
-    styleCloseHover: '#e5e5e5',
-};
 
 export type BrazeMessageProps = {
     ophanComponentId?: string;
@@ -67,22 +52,6 @@ export const BannerNewsletter: React.FC<Props> = (props: Props) => {
 
     const [showBanner, setShowBanner] = useState(true);
 
-    const onCloseClick: OnCloseClick = (evt, internalButtonId) => {
-        evt.preventDefault();
-        onCloseAction(internalButtonId);
-    };
-
-    const onCloseAction = (internalButtonId: number): void => {
-        setShowBanner(false);
-        document.body.focus();
-        trackClick({
-            internalButtonId,
-            ophanComponentId: ophanComponentId as string,
-        });
-    };
-
-    useEscapeShortcut(() => onCloseAction(CLOSE_BUTTON_ID));
-
     if (!showBanner) {
         return null;
     }
@@ -111,24 +80,26 @@ export const BannerNewsletter: React.FC<Props> = (props: Props) => {
                     <div css={styles.centeredImage}>
                         <img src={imageUrl} alt="" />
                     </div>
-                    <div css={styles.iconPanel}>
-                        <Button
-                            icon={<SvgCross />}
-                            hideLabel={true}
-                            cssOverrides={styles.closeButton}
-                            priority="tertiary"
-                            size="small"
-                            aria-label="Close"
-                            onClick={(e) => onCloseClick(e, CLOSE_BUTTON_ID)}
-                            tabIndex={0}
-                        >
-                            {' '}
-                        </Button>
-                    </div>
+                    <BannerCloseButton
+                        trackClick={trackClick}
+                        setShowBanner={setShowBanner}
+                        ophanComponentId={ophanComponentId}
+                    />
                 </div>
             </div>
         </div>
     );
+};
+
+const defaultColors: BannerColorStyles = {
+    styleBackground: '#ebe8e8',
+    styleHeader: `#333333`,
+    styleBody: '#666',
+    styleHighlight: `#333333`,
+    styleHighlightBackground: '#ebe8e8',
+    styleButton: '#ffffff',
+    styleButtonBackground: '#052962',
+    styleButtonHover: '#234b8a',
 };
 
 const localStyles = {

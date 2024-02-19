@@ -204,24 +204,6 @@ export const selfServeStyles = (userVals: Record<string, string>, defaults: Bann
             }
         `,
 
-        closeButton: css`
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0;
-            position: absolute;
-            top: 15px;
-            right: 10px;
-            border: 1px solid ${style.styleClose};
-            background-color: ${style.styleCloseBackground};
-            &:hover {
-                background-color: ${style.styleCloseHover};
-            }
-            & svg {
-                fill: ${style.styleClose};
-            }
-        `,
-
         image: css`
             max-width: 100%;
             max-height: 300px;
