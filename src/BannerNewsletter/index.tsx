@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { css } from '@emotion/react';
 import { from, headline } from '@guardian/source-foundations';
+import { NewsletterFrequencyBlock } from '../components/NewsletterFrequencyBlock';
+import { NewsletterCtaButton } from '../components/NewsletterCtaButton';
 import { BannerColorStyles } from '../styles/colorData';
 import { BannerCloseButton } from '../components/BannerCloseButton';
-import { CTA, NewsletterFrequency } from '../newsletterCommon';
 import { NewsletterSubscribeCallback } from '../types/dcrTypes';
 import type { TrackClick } from '../utils/tracking';
 import { selfServeStyles } from '../styles/bannerCommon';
@@ -60,18 +61,19 @@ export const BannerNewsletter: React.FC<Props> = (props: Props) => {
             <div css={styles.contentContainer}>
                 <div css={styles.topLeftComponent}>
                     <div css={localStyles.heading}>{header}</div>
-                    <NewsletterFrequency frequency={frequency} />
+                    <NewsletterFrequencyBlock frequency={frequency} />
                     <p css={styles.paragraph}>
                         {body} {boldText && <span css={localStyles.bold}>{boldText}</span>}
                     </p>
                     {secondParagraph && (
                         <p css={[styles.paragraph, styles.secondParagraph]}>{secondParagraph}</p>
                     )}
-                    <CTA
+                    <NewsletterCtaButton
                         subscribeToNewsletter={subscribeToNewsletter}
                         newsletterId={newsletterId as string}
                         ophanComponentId={ophanComponentId}
                         trackClick={trackClick}
+                        newsletterCta="Sign up"
                     />
                 </div>
                 <div css={styles.centeredBottomRightComponent}>
@@ -87,6 +89,17 @@ export const BannerNewsletter: React.FC<Props> = (props: Props) => {
             </div>
         </div>
     );
+};
+
+const defaultColors: BannerColorStyles = {
+    styleBackground: '#ebe8e8',
+    styleHeader: `#333333`,
+    styleBody: '#666',
+    styleHighlight: `#333333`,
+    styleHighlightBackground: '#ebe8e8',
+    styleButton: '#ffffff',
+    styleButtonBackground: '#052962',
+    styleButtonHover: '#234b8a',
 };
 
 const localStyles = {
@@ -107,15 +120,4 @@ const localStyles = {
     bold: css`
         font-weight: bold;
     `,
-};
-
-const defaultColors: BannerColorStyles = {
-    styleBackground: '#ebe8e8',
-    styleHeader: `#333333`,
-    styleBody: '#666',
-    styleHighlight: `#333333`,
-    styleHighlightBackground: '#ebe8e8',
-    styleButton: '#ffffff',
-    styleButtonBackground: '#052962',
-    styleButtonHover: '#234b8a',
 };
