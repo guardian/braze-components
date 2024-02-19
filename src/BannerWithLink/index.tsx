@@ -1,25 +1,12 @@
 import React, { useState } from 'react';
-import { Button, LinkButton, SvgCross } from '@guardian/source-react-components';
-import { useEscapeShortcut, OnCloseClick, CLOSE_BUTTON_ID } from '../bannerCommon/bannerActions';
+import { LinkButton } from '@guardian/source-react-components';
 import type { TrackClick } from '../utils/tracking';
 import { BannerColorStyles } from '../styles/colorData';
+import { BannerCloseButton } from '../components/BannerCloseButton';
 import { selfServeStyles } from '../styles/bannerCommon';
 import { canRender, COMPONENT_NAME } from './canRender';
-export { COMPONENT_NAME };
 
-const defaultColors: BannerColorStyles = {
-    styleBackground: '#ebe8e8',
-    styleHeader: `#333333`,
-    styleBody: '#666666',
-    styleHighlight: `#333333`,
-    styleHighlightBackground: '#ebe8e8',
-    styleButton: '#ffffff',
-    styleButtonBackground: '#052962',
-    styleButtonHover: '#234b8a',
-    styleClose: `#333333`,
-    styleCloseBackground: '#ebe8e8',
-    styleCloseHover: '#e5e5e5',
-};
+export { COMPONENT_NAME };
 
 export type BrazeMessageProps = {
     ophanComponentId?: string;
@@ -36,7 +23,7 @@ export type Props = {
     trackClick: TrackClick;
 };
 
-const BannerWithLink: React.FC<Props> = (props: Props) => {
+export const BannerWithLink: React.FC<Props> = (props: Props) => {
     if (!canRender(props.brazeMessageProps)) {
         return null;
     }
@@ -57,22 +44,6 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
     const styles = selfServeStyles(props.brazeMessageProps, defaultColors);
 
     const [showBanner, setShowBanner] = useState(true);
-
-    const onCloseClick: OnCloseClick = (evt, internalButtonId) => {
-        evt.preventDefault();
-        onCloseAction(internalButtonId);
-    };
-
-    const onCloseAction = (internalButtonId: number): void => {
-        setShowBanner(false);
-        document.body.focus();
-        trackClick({
-            internalButtonId,
-            ophanComponentId: ophanComponentId as string,
-        });
-    };
-
-    useEscapeShortcut(() => onCloseAction(CLOSE_BUTTON_ID));
 
     if (!showBanner) {
         return null;
@@ -108,24 +79,24 @@ const BannerWithLink: React.FC<Props> = (props: Props) => {
                     <div css={styles.image}>
                         <img src={imageUrl} alt="" />
                     </div>
-                    <div css={styles.iconPanel}>
-                        <Button
-                            icon={<SvgCross />}
-                            hideLabel={true}
-                            cssOverrides={styles.closeButton}
-                            priority="tertiary"
-                            size="small"
-                            aria-label="Close"
-                            onClick={(e) => onCloseClick(e, CLOSE_BUTTON_ID)}
-                            tabIndex={0}
-                        >
-                            {' '}
-                        </Button>
-                    </div>
+                    <BannerCloseButton
+                        trackClick={trackClick}
+                        setShowBanner={setShowBanner}
+                        ophanComponentId={ophanComponentId}
+                    />
                 </div>
             </div>
         </div>
     );
 };
 
-export { BannerWithLink };
+const defaultColors: BannerColorStyles = {
+    styleBackground: '#ebe8e8',
+    styleHeader: `#333333`,
+    styleBody: '#666666',
+    styleHighlight: `#333333`,
+    styleHighlightBackground: '#ebe8e8',
+    styleButton: '#ffffff',
+    styleButtonBackground: '#052962',
+    styleButtonHover: '#234b8a',
+};
