@@ -22,6 +22,11 @@ import {
     canRender as bannerNewsletterCanRender,
 } from '../BannerNewsletter/canRender';
 
+import {
+    COMPONENT_NAME as STYLEABLE_BANNER_NEWSLETTER_NAME,
+    canRender as styleableBannerNewsletterCanRender,
+} from '../StyleableBannerNewsletter/canRender';
+
 // Default Epics
 // --------------------------------------------
 import { COMPONENT_NAME as EPIC_NAME, canRender as epicCanRender } from '../Epic/canRender';
@@ -83,6 +88,7 @@ const COMPONENT_CAN_RENDER_MAPPINGS: Record<
     [BANNER_WITH_LINK_NAME]: bannerWithLinkCanRender,
     [STYLEABLE_BANNER_WITH_LINK_NAME]: styleableBannerWithLinkCanRender,
     [BANNER_NEWSLETTER_NAME]: bannerNewsletterCanRender,
+    [STYLEABLE_BANNER_NEWSLETTER_NAME]: styleableBannerNewsletterCanRender,
 
     [EPIC_NAME]: epicCanRender,
     [EPIC_WITH_IMAGE_NAME]: epicWithImageCanRender,

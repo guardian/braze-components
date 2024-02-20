@@ -18,6 +18,11 @@ export default {
     argTypes: {
         ...coreArgTypes,
         ...ophanComponentIdArgType,
+        newsletterId: {
+            name: 'newsletterId',
+            type: { name: 'string', required: true },
+            description: 'The newsletter Id value',
+        },
         header: {
             name: 'header',
             type: { name: 'string', required: true },
@@ -37,11 +42,6 @@ export default {
             name: 'secondParagraph',
             type: { name: 'string', required: false },
             description: 'Additional paragraph',
-        },
-        newsletterId: {
-            name: 'newsletterId',
-            type: { name: 'string', required: true },
-            description: 'The newsletter Id value',
         },
         frequency: {
             name: 'frequency',

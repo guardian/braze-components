@@ -7,8 +7,8 @@ import type { TrackClick } from '../utils/tracking';
 
 import { AppStore } from '../assets/app-store';
 import { PlayStore } from '../assets/play-store';
-import { BannerColorStyles } from '../styles/colorData';
-import { selfServeStyles } from '../styles/bannerCommon';
+import { BannerWithLinkBaseColorStyles, getColors } from '../styles/colorData';
+import { getBannerWithLinkStyles } from '../StyleableBannerWithLink';
 import { BannerCloseButton, OnCloseClick } from '../components/BannerCloseButton';
 
 import { canRender, COMPONENT_NAME } from './canRender';
@@ -39,7 +39,8 @@ export const AppBanner = (props: Props): ReactElement | null => {
         trackClick,
     } = props;
 
-    const styles = selfServeStyles(props.brazeMessageProps, defaultColors);
+    const bannerWithLinkBaseColors = getColors(props.brazeMessageProps, defaultColors);
+    const styles = getBannerWithLinkStyles(props.brazeMessageProps, bannerWithLinkBaseColors);
 
     const [showBanner, setShowBanner] = useState(true);
 
@@ -94,7 +95,7 @@ export const AppBanner = (props: Props): ReactElement | null => {
                     </p>
 
                     <ThemeProvider theme={overrridenReaderRevenueTheme}>
-                        <Button onClick={(e) => onCloseClick(e, 0)} css={styles.primaryButton}>
+                        <Button onClick={(e) => onCloseClick(e, 0)} css={localStyles.primaryButton}>
                             {'Ok, got it'}
                         </Button>
                     </ThemeProvider>
@@ -130,15 +131,12 @@ export const AppBanner = (props: Props): ReactElement | null => {
     );
 };
 
-const defaultColors: BannerColorStyles = {
+const defaultColors: BannerWithLinkBaseColorStyles = {
     styleBackground: '#ebe8e8',
     styleHeader: `#333333`,
     styleBody: '#666',
     styleHighlight: `#333333`,
     styleHighlightBackground: '#ebe8e8',
-    styleButton: '#ffffff',
-    styleButtonBackground: '#052962',
-    styleButtonHover: '#234b8a',
 };
 
 const localStyles = {
@@ -163,6 +161,15 @@ const localStyles = {
 
         ${from.wide} {
             margin-right: 100px;
+        }
+    `,
+
+    primaryButton: css`
+        margin-right: ${space[3]}px;
+        color: #ffffff;
+        background-color: #052962;
+        &:hover {
+            background-color: #234b8a;
         }
     `,
 

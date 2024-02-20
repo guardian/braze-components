@@ -50,37 +50,52 @@ export interface CloseButtonColorStyles {
     styleCloseHover: ColorValueHex;
 }
 
-export interface BannerCopyColorStyles {
+interface BannerFrameColorStyles {
     styleBackground: ColorValueHex;
+}
+
+export interface BannerWithLinkBaseColorStyles extends BannerFrameColorStyles {
     styleHeader: ColorValueHex;
     styleBody: ColorValueHex;
     styleHighlight: ColorValueHex;
     styleHighlightBackground: ColorValueHex;
 }
 
-export interface BannerColorStyles extends BannerCopyColorStyles, PrimaryButtonColorStyles {}
-
-export interface StyleableBannerColorStyles
-    extends ReminderButtonColorStyles,
-        PrimaryButtonColorStyles,
-        BannerCopyColorStyles {}
-
-// This will become an interface once we build a more generic newsletter epic with limited styling around the newsletter 1-click signup button
-export type EpicColorStyles = ReminderButtonColorStyles;
+export interface BannerNewsletterBaseColorStyles extends BannerFrameColorStyles {
+    styleHeader: ColorValueHex;
+    styleBody: ColorValueHex;
+    styleSecondParagraph: ColorValueHex;
+    styleBoldText: ColorValueHex;
+    styleBoldTextBackground: ColorValueHex;
+}
 
 interface AllAvailableColorStyles
-    extends LoadingDotsColorStyles,
+    extends BannerFrameColorStyles,
+        BannerWithLinkBaseColorStyles,
+        BannerNewsletterBaseColorStyles,
         NewsletterFrequencyColorStyles,
-        ReminderButtonColorStyles,
         PrimaryButtonColorStyles,
         NewsletterButtonColorStyles,
-        BannerColorStyles,
+        ReminderButtonColorStyles,
         LoadingDotsColorStyles,
+        CloseButtonColorStyles {}
+
+type ColorStylesType = keyof AllAvailableColorStyles;
+
+export interface StyleableBannerWithLinkColorStyles
+    extends BannerWithLinkBaseColorStyles,
         PrimaryButtonColorStyles,
         ReminderButtonColorStyles,
         CloseButtonColorStyles {}
 
-type ColorStylesType = keyof AllAvailableColorStyles;
+export interface StyleableBannerNewsletterColorStyles
+    extends BannerNewsletterBaseColorStyles,
+        NewsletterFrequencyColorStyles,
+        NewsletterButtonColorStyles,
+        CloseButtonColorStyles {}
+
+// This will become an interface once we build a more generic newsletter epic with limited styling around the newsletter 1-click signup button
+export type EpicColorStyles = ReminderButtonColorStyles;
 
 export function getColors<T extends Partial<Record<ColorStylesType, ColorValueHex>>>(
     userVals: Extras,
