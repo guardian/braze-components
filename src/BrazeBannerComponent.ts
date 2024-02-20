@@ -28,8 +28,8 @@ import {
 export type CommonBannerComponentProps = {
     componentName: string;
     brazeMessageProps: BrazeMessageProps;
-    subscribeToNewsletter: NewsletterSubscribeCallback;
-    fetchEmail: FetchEmail;
+    subscribeToNewsletter?: NewsletterSubscribeCallback;
+    fetchEmail?: FetchEmail;
     logButtonClickWithBraze: BrazeClickHandler;
     submitComponentEvent: SubmitComponentEvent;
 };

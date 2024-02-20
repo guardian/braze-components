@@ -77,8 +77,6 @@ const StoryTemplate = (args: BrazeMessageProps & { componentName: string }): Rea
                 logButtonClickWithBraze={(internalButtonId) => {
                     console.log(`Button with internal ID ${internalButtonId} clicked`);
                 }}
-                subscribeToNewsletter={() => mockSubscribe('')}
-                fetchEmail={() => mockFetchEmail()}
                 submitComponentEvent={(componentEvent) => {
                     console.log('submitComponentEvent called with: ', componentEvent);
                 }}

@@ -49,12 +49,12 @@ export type BrazeMessageProps = {
 export type Props = {
     brazeMessageProps: BrazeMessageProps;
     trackClick: TrackClick;
-    subscribeToNewsletter: NewsletterSubscribeCallback;
+    subscribeToNewsletter?: NewsletterSubscribeCallback;
 };
 
 const StyleableBannerNewsletter: React.FC<Props> = (props: Props) => {
     console.log('Using StyleableBannerNewsletter');
-    if (!canRender(props.brazeMessageProps)) {
+    if (!props.subscribeToNewsletter || !canRender(props.brazeMessageProps)) {
         console.log('StyleableBannerNewsletter failed render test');
         return null;
     }
