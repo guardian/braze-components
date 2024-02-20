@@ -24,12 +24,9 @@ export type Props = {
 };
 
 export const BannerNewsletter: React.FC<Props> = (props: Props) => {
-    console.log('BannerNewsletter', props);
     if (!canRender(props.brazeMessageProps)) {
-        console.log('BannerNewsletter - canRender check failed');
         return null;
     }
 
-    console.log('BannerNewsletter - rendering with StyleableBannerNewsletter');
     return <StyleableBannerNewsletter {...props}></StyleableBannerNewsletter>;
 };

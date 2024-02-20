@@ -53,13 +53,10 @@ export type Props = {
 };
 
 const StyleableBannerNewsletter: React.FC<Props> = (props: Props) => {
-    console.log('Using StyleableBannerNewsletter');
     if (!props.subscribeToNewsletter || !canRender(props.brazeMessageProps)) {
-        console.log('StyleableBannerNewsletter failed render test');
         return null;
     }
 
-    console.log('StyleableBannerNewsletter will render');
     const {
         brazeMessageProps: {
             ophanComponentId,

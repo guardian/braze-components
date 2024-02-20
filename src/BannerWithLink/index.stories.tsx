@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import { BrazeBannerComponent } from '../BrazeBannerComponent';
-import { StorybookWrapper, mockFetchEmail, mockSubscribe } from '../utils/StorybookWrapper';
+import { StorybookWrapper } from '../utils/StorybookWrapper';
 import { knobsData } from '../utils/knobsData';
 import { coreArgTypes, ophanComponentIdArgType } from '../storybookCommon/argTypes';
 import { BrazeMessageProps } from '.';
