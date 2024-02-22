@@ -49,7 +49,7 @@ export type BrazeMessageProps = {
 export type Props = {
     brazeMessageProps: BrazeMessageProps;
     trackClick: TrackClick;
-    fetchEmail?: FetchEmail;
+    fetchEmail: FetchEmail;
 };
 
 export const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {

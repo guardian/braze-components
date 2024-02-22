@@ -20,7 +20,7 @@ export type BrazeMessageProps = {
 export type Props = {
     brazeMessageProps: BrazeMessageProps;
     trackClick: TrackClick;
-    subscribeToNewsletter?: NewsletterSubscribeCallback;
+    subscribeToNewsletter: NewsletterSubscribeCallback;
 };
 
 export const BannerNewsletter: React.FC<Props> = (props: Props) => {

@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import { BrazeBannerComponent } from '../BrazeBannerComponent';
-import { StorybookWrapper } from '../utils/StorybookWrapper';
+import { StorybookWrapper, mockFetchEmail, mockSubscribe } from '../utils/StorybookWrapper';
 import { knobsData } from '../utils/knobsData';
 import { withGrid, grid } from '../../.storybook/grid/withGrid';
 import { BrazeMessageProps } from '.';
@@ -68,6 +68,8 @@ const StoryTemplate = (args: BrazeMessageProps & { componentName: string }): Rea
                     console.log('submitComponentEvent called with: ', componentEvent);
                 }}
                 brazeMessageProps={brazeMessageProps}
+                subscribeToNewsletter={() => mockSubscribe('')}
+                fetchEmail={() => mockFetchEmail()}
             />
         </StorybookWrapper>
     );
