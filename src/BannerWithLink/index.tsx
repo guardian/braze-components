@@ -10,7 +10,6 @@ export type BrazeMessageProps = {
     header?: string;
     body?: string;
     boldText?: string;
-    highlight?: string;
     buttonText?: string;
     buttonUrl?: string;
     imageUrl?: string;
