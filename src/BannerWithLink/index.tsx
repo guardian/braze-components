@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleableBannerWithLink } from '../StyleableBannerWithLink';
 import type { TrackClick } from '../utils/tracking';
+import type { FetchEmail } from '../types/dcrTypes';
 
 import { canRender, COMPONENT_NAME } from './canRender';
 export { COMPONENT_NAME };
@@ -18,6 +19,7 @@ export type BrazeMessageProps = {
 export type Props = {
     brazeMessageProps: BrazeMessageProps;
     trackClick: TrackClick;
+    fetchEmail: FetchEmail;
 };
 
 export const BannerWithLink: React.FC<Props> = (props: Props) => {
