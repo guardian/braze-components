@@ -88,8 +88,6 @@ const StyleableBannerNewsletter: React.FC<Props> = (props: Props) => {
         return null;
     }
 
-    console.log(styles);
-
     return (
         <div css={styles.wrapper}>
             <div css={styles.contentContainer}>

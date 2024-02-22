@@ -26,12 +26,14 @@ export const BannerWithLink: React.FC<Props> = (props: Props) => {
         return null;
     }
 
-    const { boldText } = props.brazeMessageProps;
-
     // StyleableBannerWithLink uses `highlight` instead of `boldText` attribute - this check fixes the discrepency so Marketing won't have to change existing canvases
-    if (boldText) {
-        props.brazeMessageProps.highlight = boldText;
-    }
+    const mutatedProps = {
+        ...props,
+        brazeMessageProps: {
+            ...props.brazeMessageProps,
+            highlight: props.brazeMessageProps.boldText,
+        },
+    };
 
-    return <StyleableBannerWithLink {...props}></StyleableBannerWithLink>;
+    return <StyleableBannerWithLink {...mutatedProps}></StyleableBannerWithLink>;
 };
