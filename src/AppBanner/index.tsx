@@ -7,7 +7,6 @@ import type { TrackClick } from '../utils/tracking';
 
 import { AppStore } from '../assets/app-store';
 import { PlayStore } from '../assets/play-store';
-// import { BannerWithLinkBaseColorStyles, getColors } from '../styles/colorData';
 import { BannerWithLinkBaseColorStyles } from '../styles/colorData';
 import { getBannerWithLinkStyles } from '../StyleableBannerWithLink';
 import { BannerCloseButton, OnCloseClick } from '../components/BannerCloseButton';
@@ -40,8 +39,6 @@ export const AppBanner = (props: Props): ReactElement | null => {
         trackClick,
     } = props;
 
-    // const bannerWithLinkBaseColors = getColors(props.brazeMessageProps, defaultColors);
-    // const styles = getBannerWithLinkStyles(props.brazeMessageProps, bannerWithLinkBaseColors);
     const styles = getBannerWithLinkStyles({}, defaultColors);
 
     const [showBanner, setShowBanner] = useState(true);
