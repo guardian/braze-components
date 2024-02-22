@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import { BrazeBannerComponent } from '../BrazeBannerComponent';
-import { StorybookWrapper, mockSubscribe, mockFetchEmail } from '../utils/StorybookWrapper';
+import { StorybookWrapper, mockFetchEmail, mockSubscribe } from '../utils/StorybookWrapper';
 import { knobsData } from '../utils/knobsData';
 import { coreArgTypes, ophanComponentIdArgType } from '../storybookCommon/argTypes';
 import { BrazeMessageProps } from '.';
@@ -18,6 +18,11 @@ export default {
     argTypes: {
         ...coreArgTypes,
         ...ophanComponentIdArgType,
+        newsletterId: {
+            name: 'newsletterId',
+            type: { name: 'string', required: true },
+            description: 'The newsletter Id value',
+        },
         header: {
             name: 'header',
             type: { name: 'string', required: true },
@@ -37,11 +42,6 @@ export default {
             name: 'secondParagraph',
             type: { name: 'string', required: false },
             description: 'Additional paragraph',
-        },
-        newsletterId: {
-            name: 'newsletterId',
-            type: { name: 'string', required: true },
-            description: 'The newsletter Id value',
         },
         frequency: {
             name: 'frequency',
@@ -86,8 +86,6 @@ const StoryTemplate = (
         <StorybookWrapper>
             <BrazeBannerComponent
                 componentName={args.componentName}
-                subscribeToNewsletter={() => mockSubscribe(args.newsletterId)}
-                fetchEmail={() => mockFetchEmail()}
                 brazeMessageProps={brazeMessageProps}
                 logButtonClickWithBraze={(internalButtonId) => {
                     console.log(`Button with internal ID ${internalButtonId} clicked`);
@@ -95,6 +93,8 @@ const StoryTemplate = (
                 submitComponentEvent={(componentEvent) => {
                     console.log('submitComponentEvent called with: ', componentEvent);
                 }}
+                subscribeToNewsletter={() => mockSubscribe(args.newsletterId)}
+                fetchEmail={() => mockFetchEmail()}
             />
         </StorybookWrapper>
     );
