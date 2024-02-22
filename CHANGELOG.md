@@ -1,5 +1,13 @@
 # @guardian/braze-components
 
+## 18.1.0
+
+### Minor Changes
+
+-   b048bf3: Add new BannerCloseButton component
+-   f435076: Add a new styleable Banner Newsletter component to the build
+-   e35494e: Move newsletter-related components into the components folder
+
 ## 18.0.0
 
 ### Major Changes
