@@ -1,5 +1,11 @@
 # @guardian/braze-components
 
+## 18.1.1
+
+### Patch Changes
+
+-   de1cdbe: Bump @babel/traverse
+
 ## 18.1.0
 
 ### Minor Changes
