@@ -1,7 +1,6 @@
 import React, { useState, ReactElement } from 'react';
 import { css } from '@emotion/react';
-import { ThemeProvider } from '@emotion/react';
-import { Button, buttonThemeReaderRevenueBrandAlt } from '@guardian/source-react-components';
+import { Button, themeButtonReaderRevenueBrandAlt } from '@guardian/source-react-components';
 import { space, from, until } from '@guardian/source-foundations';
 import type { TrackClick } from '../utils/tracking';
 
@@ -22,7 +21,7 @@ export type BrazeMessageProps = {
     imageUrl?: string;
 };
 
-import type { ButtonTheme } from '@guardian/source-react-components';
+import type { ThemeButton } from '@guardian/source-react-components';
 
 export type Props = {
     brazeMessageProps: BrazeMessageProps;
@@ -46,18 +45,14 @@ export const AppBanner = (props: Props): ReactElement | null => {
     // This is to keep button colors the same as before
     // https://github.com/guardian/braze-components/pull/123
     // Probably should be removed later
-    const overrridenReaderRevenueTheme: { button: ButtonTheme } = {
-        button: {
-            ...buttonThemeReaderRevenueBrandAlt.button,
-            backgroundPrimary: 'rgb(51, 51, 51)',
-            backgroundPrimaryHover: 'black',
-        },
+    const overrridenReaderRevenueTheme: Partial<ThemeButton> = {
+        ...themeButtonReaderRevenueBrandAlt,
+        backgroundPrimary: 'rgb(51, 51, 51)',
+        backgroundPrimaryHover: 'black',
     };
-    const notInterestedTheme: { button: ButtonTheme } = {
-        button: {
-            ...buttonThemeReaderRevenueBrandAlt.button,
-            textSubdued: 'rgb(51, 51, 51)',
-        },
+    const notInterestedTheme: Partial<ThemeButton> = {
+        ...themeButtonReaderRevenueBrandAlt,
+        textSubdued: 'rgb(51, 51, 51)',
     };
 
     if (!showBanner) {
@@ -93,27 +88,28 @@ export const AppBanner = (props: Props): ReactElement | null => {
                         </span>
                     </p>
 
-                    <ThemeProvider theme={overrridenReaderRevenueTheme}>
-                        <Button onClick={(e) => onCloseClick(e, 0)} css={localStyles.primaryButton}>
-                            {'Ok, got it'}
-                        </Button>
-                    </ThemeProvider>
-                    <ThemeProvider theme={notInterestedTheme}>
-                        <Button
-                            onClick={(e) => onCloseClick(e, 0)}
-                            priority="subdued"
-                            cssOverrides={css`
-                                text-decoration: none;
-                                text-underline-offset: inherit;
+                    <Button
+                        onClick={(e) => onCloseClick(e, 0)}
+                        css={localStyles.primaryButton}
+                        theme={overrridenReaderRevenueTheme}
+                    >
+                        {'Ok, got it'}
+                    </Button>
+                    <Button
+                        onClick={(e) => onCloseClick(e, 0)}
+                        priority="subdued"
+                        theme={notInterestedTheme}
+                        cssOverrides={css`
+                            text-decoration: none;
+                            text-underline-offset: inherit;
 
-                                &:hover {
-                                    text-decoration: underline;
-                                }
-                            `}
-                        >
-                            {"I'm not interested"}
-                        </Button>
-                    </ThemeProvider>
+                            &:hover {
+                                text-decoration: underline;
+                            }
+                        `}
+                    >
+                        {"I'm not interested"}
+                    </Button>
                 </div>
                 <div css={styles.bottomRightComponent}>
                     <div css={localStyles.image}>
