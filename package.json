@@ -1,6 +1,6 @@
 {
   "name": "@guardian/braze-components",
-  "version": "18.1.1",
+  "version": "19.0.0",
   "description": "React components to render messages from Braze",
   "repository": "https://github.com/guardian/braze-components",
   "author": "The Guardian",
