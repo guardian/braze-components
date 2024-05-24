@@ -1,6 +1,6 @@
 import React from 'react';
 import { css } from '@emotion/react';
-import { SvgClock } from '@guardian/source-react-components';
+import { SvgClock } from '@guardian/source/react-components';
 import { textSans } from '@guardian/source/foundations';
 
 import type { NewsletterFrequencyColorStyles } from '../styles/colorData';

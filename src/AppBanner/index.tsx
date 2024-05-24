@@ -1,6 +1,6 @@
 import React, { useState, ReactElement } from 'react';
 import { css } from '@emotion/react';
-import { Button, themeButtonReaderRevenueBrandAlt } from '@guardian/source-react-components';
+import { Button, themeButtonReaderRevenueBrandAlt } from '@guardian/source/react-components';
 import { space, from, until } from '@guardian/source/foundations';
 import type { TrackClick } from '../utils/tracking';
 
@@ -21,7 +21,7 @@ export type BrazeMessageProps = {
     imageUrl?: string;
 };
 
-import type { ThemeButton } from '@guardian/source-react-components';
+import type { ThemeButton } from '@guardian/source/react-components';
 
 export type Props = {
     brazeMessageProps: BrazeMessageProps;

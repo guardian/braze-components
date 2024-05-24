@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { css, SerializedStyles, ThemeProvider } from '@emotion/react';
-import { Button, buttonThemeBrandAlt, Link } from '@guardian/source-react-components';
+import { Button, buttonThemeBrandAlt, Link } from '@guardian/source/react-components';
 import { LoadingDots } from '../components/CtaLoadingDotsAnimation';
 
 import type { TrackClick } from '../utils/tracking';
