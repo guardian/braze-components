@@ -1,6 +1,6 @@
 import React from 'react';
 import { css } from '@emotion/react';
-import { from, breakpoints, space, body, headline } from '@guardian/source-foundations';
+import { from, breakpoints, space, body, headline } from '@guardian/source/foundations';
 
 const emptyImage = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
 

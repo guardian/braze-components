@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { css, SerializedStyles, ThemeProvider } from '@emotion/react';
-import { body, space } from '@guardian/source-foundations';
+import { body, space } from '@guardian/source/foundations';
 import { LinkButton } from '@guardian/source-react-components';
 
 import {

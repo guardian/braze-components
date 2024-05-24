@@ -8,7 +8,7 @@ import type { NewsletterSubscribeCallback } from '../types/dcrTypes';
 import type { InteractiveButtonStatus } from '../logic/types';
 import type { NewsletterButtonColorStyles } from '../styles/colorData';
 
-import { neutral, body } from '@guardian/source-foundations';
+import { neutral, body } from '@guardian/source/foundations';
 
 type SignUpButtonProps = {
     buttonStyles: Record<string, SerializedStyles>;

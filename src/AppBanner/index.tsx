@@ -1,7 +1,7 @@
 import React, { useState, ReactElement } from 'react';
 import { css } from '@emotion/react';
 import { Button, themeButtonReaderRevenueBrandAlt } from '@guardian/source-react-components';
-import { space, from, until } from '@guardian/source-foundations';
+import { space, from, until } from '@guardian/source/foundations';
 import type { TrackClick } from '../utils/tracking';
 
 import { AppStore } from '../assets/app-store';

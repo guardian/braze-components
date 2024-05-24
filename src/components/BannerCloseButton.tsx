@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { css } from '@emotion/react';
-import { space, from } from '@guardian/source-foundations';
+import { space, from } from '@guardian/source/foundations';
 import { Button, SvgCross } from '@guardian/source-react-components';
 import type { TrackClick } from '../utils/tracking';
 import type { CloseButtonColorStyles } from '../styles/colorData';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { css, ThemeProvider } from '@emotion/react';
-import { space } from '@guardian/source-foundations';
+import { space } from '@guardian/source/foundations';
 import { LinkButton } from '@guardian/source-react-components';
 
 import { PaymentIcons } from './PaymentIcons';

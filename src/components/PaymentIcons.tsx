@@ -1,6 +1,6 @@
 import React from 'react';
 import { css } from '@emotion/react';
-import { space } from '@guardian/source-foundations';
+import { space } from '@guardian/source/foundations';
 
 const paymentImageStyles = css`
     display: inline-block;
