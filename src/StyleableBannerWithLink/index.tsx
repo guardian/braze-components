@@ -155,7 +155,7 @@ export const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
 // Styling
 // --------------------------------------------
 import { css } from '@emotion/react';
-import { neutral, space, from, until, body, headline } from '@guardian/source-foundations';
+import { neutral, space, from, until, body, headline } from '@guardian/source/foundations';
 import { getColors } from '../styles/colorData';
 
 export const defaultBannerWithLinkColors: BannerWithLinkBaseColorStyles = {

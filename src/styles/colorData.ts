@@ -1,4 +1,4 @@
-import { brandAlt, neutral } from '@guardian/source-foundations';
+import { brandAlt, neutral } from '@guardian/source/foundations';
 import type { Extras, ColorValueHex } from '../logic/types';
 import { stringIsColorValueHex } from '../logic/types';
 

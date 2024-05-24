@@ -9,7 +9,7 @@ import {
     until,
     body,
     headline,
-} from '@guardian/source-foundations';
+} from '@guardian/source/foundations';
 import { COMPONENT_NAME, canRender } from './canRender';
 import type { TrackClick } from '../utils/tracking';
 import { NewsletterFrequencyBlock } from '../components/NewsletterFrequencyBlock';

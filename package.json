@@ -43,13 +43,10 @@
     "@emotion/babel-preset-css-prop": "^11.1.2",
     "@emotion/eslint-plugin": "^11.10.0",
     "@emotion/react": "^11.1.2",
-    "@guardian/eslint-plugin-source-react-components": "^21.0.1",
     "@guardian/grid-client": "^1.1.1",
     "@guardian/libs": "^16.0.0",
     "@guardian/node-riffraff-artifact": "^0.3.2",
-    "@guardian/source-foundations": "^14.1.2",
-    "@guardian/source-react-components": "22.1.0",
-    "@guardian/source-react-components-development-kitchen": "19.0.0",
+    "@guardian/source": "^1.0.1",
     "@rollup/plugin-alias": "^3.1.1",
     "@rollup/plugin-babel": "^5.1.0",
     "@rollup/plugin-commonjs": "^14.0.0",
@@ -101,9 +98,7 @@
   "peerDependencies": {
     "@emotion/react": "^11.1.2",
     "@guardian/libs": "^16.0.0",
-    "@guardian/source-foundations": "^14.1.2",
-    "@guardian/source-react-components": "^22.1.0",
-    "@guardian/source-react-components-development-kitchen": "^19.0.0",
+    "@guardian/source": "^1.0.1",
     "react": "17.0.2 || 18.2.0"
   },
   "np": {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { css, ThemeProvider } from '@emotion/react';
-import { space } from '@guardian/source-foundations';
-import { LinkButton } from '@guardian/source-react-components';
+import { space } from '@guardian/source/foundations';
+import { LinkButton } from '@guardian/source/react-components';
 
 import { PaymentIcons } from './PaymentIcons';
 import { TrackClick } from '../utils/tracking';

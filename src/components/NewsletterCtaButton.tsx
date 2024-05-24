@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { css, SerializedStyles, ThemeProvider } from '@emotion/react';
-import { Button, buttonThemeBrandAlt, Link } from '@guardian/source-react-components';
+import { Button, buttonThemeBrandAlt, Link } from '@guardian/source/react-components';
 import { LoadingDots } from '../components/CtaLoadingDotsAnimation';
 
 import type { TrackClick } from '../utils/tracking';
@@ -8,7 +8,7 @@ import type { NewsletterSubscribeCallback } from '../types/dcrTypes';
 import type { InteractiveButtonStatus } from '../logic/types';
 import type { NewsletterButtonColorStyles } from '../styles/colorData';
 
-import { neutral, body } from '@guardian/source-foundations';
+import { neutral, body } from '@guardian/source/foundations';
 
 type SignUpButtonProps = {
     buttonStyles: Record<string, SerializedStyles>;

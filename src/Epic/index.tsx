@@ -1,6 +1,6 @@
 import { css, ThemeProvider } from '@emotion/react';
 import React from 'react';
-import { brand, news, brandAlt, space, body, headline } from '@guardian/source-foundations';
+import { brand, news, brandAlt, space, body, headline } from '@guardian/source/foundations';
 import { PrimaryCtaButton } from '../components/PrimaryCtaButton';
 import { ReminderCtaButton } from '../components/ReminderCtaButton';
 import { COMPONENT_NAME, canRender, parseParagraphs } from './canRender';

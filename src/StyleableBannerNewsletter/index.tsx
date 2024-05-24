@@ -133,7 +133,7 @@ export { StyleableBannerNewsletter };
 // Styling
 // --------------------------------------------
 import { css } from '@emotion/react';
-import { neutral, space, from, until, body, headline } from '@guardian/source-foundations';
+import { neutral, space, from, until, body, headline } from '@guardian/source/foundations';
 import { getColors } from '../styles/colorData';
 
 const imgHeight = '280';
