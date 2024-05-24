@@ -47,7 +47,6 @@
     "@guardian/libs": "^16.0.0",
     "@guardian/node-riffraff-artifact": "^0.3.2",
     "@guardian/source": "^1.0.1",
-    "@guardian/source-development-kitchen": "^1.0.0",
     "@rollup/plugin-alias": "^3.1.1",
     "@rollup/plugin-babel": "^5.1.0",
     "@rollup/plugin-commonjs": "^14.0.0",
@@ -100,7 +99,6 @@
     "@emotion/react": "^11.1.2",
     "@guardian/libs": "^16.0.0",
     "@guardian/source": "^1.0.1",
-    "@guardian/source-development-kitchen": "^1.0.0",
     "react": "17.0.2 || 18.2.0"
   },
   "np": {

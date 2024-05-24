@@ -2875,11 +2875,6 @@
     yaml "^1.7.2"
     yargs "^15.4.1"
 
-"@guardian/source-development-kitchen@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@guardian/source-development-kitchen/-/source-development-kitchen-1.0.0.tgz#9ac7efe9b28cb33170ed97c67eba1c25dc10a227"
-  integrity sha512-nZYJuHici8Bja7bKs3GZY5UzNCnbWOq1OCYclC6rhvpkcXdrtP+zyqX6YwJKWMgEKg+aL/l595OubBdGenn7OA==
-
 "@guardian/source@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@guardian/source/-/source-1.0.1.tgz#27e3ee2d44a1fbbd7c24705cccdbf643e3958ba4"
