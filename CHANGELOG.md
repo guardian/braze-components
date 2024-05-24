@@ -1,5 +1,11 @@
 # @guardian/braze-components
 
+## 20.0.0
+
+### Major Changes
+
+-   173154a: Use new @guardian/source libraries
+
 ## 19.0.0
 
 ### Major Changes
