@@ -8,9 +8,8 @@ jobs:
     runs-on: ubuntu-latest
 
     if: >-
-      (github.actor != 'dependabot[bot]') &&
-        (github.event.pull_request.head.repo.owner.login == 'guardian' ||
-          github.event_name == 'push')
+      github.event.pull_request.head.repo.owner.login == 'guardian' ||
+        github.event_name == 'push'
 
     steps:
       - name: Checkout repo
