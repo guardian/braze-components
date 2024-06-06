@@ -8,17 +8,19 @@ jobs:
             - name: Checkout repo
               uses: actions/checkout@v2.4.0
               with:
-                fetch-depth: 0
+                  fetch-depth: 0
 
             - name: Use Node.js
-              uses: guardian/actions-setup-node@main
+              uses: actions/setup-node@v3
+              with:
+                  node-version-file: '.nvmrc'
 
             - name: Install dependencies
               run: |
                   yarn install
 
             - name: Chromatic
-              uses: chromaui/action@v1
+              uses: chromaui/action@v11
               with:
                   projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
                   token: ${{ secrets.GITHUB_TOKEN }}
