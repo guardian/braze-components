@@ -22,7 +22,6 @@
     "test": "jest",
     "tsc": "tsc  --noEmit",
     "prerelease": "yarn build",
-    "release": "np",
     "storybook": "./bin/storybook",
     "build-storybook": "storybook build",
     "lint": "eslint . --ext .ts,.tsx",
@@ -78,7 +77,6 @@
     "jest": "^29.5.0",
     "jest-environment-jsdom": "^29.5.0",
     "nanoevents": "5.1.10",
-    "np": "^8.0.4",
     "prettier": "^2.0.5",
     "react": "18.2.0",
     "react-dom": "^18.2.0",
@@ -99,9 +97,6 @@
     "@guardian/libs": "^16.0.0",
     "@guardian/source": "^1.0.1",
     "react": "17.0.2 || 18.2.0"
-  },
-  "np": {
-    "branch": "main"
   },
   "publishConfig": {
     "access": "public",
