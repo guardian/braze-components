@@ -9,7 +9,7 @@ addons.register(GRID_ADDON_ID, (api) => {
     addons.add(GRID_PANEL_ID, {
         title: 'Grid Image Picker',
         type: types.PANEL,
-        render: ({ active, key }) => <GridPanel api={api} active={active} key={key} />,
+        render: ({ active }) => <GridPanel api={api} active={active} />,
         paramKey: 'grid', // This is the key under which parameters are expected in the addon config
     });
 });
