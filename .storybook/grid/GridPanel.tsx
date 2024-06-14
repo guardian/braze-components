@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { AddonPanel } from '@storybook/components';
-import { useChannel } from '@storybook/api';
+import { useChannel, API } from '@storybook/manager-api';
 import { STORY_CHANGED } from '@storybook/core-events';
-import { API } from '@storybook/api';
 import type { IframePostMessage, Asset } from '@guardian/grid-client';
 import { nonEmotionStyles } from './gridStyles';
 import { INITIAL_IMAGE_EVENT, IMAGE_SELECTED_EVENT } from './withGrid';

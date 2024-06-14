@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { addons } from '@storybook/addons';
+import { addons } from '@storybook/manager-api';
 import { makeDecorator } from '@storybook/preview-api';
 import { STORY_CHANGED, FORCE_RE_RENDER } from '@storybook/core-events';
 

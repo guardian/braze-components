@@ -1,5 +1,5 @@
 import React from 'react';
-import { addons, types } from '@storybook/addons';
+import { addons, types } from '@storybook/manager-api';
 import { ArticleContextPanel } from './ArticleContextPanel';
 
 const ARTICLE_CONTEXT_ADDON_ID = 'articleContextAddon';
