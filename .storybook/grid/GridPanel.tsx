@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { AddonPanel } from '@storybook/components';
-import { useChannel } from '@storybook/api';
+import { API, addons } from '@storybook/manager-api';
 import { STORY_CHANGED } from '@storybook/core-events';
-import { API } from '@storybook/api';
 import type { IframePostMessage, Asset } from '@guardian/grid-client';
 import { nonEmotionStyles } from './gridStyles';
 import { INITIAL_IMAGE_EVENT, IMAGE_SELECTED_EVENT } from './withGrid';
@@ -47,7 +46,6 @@ const signImageUrl = (unsignedImageUrl: URL): Promise<string> =>
         });
 
 export const GridPanel = ({ api, active }: Props) => {
-    const emit = useChannel({});
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [selectedImage, setSelectedImage] = useState<string | undefined>();
     const activeButton = useRef(null);
@@ -79,7 +77,7 @@ export const GridPanel = ({ api, active }: Props) => {
         signImageUrl(cropUrl)
             .then((signedCropUrl) => {
                 setSelectedImage(signedCropUrl);
-                emit(IMAGE_SELECTED_EVENT, signedCropUrl);
+                addons.getChannel().emit(IMAGE_SELECTED_EVENT, signedCropUrl);
             })
             .finally(() => {
                 setIsModalOpen(false);
