@@ -3045,10 +3045,10 @@
     yaml "^1.7.2"
     yargs "^15.4.1"
 
-"@guardian/source@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@guardian/source/-/source-1.0.1.tgz#27e3ee2d44a1fbbd7c24705cccdbf643e3958ba4"
-  integrity sha512-LzOwkpDuKbOmVv7aOldEJhqaaKdNRP3EpWOAlJVfK08jDTwWtdM5CYTOn/8blJHLTUnEAcxZ6dH+S5zalGhFgg==
+"@guardian/source@^6.0.0":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@guardian/source/-/source-6.1.0.tgz#9c4e289a4529002e4f3252577a28c237457e52ae"
+  integrity sha512-Vez2zPyOa6SLNUSQ6XOIwFPGOcgRrg9MgRQTvG9ERUsYamuDFC3WiGi5U3tMll23WEekKSshd8jDZsAyWz5u5w==
   dependencies:
     mini-svg-data-uri "1.4.4"
 
