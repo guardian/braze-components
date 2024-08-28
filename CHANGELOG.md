@@ -1,5 +1,11 @@
 # @guardian/braze-components
 
+## 20.1.0
+
+### Minor Changes
+
+-   8f55394: Broader @guardian/source peer dependency range
+
 ## 20.0.0
 
 ### Major Changes
