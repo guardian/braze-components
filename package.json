@@ -96,7 +96,7 @@
   "peerDependencies": {
     "@emotion/react": "^11.1.2",
     "@guardian/libs": "^16.0.0",
-    "@guardian/source": "^6.0.0",
+    "@guardian/source": ">= 1.0.1 < 7",
     "react": "17.0.2 || 18.2.0"
   },
   "publishConfig": {
