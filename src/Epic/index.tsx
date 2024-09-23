@@ -42,6 +42,7 @@ const styles = {
         display: flex;
         flex-direction: column;
         ${textEgyptian17};
+        line-height: 1.4;
 
         b,
         strong {
