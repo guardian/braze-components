@@ -133,7 +133,15 @@ export { StyleableBannerNewsletter };
 // Styling
 // --------------------------------------------
 import { css } from '@emotion/react';
-import { neutral, space, from, until, body, headline } from '@guardian/source/foundations';
+import {
+    neutral,
+    space,
+    from,
+    until,
+    headlineBold28,
+    headlineBold34,
+    textEgyptian17,
+} from '@guardian/source/foundations';
 import { getColors } from '../styles/colorData';
 
 const imgHeight = '280';
@@ -222,21 +230,18 @@ export const getBannerNewsletterStyles = (
         `,
 
         heading: css`
-            ${headline.small({ fontWeight: 'bold' })};
+            ${headlineBold28};
             margin: 0;
             max-width: 100%;
             color: ${colors.styleHeader};
-            ${from.mobileLandscape} {
-                ${headline.small({ fontWeight: 'bold' })};
-            }
             ${from.tablet} {
-                ${headline.medium({ fontWeight: 'bold' })};
+                ${headlineBold34};
                 max-width: 100%;
             }
         `,
 
         paragraph: css`
-            ${body.medium()}
+            ${textEgyptian17};
             line-height: 135%;
             margin: ${space[5]}px 0 ${space[5]}px;
             max-width: 100%;

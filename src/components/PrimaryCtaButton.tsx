@@ -70,7 +70,7 @@ export const PrimaryCtaButton = ({
                         target="_blank"
                         rel="noopener noreferrer"
                         priority={'primary'}
-                        css={styles.contributionButtonOverrides}
+                        cssOverrides={styles.contributionButtonOverrides}
                         onClick={onClick}
                     >
                         {buttonText}

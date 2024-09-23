@@ -7,8 +7,8 @@ import {
     space,
     from,
     until,
-    body,
-    headline,
+    headlineBold28,
+    textEgyptian17,
 } from '@guardian/source/foundations';
 import { COMPONENT_NAME, canRender } from './canRender';
 import type { TrackClick } from '../utils/tracking';
@@ -97,20 +97,16 @@ const styles = {
         }
     `,
     heading: css`
-        ${headline.small({ fontWeight: 'bold' })};
+        ${headlineBold28};
         margin: 0;
         max-width: 100%;
-
-        ${from.mobileLandscape} {
-            ${headline.small({ fontWeight: 'bold' })};
-        }
 
         ${from.tablet} {
             max-width: 100%;
         }
     `,
     paragraph: css`
-        ${body.medium()}
+        ${textEgyptian17};
         line-height: 135%;
         margin: ${space[5]}px 0 ${space[5]}px;
         max-width: 100%;

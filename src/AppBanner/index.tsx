@@ -90,7 +90,7 @@ export const AppBanner = (props: Props): ReactElement | null => {
 
                     <Button
                         onClick={(e) => onCloseClick(e, 0)}
-                        css={localStyles.primaryButton}
+                        cssOverrides={localStyles.primaryButton}
                         theme={overrridenReaderRevenueTheme}
                     >
                         {'Ok, got it'}
