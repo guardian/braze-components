@@ -39,6 +39,7 @@ const getButtonStyles = (styles: ReminderButtonColorStyles) => {
         `,
         thankYouText: css`
             ${textEgyptianBold17};
+            line-height: 1.4;
             margin-top: ${space[3]}px;
         `,
         remindMeButtonOverrides: css`
@@ -52,6 +53,7 @@ const getButtonStyles = (styles: ReminderButtonColorStyles) => {
         smallPrint: css`
             margin-top: ${space[2]}px;
             ${textEgyptian15};
+            line-height: 1.4;
         `,
     };
 };

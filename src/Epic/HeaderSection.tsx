@@ -42,13 +42,16 @@ const headerStyles = {
     imageCaptionContainer: css``,
     imageCaption: css`
         ${textEgyptian17};
+        line-height: 1.4;
         margin: 0;
     `,
     imageCaptionBold: css`
         ${textEgyptianBold17};
+        line-height: 1.4;
     `,
     imageCaptionItalic: css`
         ${textEgyptianItalic17};
+        line-height: 1.4;
     `,
 };
 
