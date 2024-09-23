@@ -68,7 +68,7 @@ const RemindMeButton = ({ buttonStyles, ctaText, onClick }: RemindMeButtonProps)
             <LinkButton
                 onClick={() => onClick()}
                 priority="tertiary"
-                css={buttonStyles.remindMeButtonOverrides}
+                cssOverrides={buttonStyles.remindMeButtonOverrides}
                 theme={{ borderTertiary: 'currentColor' }}
             >
                 {ctaText}

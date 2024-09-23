@@ -18,7 +18,7 @@ type SignUpButtonProps = {
 
 const SignUpButton = ({ buttonStyles, newsletterCta, onClick }: SignUpButtonProps) => (
     <ThemeProvider theme={buttonThemeBrandAlt}>
-        <Button css={buttonStyles.button} onClick={onClick}>
+        <Button cssOverrides={buttonStyles.button} onClick={onClick}>
             {newsletterCta}
         </Button>
     </ThemeProvider>
