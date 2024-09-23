@@ -8,7 +8,7 @@ import type { NewsletterSubscribeCallback } from '../types/dcrTypes';
 import type { InteractiveButtonStatus } from '../logic/types';
 import type { NewsletterButtonColorStyles } from '../styles/colorData';
 
-import { neutral, body } from '@guardian/source/foundations';
+import { neutral, textEgyptianBold17 } from '@guardian/source/foundations';
 
 type SignUpButtonProps = {
     buttonStyles: Record<string, SerializedStyles>;
@@ -123,11 +123,11 @@ const getButtonStyles = (styles: NewsletterButtonColorStyles) => {
             }
         `,
         thankYouText: css`
-            ${body.medium({ fontWeight: 'bold' })};
+            ${textEgyptianBold17};
             color: ${neutral[0]};
         `,
         errorText: css`
-            ${body.medium({ fontWeight: 'bold' })};
+            ${textEgyptianBold17};
             color: ${neutral[0]};
             margin-bottom: 16px;
         `,

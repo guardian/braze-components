@@ -1,6 +1,14 @@
 import { css, ThemeProvider } from '@emotion/react';
 import React from 'react';
-import { brand, news, brandAlt, space, body, headline } from '@guardian/source/foundations';
+import {
+    brand,
+    news,
+    brandAlt,
+    space,
+    textEgyptian17,
+    textEgyptianBold17,
+    headlineMediumItalic20,
+} from '@guardian/source/foundations';
 import { PrimaryCtaButton } from '../components/PrimaryCtaButton';
 import { ReminderCtaButton } from '../components/ReminderCtaButton';
 import { COMPONENT_NAME, canRender, parseParagraphs } from './canRender';
@@ -33,7 +41,7 @@ const styles = {
         background-color: #f6f6f6;
         display: flex;
         flex-direction: column;
-        ${body.medium()}
+        ${textEgyptian17};
 
         b,
         strong {
@@ -46,12 +54,12 @@ const styles = {
         ${linkStyles}
     `,
     heading: css`
-        ${headline.xxsmall({ fontWeight: 'bold' })}
+        ${headlineMediumItalic20};
         margin-top: 0;
         margin-bottom: ${space[3]}px;
     `,
     highlightText: css`
-        ${body.medium({ fontWeight: 'bold' })}
+        ${textEgyptianBold17};
         ${linkStyles}
         padding: 2px;
         background-color: ${brandAlt[400]};

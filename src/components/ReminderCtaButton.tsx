@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { css, SerializedStyles, ThemeProvider } from '@emotion/react';
-import { body, space } from '@guardian/source/foundations';
+import { space, textEgyptian15, textEgyptianBold17 } from '@guardian/source/foundations';
 import { LinkButton } from '@guardian/source/react-components';
 
 import {
@@ -38,7 +38,7 @@ const getButtonStyles = (styles: ReminderButtonColorStyles) => {
             margin: ${space[1]}px ${space[2]}px ${space[1]}px 0;
         `,
         thankYouText: css`
-            ${body.medium({ fontWeight: 'bold' })};
+            ${textEgyptianBold17};
             margin-top: ${space[3]}px;
         `,
         remindMeButtonOverrides: css`
@@ -51,7 +51,7 @@ const getButtonStyles = (styles: ReminderButtonColorStyles) => {
         `,
         smallPrint: css`
             margin-top: ${space[2]}px;
-            ${body.small()};
+            ${textEgyptian15};
         `,
     };
 };

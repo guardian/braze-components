@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/react';
 import { SvgClock } from '@guardian/source/react-components';
-import { textSans } from '@guardian/source/foundations';
+import { textSans17 } from '@guardian/source/foundations';
 
 import type { NewsletterFrequencyColorStyles } from '../styles/colorData';
 
@@ -53,7 +53,7 @@ const getFrequencyStyles = (styles: NewsletterFrequencyColorStyles) => {
         `,
         text: css`
             color: ${styles.styleFrequencyText};
-            ${textSans.medium()}
+            ${textSans17};
             margin-left: 4px;
         `,
     };

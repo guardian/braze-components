@@ -155,7 +155,14 @@ export const StyleableBannerWithLink: React.FC<Props> = (props: Props) => {
 // Styling
 // --------------------------------------------
 import { css } from '@emotion/react';
-import { neutral, space, from, until, body, headline } from '@guardian/source/foundations';
+import {
+    neutral,
+    space,
+    from,
+    until,
+    headlineBold28,
+    textEgyptian17,
+} from '@guardian/source/foundations';
 import { getColors } from '../styles/colorData';
 
 export const defaultBannerWithLinkColors: BannerWithLinkBaseColorStyles = {
@@ -263,20 +270,17 @@ export const getBannerWithLinkStyles = (
         `,
 
         heading: css`
-            ${headline.small({ fontWeight: 'bold' })};
+            ${headlineBold28};
             margin: 0;
             max-width: 100%;
             color: ${colors.styleHeader};
-            ${from.mobileLandscape} {
-                ${headline.small({ fontWeight: 'bold' })};
-            }
             ${from.tablet} {
                 max-width: 100%;
             }
         `,
 
         paragraph: css`
-            ${body.medium()}
+            ${textEgyptian17};
             line-height: 135%;
             margin: ${space[5]}px 0 ${space[5]}px;
             max-width: 100%;
@@ -301,7 +305,7 @@ export const getBannerWithLinkStyles = (
         `,
 
         highlightContainer: css`
-            ${body.medium()}
+            ${textEgyptian17};
             margin-top: ${space[5]}px;
             margin-right: ${space[3]}px;
             max-width: 100%;

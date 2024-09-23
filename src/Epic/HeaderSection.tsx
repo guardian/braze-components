@@ -1,6 +1,14 @@
 import React from 'react';
 import { css } from '@emotion/react';
-import { from, breakpoints, space, body, headline } from '@guardian/source/foundations';
+import {
+    from,
+    breakpoints,
+    space,
+    textEgyptian17,
+    textEgyptianBold17,
+    textEgyptianItalic17,
+    headlineBold42,
+} from '@guardian/source/foundations';
 
 const emptyImage = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
 
@@ -28,19 +36,19 @@ const headerStyles = {
         margin-right: ${space[4]}px;
     `,
     text: css`
-        ${headline.large({ fontWeight: 'bold' })};
+        ${headlineBold42};
         line-height: 1.35;
     `,
     imageCaptionContainer: css``,
     imageCaption: css`
-        ${body.medium()}
+        ${textEgyptian17};
         margin: 0;
     `,
     imageCaptionBold: css`
-        ${body.medium({ fontWeight: 'bold' })}
+        ${textEgyptianBold17};
     `,
     imageCaptionItalic: css`
-        ${body.medium({ fontStyle: 'italic' })}
+        ${textEgyptianItalic17};
     `,
 };
 
