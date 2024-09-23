@@ -7,7 +7,7 @@ import {
     space,
     textEgyptian17,
     textEgyptianBold17,
-    headlineMediumItalic20,
+    headlineBold20,
 } from '@guardian/source/foundations';
 import { PrimaryCtaButton } from '../components/PrimaryCtaButton';
 import { ReminderCtaButton } from '../components/ReminderCtaButton';
@@ -54,7 +54,7 @@ const styles = {
         ${linkStyles}
     `,
     heading: css`
-        ${headlineMediumItalic20};
+        ${headlineBold20};
         margin-top: 0;
         margin-bottom: ${space[3]}px;
     `,
