@@ -1,5 +1,11 @@
 # @guardian/braze-components
 
+## 21.0.0
+
+### Major Changes
+
+-   f6e1b38: Upgrade to source 8
+
 ## 20.1.0
 
 ### Minor Changes
