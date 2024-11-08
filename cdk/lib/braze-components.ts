@@ -7,6 +7,7 @@ import { Certificate } from 'aws-cdk-lib/aws-certificatemanager';
 import {
     CloudFrontWebDistribution,
     OriginAccessIdentity,
+    SecurityPolicyProtocol,
     ViewerCertificate,
 } from 'aws-cdk-lib/aws-cloudfront';
 import { Bucket } from 'aws-cdk-lib/aws-s3';
@@ -52,6 +53,7 @@ export class BrazeComponents extends GuStack {
             ],
             viewerCertificate: ViewerCertificate.fromAcmCertificate(certificate, {
                 aliases: [props.domainName],
+                securityPolicy: SecurityPolicyProtocol.TLS_V1_2_2018,
             }),
         });
 
