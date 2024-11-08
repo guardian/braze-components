@@ -78,6 +78,7 @@ Object {
                 ],
               ],
             },
+            "MinimumProtocolVersion": "TLSv1.2_2018",
             "SslSupportMethod": "sni-only",
           },
         },
