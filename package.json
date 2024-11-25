@@ -38,7 +38,7 @@
     "@babel/preset-react": "^7.22.5",
     "@babel/preset-typescript": "^7.22.5",
     "@braze/web-sdk-core": "3.5.1",
-    "@changesets/cli": "^2.27.9",
+    "@changesets/cli": "^2.27.10",
     "@emotion/babel-preset-css-prop": "^11.1.2",
     "@emotion/eslint-plugin": "^11.10.0",
     "@emotion/react": "^11.1.2",
@@ -106,7 +106,8 @@
   "resolutions": {
     "@types/react": "18.0.32",
     "immer": "9.0.6",
-    "minimist": "1.2.6"
+    "minimist": "1.2.6",
+    "cross-spawn": "7.0.6"
   },
   "engines": {
     "node": "^18.15 || ^20.8"
