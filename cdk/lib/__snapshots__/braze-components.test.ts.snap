@@ -1,32 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`The BrazeComponents stack matches the snapshot 1`] = `
-Object {
-  "Metadata": Object {
-    "gu:cdk:constructs": Array [
+{
+  "Metadata": {
+    "gu:cdk:constructs": [
       "GuCname",
     ],
     "gu:cdk:version": "TEST",
   },
-  "Resources": Object {
-    "CDN": Object {
-      "Properties": Object {
-        "DistributionConfig": Object {
-          "Aliases": Array [
+  "Resources": {
+    "CDN": {
+      "Properties": {
+        "DistributionConfig": {
+          "Aliases": [
             "braze-components.test.dev-gutools.co.uk",
           ],
-          "DefaultCacheBehavior": Object {
-            "AllowedMethods": Array [
+          "DefaultCacheBehavior": {
+            "AllowedMethods": [
               "GET",
               "HEAD",
             ],
-            "CachedMethods": Array [
+            "CachedMethods": [
               "GET",
               "HEAD",
             ],
             "Compress": true,
-            "ForwardedValues": Object {
-              "Cookies": Object {
+            "ForwardedValues": {
+              "Cookies": {
                 "Forward": "none",
               },
               "QueryString": false,
@@ -38,20 +38,20 @@ Object {
           "Enabled": true,
           "HttpVersion": "http2",
           "IPV6Enabled": true,
-          "Origins": Array [
-            Object {
+          "Origins": [
+            {
               "ConnectionAttempts": 3,
               "ConnectionTimeout": 10,
-              "DomainName": Object {
-                "Fn::Join": Array [
+              "DomainName": {
+                "Fn::Join": [
                   "",
-                  Array [
+                  [
                     "braze-components-storybook.s3.",
-                    Object {
+                    {
                       "Ref": "AWS::Region",
                     },
                     ".",
-                    Object {
+                    {
                       "Ref": "AWS::URLSuffix",
                     },
                   ],
@@ -59,19 +59,19 @@ Object {
               },
               "Id": "origin1",
               "OriginPath": "/TEST/braze-components-storybook-static",
-              "S3OriginConfig": Object {
+              "S3OriginConfig": {
                 "OriginAccessIdentity": "origin-access-identity/cloudfront/E3EA9DC41190PP",
               },
             },
           ],
           "PriceClass": "PriceClass_100",
-          "ViewerCertificate": Object {
-            "AcmCertificateArn": Object {
-              "Fn::Join": Array [
+          "ViewerCertificate": {
+            "AcmCertificateArn": {
+              "Fn::Join": [
                 "",
-                Array [
+                [
                   "arn:aws:acm:us-east-1:",
-                  Object {
+                  {
                     "Ref": "AWS::AccountId",
                   },
                   ":certificate/xxx-xxx-xxx",
@@ -81,20 +81,20 @@ Object {
             "SslSupportMethod": "sni-only",
           },
         },
-        "Tags": Array [
-          Object {
+        "Tags": [
+          {
             "Key": "gu:cdk:version",
             "Value": "TEST",
           },
-          Object {
+          {
             "Key": "gu:repo",
             "Value": "guardian/braze-components",
           },
-          Object {
+          {
             "Key": "Stack",
             "Value": "targeting",
           },
-          Object {
+          {
             "Key": "Stage",
             "Value": "TEST",
           },
@@ -102,13 +102,13 @@ Object {
       },
       "Type": "AWS::CloudFront::Distribution",
     },
-    "DNSentry": Object {
-      "Properties": Object {
+    "DNSentry": {
+      "Properties": {
         "Name": "braze-components.test.dev-gutools.co.uk",
         "RecordType": "CNAME",
-        "ResourceRecords": Array [
-          Object {
-            "Fn::GetAtt": Array [
+        "ResourceRecords": [
+          {
+            "Fn::GetAtt": [
               "CDN",
               "DomainName",
             ],
