@@ -78,6 +78,7 @@ exports[`The BrazeComponents stack matches the snapshot 1`] = `
                 ],
               ],
             },
+            "MinimumProtocolVersion": "TLSv1.2_2018",
             "SslSupportMethod": "sni-only",
           },
         },
