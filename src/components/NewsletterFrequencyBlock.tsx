@@ -1,6 +1,6 @@
 import React from 'react';
 import { css } from '@emotion/react';
-import { SvgClock } from '@guardian/source/react-components';
+import { SvgClockFilled } from '@guardian/source/react-components';
 import { textSans17 } from '@guardian/source/foundations';
 
 import type { NewsletterFrequencyColorStyles } from '../styles/colorData';
@@ -24,7 +24,7 @@ export const NewsletterFrequencyBlock: React.FC<NewsletterFrequencyBlockProps> =
     return (
         <div css={styles.container}>
             <span css={styles.clock}>
-                <SvgClock />
+                <SvgClockFilled />
             </span>
             <span css={styles.text}>{frequency}</span>
         </div>
