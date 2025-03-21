@@ -2207,10 +2207,10 @@
     yaml "^1.7.2"
     yargs "^15.4.1"
 
-"@guardian/source@^8.0.0":
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/@guardian/source/-/source-8.0.0.tgz#99468fc96d8cb27669aaaa3355fa18a201208b1e"
-  integrity sha512-P6OTmCWsSWkT20M5uRAPoKonsz3nikOj308mUEiFDO2vpx1oyG2V6KP0YBlDxoSzw7EW6KbM9Ptat6VNd55cEw==
+"@guardian/source@^9.0.0":
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/@guardian/source/-/source-9.0.0.tgz#e8b9ba1d7796fda62a5e7a3904c36cf80de2bc41"
+  integrity sha512-RQuLqVp11x9hKtAKrOOvxWAtnUzNKDL4Uzk6rWGxfx9GDh4gc9+O+45NUXFM1DAzQkvyDXr3vNl5/iVrEJ+cPw==
   dependencies:
     mini-svg-data-uri "1.4.4"
 
