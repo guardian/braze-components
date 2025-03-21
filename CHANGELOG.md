@@ -1,5 +1,11 @@
 # @guardian/braze-components
 
+## 22.0.0
+
+### Major Changes
+
+-   1f98084: Updates to Source 9
+
 ## 21.0.0
 
 ### Major Changes
