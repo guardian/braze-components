@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
 
-import type appboy from '@braze/web-sdk-core';
+import * as braze from '@braze/web-sdk';
 import { MessageCache, MessageWithId } from './LocalMessageCache';
 import type { ErrorHandler, Extras, MessageSlotName } from './types';
 
@@ -26,9 +26,9 @@ const splitByContextFilters = (
 class BrazeMessage {
     id: string;
 
-    appboy: typeof appboy;
+    braze: typeof braze;
 
-    message: appboy.HtmlMessage;
+    message: braze.HtmlMessage;
 
     slotName: MessageSlotName;
 
@@ -38,15 +38,15 @@ class BrazeMessage {
 
     constructor(
         id: string,
-        message: appboy.HtmlMessage,
-        appboyInstance: typeof appboy,
+        message: braze.HtmlMessage,
+        brazeInstance: typeof braze,
         slotName: MessageSlotName,
         cache: MessageCache,
         errorHandler: ErrorHandler,
     ) {
         this.id = id;
         this.message = message;
-        this.appboy = appboyInstance;
+        this.braze = brazeInstance;
         this.slotName = slotName;
         this.cache = cache;
         this.errorHandler = errorHandler;
@@ -54,7 +54,7 @@ class BrazeMessage {
 
     logImpression(): void {
         try {
-            this.appboy.logInAppMessageImpression(this.message);
+            this.braze.logInAppMessageImpression(this.message);
         } catch (error: unknown) {
             if (error instanceof Error) {
                 this.errorHandler(error, 'BrazeMessage.logImpression');
@@ -65,7 +65,7 @@ class BrazeMessage {
     }
 
     logButtonClick(internalButtonId: number): void {
-        const button = new this.appboy.InAppMessageButton(
+        const button = new this.braze.InAppMessageButton(
             `Button: ID ${internalButtonId}`,
             undefined,
             undefined,
@@ -75,7 +75,7 @@ class BrazeMessage {
             internalButtonId,
         );
         try {
-            this.appboy.logInAppMessageButtonClick(button, this.message);
+            this.braze.logInAppMessageButtonClick(button, this.message);
         } catch (error: unknown) {
             if (error instanceof Error) {
                 this.errorHandler(error, 'BrazeMessage.logButtonClick');
@@ -89,9 +89,9 @@ class BrazeMessage {
 }
 
 class BrazeMessages implements BrazeMessagesInterface {
-    appboy: typeof appboy;
+    braze: typeof braze;
 
-    freshMessageBySlot: Record<MessageSlotName, Promise<appboy.HtmlMessage>>;
+    freshMessageBySlot: Record<MessageSlotName, Promise<braze.HtmlMessage>>;
 
     cache: MessageCache;
 
@@ -100,12 +100,12 @@ class BrazeMessages implements BrazeMessagesInterface {
     canRender: (extras: Extras | undefined) => boolean;
 
     constructor(
-        appboyInstance: typeof appboy,
+        brazeInstance: typeof braze,
         cache: MessageCache,
         errorHandler: ErrorHandler,
         canRender: (extras: Extras | undefined) => boolean,
     ) {
-        this.appboy = appboyInstance;
+        this.braze = brazeInstance;
         this.cache = cache;
         this.freshMessageBySlot = {
             Banner: this.getFreshMessagesForSlot('Banner'),
@@ -117,11 +117,11 @@ class BrazeMessages implements BrazeMessagesInterface {
 
     // Generally we only expect a single message per slot max in a pageview. This method
     // returns a promise which will resolve when the first message arrives
-    private getFreshMessagesForSlot(targetSlotName: MessageSlotName): Promise<appboy.HtmlMessage> {
+    private getFreshMessagesForSlot(targetSlotName: MessageSlotName): Promise<braze.HtmlMessage> {
         return new Promise((resolve) => {
-            const callback = (m: appboy.InAppMessage | appboy.ControlMessage) => {
+            const callback = (m: braze.InAppMessage | braze.ControlMessage) => {
                 // Cast this as we only ever expect it to be an HtmlMessage (subclass of InAppMessage)
-                const message = m as appboy.HtmlMessage;
+                const message = m as braze.HtmlMessage;
                 const { extras } = message;
 
                 if (extras && extras.slotName && extras.slotName === targetSlotName) {
@@ -138,7 +138,7 @@ class BrazeMessages implements BrazeMessagesInterface {
                 }
             };
 
-            this.appboy.subscribeToInAppMessage(callback);
+            this.braze.subscribeToInAppMessage(callback);
         });
     }
 
@@ -182,7 +182,7 @@ class BrazeMessages implements BrazeMessagesInterface {
         slotName: MessageSlotName,
         articleContext?: BrazeArticleContext,
     ) {
-        const messagesFromCache = this.cache.all(slotName, this.appboy, this.errorHandler);
+        const messagesFromCache = this.cache.all(slotName, this.braze, this.errorHandler);
 
         const allRenderableMessages = messagesFromCache.filter((msg) =>
             this.canRender(msg.message.extras),
@@ -217,7 +217,7 @@ class BrazeMessages implements BrazeMessagesInterface {
             return new BrazeMessage(
                 firstRenderableMessage.id,
                 firstRenderableMessage.message,
-                this.appboy,
+                this.braze,
                 slotName,
                 this.cache,
                 this.errorHandler,
