@@ -4,7 +4,7 @@
 
 ### Minor Changes
 
--   05a0335: Upgraded from @braze/web-sdk-core version 3.5.1 to @braze/web-sdk version 5.8.1
+-   68d7c40: Upgraded from @braze/web-sdk-core version 3.5.1 to @braze/web-sdk version 5.8.1
 
 ## 22.0.0
 
