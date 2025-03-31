@@ -133,11 +133,11 @@ describe('braze content cards', () => {
 
     describe('BrazeCard', () => {
         it('logImpression calls the braze sdk method', () => {
-            const mockbrazeFn = jest.fn();
+            const mockBrazeFn = jest.fn();
             const mockErrorHandler = jest.fn();
             const controlCard = testCard('ProfileBadge', 'card-id', {});
             jest.spyOn(braze, 'logCardImpressions').mockImplementation((cards) => {
-                mockbrazeFn(cards);
+                mockBrazeFn(cards);
                 return true;
             });
             const brazeCard = new BrazeCard(
@@ -150,7 +150,7 @@ describe('braze content cards', () => {
 
             brazeCard.logImpression();
 
-            expect(mockbrazeFn).toHaveBeenCalledWith([controlCard]);
+            expect(mockBrazeFn).toHaveBeenCalledWith([controlCard]);
             expect(mockErrorHandler).not.toHaveBeenCalled();
         });
 
@@ -174,11 +174,11 @@ describe('braze content cards', () => {
         });
 
         it('logCardClick calls the braze sdk method', () => {
-            const mockbrazeFn = jest.fn();
+            const mockBrazeFn = jest.fn();
             const mockErrorHandler = jest.fn();
             const controlCard = testCard('ProfileBadge', 'card-id', {});
             jest.spyOn(braze, 'logCardClick').mockImplementation((card) => {
-                mockbrazeFn(card);
+                mockBrazeFn(card);
                 return true;
             });
             const brazeCard = new BrazeCard(
@@ -191,7 +191,7 @@ describe('braze content cards', () => {
 
             brazeCard.logCardClick();
 
-            expect(mockbrazeFn).toHaveBeenCalledWith(controlCard);
+            expect(mockBrazeFn).toHaveBeenCalledWith(controlCard);
             expect(mockErrorHandler).toHaveBeenCalledTimes(0);
         });
 
@@ -215,11 +215,11 @@ describe('braze content cards', () => {
         });
 
         it('logCardDismissal calls the braze sdk method', () => {
-            const mockbrazeFn = jest.fn();
+            const mockBrazeFn = jest.fn();
             const mockErrorHandler = jest.fn();
             const controlCard = testCard('ProfileBadge', 'card-id', {});
             jest.spyOn(braze, 'logCardDismissal').mockImplementation((card) => {
-                mockbrazeFn(card);
+                mockBrazeFn(card);
                 return true;
             });
             const brazeCard = new BrazeCard(
@@ -232,7 +232,7 @@ describe('braze content cards', () => {
 
             brazeCard.logCardDismissal();
 
-            expect(mockbrazeFn).toHaveBeenCalledWith(controlCard);
+            expect(mockBrazeFn).toHaveBeenCalledWith(controlCard);
             expect(mockErrorHandler).toHaveBeenCalledTimes(0);
         });
 

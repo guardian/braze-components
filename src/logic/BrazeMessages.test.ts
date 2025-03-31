@@ -30,7 +30,7 @@ const epicExtras = {
     paragraph1: 'This is paragraph 1',
 };
 
-class Fakebraze {
+class FakeBraze {
     emitter: Emitter;
 
     HtmlMessage: typeof braze.HtmlMessage;
@@ -69,10 +69,10 @@ describe('BrazeMessages', () => {
 
         describe('getMessageForBanner & getMessageForEndOfArticle', () => {
             it('returns a promise which resolves with message data for the correct slot', async () => {
-                const fakebraze = new Fakebraze();
+                const fakeBraze = new FakeBraze();
                 const canRender = () => true;
                 const brazeMessages = new BrazeMessages(
-                    fakebraze as unknown as typeof braze,
+                    fakeBraze as unknown as typeof braze,
                     LocalMessageCache,
                     (error, identifier) => console.log(identifier, error),
                     canRender,
@@ -85,13 +85,13 @@ describe('BrazeMessages', () => {
                     ...JSON.parse(message1Json),
                     extras: bannerExtras,
                 });
-                fakebraze.emit(bannerMessage);
+                fakeBraze.emit(bannerMessage);
 
                 const endOfArticleMessage = buildMessage({
                     ...JSON.parse(message2Json),
                     extras: epicExtras,
                 });
-                fakebraze.emit(endOfArticleMessage);
+                fakeBraze.emit(endOfArticleMessage);
 
                 const data = await Promise.all([bannerPromise, endOfArticlePromise]);
                 expect(data[0].extras).toEqual(bannerMessage.extras);
@@ -99,10 +99,10 @@ describe('BrazeMessages', () => {
             });
 
             it('returns a promise which resolves with message data for the correct slot when queried in different order', async () => {
-                const fakebraze = new Fakebraze();
+                const fakeBraze = new FakeBraze();
                 const canRender = () => true;
                 const brazeMessages = new BrazeMessages(
-                    fakebraze as unknown as typeof braze,
+                    fakeBraze as unknown as typeof braze,
                     LocalMessageCache,
                     (error, identifier) => console.log(identifier, error),
                     canRender,
@@ -115,7 +115,7 @@ describe('BrazeMessages', () => {
                     ...JSON.parse(message1Json),
                     extras: bannerExtras,
                 });
-                fakebraze.emit(bannerMessage);
+                fakeBraze.emit(bannerMessage);
 
                 const data1 = await bannerPromise;
                 expect(data1.extras).toEqual(bannerMessage.extras);
@@ -124,17 +124,17 @@ describe('BrazeMessages', () => {
                     ...JSON.parse(message2Json),
                     extras: epicExtras,
                 });
-                fakebraze.emit(endOfArticleMessage);
+                fakeBraze.emit(endOfArticleMessage);
 
                 const data2 = await endOfArticlePromise;
                 expect(data2.extras).toEqual(endOfArticleMessage.extras);
             });
 
             it('returns a message which is capable of logging an impression', async () => {
-                const fakebraze = new Fakebraze();
+                const fakeBraze = new FakeBraze();
                 const canRender = () => true;
                 const brazeMessages = new BrazeMessages(
-                    fakebraze as unknown as typeof braze,
+                    fakeBraze as unknown as typeof braze,
                     LocalMessageCache,
                     (error, identifier) => console.log(identifier, error),
                     canRender,
@@ -146,7 +146,7 @@ describe('BrazeMessages', () => {
                     ...JSON.parse(message1Json),
                     extras: bannerExtras,
                 });
-                fakebraze.emit(message);
+                fakeBraze.emit(message);
 
                 const bannerMessage = await bannerPromise;
                 bannerMessage.logImpression();
@@ -155,10 +155,10 @@ describe('BrazeMessages', () => {
             });
 
             it('returns a message with an id', async () => {
-                const fakebraze = new Fakebraze();
+                const fakeBraze = new FakeBraze();
                 const canRender = () => true;
                 const brazeMessages = new BrazeMessages(
-                    fakebraze as unknown as typeof braze,
+                    fakeBraze as unknown as typeof braze,
                     LocalMessageCache,
                     (error, identifier) => console.log(identifier, error),
                     canRender,
@@ -170,7 +170,7 @@ describe('BrazeMessages', () => {
                     ...JSON.parse(message1Json),
                     extras: bannerExtras,
                 });
-                fakebraze.emit(message);
+                fakeBraze.emit(message);
 
                 const bannerMessage = await bannerPromise;
 
@@ -188,15 +188,15 @@ describe('BrazeMessages', () => {
                     (e) => console.log(e),
                 );
                 const freshMessage = buildMessage(JSON.parse(message2Json));
-                const fakebraze = new Fakebraze();
+                const fakeBraze = new FakeBraze();
                 const canRender = () => true;
                 const brazeMessages = new BrazeMessages(
-                    fakebraze as unknown as typeof braze,
+                    fakeBraze as unknown as typeof braze,
                     LocalMessageCache,
                     (error, identifier) => console.log(identifier, error),
                     canRender,
                 );
-                fakebraze.emit(freshMessage);
+                fakeBraze.emit(freshMessage);
 
                 const gotMessage = await brazeMessages.getMessageForEndOfArticle();
 
@@ -214,15 +214,15 @@ describe('BrazeMessages', () => {
                     (e) => console.log(e),
                 );
                 const freshMessage = buildMessage(JSON.parse(message2Json));
-                const fakebraze = new Fakebraze();
+                const fakeBraze = new FakeBraze();
                 const canRender = () => true;
                 const brazeMessages = new BrazeMessages(
-                    fakebraze as unknown as typeof braze,
+                    fakeBraze as unknown as typeof braze,
                     LocalMessageCache,
                     (error, identifier) => console.log(identifier, error),
                     canRender,
                 );
-                fakebraze.emit(freshMessage);
+                fakeBraze.emit(freshMessage);
 
                 const firstMessage = await brazeMessages.getMessageForEndOfArticle();
                 firstMessage.logImpression();
@@ -242,15 +242,15 @@ describe('BrazeMessages', () => {
                     (e) => console.log(e),
                 );
                 const freshMessage = buildMessage(JSON.parse(message2Json));
-                const fakebraze = new Fakebraze();
+                const fakeBraze = new FakeBraze();
                 const canRender = () => true;
                 const brazeMessages = new BrazeMessages(
-                    fakebraze as unknown as typeof braze,
+                    fakeBraze as unknown as typeof braze,
                     LocalMessageCache,
                     (error, identifier) => console.log(identifier, error),
                     canRender,
                 );
-                fakebraze.emit(freshMessage);
+                fakeBraze.emit(freshMessage);
 
                 const firstMessage = await brazeMessages.getMessageForEndOfArticle();
                 const secondMessage = await brazeMessages.getMessageForEndOfArticle();
@@ -278,10 +278,10 @@ describe('BrazeMessages', () => {
                     },
                     (e) => console.log(e),
                 );
-                const fakebraze = new Fakebraze();
+                const fakeBraze = new FakeBraze();
                 const canRender = () => true;
                 const brazeMessages = new BrazeMessages(
-                    fakebraze as unknown as typeof braze,
+                    fakeBraze as unknown as typeof braze,
                     LocalMessageCache,
                     (error, identifier) => console.log(identifier, error),
                     canRender,
@@ -306,10 +306,10 @@ describe('BrazeMessages', () => {
                     },
                     (e) => console.log(e),
                 );
-                const fakebraze = new Fakebraze();
+                const fakeBraze = new FakeBraze();
                 const canRender = () => true;
                 const brazeMessages = new BrazeMessages(
-                    fakebraze as unknown as typeof braze,
+                    fakeBraze as unknown as typeof braze,
                     LocalMessageCache,
                     (error, identifier) => console.log(identifier, error),
                     canRender,
