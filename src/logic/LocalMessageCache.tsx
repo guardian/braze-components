@@ -74,24 +74,13 @@ const hydrateMessage = (
      * https://github.com/braze-inc/braze-web-sdk/blob/master/UPGRADE_GUIDE.md#removed-apis-1
      * We will move them into "extras" to keep the same data as before
      */
-    let extras: Record<string, string> | undefined = messageData.extras;
-    if (messageData.cardId) {
-        if (!extras) {
-            extras = {};
-        }
-        extras.cardId = messageData.cardId;
-    }
-    if (messageData.campaignId) {
-        if (!extras) {
-            extras = {};
-        }
-        extras.campaignId = messageData.campaignId;
-    }
-
-    /* eslint-disable @typescript-eslint/no-unsafe-member-access */
     const hydratedMessage = new brazeInstance.HtmlMessage(
         messageData.message,
-        extras,
+        {
+            ...(messageData.extras || {}),
+            ...(messageData.cardId && { cardId: messageData.cardId }),
+            ...(messageData.campaignId && { campaignId: messageData.campaignId }),
+        },
         messageData.triggerId,
         messageData.dismissType,
         messageData.duration,
@@ -102,7 +91,6 @@ const hydrateMessage = (
         messageData.css,
         messageData.messageFields,
     );
-    /* eslint-enable @typescript-eslint/no-unsafe-member-access */
 
     return hydratedMessage;
 };
