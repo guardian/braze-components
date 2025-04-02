@@ -1,5 +1,11 @@
 # @guardian/braze-components
 
+## 22.2.0
+
+### Minor Changes
+
+-   7bfcc3b: Upgraded from @braze/web-sdk-core version 3.5.1 to @braze/web-sdk version 5.8.1
+
 ## 22.1.0
 
 ### Minor Changes
