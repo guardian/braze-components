@@ -1,4 +1,4 @@
-import type appboy from '@braze/web-sdk-core';
+import * as braze from '@braze/web-sdk';
 import { ErrorHandler, Extras, CardSlotName, CardSlotNames } from './types';
 
 interface BrazeCardsInterface {
@@ -10,29 +10,29 @@ class BrazeCard {
 
     slotName: CardSlotName;
 
-    private card: appboy.Card;
+    private card: braze.Card;
 
-    private appboy: typeof appboy;
+    private braze: typeof braze;
 
     private errorHandler: ErrorHandler;
 
     constructor(
         id: string,
         slotName: CardSlotName,
-        card: appboy.Card,
-        appboyInstance: typeof appboy,
+        card: braze.Card,
+        brazeInstance: typeof braze,
         errorHandler: ErrorHandler,
     ) {
         this.id = id;
         this.slotName = slotName;
         this.card = card;
-        this.appboy = appboyInstance;
+        this.braze = brazeInstance;
         this.errorHandler = errorHandler;
     }
 
     logImpression(): void {
         try {
-            const result = this.appboy.logCardImpressions([this.card], true);
+            const result = this.braze.logCardImpressions([this.card], true);
             if (!result) {
                 this.errorHandler(
                     new Error('Failed to log card impression event'),
@@ -48,7 +48,7 @@ class BrazeCard {
 
     logCardClick(): void {
         try {
-            const result = this.appboy.logCardClick(this.card, true);
+            const result = this.braze.logCardClick(this.card, true);
             if (!result) {
                 this.errorHandler(
                     new Error('Failed to log card click event'),
@@ -64,7 +64,7 @@ class BrazeCard {
 
     logCardDismissal(): void {
         try {
-            const result = this.appboy.logCardDismissal(this.card);
+            const result = this.braze.logCardDismissal(this.card);
             if (!result) {
                 this.errorHandler(
                     new Error('Failed to log card dismiss event'),
@@ -105,12 +105,12 @@ class BrazeCard {
 }
 
 class BrazeCards implements BrazeCardsInterface {
-    appboy: typeof appboy;
+    braze: typeof braze;
 
     errorHandler: ErrorHandler;
 
-    constructor(appboyInstance: typeof appboy, errorHandler: ErrorHandler) {
-        this.appboy = appboyInstance;
+    constructor(brazeInstance: typeof braze, errorHandler: ErrorHandler) {
+        this.braze = brazeInstance;
         this.errorHandler = errorHandler;
     }
 
@@ -119,23 +119,23 @@ class BrazeCards implements BrazeCardsInterface {
     }
 
     private getCardsForSlot(targetSlotName: CardSlotName): BrazeCard[] {
-        const cachedCards = this.appboy.getCachedContentCards().cards.flatMap((appboyCard) => {
-            const { extras } = appboyCard;
+        const cachedCards = this.braze.getCachedContentCards().cards.flatMap((brazeCard) => {
+            const { extras } = brazeCard;
 
             if (extras && extras.slotName && extras.slotName === targetSlotName) {
-                if (appboyCard.id === undefined) {
+                if (brazeCard.id === undefined) {
                     this.errorHandler(
-                        new Error('appboy card had no ID'),
+                        new Error('braze card had no ID'),
                         'BrazeCards.getCardsForSlot',
                     );
                     return [];
                 } else {
                     return [
                         new BrazeCard(
-                            appboyCard.id,
+                            brazeCard.id,
                             targetSlotName,
-                            appboyCard,
-                            this.appboy,
+                            brazeCard,
+                            this.braze,
                             this.errorHandler,
                         ),
                     ];
@@ -151,7 +151,7 @@ class BrazeCards implements BrazeCardsInterface {
     }
 
     get lastUpdated(): Date | null {
-        return this.appboy.getCachedContentCards().lastUpdated;
+        return this.braze.getCachedContentCards().lastUpdated;
     }
 }
 

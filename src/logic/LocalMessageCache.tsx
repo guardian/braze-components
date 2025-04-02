@@ -1,4 +1,4 @@
-import type appboy from '@braze/web-sdk-core';
+import * as braze from '@braze/web-sdk';
 import { storage } from '@guardian/libs';
 import { MessageSlotName, MessageSlotNames } from './types';
 import type { ErrorHandler } from './types';
@@ -6,7 +6,7 @@ import type { ErrorHandler } from './types';
 const localStorageKeyBase = 'gu.brazeMessageCache';
 export const millisecondsBeforeExpiry = 1000 * 60 * 60 * 24; // 24 hours: 60 seconds * 60 minutes
 
-type Message = appboy.HtmlMessage;
+type Message = braze.HtmlMessage;
 
 export type MessageWithId = {
     id: string;
@@ -20,7 +20,7 @@ export type MessageData = {
     campaignId?: string;
     cardId?: string;
     triggerId?: string;
-    dismissType?: appboy.InAppMessage.DismissType;
+    dismissType?: braze.DismissType;
     duration?: number;
     animateIn?: boolean;
     animateOut?: boolean;
@@ -65,14 +65,22 @@ const readQueue = (slotName: MessageSlotName): CachedMessage[] => {
 
 const hydrateMessage = (
     messageData: MessageData,
-    appboyInstance: typeof appboy,
-): appboy.HtmlMessage => {
-    /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-    const hydratedMessage = new appboyInstance.HtmlMessage(
+    brazeInstance: typeof braze,
+): braze.HtmlMessage => {
+    /**
+     * Removed APIs
+     * The following methods and properties have been removed:
+     * "cardId" and "campaignId" properties of In-App Messages
+     * https://github.com/braze-inc/braze-web-sdk/blob/master/UPGRADE_GUIDE.md#removed-apis-1
+     * We will move them into "extras" to keep the same data as before
+     */
+    const hydratedMessage = new brazeInstance.HtmlMessage(
         messageData.message,
-        messageData.extras,
-        messageData.campaignId,
-        messageData.cardId,
+        {
+            ...(messageData.extras || {}),
+            ...(messageData.cardId && { cardId: messageData.cardId }),
+            ...(messageData.campaignId && { campaignId: messageData.campaignId }),
+        },
         messageData.triggerId,
         messageData.dismissType,
         messageData.duration,
@@ -83,7 +91,6 @@ const hydrateMessage = (
         messageData.css,
         messageData.messageFields,
     );
-    /* eslint-enable @typescript-eslint/no-unsafe-member-access */
 
     return hydratedMessage;
 };
@@ -124,12 +131,12 @@ const getQueue = (slotName: MessageSlotName, errorHandler: ErrorHandler): Cached
 interface MessageCache {
     peek: (
         slotName: MessageSlotName,
-        appboyInstance: typeof appboy,
+        brazeInstance: typeof braze,
         errorHandler: ErrorHandler,
     ) => MessageWithId | undefined;
     all: (
         slotName: MessageSlotName,
-        appboyInstance: typeof appboy,
+        brazeInstance: typeof braze,
         errorHandler: ErrorHandler,
     ) => MessageWithId[];
     remove: (slotName: MessageSlotName, id: string, errorHandler: ErrorHandler) => boolean;
@@ -144,7 +151,7 @@ interface MessageCache {
 class LocalMessageCache {
     static peek(
         slotName: MessageSlotName,
-        appboyInstance: typeof appboy,
+        brazeInstance: typeof braze,
         errorHandler: ErrorHandler,
     ): MessageWithId | undefined {
         const queue = getQueue(slotName, errorHandler);
@@ -153,7 +160,7 @@ class LocalMessageCache {
         if (topItem) {
             return {
                 id: topItem.message.id,
-                message: hydrateMessage(topItem.message.message, appboyInstance),
+                message: hydrateMessage(topItem.message.message, brazeInstance),
             };
         }
         return;
@@ -161,14 +168,14 @@ class LocalMessageCache {
 
     static all(
         slotName: MessageSlotName,
-        appboyInstance: typeof appboy,
+        brazeInstance: typeof braze,
         errorHandler: ErrorHandler,
     ): MessageWithId[] {
         const queue = getQueue(slotName, errorHandler);
 
         return queue.map((item) => ({
             id: item.message.id,
-            message: hydrateMessage(item.message.message, appboyInstance),
+            message: hydrateMessage(item.message.message, brazeInstance),
         }));
     }
 
