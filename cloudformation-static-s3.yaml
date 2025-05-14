@@ -33,6 +33,11 @@ Resources:
         Type: AWS::S3::Bucket
         Properties:
             BucketName: braze-components-storybook
+            PublicAccessBlockConfiguration:
+                BlockPublicAcls: true
+                IgnorePublicAcls: true
+                BlockPublicPolicy: true
+                RestrictPublicBuckets: true
             Tags:
                 - Key: App
                   Value: !Ref App
