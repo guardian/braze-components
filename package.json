@@ -112,5 +112,10 @@
   },
   "engines": {
     "node": "^18.15 || ^20.8"
+  },
+  "dependencies": {
+    "@guardian/cdk": "^61.10.1",
+    "aws-cdk-lib": "^2.214.0",
+    "constructs": "^10.4.2"
   }
 }
