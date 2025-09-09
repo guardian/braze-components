@@ -8,6 +8,12 @@ exports[`The BrazeComponents stack matches the snapshot 1`] = `
     ],
     "gu:cdk:version": "TEST",
   },
+  "Parameters": {
+    "StorybookAssetsBucketParameterParameter": {
+      "Default": "/braze-components/storybook-assets-bucket",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
   "Resources": {
     "CDN": {
       "Properties": {
@@ -46,7 +52,10 @@ exports[`The BrazeComponents stack matches the snapshot 1`] = `
                 "Fn::Join": [
                   "",
                   [
-                    "braze-components-storybook.s3.",
+                    {
+                      "Ref": "StorybookAssetsBucketParameterParameter",
+                    },
+                    ".s3.",
                     {
                       "Ref": "AWS::Region",
                     },
