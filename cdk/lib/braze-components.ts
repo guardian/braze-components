@@ -21,7 +21,6 @@ export class BrazeComponents extends GuStack {
     constructor(scope: App, id: string, props: BrazeComponentsStackProps) {
         super(scope, id, props);
 
-        // Get bucket name from SSM Parameter Store
         const bucketNameParameter = StringParameter.fromStringParameterName(
             this,
             'StorybookAssetsBucketParameter',
