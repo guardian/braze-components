@@ -8,6 +8,10 @@ Parameters:
     App:
         Type: String
         Default: braze-components
+    StorybookAssetsBucketParameter:
+        Type: "AWS::SSM::Parameter::Value<String>"
+        Default: "/braze-components/storybook-assets-bucket"
+        Description: "SSM Parameter Store entry for the Storybook S3 bucket name"
 
 Resources:
     WebrootAccessIdentityID:
@@ -32,7 +36,7 @@ Resources:
     StorybookAssetsBucket:
         Type: AWS::S3::Bucket
         Properties:
-            BucketName: braze-components-storybook
+            BucketName: !Ref StorybookAssetsBucketParameter
             PublicAccessBlockConfiguration:
                 BlockPublicAcls: true
                 IgnorePublicAcls: true

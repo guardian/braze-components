@@ -11,6 +11,7 @@ import {
     ViewerCertificate,
 } from 'aws-cdk-lib/aws-cloudfront';
 import { Bucket } from 'aws-cdk-lib/aws-s3';
+import { StringParameter } from 'aws-cdk-lib/aws-ssm';
 
 export interface BrazeComponentsStackProps extends GuStackProps {
     tlsCertId: string;
@@ -20,11 +21,15 @@ export class BrazeComponents extends GuStack {
     constructor(scope: App, id: string, props: BrazeComponentsStackProps) {
         super(scope, id, props);
 
-        const bucketNameFromStaticCloudformationStack = 'braze-components-storybook';
+        const bucketNameParameter = StringParameter.fromStringParameterName(
+            this,
+            'StorybookAssetsBucketParameter',
+            '/braze-components/storybook-assets-bucket',
+        );
         const sourceBucket = Bucket.fromBucketName(
             this,
             'braze-components-bucket',
-            bucketNameFromStaticCloudformationStack,
+            bucketNameParameter.stringValue,
         );
 
         const originAccessIdFromStaticCloudformationStack = 'E3EA9DC41190PP';
