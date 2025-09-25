@@ -125,12 +125,21 @@ class BrazeMessage {
             if (slotName !== MessageSlotNames.Default) {
                 const modalElement = doc.querySelector('.bz-modal');
                 if (modalElement) {
-                    // Clear the body and insert only the modal element
                     const body = doc.body;
-                    if (body) {
+                    const head = doc.head;
+
+                    if (body && head) {
+                        // Find all script and style tags in the body and move them to head
+                        const scriptsAndStyles = body.querySelectorAll('script, style');
+                        scriptsAndStyles.forEach((element) => {
+                            head.appendChild(element); // This moves the element, preserving order
+                        });
+
+                        // Clear the body and insert only the modal element
                         body.innerHTML = '';
                         body.appendChild(modalElement);
                     }
+
                     // Return the complete document with preserved head/styles/scripts
                     return doc.documentElement.outerHTML;
                 }
