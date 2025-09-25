@@ -2,7 +2,7 @@
 
 import * as braze from '@braze/web-sdk';
 import { MessageCache, MessageWithId } from './LocalMessageCache';
-import type { ErrorHandler, Extras, MessageSlotName } from './types';
+import { MessageSlotNames, type ErrorHandler, type Extras, type MessageSlotName } from './types';
 
 interface BrazeArticleContext {
     section?: string;
@@ -10,6 +10,7 @@ interface BrazeArticleContext {
 interface BrazeMessagesInterface {
     getMessageForBanner: (articleContext?: BrazeArticleContext) => Promise<BrazeMessage>;
     getMessageForEndOfArticle: (articleContext?: BrazeArticleContext) => Promise<BrazeMessage>;
+    getMessageForDefault: (articleContext?: BrazeArticleContext) => Promise<BrazeMessage>;
 }
 
 const generateId = (): string => `${Math.random().toString(16).slice(2)}-${new Date().getTime()}`;
@@ -86,6 +87,57 @@ class BrazeMessage {
     get extras(): Extras | undefined {
         return this.message.extras;
     }
+
+    get html(): string | undefined {
+        // The Braze HtmlMessage stores the raw HTML string on `message` (per existing LocalMessageCache typing)
+        // Defensive: ensure it's a string
+        const raw = (this.message as unknown as { message?: unknown }).message;
+        return typeof raw === 'string' ? raw : undefined;
+    }
+
+    /**
+     * Get processed HTML content based on slot type
+     * - Default slot: returns raw HTML as-is
+     * - Other slots: extracts specific content (e.g., .bz-modal for Banner/EndOfArticle)
+     */
+    get processedHtml(): string | undefined {
+        const rawHtml = this.html;
+        if (!rawHtml) {
+            return undefined;
+        }
+
+        // Default slot gets raw HTML without processing
+        if (this.slotName === MessageSlotNames.Default) {
+            return rawHtml;
+        }
+
+        // For other slots, extract specific content
+        return this.extractContentFromHtml(rawHtml, this.slotName);
+    }
+
+    private extractContentFromHtml(html: string, slotName: MessageSlotName): string {
+        try {
+            // Create a temporary DOM parser to extract content
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+
+            // For Banner and EndOfArticle slots, extract .bz-modal content
+            if (slotName !== MessageSlotNames.Default) {
+                const modalElement = doc.querySelector('.bz-modal');
+                if (modalElement) {
+                    return modalElement.outerHTML;
+                }
+            }
+
+            // If no specific extraction rule matches, return the raw HTML
+            // (fallback behavior)
+            return html;
+        } catch (error) {
+            // If parsing fails, return raw HTML as fallback
+            console.warn(`Failed to extract content for slot ${slotName}:`, error);
+            return html;
+        }
+    }
 }
 
 class BrazeMessages implements BrazeMessagesInterface {
@@ -108,8 +160,11 @@ class BrazeMessages implements BrazeMessagesInterface {
         this.braze = brazeInstance;
         this.cache = cache;
         this.freshMessageBySlot = {
-            Banner: this.getFreshMessagesForSlot('Banner'),
-            EndOfArticle: this.getFreshMessagesForSlot('EndOfArticle'),
+            [MessageSlotNames.Banner]: this.getFreshMessagesForSlot(MessageSlotNames.Banner),
+            [MessageSlotNames.EndOfArticle]: this.getFreshMessagesForSlot(
+                MessageSlotNames.EndOfArticle,
+            ),
+            [MessageSlotNames.Default]: this.getFreshMessagesForSlot(MessageSlotNames.Default),
         };
         this.errorHandler = errorHandler;
         this.canRender = canRender;
@@ -148,6 +203,20 @@ class BrazeMessages implements BrazeMessagesInterface {
 
     getMessageForEndOfArticle(articleContext?: BrazeArticleContext): Promise<BrazeMessage> {
         return this.getMessageForSlot('EndOfArticle', articleContext);
+    }
+
+    getMessageForDefault(articleContext?: BrazeArticleContext): Promise<BrazeMessage> {
+        // The Default slot is reserved exclusively for raw HTML messages
+        // This validation ensures semantic correctness and prevents misuse
+        return this.getMessageForSlot(MessageSlotNames.Default, articleContext).then((message) => {
+            // Validate that this is actually a raw HTML message
+            if (message.extras?.renderRawHtml !== 'true') {
+                throw new Error(
+                    'Default slot can only be used with raw HTML messages (renderRawHtml: "true")',
+                );
+            }
+            return message;
+        });
     }
 
     private getMessageForSlot(slotName: MessageSlotName, articleContext?: BrazeArticleContext) {

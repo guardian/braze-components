@@ -80,6 +80,19 @@ import {
 // These are in a seperate file to enable tree shaking of the logic deciding if a Braze message can be rendered
 // + This means the user won't download the Braze components bundle when the component can't be shown.
 
+/**
+ * Helper: detect a raw HTML fallback intent
+ * @param extras Braze message extras
+ * @returns true if the extras indicate raw HTML rendering is intended with a valid slotName
+ */
+const isRawHtmlIntent = (extras?: Extras): boolean => {
+    return (
+        extras?.renderRawHtml === 'true' &&
+        typeof extras?.slotName === 'string' &&
+        extras.slotName.length > 0
+    );
+};
+
 const COMPONENT_CAN_RENDER_MAPPINGS: Record<
     string,
     (brazeMessageProps: Record<string, unknown>) => boolean
@@ -108,8 +121,16 @@ export const canRenderBrazeMsg = (msgExtras: Extras | undefined): boolean => {
     if (!msgExtras) {
         return false;
     }
-    if (!COMPONENT_CAN_RENDER_MAPPINGS[msgExtras.componentName]) {
-        return false;
+
+    // Preserve existing structured path
+    if (COMPONENT_CAN_RENDER_MAPPINGS[msgExtras.componentName]) {
+        return COMPONENT_CAN_RENDER_MAPPINGS[msgExtras.componentName](msgExtras);
     }
-    return COMPONENT_CAN_RENDER_MAPPINGS[msgExtras.componentName](msgExtras);
+
+    // Allow raw HTML if explicitly flagged with valid slotName
+    if (isRawHtmlIntent(msgExtras)) {
+        return true;
+    }
+
+    return false;
 };
