@@ -125,7 +125,14 @@ class BrazeMessage {
             if (slotName !== MessageSlotNames.Default) {
                 const modalElement = doc.querySelector('.bz-modal');
                 if (modalElement) {
-                    return modalElement.outerHTML;
+                    // Clear the body and insert only the modal element
+                    const body = doc.body;
+                    if (body) {
+                        body.innerHTML = '';
+                        body.appendChild(modalElement);
+                    }
+                    // Return the complete document with preserved head/styles/scripts
+                    return doc.documentElement.outerHTML;
                 }
             }
 
