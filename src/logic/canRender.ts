@@ -81,16 +81,12 @@ import {
 // + This means the user won't download the Braze components bundle when the component can't be shown.
 
 /**
- * Helper: detect a raw HTML fallback intent
+ * Helper: check if a message has a valid slot name
  * @param extras Braze message extras
- * @returns true if the extras indicate raw HTML rendering is intended with a valid slotName
+ * @returns true if the extras contain a valid slotName
  */
-const isRawHtmlIntent = (extras?: Extras): boolean => {
-    return (
-        extras?.renderRawHtml === 'true' &&
-        typeof extras?.slotName === 'string' &&
-        extras.slotName.length > 0
-    );
+const hasValidSlotName = (extras?: Extras): boolean => {
+    return typeof extras?.slotName === 'string' && extras.slotName.length > 0;
 };
 
 const COMPONENT_CAN_RENDER_MAPPINGS: Record<
@@ -127,8 +123,8 @@ export const canRenderBrazeMsg = (msgExtras: Extras | undefined): boolean => {
         return COMPONENT_CAN_RENDER_MAPPINGS[msgExtras.componentName](msgExtras);
     }
 
-    // Allow raw HTML if explicitly flagged with valid slotName
-    if (isRawHtmlIntent(msgExtras)) {
+    // Allow any message with a valid slotName (raw HTML support)
+    if (hasValidSlotName(msgExtras)) {
         return true;
     }
 

@@ -8,95 +8,64 @@ describe('canRenderBrazeMsg', () => {
         });
 
         it('returns false when msgExtras is null', () => {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             expect(canRenderBrazeMsg(null as any)).toBe(false);
         });
 
-        it('returns false when componentName is missing and no raw HTML flags are present', () => {
+        it('returns true when only slotName is provided (allows raw HTML)', () => {
             const msgExtras: Extras = {
-                slotName: MessageSlotNames.Banner,
-            };
-            expect(canRenderBrazeMsg(msgExtras)).toBe(false);
-        });
-
-        it('returns false when using Default slot without renderRawHtml flag', () => {
-            // Note: This test documents expected behavior, but the main validation
-            // for Default slot exclusivity happens in getMessageForDefault()
-            const msgExtras: Extras = {
-                slotName: MessageSlotNames.Default,
-                componentName: 'SomeComponent',
-            };
-            expect(canRenderBrazeMsg(msgExtras)).toBe(false);
-        });
-    });
-
-    describe('raw HTML fallback functionality', () => {
-        it('returns true when renderRawHtml is "true" and slotName is "Banner"', () => {
-            const msgExtras: Extras = {
-                renderRawHtml: 'true',
                 slotName: MessageSlotNames.Banner,
             };
             expect(canRenderBrazeMsg(msgExtras)).toBe(true);
         });
 
-        it('returns true when renderRawHtml is "true" and slotName is "EndOfArticle"', () => {
+        it('returns true when a valid componentName is provided', () => {
             const msgExtras: Extras = {
-                renderRawHtml: 'true',
+                slotName: MessageSlotNames.Banner,
+                componentName: 'SomeComponent',
+            };
+            expect(canRenderBrazeMsg(msgExtras)).toBe(true);
+        });
+    });
+
+    describe('slot name validation', () => {
+        it('returns true when slotName is "Banner"', () => {
+            const msgExtras: Extras = {
+                slotName: MessageSlotNames.Banner,
+            };
+            expect(canRenderBrazeMsg(msgExtras)).toBe(true);
+        });
+
+        it('returns true when slotName is "EndOfArticle"', () => {
+            const msgExtras: Extras = {
                 slotName: 'EndOfArticle',
             };
             expect(canRenderBrazeMsg(msgExtras)).toBe(true);
         });
 
-        it('returns true when renderRawHtml is "true" and slotName is "Default"', () => {
+        it('returns true when slotName is "Default"', () => {
             const msgExtras: Extras = {
-                renderRawHtml: 'true',
                 slotName: MessageSlotNames.Default,
             };
             expect(canRenderBrazeMsg(msgExtras)).toBe(true);
         });
 
-        it('returns true when renderRawHtml is "true" with any valid slotName', () => {
+        it('returns true with any valid slotName', () => {
             const msgExtras: Extras = {
-                renderRawHtml: 'true',
                 slotName: MessageSlotNames.Default,
             };
             expect(canRenderBrazeMsg(msgExtras)).toBe(true);
-        });
-
-        it('returns false when renderRawHtml is "false"', () => {
-            const msgExtras: Extras = {
-                renderRawHtml: 'false',
-                slotName: MessageSlotNames.Banner,
-            };
-            expect(canRenderBrazeMsg(msgExtras)).toBe(false);
-        });
-
-        it('returns false when renderRawHtml is not exactly "true"', () => {
-            const msgExtras: Extras = {
-                renderRawHtml: '1',
-                slotName: MessageSlotNames.Banner,
-            };
-            expect(canRenderBrazeMsg(msgExtras)).toBe(false);
-        });
-
-        it('returns false when renderRawHtml is missing', () => {
-            const msgExtras: Extras = {
-                slotName: MessageSlotNames.Banner,
-            };
-            expect(canRenderBrazeMsg(msgExtras)).toBe(false);
         });
 
         it('returns false when slotName is empty string', () => {
             const msgExtras: Extras = {
-                renderRawHtml: 'true',
                 slotName: '',
             };
             expect(canRenderBrazeMsg(msgExtras)).toBe(false);
         });
 
         it('returns false when slotName is missing', () => {
-            const msgExtras: Extras = {
-                renderRawHtml: 'true',
-            };
+            const msgExtras: Extras = {};
             expect(canRenderBrazeMsg(msgExtras)).toBe(false);
         });
     });

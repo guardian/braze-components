@@ -94,66 +94,6 @@ class BrazeMessage {
         const raw = (this.message as unknown as { message?: unknown }).message;
         return typeof raw === 'string' ? raw : undefined;
     }
-
-    /**
-     * Get processed HTML content based on slot type
-     * - Default slot: returns raw HTML as-is
-     * - Other slots: extracts specific content (e.g., .bz-modal for Banner/EndOfArticle)
-     */
-    get processedHtml(): string | undefined {
-        const rawHtml = this.html;
-        if (!rawHtml) {
-            return undefined;
-        }
-
-        // Default slot gets raw HTML without processing
-        if (this.slotName === MessageSlotNames.Default) {
-            return rawHtml;
-        }
-
-        // For other slots, extract specific content
-        return this.extractContentFromHtml(rawHtml, this.slotName);
-    }
-
-    private extractContentFromHtml(html: string, slotName: MessageSlotName): string {
-        try {
-            // Create a temporary DOM parser to extract content
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
-
-            // For Banner and EndOfArticle slots, extract .bz-modal content
-            if (slotName !== MessageSlotNames.Default) {
-                const modalElement = doc.querySelector('.bz-modal');
-                if (modalElement) {
-                    const body = doc.body;
-                    const head = doc.head;
-
-                    if (body && head) {
-                        // Find all script and style tags in the body and move them to head
-                        const scriptsAndStyles = body.querySelectorAll('script, style');
-                        scriptsAndStyles.forEach((element) => {
-                            head.appendChild(element); // This moves the element, preserving order
-                        });
-
-                        // Clear the body and insert only the modal element
-                        body.innerHTML = '';
-                        body.appendChild(modalElement);
-                    }
-
-                    // Return the complete document with preserved head/styles/scripts
-                    return doc.documentElement.outerHTML;
-                }
-            }
-
-            // If no specific extraction rule matches, return the raw HTML
-            // (fallback behavior)
-            return html;
-        } catch (error) {
-            // If parsing fails, return raw HTML as fallback
-            console.warn(`Failed to extract content for slot ${slotName}:`, error);
-            return html;
-        }
-    }
 }
 
 class BrazeMessages implements BrazeMessagesInterface {
@@ -222,17 +162,7 @@ class BrazeMessages implements BrazeMessagesInterface {
     }
 
     getMessageForDefault(articleContext?: BrazeArticleContext): Promise<BrazeMessage> {
-        // The Default slot is reserved exclusively for raw HTML messages
-        // This validation ensures semantic correctness and prevents misuse
-        return this.getMessageForSlot(MessageSlotNames.Default, articleContext).then((message) => {
-            // Validate that this is actually a raw HTML message
-            if (message.extras?.renderRawHtml !== 'true') {
-                throw new Error(
-                    'Default slot can only be used with raw HTML messages (renderRawHtml: "true")',
-                );
-            }
-            return message;
-        });
+        return this.getMessageForSlot(MessageSlotNames.Default, articleContext);
     }
 
     private getMessageForSlot(slotName: MessageSlotName, articleContext?: BrazeArticleContext) {
