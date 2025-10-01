@@ -13,7 +13,6 @@ export type ErrorHandler = (error: Error, identifier: string) => void;
 export enum MessageSlotNames {
     Banner = 'Banner',
     EndOfArticle = 'EndOfArticle',
-    Default = 'Default',
 }
 export type MessageSlotName = keyof typeof MessageSlotNames;
 

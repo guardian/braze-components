@@ -28,7 +28,7 @@ describe('canRenderBrazeMsg', () => {
         });
     });
 
-    describe('slot name validation', () => {
+    describe('valid slot name functionality', () => {
         it('returns true when slotName is "Banner"', () => {
             const msgExtras: Extras = {
                 slotName: MessageSlotNames.Banner,
@@ -43,16 +43,9 @@ describe('canRenderBrazeMsg', () => {
             expect(canRenderBrazeMsg(msgExtras)).toBe(true);
         });
 
-        it('returns true when slotName is "Default"', () => {
-            const msgExtras: Extras = {
-                slotName: MessageSlotNames.Default,
-            };
-            expect(canRenderBrazeMsg(msgExtras)).toBe(true);
-        });
-
         it('returns true with any valid slotName', () => {
             const msgExtras: Extras = {
-                slotName: MessageSlotNames.Default,
+                slotName: MessageSlotNames.Banner,
             };
             expect(canRenderBrazeMsg(msgExtras)).toBe(true);
         });

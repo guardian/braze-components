@@ -94,19 +94,20 @@ describe('BrazeMessage html getter', () => {
         expect(brazeMessage.html).toBe('');
     });
 
-    it('works with raw HTML processing workflow', () => {
-        const htmlWithModal = `
-            <div class="bz-modal">
-                <h1>Modal Content</h1>
+    it('works with complex HTML content', () => {
+        const complexHtml = `
+            <div class="bz-custom-content">
+                <h1>Custom Content</h1>
+                <p>Some complex HTML structure</p>
+                <button onclick="alert('test')">Click me</button>
             </div>
         `;
 
         const mockHtmlMessage = {
             extras: {
-                renderRawHtml: 'true',
                 slotName: MessageSlotNames.Banner,
             },
-            message: htmlWithModal,
+            message: complexHtml,
         } as any;
 
         const brazeMessage = new BrazeMessage(
@@ -118,10 +119,9 @@ describe('BrazeMessage html getter', () => {
             mockErrorHandler,
         );
 
-        // Raw HTML getter returns the complete content
-        expect(brazeMessage.html).toBe(htmlWithModal);
-
-        // processedHtml would extract just the modal (tested separately)
-        expect(brazeMessage.processedHtml).toContain('class="bz-modal"');
+        // Raw HTML getter returns the complete content as-is
+        expect(brazeMessage.html).toBe(complexHtml);
+        expect(brazeMessage.html).toContain('class="bz-modal"');
+        expect(brazeMessage.html).toContain('onclick="alert(\'test\')"');
     });
 });

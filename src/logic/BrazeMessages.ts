@@ -2,7 +2,7 @@
 
 import * as braze from '@braze/web-sdk';
 import { MessageCache, MessageWithId } from './LocalMessageCache';
-import { MessageSlotNames, type ErrorHandler, type Extras, type MessageSlotName } from './types';
+import { type ErrorHandler, type Extras, type MessageSlotName } from './types';
 
 interface BrazeArticleContext {
     section?: string;
@@ -10,7 +10,6 @@ interface BrazeArticleContext {
 interface BrazeMessagesInterface {
     getMessageForBanner: (articleContext?: BrazeArticleContext) => Promise<BrazeMessage>;
     getMessageForEndOfArticle: (articleContext?: BrazeArticleContext) => Promise<BrazeMessage>;
-    getMessageForDefault: (articleContext?: BrazeArticleContext) => Promise<BrazeMessage>;
 }
 
 const generateId = (): string => `${Math.random().toString(16).slice(2)}-${new Date().getTime()}`;
@@ -116,11 +115,8 @@ class BrazeMessages implements BrazeMessagesInterface {
         this.braze = brazeInstance;
         this.cache = cache;
         this.freshMessageBySlot = {
-            [MessageSlotNames.Banner]: this.getFreshMessagesForSlot(MessageSlotNames.Banner),
-            [MessageSlotNames.EndOfArticle]: this.getFreshMessagesForSlot(
-                MessageSlotNames.EndOfArticle,
-            ),
-            [MessageSlotNames.Default]: this.getFreshMessagesForSlot(MessageSlotNames.Default),
+            Banner: this.getFreshMessagesForSlot('Banner'),
+            EndOfArticle: this.getFreshMessagesForSlot('EndOfArticle'),
         };
         this.errorHandler = errorHandler;
         this.canRender = canRender;
@@ -159,10 +155,6 @@ class BrazeMessages implements BrazeMessagesInterface {
 
     getMessageForEndOfArticle(articleContext?: BrazeArticleContext): Promise<BrazeMessage> {
         return this.getMessageForSlot('EndOfArticle', articleContext);
-    }
-
-    getMessageForDefault(articleContext?: BrazeArticleContext): Promise<BrazeMessage> {
-        return this.getMessageForSlot(MessageSlotNames.Default, articleContext);
     }
 
     private getMessageForSlot(slotName: MessageSlotName, articleContext?: BrazeArticleContext) {
