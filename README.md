@@ -22,6 +22,40 @@ the user), or they expire. Notifications from different sources can
 peacfully co-exist. These notifications are exposed by the
 [BrazeCards](src/logic/BrazeCards.ts) class.
 
+### Custom HTML Messages
+
+Braze campaigns can send custom HTML content that will be rendered directly
+in the specified slot (e.g., `Banner` or `EndOfArticle`). To use this feature:
+
+1. Create an HTML in-app message in Braze (type: "HTML")
+2. In the `extras` field, include only `slotName` (e.g., `"Banner"` or `"EndOfArticle"`)
+   - Do NOT include a `componentName` field
+3. The HTML content from Braze's `message` field will be automatically rendered
+
+**Example Braze message structure:**
+```json
+{
+  "data": {
+    "type": "HTML",
+    "extras": {
+      "slotName": "Banner"
+    },
+    "message": "<h1>Hello World!</h1><p>Custom HTML content here</p>"
+  }
+}
+```
+
+The HTML will be automatically sanitized using DOMPurify to prevent XSS attacks.
+Client applications using this library do not need to change their implementation
+to support this feature - it works transparently with existing integrations.
+
+**Features:**
+- Automatic HTML sanitization for security (scripts and unsafe content removed)
+- Button click tracking via `data-braze-button-id` attributes
+- Automatic impression tracking through Ophan
+- Full HTML/CSS support (within security constraints)
+- Works with both simple HTML snippets and complete HTML documents (body content extracted)
+
 ## Development
 
 ### Local Setup
