@@ -9,6 +9,7 @@ module.exports = {
     './gu-preview/register.js',
     './grid/register.js',
     './article-context/register.js',
+    './export-code/register.js',
     '@storybook/addon-webpack5-compiler-babel'
   ],
 
