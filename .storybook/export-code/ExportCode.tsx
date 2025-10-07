@@ -27,7 +27,8 @@ function cloneElementWithStyles(originalElement: Element, iframeWindow: Window):
     
     // Apply computed styles - check if it's an element with style capabilities
     // Use nodeType check instead of instanceof to work across iframe boundaries
-    if (originalElement.nodeType === Node.ELEMENT_NODE && originalElement.tagName) {
+    // Skip style tags as they shouldn't have inline style attributes
+    if (originalElement.nodeType === Node.ELEMENT_NODE && originalElement.tagName && originalElement.tagName !== 'STYLE') {
         console.log('✅ Processing HTML element:', originalElement.tagName, originalElement.className);
         
         try {
@@ -54,6 +55,8 @@ function cloneElementWithStyles(originalElement: Element, iframeWindow: Window):
         } catch (error) {
             console.warn('Could not get computed styles for', originalElement.tagName, ':', error);
         }
+    } else if (originalElement.tagName === 'STYLE') {
+        console.log('⏭️ Skipping style application for STYLE tag');
     }
     
     // Clone and process children
@@ -71,6 +74,38 @@ function cloneElementWithStyles(originalElement: Element, iframeWindow: Window):
     }
     
     return clone;
+}
+
+/**
+ * Extract and process styles from style tags
+ */
+function processStyleContent(styleElement: HTMLStyleElement, iframeDoc: Document): { htmlBodyStyles: string; cleanedCSS: string } {
+    const cssText = styleElement.textContent || '';
+    
+    // Extract html and body styles
+    const htmlMatch = cssText.match(/html\s*{([^}]*)}/);
+    const bodyMatch = cssText.match(/body\s*{([^}]*)}/);
+    
+    let htmlBodyStyles = '';
+    if (htmlMatch && htmlMatch[1]) {
+        htmlBodyStyles += htmlMatch[1].trim() + '; ';
+    }
+    if (bodyMatch && bodyMatch[1]) {
+        htmlBodyStyles += bodyMatch[1].trim() + '; ';
+    }
+    
+    // Remove html, body, and .preview rules from CSS
+    let cleanedCSS = cssText
+        .replace(/html\s*{[^}]*}/g, '')
+        .replace(/body\s*{[^}]*}/g, '')
+        .replace(/\.preview\s*{[^}]*}/g, '')
+        .trim();
+    
+    // Find .preview styles and return them separately for potential application
+    const previewMatch = cssText.match(/\.preview\s*{([^}]*)}/);
+    const previewStyles = previewMatch && previewMatch[1] ? previewMatch[1].trim() : '';
+    
+    return { htmlBodyStyles, cleanedCSS };
 }
 
 /**
@@ -99,21 +134,39 @@ function exportCode(): void {
     console.log('📋 Found story root:', storyRoot.tagName, storyRoot.className);
     console.log('👶 Story root children:', storyRoot.children.length);
 
-    // Debug: Check if storyRoot has actual content
-    console.log('🧱 Story root HTML (first 200 chars):', storyRoot.innerHTML.substring(0, 200));
-
     // Clone the root and all children with computed styles
     console.log('🔧 Starting cloneElementWithStyles...');
     const cloneWithStyles = cloneElementWithStyles(storyRoot, iframeWindow);
     console.log('✨ Clone completed');
     
-    // Get the HTML with inline styles
-    const html = cloneWithStyles.innerHTML;
+    // Process the cloned content to fix style issues
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = cloneWithStyles.innerHTML;
+    
+    // Find and process style tags
+    const styleTags = tempDiv.querySelectorAll('style');
+    let htmlBodyStyles = '';
+    
+    styleTags.forEach((styleTag) => {
+        const { htmlBodyStyles: extractedStyles, cleanedCSS } = processStyleContent(styleTag, iframeDoc);
+        htmlBodyStyles += extractedStyles;
+        
+        // Remove the style attribute from the style tag (it shouldn't have inline styles)
+        styleTag.removeAttribute('style');
+        
+        // Update the style content
+        styleTag.textContent = cleanedCSS;
+    });
+    
+    // Get the processed HTML
+    let html = tempDiv.innerHTML;
+    
     console.log('📄 Generated HTML length:', html.length);
     console.log('🔍 First 200 chars:', html.substring(0, 200));
 
-    // Build the complete HTML export - just a div wrapper with all inline styles
-    const completeHTML = `<div>
+    // Build the complete HTML export with html/body styles applied to wrapper
+    const wrapperStyles = htmlBodyStyles ? ` style="${htmlBodyStyles.replace(/"/g, '&quot;')}"` : '';
+    const completeHTML = `<div${wrapperStyles}>
 ${html}
 </div>`;
 
@@ -121,7 +174,7 @@ ${html}
     navigator.clipboard.writeText(completeHTML).then(
         () => {
             console.log('✅ HTML and CSS copied to clipboard!');
-            console.log('Exported', html.length, 'characters of HTML');
+            console.log('Exported', completeHTML.length, 'characters of HTML');
         },
         (err) => {
             console.error('Could not copy to clipboard:', err);
