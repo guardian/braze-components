@@ -26,6 +26,32 @@ const CopiedMessage = styled.div<{}>(({ theme }) => ({
 }));
 
 /**
+ * Minify CSS by removing unnecessary whitespace, comments, and formatting
+ */
+function minifyCSS(css: string): string {
+    return css
+        // Remove comments
+        .replace(/\/\*[\s\S]*?\*\//g, '')
+        // Remove extra whitespace and newlines
+        .replace(/\s+/g, ' ')
+        // Remove whitespace around specific characters
+        .replace(/\s*{\s*/g, '{')
+        .replace(/\s*}\s*/g, '}')
+        .replace(/\s*;\s*/g, ';')
+        .replace(/\s*:\s*/g, ':')
+        .replace(/\s*,\s*/g, ',')
+        .replace(/\s*>\s*/g, '>')
+        .replace(/\s*\+\s*/g, '+')
+        .replace(/\s*~\s*/g, '~')
+        // Remove whitespace around @media and other @rules
+        .replace(/\s*@\s*/g, '@')
+        // Remove trailing semicolons before closing braces
+        .replace(/;}/g, '}')
+        // Remove leading/trailing whitespace
+        .trim();
+}
+
+/**
  * Recursively copy element preserving classes and structure (no inline styles)
  */
 function cloneElement(originalElement: Element): Element {
@@ -134,19 +160,27 @@ function exportCode(): void {
         }
     });
 
-    // Update or create style tag with the iframe's CSS
+    // Minify the CSS to reduce file size
+    const minifiedCSS = minifyCSS(allCSS);
+    
+    console.log('📦 CSS minification results:');
+    console.log('   Original CSS size:', allCSS.length, 'characters');
+    console.log('   Minified CSS size:', minifiedCSS.length, 'characters');
+    console.log('   Size reduction:', ((allCSS.length - minifiedCSS.length) / allCSS.length * 100).toFixed(1) + '%');
+
+    // Update or create style tag with the minified CSS
     let styleTag = tempDiv.querySelector('style');
     if (!styleTag) {
         styleTag = document.createElement('style');
         tempDiv.insertBefore(styleTag, tempDiv.firstChild);
     }
 
-    styleTag.textContent = allCSS;
+    styleTag.textContent = minifiedCSS;
 
     // Get the processed HTML
     let html = tempDiv.innerHTML;
 
-    console.log('📄 Generated HTML length:', html.length);
+    console.log('📄 Generated HTML with minified CSS length:', html.length);
     console.log('🔍 First 200 chars:', html.substring(0, 200));
 
     // Build the complete HTML export with html/body styles applied to wrapper
@@ -160,8 +194,9 @@ ${html}
     // Copy to clipboard
     navigator.clipboard.writeText(completeHTML).then(
         () => {
-            console.log('✅ HTML and CSS copied to clipboard!');
-            console.log('Exported', completeHTML.length, 'characters of HTML');
+            console.log('✅ Minified HTML and CSS copied to clipboard!');
+            console.log('📦 Total exported size:', completeHTML.length, 'characters');
+            console.log('🎯 Optimized for Braze and email platforms');
         },
         (err) => {
             console.error('Could not copy to clipboard:', err);
