@@ -32,7 +32,7 @@ export default {
 
         header: {
             name: 'header',
-            type: { name: 'string', required: true },
+            type: { name: 'text', required: true },
             description: 'Header text',
         },
         styleHeader: {
@@ -43,7 +43,7 @@ export default {
 
         frequency: {
             name: 'frequency',
-            type: { name: 'string', required: true },
+            type: { name: 'text', required: true },
             description: 'Text description of how often the email is sent',
         },
         styleClockColor: {
@@ -59,7 +59,7 @@ export default {
 
         body: {
             name: 'body',
-            type: { name: 'string', required: true },
+            type: { name: 'text', required: true },
             description: 'Body text',
         },
         styleBody: {
@@ -70,7 +70,7 @@ export default {
 
         boldText: {
             name: 'boldText',
-            type: { name: 'string', required: false },
+            type: { name: 'text', required: false },
             description: 'Bold text',
         },
         styleBoldText: {
@@ -86,7 +86,7 @@ export default {
 
         secondParagraph: {
             name: 'secondParagraph',
-            type: { name: 'string', required: false },
+            type: { name: 'text', required: false },
             description: 'Additional paragraph',
         },
         styleSecondParagraph: {
@@ -97,7 +97,7 @@ export default {
 
         newsletterCta: {
             name: 'newsletterCta',
-            type: { name: 'string', required: false },
+            type: { name: 'text', required: false },
             description: 'CTA button copy',
         },
         styleNewsletterButton: {
