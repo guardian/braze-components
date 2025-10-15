@@ -103,6 +103,8 @@ const PreviewCode = styled.code<{}>(({ theme }) => ({
     color: theme.color.defaultText,
     backgroundColor: 'transparent',
     border: 'none',
+    whiteSpace: 'pre-wrap',
+    lineHeight: 1.4,
 }));
 
 const ButtonGroup = styled.div(() => ({
@@ -127,6 +129,7 @@ export const PersonalizationDialog: React.FC<PersonalizationDialogProps> = ({
     const [selectedCategory, setSelectedCategory] = useState('');
     const [selectedAttribute, setSelectedAttribute] = useState('');
     const [customAttributeName, setCustomAttributeName] = useState('');
+    const [customPropertyName, setCustomPropertyName] = useState('');
     const [defaultValue, setDefaultValue] = useState('');
 
     // Get available options for selected category
@@ -151,6 +154,11 @@ export const PersonalizationDialog: React.FC<PersonalizationDialogProps> = ({
             template = template.replace('ATTRIBUTE_NAME', customAttributeName);
         }
         
+        // Handle custom event properties that need property name replacement
+        if (template.includes('PROPERTY_NAME') && customPropertyName) {
+            template = template.replace('PROPERTY_NAME', customPropertyName);
+        }
+        
         // Add default value if provided
         if (defaultValue.trim()) {
             // Remove closing braces and add default filter with proper spacing
@@ -158,7 +166,7 @@ export const PersonalizationDialog: React.FC<PersonalizationDialogProps> = ({
         }
 
         return template;
-    }, [selectedOption, customAttributeName, defaultValue]);
+    }, [selectedOption, customAttributeName, customPropertyName, defaultValue]);
 
     const handleCopyToClipboard = useCallback(() => {
         if (liquidTemplate) {
@@ -180,12 +188,14 @@ export const PersonalizationDialog: React.FC<PersonalizationDialogProps> = ({
         setSelectedCategory(e.target.value);
         setSelectedAttribute('');
         setCustomAttributeName('');
+        setCustomPropertyName('');
         setDefaultValue('');
     }, []);
 
     const handleAttributeChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedAttribute(e.target.value);
         setCustomAttributeName('');
+        setCustomPropertyName('');
         
         // Set default value suggestions based on the selected attribute
         const option = availableOptions.find(opt => opt.value === e.target.value);
@@ -199,6 +209,7 @@ export const PersonalizationDialog: React.FC<PersonalizationDialogProps> = ({
     }, [availableOptions]);
 
     const needsCustomAttributeName = selectedOption?.template.includes('ATTRIBUTE_NAME');
+    const needsCustomPropertyName = selectedOption?.template.includes('PROPERTY_NAME');
 
     if (!isOpen) return null;
 
@@ -260,6 +271,22 @@ export const PersonalizationDialog: React.FC<PersonalizationDialogProps> = ({
                     </FormGroup>
                 )}
 
+                {needsCustomPropertyName && (
+                    <FormGroup>
+                        <Label htmlFor="customPropertyName">Custom Event Property Name</Label>
+                        <Input
+                            id="customPropertyName"
+                            type="text"
+                            value={customPropertyName}
+                            onChange={(e) => setCustomPropertyName(e.target.value)}
+                            placeholder="e.g., product_name, purchase_amount"
+                        />
+                        <Description>
+                            Enter the exact name of your custom event property as defined in Braze
+                        </Description>
+                    </FormGroup>
+                )}
+
                 {selectedOption && (
                     <FormGroup>
                         <Label htmlFor="defaultValue">Default Value (Optional)</Label>
@@ -290,7 +317,7 @@ export const PersonalizationDialog: React.FC<PersonalizationDialogProps> = ({
                     <Button 
                         onClick={handleCopyToClipboard} 
                         primary
-                        disabled={!liquidTemplate || (needsCustomAttributeName && !customAttributeName.trim())}
+                        disabled={!liquidTemplate || (needsCustomAttributeName && !customAttributeName.trim()) || (needsCustomPropertyName && !customPropertyName.trim())}
                     >
                         Copy to Clipboard
                     </Button>
