@@ -29,26 +29,28 @@ const CopiedMessage = styled.div<{}>(({ theme }) => ({
  * Minify CSS by removing unnecessary whitespace, comments, and formatting
  */
 function minifyCSS(css: string): string {
-    return css
-        // Remove comments
-        .replace(/\/\*[\s\S]*?\*\//g, '')
-        // Remove extra whitespace and newlines
-        .replace(/\s+/g, ' ')
-        // Remove whitespace around specific characters
-        .replace(/\s*{\s*/g, '{')
-        .replace(/\s*}\s*/g, '}')
-        .replace(/\s*;\s*/g, ';')
-        .replace(/\s*:\s*/g, ':')
-        .replace(/\s*,\s*/g, ',')
-        .replace(/\s*>\s*/g, '>')
-        .replace(/\s*\+\s*/g, '+')
-        .replace(/\s*~\s*/g, '~')
-        // Remove whitespace around @media and other @rules
-        .replace(/\s*@\s*/g, '@')
-        // Remove trailing semicolons before closing braces
-        .replace(/;}/g, '}')
-        // Remove leading/trailing whitespace
-        .trim();
+    return (
+        css
+            // Remove comments
+            .replace(/\/\*[\s\S]*?\*\//g, '')
+            // Remove extra whitespace and newlines
+            .replace(/\s+/g, ' ')
+            // Remove whitespace around specific characters
+            .replace(/\s*{\s*/g, '{')
+            .replace(/\s*}\s*/g, '}')
+            .replace(/\s*;\s*/g, ';')
+            .replace(/\s*:\s*/g, ':')
+            .replace(/\s*,\s*/g, ',')
+            .replace(/\s*>\s*/g, '>')
+            .replace(/\s*\+\s*/g, '+')
+            .replace(/\s*~\s*/g, '~')
+            // Remove whitespace around @media and other @rules
+            .replace(/\s*@\s*/g, '@')
+            // Remove trailing semicolons before closing braces
+            .replace(/;}/g, '}')
+            // Remove leading/trailing whitespace
+            .trim()
+    );
 }
 
 /**
@@ -162,11 +164,14 @@ function exportCode(): void {
 
     // Minify the CSS to reduce file size
     const minifiedCSS = minifyCSS(allCSS);
-    
+
     console.log('📦 CSS minification results:');
     console.log('   Original CSS size:', allCSS.length, 'characters');
     console.log('   Minified CSS size:', minifiedCSS.length, 'characters');
-    console.log('   Size reduction:', ((allCSS.length - minifiedCSS.length) / allCSS.length * 100).toFixed(1) + '%');
+    console.log(
+        '   Size reduction:',
+        (((allCSS.length - minifiedCSS.length) / allCSS.length) * 100).toFixed(1) + '%',
+    );
 
     // Update or create style tag with the minified CSS
     let styleTag = tempDiv.querySelector('style');
@@ -240,6 +245,14 @@ export const ExportCode = (): ReactElement => {
         <>
             <ButtonsContainer>
                 <IconButtonWithLabel
+                    key="personalization"
+                    title="Add Braze personalization template"
+                    onClick={handlePersonalizationClick}
+                >
+                    <Icons icon="user" />
+                    <IconButtonLabel>Add Personalization</IconButtonLabel>
+                </IconButtonWithLabel>
+                <IconButtonWithLabel
                     key="exportcode"
                     title="Export HTML and CSS to clipboard"
                     onClick={handleExport}
@@ -258,14 +271,6 @@ export const ExportCode = (): ReactElement => {
                 >
                     <Icons icon="browser" />
                     <IconButtonLabel>Open Braze Preview</IconButtonLabel>
-                </IconButtonWithLabel>
-                <IconButtonWithLabel
-                    key="personalization"
-                    title="Add Braze personalization template"
-                    onClick={handlePersonalizationClick}
-                >
-                    <Icons icon="user" />
-                    <IconButtonLabel>Add Personalization</IconButtonLabel>
                 </IconButtonWithLabel>
             </ButtonsContainer>
             <PersonalizationDialog
