@@ -160,10 +160,19 @@ export const PersonalizationDialog: React.FC<PersonalizationDialogProps> = ({
         return template;
     }, [selectedOption, customAttributeName, defaultValue]);
 
-    const handleInsert = useCallback(() => {
+    const handleCopyToClipboard = useCallback(() => {
         if (liquidTemplate) {
-            onInsert(liquidTemplate);
-            onClose();
+            navigator.clipboard.writeText(liquidTemplate).then(
+                () => {
+                    console.log('✅ Personalization template copied to clipboard!');
+                    onInsert(liquidTemplate); // Still call this for any additional logic
+                    onClose();
+                },
+                (err) => {
+                    console.error('Could not copy to clipboard:', err);
+                    alert(`Failed to copy to clipboard. Template: ${liquidTemplate}`);
+                }
+            );
         }
     }, [liquidTemplate, onInsert, onClose]);
 
@@ -279,11 +288,11 @@ export const PersonalizationDialog: React.FC<PersonalizationDialogProps> = ({
                         Cancel
                     </Button>
                     <Button 
-                        onClick={handleInsert} 
+                        onClick={handleCopyToClipboard} 
                         primary
                         disabled={!liquidTemplate || (needsCustomAttributeName && !customAttributeName.trim())}
                     >
-                        Insert
+                        Copy to Clipboard
                     </Button>
                 </ButtonGroup>
             </DialogContainer>

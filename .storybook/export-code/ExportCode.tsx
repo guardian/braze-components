@@ -196,40 +196,9 @@ export const ExportCode = (): ReactElement => {
     }, []);
 
     const handlePersonalizationInsert = useCallback((template: string) => {
-        // Get the currently focused input element
-        const activeElement = document.activeElement as HTMLInputElement | HTMLTextAreaElement;
-        
-        if (activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA')) {
-            // Insert into the focused input field
-            const start = activeElement.selectionStart || 0;
-            const end = activeElement.selectionEnd || 0;
-            const currentValue = activeElement.value;
-            
-            const newValue = 
-                currentValue.substring(0, start) + 
-                template + 
-                currentValue.substring(end);
-            
-            activeElement.value = newValue;
-            
-            // Set cursor position after inserted text
-            const newCursorPosition = start + template.length;
-            activeElement.setSelectionRange(newCursorPosition, newCursorPosition);
-            
-            // Trigger input event to notify of changes
-            activeElement.dispatchEvent(new Event('input', { bubbles: true }));
-        } else {
-            // No input field focused, copy to clipboard
-            navigator.clipboard.writeText(template).then(
-                () => {
-                    console.log('✅ Personalization template copied to clipboard!');
-                },
-                (err) => {
-                    console.error('Could not copy to clipboard:', err);
-                    alert(`Failed to copy to clipboard. Template: ${template}`);
-                }
-            );
-        }
+        // This function is called after the template is already copied to clipboard
+        // We can add any additional logic here if needed in the future
+        console.log('✅ Personalization template handled:', template);
     }, []);
 
     return (
