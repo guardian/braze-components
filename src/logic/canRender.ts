@@ -108,6 +108,13 @@ export const canRenderBrazeMsg = (msgExtras: Extras | undefined): boolean => {
     if (!msgExtras) {
         return false;
     }
+
+    // If there's no componentName, check if there's a message field (raw HTML)
+    if (!msgExtras.componentName) {
+        // Raw HTML messages must have a 'message' field and a 'slotName'
+        return Boolean(msgExtras.message && msgExtras.slotName);
+    }
+
     if (!COMPONENT_CAN_RENDER_MAPPINGS[msgExtras.componentName]) {
         return false;
     }

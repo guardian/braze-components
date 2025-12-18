@@ -86,6 +86,11 @@ class BrazeMessage {
     get extras(): Extras | undefined {
         return this.message.extras;
     }
+
+    get html(): string | undefined {
+        const raw = (this.message as unknown as { message?: unknown }).message;
+        return typeof raw === 'string' ? raw : undefined;
+    }
 }
 
 class BrazeMessages implements BrazeMessagesInterface {

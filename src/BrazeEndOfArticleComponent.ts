@@ -40,7 +40,7 @@ import {
 } from './EpicNewsletter_TheGuide';
 
 export type CommonEndOfArticleComponentProps = {
-    componentName: string;
+    componentName?: string;
     brazeMessageProps: BrazeMessageProps;
     subscribeToNewsletter: NewsletterSubscribeCallback;
     fetchEmail: FetchEmail;

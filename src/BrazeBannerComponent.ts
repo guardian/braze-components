@@ -26,7 +26,7 @@ import {
 } from './StyleableBannerNewsletter';
 
 export type CommonBannerComponentProps = {
-    componentName: string;
+    componentName?: string;
     brazeMessageProps: BrazeMessageProps;
     subscribeToNewsletter: NewsletterSubscribeCallback;
     fetchEmail: FetchEmail;
