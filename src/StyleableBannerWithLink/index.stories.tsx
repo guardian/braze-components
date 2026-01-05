@@ -25,7 +25,7 @@ export default {
         },
         header: {
             name: 'header',
-            type: { name: 'string', required: true },
+            type: { name: 'text', required: true },
             description: 'Header text',
         },
         styleHeader: {
@@ -35,7 +35,7 @@ export default {
         },
         body: {
             name: 'body',
-            type: { name: 'string', required: true },
+            type: { name: 'text', required: true },
             description: 'Body text',
         },
         styleBody: {
@@ -45,7 +45,7 @@ export default {
         },
         highlight: {
             name: 'highlight',
-            type: { name: 'string', required: false },
+            type: { name: 'text', required: false },
             description: 'Highlighted (callout) text',
         },
         styleHighlight: {
@@ -60,7 +60,7 @@ export default {
         },
         buttonText: {
             name: 'buttonText',
-            type: { name: 'string', required: true },
+            type: { name: 'text', required: true },
             description: 'Button text',
         },
         buttonUrl: {
@@ -94,7 +94,7 @@ export default {
         },
         reminderOption: {
             name: 'reminderOption',
-            type: { name: 'string', required: false },
+            type: { name: 'text', required: false },
             description: 'Extra data to be associated with a reminder sign-up',
         },
         showPrivacyText: {
@@ -132,7 +132,7 @@ export default {
         },
         imageAltText: {
             name: 'imageAltText',
-            type: { name: 'string', required: true },
+            type: { name: 'text', required: true },
             description: 'Accessible image alt text',
         },
         imagePosition: {
