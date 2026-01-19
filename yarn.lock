@@ -2188,10 +2188,12 @@
     monocle-ts "^2.3.3"
     newtype-ts "^0.3.4"
 
-"@guardian/libs@^16.0.0":
-  version "16.0.0"
-  resolved "https://registry.yarnpkg.com/@guardian/libs/-/libs-16.0.0.tgz#35c567039f3a2a8440e3f0520b1bd9d275e6ad97"
-  integrity sha512-2i9cN6htXnvABIGhfqJGb9Bh/DdQOayUjb5ruqBGTiXEeDBHztctdVsi7+rPfMlwyPxQ+0qYLhM19f6J94vvhQ==
+"@guardian/libs@^27.1.0":
+  version "27.1.0"
+  resolved "https://registry.yarnpkg.com/@guardian/libs/-/libs-27.1.0.tgz#8424049479360873e6014cf9bf1766d6855da9f6"
+  integrity sha512-L2cTK/H/6WRTU6GP+XZOjbJhpuWh48LCpL5zVPkad3f4GMZgp+Me/xJfDMMh31bw9lO8VBzTVr+uSTJyGrJu5Q==
+  dependencies:
+    "@guardian/ophan-tracker-js" "2.8.0"
 
 "@guardian/node-riffraff-artifact@^0.3.2":
   version "0.3.2"
@@ -2207,12 +2209,24 @@
     yaml "^1.7.2"
     yargs "^15.4.1"
 
-"@guardian/source@^9.0.0":
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/@guardian/source/-/source-9.0.0.tgz#e8b9ba1d7796fda62a5e7a3904c36cf80de2bc41"
-  integrity sha512-RQuLqVp11x9hKtAKrOOvxWAtnUzNKDL4Uzk6rWGxfx9GDh4gc9+O+45NUXFM1DAzQkvyDXr3vNl5/iVrEJ+cPw==
+"@guardian/ophan-tracker-js@2.8.0":
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/@guardian/ophan-tracker-js/-/ophan-tracker-js-2.8.0.tgz#18c428ef75f8b6b573368c96feb867bddd0a09b0"
+  integrity sha512-RPoyxPPKaT1em1LZiD1LKsTYzoXBG8Zjs4OzyP5dhEmfoXD99qK48JI4oGUPlq3wOOB0ZT8UrbtbWDKzeMSBHA==
+  dependencies:
+    "@guardian/tsconfig" "^1.0.0"
+
+"@guardian/source@^12.2.0":
+  version "12.2.0"
+  resolved "https://registry.yarnpkg.com/@guardian/source/-/source-12.2.0.tgz#bf640196aca8455f76fbae7149b218a62c949846"
+  integrity sha512-+D7X1iR2QxFZI+ag43FljR3WIYTxur+HSfEnXnAg8XdMhGPfJWE/XsedYWH71f4YYEbCcaDbVos5sHXJUykIxQ==
   dependencies:
     mini-svg-data-uri "1.4.4"
+
+"@guardian/tsconfig@^1.0.0":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@guardian/tsconfig/-/tsconfig-1.0.1.tgz#010fa1c2af6418a1a208507e36ca27b7eec5b9b3"
+  integrity sha512-PB24nZ6WTBB8aZ9EyxJw1vC5FYkGqwMQ/O5Oogp6P5HCQU5MN0JpUXvpYci7kwV2oXD1Az06UBnLyyVXOVMadQ==
 
 "@hapi/hoek@^9.0.0":
   version "9.2.0"
