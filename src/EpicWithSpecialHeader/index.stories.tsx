@@ -33,43 +33,43 @@ export default {
         },
         authoredEpicImageAltText: {
             name: 'authoredEpicImageAltText',
-            type: { name: 'string', required: true },
+            type: { name: 'text', required: true },
             description: 'Accessible image alt text (never forget this!)',
         },
         authoredEpicHeader: {
             name: 'authoredEpicHeader',
-            type: { name: 'string' },
+            type: { name: 'text' },
             description: 'Large header next to the byline image. Leave empty to suppress it.',
         },
         authoredEpicBylineName: {
             name: 'authoredEpicBylineName',
-            type: { name: 'string', required: true },
+            type: { name: 'text', required: true },
             description: 'Byline name',
         },
         authoredEpicBylineCopy1: {
             name: 'authoredEpicBylineCopy1',
-            type: { name: 'string' },
+            type: { name: 'text' },
             description: 'Byline copy line 1',
         },
         authoredEpicBylineCopy2: {
             name: 'authoredEpicBylineCopy2',
-            type: { name: 'string' },
+            type: { name: 'text' },
             description: 'Byline copy line 2 (not always necessary)',
         },
         heading: {
             name: 'heading',
-            type: { name: 'string', required: false },
+            type: { name: 'text', required: false },
             description: 'Copy header text',
         },
         ...Object.fromEntries(paragraphDocs),
         highlightedText: {
             name: 'highlightedText',
-            type: { name: 'string' },
+            type: { name: 'text' },
             description: 'Yellow highlighted text at end of final paragraph. Supports HTML.',
         },
         buttonText: {
             name: 'buttonText',
-            type: { name: 'string', required: true },
+            type: { name: 'text', required: true },
             description: 'Button label text',
         },
         buttonUrl: {
@@ -90,7 +90,7 @@ export default {
         },
         reminderOption: {
             name: 'reminderOption',
-            type: { name: 'string', required: false },
+            type: { name: 'text', required: false },
             description: 'Extra data to be associated with a reminder sign-up',
         },
     },
