@@ -1,5 +1,11 @@
 # @guardian/braze-components
 
+## 23.0.0
+
+### Major Changes
+
+-   3ad841e: Updates `@guardian/source` to 12.2.0 and `@guardian/libs` to 27.1.0
+
 ## 22.2.0
 
 ### Minor Changes
