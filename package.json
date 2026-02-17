@@ -4,7 +4,7 @@
   "description": "React components to render messages from Braze",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/guardian/braze-components.git"
+    "url": "https://github.com/guardian/braze-components"
   },
   "author": "The Guardian",
   "license": "MIT",
