@@ -38,22 +38,22 @@ export default {
         },
         header: {
             name: 'header',
-            type: { name: 'string', required: true },
+            type: { name: 'text', required: true },
             description: 'Header text',
         },
         frequency: {
             name: 'frequency',
-            type: { name: 'string', required: true },
+            type: { name: 'text', required: true },
             description: 'Text description of how often the email is sent',
         },
         paragraph1: {
             name: 'paragraph1',
-            type: { name: 'string', required: true },
+            type: { name: 'text', required: true },
             description: 'First paragraph',
         },
         paragraph2: {
             name: 'paragraph2',
-            type: { name: 'string', required: false },
+            type: { name: 'text', required: false },
             description: 'Second paragraph',
         },
     },
