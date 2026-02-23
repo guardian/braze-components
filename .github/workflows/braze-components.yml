@@ -115,5 +115,6 @@ jobs:
         uses: changesets/action@v1
         with:
           publish: yarn changeset publish
+          setupGitUser: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
