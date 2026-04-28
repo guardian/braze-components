@@ -9,6 +9,9 @@ updates:
       directory: '/' # Location of package manifests
       schedule:
           interval: 'daily'
+      cooldown:
+      default-days: 7
+
     # Enable version updates for Actions
     - package-ecosystem: 'github-actions'
       directory: '/'
@@ -16,3 +19,6 @@ updates:
           interval: 'weekly'
           day: 'monday'
           time: '06:00'
+      cooldown:
+      default-days: 7
+
