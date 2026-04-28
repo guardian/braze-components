@@ -20,22 +20,22 @@ export default {
         ...ophanComponentIdArgType,
         header: {
             name: 'header',
-            type: { name: 'string', required: true },
+            type: { name: 'text', required: true },
             description: 'Header text',
         },
         body: {
             name: 'body',
-            type: { name: 'string', required: true },
+            type: { name: 'text', required: true },
             description: 'Body text',
         },
         boldText: {
             name: 'boldText',
-            type: { name: 'string', required: false },
+            type: { name: 'text', required: false },
             description: 'Bold text',
         },
         buttonText: {
             name: 'buttonText',
-            type: { name: 'string', required: true },
+            type: { name: 'text', required: true },
             description: 'Button text',
         },
         buttonUrl: {

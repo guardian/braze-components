@@ -40,7 +40,7 @@ export const buildEpicParagraphDocs = (
             {
                 name,
                 type: {
-                    name: 'string',
+                    name: 'text',
                     required: idx === 0,
                 },
                 description:
