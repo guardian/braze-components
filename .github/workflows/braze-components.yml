@@ -18,22 +18,27 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      - run: npm install --global corepack@0.31.0
+        shell: bash
+      - run: corepack enable
+        shell: bash
+
       - name: Use Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
             node-version-file: '.nvmrc'
 
       - name: Install dependencies
-        run: yarn install
+        run: pnpm install
 
       - name: Check typescript
-        run: yarn tsc
+        run: pnpm tsc
 
       - name: Lint
-        run: yarn lint
+        run: pnpm lint
 
       - name: Run tests
-        run: CI=true yarn test
+        run: CI=true pnpm test
 
   hosted-storybook-build:
     name: Hosted Storybook build
@@ -53,20 +58,29 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      - run: npm install --global corepack@0.31.0
+        shell: bash
+      - run: corepack enable
+        shell: bash
+
       - name: Use Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
             node-version-file: '.nvmrc'
 
       - name: Install dependencies
-        run: yarn install
+        run: pnpm install
 
       - name: Storybook build
-        run: yarn build-storybook
+        run: pnpm build-storybook
 
       - name: CDK
         working-directory: cdk
-        run: ./script/ci 
+        run: |
+          pnpm install
+          pnpm lint
+          pnpm test
+          pnpm synth
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -78,7 +92,7 @@ jobs:
         run: |
           export LAST_TEAMCITY_BUILD=1000
           export GITHUB_RUN_NUMBER=$(( $GITHUB_RUN_NUMBER + $LAST_TEAMCITY_BUILD ))
-          yarn upload-artifact
+          pnpm upload-artifact
 
   release:
     name: Release
@@ -95,8 +109,13 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
+      - run: npm install --global corepack@0.31.0
+        shell: bash
+      - run: corepack enable
+        shell: bash
+
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version-file: '.nvmrc'
           registry-url: 'https://registry.npmjs.org'
@@ -106,15 +125,15 @@ jobs:
         run: npm install -g npm@latest
 
       - name: Install dependencies
-        run: yarn --frozen-lockfile
+        run: pnpm --frozen-lockfile
 
       - name: Build
-        run: yarn build
+        run: pnpm build
 
       - name: Release
         uses: changesets/action@v1
         with:
-          publish: yarn changeset publish
+          publish: pnpm changeset publish
           setupGitUser: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
