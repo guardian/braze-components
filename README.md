@@ -35,7 +35,7 @@ $ bin/setup
 We use Storybook when building components. Run Storybook with:
 
 ```
-$ yarn storybook
+$ pnpm storybook
 ```
 
 The Grid image picker integration in Storybook requires auth. If necessary
@@ -45,7 +45,7 @@ the image picker. In this case you can skip auth entirely by running Storybook
 like this:
 
 ```
-$ STORYBOOK_DISABLE_AUTH=true yarn storybook
+$ STORYBOOK_DISABLE_AUTH=true pnpm storybook
 ```
 
 This means you won't need to run the login service locally.
@@ -66,7 +66,7 @@ Follow the instructions in the [yalc README](https://github.com/wclr/yalc#instal
 #### Build @guardian/braze-components locally
 
 ```
-$ yarn build
+$ pnpm build
 ```
 
 #### Publish your local @guardian/braze-components to the local yalc registry
@@ -92,13 +92,13 @@ the change shouldn't be committed.
 #### Notes
 
 The steps above should be repeated when you make a change to braze-components
-and you want to see it locally. Don't forget to re run `yarn build`!
+and you want to see it locally. Don't forget to re run `pnpm build`!
 
 ## Publishing to NPM
 
 Releasing to NPM is handled with [changesets] and is performed by CI.
 
-On your feature branch, before merging, run `yarn changeset`. This will
+On your feature branch, before merging, run `pnpm changeset`. This will
 interactively ask you what kind of change this is (major, minor, patch) and
 allow you to describe the change. Commit the generated changeset file to git and
 push to your branch.
@@ -120,8 +120,8 @@ For dotcom-rendering:
 -   Run `checkout` main branch and git pull
 -   Run `checkout -b` to start a new branch for the update PR
 -   Update the braze-components dependency in `dotcom-components/dotcom-components/package.json`
--   Run `yarn` to update the yarn.lock file in the DCR root
--   Push the branch and create the PR in GitHub. 
+-   Run `pnpm` to update the pnpm.lock file in the DCR root
+-   Push the branch and create the PR in GitHub.
 -   If the change involves visual changes to components, capture this via screenshots and include in the PR
 -   If the change involves updates to component layout, add code to DCR Storybook files to reflect those changes
 -   If necessary (it isn't always), take `DCR CODE` (announce first in the `P&E/Dotcom CODE Semaphore` chat) and deploy code there.
@@ -132,7 +132,7 @@ For frontend:
 -   Run `checkout -b` to start a new branch for the update PR
 -   Update the braze-components dependency in /package.json
 -   Run `make install compile` to update dependency lock file
--   Push the branch and create the PR in GitHub. 
+-   Push the branch and create the PR in GitHub.
 -   If necessary (it isn't always), take `Frontend CODE` (announce first in the `P&E/Dotcom CODE Semaphore` chat) and deploy code there.
 -   If all is good and the PR is approved, merge PR to main (in GitHub)
 
