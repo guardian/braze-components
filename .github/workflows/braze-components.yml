@@ -76,7 +76,11 @@ jobs:
 
       - name: CDK
         working-directory: cdk
-        run: ./script/ci
+        run: |
+          pnpm install
+          pnpm lint
+          pnpm test
+          pnpm synth
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
