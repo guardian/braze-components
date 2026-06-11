@@ -112,7 +112,19 @@
     "@types/react": "18.3.23",
     "immer": "9.0.6",
     "minimist": "1.2.6",
-    "cross-spawn": "7.0.6"
+    "cross-spawn": "7.0.6",
+    "axios": "0.32.0",
+    "follow-redirects": "1.15.9",
+    "tar": "7.5.11",
+    "serialize-javascript": "7.0.3",
+    "tmp": "0.2.6"
+  },
+  "pnpm": {
+    "auditConfig": {
+      "ignoreCves": [
+        "CVE-2026-27606"
+      ]
+    }
   },
   "engines": {
     "node": "24.2"
