@@ -134,6 +134,6 @@ jobs:
         uses: changesets/action@v1
         with:
           publish: pnpm changeset publish
-          setupGitUser: false
+          setupGitUser: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
