@@ -125,7 +125,7 @@ jobs:
         run: npm install -g npm@latest
 
       - name: Install dependencies
-        run: pnpm --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Build
         run: pnpm build
