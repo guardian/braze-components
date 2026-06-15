@@ -1,5 +1,11 @@
 # @guardian/braze-components
 
+## 23.0.1
+
+### Patch Changes
+
+-   360ea11: Fix: Address multiple dependency vulnerabilities and suppress CVE-2026-27606.
+
 ## 23.0.0
 
 ### Major Changes
