@@ -1,6 +1,6 @@
 {
   "name": "@guardian/braze-components",
-  "version": "23.0.1",
+  "version": "23.0.2",
   "description": "React components to render messages from Braze",
   "repository": {
     "type": "git",

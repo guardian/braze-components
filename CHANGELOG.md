@@ -1,5 +1,11 @@
 # @guardian/braze-components
 
+## 23.0.2
+
+### Patch Changes
+
+-   8c21da4: added role to image tag in NewsletterEpic to cover critical accessibility violation and updated colour palette to use non-deprecated object
+
 ## 23.0.1
 
 ### Patch Changes
