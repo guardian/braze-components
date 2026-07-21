@@ -86,7 +86,7 @@
     "prettier": "2.3.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "rollup": "2.79.2",
+    "rollup": "2.80.0",
     "rollup-plugin-external-globals": "0.5.0",
     "rollup-plugin-filesize": "10.0.0",
     "rollup-plugin-peer-deps-external": "2.2.3",
@@ -117,7 +117,10 @@
     "follow-redirects": "1.15.9",
     "tar": "7.5.11",
     "serialize-javascript": "7.0.3",
-    "tmp": "0.2.6"
+    "tmp": "0.2.7",
+    "form-data": "4.0.6",
+    "sigstore": "4.1.1",
+    "ws": "8.21.0"
   },
   "pnpm": {
     "auditConfig": {
