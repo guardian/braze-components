@@ -3,138 +3,138 @@ name: Build braze-components
 on: push
 
 permissions:
-  id-token: write # Required for OIDC
+    id-token: write # Required for OIDC
 
 jobs:
-  tests:
-    name: Tests
-    runs-on: ubuntu-latest
+    tests:
+        name: Tests
+        runs-on: ubuntu-latest
 
-    if: >-
-      github.event.pull_request.head.repo.owner.login == 'guardian' ||
-        github.event_name == 'push'
+        if: >-
+            github.event.pull_request.head.repo.owner.login == 'guardian' ||
+              github.event_name == 'push'
 
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v4
 
-      - run: npm install --global corepack@0.31.0
-        shell: bash
-      - run: corepack enable
-        shell: bash
+            - run: npm install --global corepack@0.31.0
+              shell: bash
+            - run: corepack enable
+              shell: bash
 
-      - name: Use Node.js
-        uses: actions/setup-node@v6
-        with:
-            node-version-file: '.nvmrc'
+            - name: Use Node.js
+              uses: actions/setup-node@v6
+              with:
+                  node-version-file: '.nvmrc'
 
-      - name: Install dependencies
-        run: pnpm install
+            - name: Install dependencies
+              run: pnpm install
 
-      - name: Check typescript
-        run: pnpm tsc
+            - name: Check typescript
+              run: pnpm tsc
 
-      - name: Lint
-        run: pnpm lint
+            - name: Lint
+              run: pnpm lint
 
-      - name: Run tests
-        run: CI=true pnpm test
+            - name: Run tests
+              run: CI=true pnpm test
 
-  hosted-storybook-build:
-    name: Hosted Storybook build
-    runs-on: ubuntu-latest
-    needs: [tests]
+    hosted-storybook-build:
+        name: Hosted Storybook build
+        runs-on: ubuntu-latest
+        needs: [tests]
 
-    if: >-
-      github.event.pull_request.head.repo.owner.login == 'guardian' ||
-        github.event_name == 'push'
+        if: >-
+            github.event.pull_request.head.repo.owner.login == 'guardian' ||
+              github.event_name == 'push'
 
-    # Required by actions-assume-aws-role
-    permissions:
-      id-token: write
-      contents: read
+        # Required by actions-assume-aws-role
+        permissions:
+            id-token: write
+            contents: read
 
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v4
 
-      - run: npm install --global corepack@0.31.0
-        shell: bash
-      - run: corepack enable
-        shell: bash
+            - run: npm install --global corepack@0.31.0
+              shell: bash
+            - run: corepack enable
+              shell: bash
 
-      - name: Use Node.js
-        uses: actions/setup-node@v6
-        with:
-            node-version-file: '.nvmrc'
+            - name: Use Node.js
+              uses: actions/setup-node@v6
+              with:
+                  node-version-file: '.nvmrc'
 
-      - name: Install dependencies
-        run: pnpm install
+            - name: Install dependencies
+              run: pnpm install
 
-      - name: Storybook build
-        run: pnpm build-storybook
+            - name: Storybook build
+              run: pnpm build-storybook
 
-      - name: CDK
-        working-directory: cdk
-        run: |
-          pnpm install
-          pnpm lint
-          pnpm test
-          pnpm synth
+            - name: CDK
+              working-directory: cdk
+              run: |
+                  pnpm install
+                  pnpm lint
+                  pnpm test
+                  pnpm synth
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          role-to-assume: ${{ secrets.GU_RIFF_RAFF_ROLE_ARN }}
-          aws-region: eu-west-1
+            - name: Configure AWS credentials
+              uses: aws-actions/configure-aws-credentials@v1
+              with:
+                  role-to-assume: ${{ secrets.GU_RIFF_RAFF_ROLE_ARN }}
+                  aws-region: eu-west-1
 
-      - name: Upload
-        run: |
-          export LAST_TEAMCITY_BUILD=1000
-          export GITHUB_RUN_NUMBER=$(( $GITHUB_RUN_NUMBER + $LAST_TEAMCITY_BUILD ))
-          pnpm upload-artifact
+            - name: Upload
+              run: |
+                  export LAST_TEAMCITY_BUILD=1000
+                  export GITHUB_RUN_NUMBER=$(( $GITHUB_RUN_NUMBER + $LAST_TEAMCITY_BUILD ))
+                  pnpm upload-artifact
 
-  release:
-    name: Release
-    needs: [tests]
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write # in order to write labels to main branch?
-      pull-requests: write # to be able to comment on released pull requests
-      id-token: write # to enable use of OIDC for npm provenance
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          persist-credentials: false
+    release:
+        name: Release
+        needs: [tests]
+        if: github.ref == 'refs/heads/main'
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write # in order to write labels to main branch?
+            pull-requests: write # to be able to comment on released pull requests
+            id-token: write # to enable use of OIDC for npm provenance
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+                  persist-credentials: false
 
-      - run: npm install --global corepack@0.31.0
-        shell: bash
-      - run: corepack enable
-        shell: bash
+            - run: npm install --global corepack@0.31.0
+              shell: bash
+            - run: corepack enable
+              shell: bash
 
-      - name: Setup Node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: '.nvmrc'
-          registry-url: 'https://registry.npmjs.org'
+            - name: Setup Node
+              uses: actions/setup-node@v6
+              with:
+                  node-version-file: '.nvmrc'
+                  registry-url: 'https://registry.npmjs.org'
 
-      # Ensure npm 11.5.1 or later is installed
-      - name: Update npm
-        run: npm install -g npm@latest
+            # Ensure npm 11 or later is installed
+            - name: Update npm
+              run: npm install -g npm@11
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
 
-      - name: Build
-        run: pnpm build
+            - name: Build
+              run: pnpm build
 
-      - name: Release
-        uses: changesets/action@v1
-        with:
-          publish: pnpm changeset publish
-          setupGitUser: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            - name: Release
+              uses: changesets/action@v1
+              with:
+                  publish: pnpm changeset publish
+                  setupGitUser: true
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
