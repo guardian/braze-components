@@ -13,7 +13,7 @@ importers:
     devDependencies:
       '@guardian/cdk':
         specifier: 60.1.3
-        version: 60.1.3(aws-cdk-lib@2.246.0(constructs@10.5.0))(aws-cdk@2.170.0)(constructs@10.5.0)
+        version: 60.1.3(aws-cdk-lib@2.246.0(constructs@10.5.0))(aws-cdk@2.1125.0)(constructs@10.5.0)
       '@guardian/eslint-config-typescript':
         specifier: 0.7.0
         version: 0.7.0(eslint@7.32.0)(prettier@2.8.8)(typescript@5.1.3)
@@ -24,8 +24,8 @@ importers:
         specifier: 16.11.7
         version: 16.11.7
       aws-cdk:
-        specifier: 2.170.0
-        version: 2.170.0
+        specifier: 2.1125.0
+        version: 2.1125.0
       aws-cdk-lib:
         specifier: 2.246.0
         version: 2.246.0(constructs@10.5.0)
@@ -632,9 +632,9 @@ packages:
       - yaml
       - mime-types
 
-  aws-cdk@2.170.0:
-    resolution: {integrity: sha512-gjQZnJIBtm5rd2k/s9BLSFeLxiFbHgr4wgNuEajf0dxLwHvZeafZiSTz86SSh03BEU1fB74IV73ozE4RoMTijQ==}
-    engines: {node: '>= 14.15.0'}
+  aws-cdk@2.1125.0:
+    resolution: {integrity: sha512-QAvsE2XQMcyNOjMMqAS7eDADR9t6vcFcMQvhOmtLfDqgfJXSyTkHvzM5zgwZCdJ4FNqWr5Y/zXvL1Cv5ECKXwQ==}
+    engines: {node: '>= 18.0.0'}
     hasBin: true
 
   aws-sdk@2.1693.0:
@@ -1169,11 +1169,6 @@ packages:
 
   fs.realpath@1.0.0:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
-
-  fsevents@2.3.2:
-    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
-    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
-    os: [darwin]
 
   fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
@@ -2723,10 +2718,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@guardian/cdk@60.1.3(aws-cdk-lib@2.246.0(constructs@10.5.0))(aws-cdk@2.170.0)(constructs@10.5.0)':
+  '@guardian/cdk@60.1.3(aws-cdk-lib@2.246.0(constructs@10.5.0))(aws-cdk@2.1125.0)(constructs@10.5.0)':
     dependencies:
       '@oclif/core': 3.26.6
-      aws-cdk: 2.170.0
+      aws-cdk: 2.1125.0
       aws-cdk-lib: 2.246.0(constructs@10.5.0)
       aws-sdk: 2.1693.0
       chalk: 4.1.2
@@ -3283,9 +3278,7 @@ snapshots:
       '@aws-cdk/cloud-assembly-schema': 53.28.0
       constructs: 10.5.0
 
-  aws-cdk@2.170.0:
-    optionalDependencies:
-      fsevents: 2.3.2
+  aws-cdk@2.1125.0: {}
 
   aws-sdk@2.1693.0:
     dependencies:
@@ -3941,9 +3934,6 @@ snapshots:
       universalify: 2.0.1
 
   fs.realpath@1.0.0: {}
-
-  fsevents@2.3.2:
-    optional: true
 
   fsevents@2.3.3:
     optional: true
