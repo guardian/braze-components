@@ -21,18 +21,18 @@ export default {
         ...ophanComponentIdArgType,
         heading: {
             name: 'heading',
-            type: { name: 'string', required: false },
+            type: { name: 'text', required: false },
             description: 'Header text',
         },
         ...Object.fromEntries(paragraphDocs),
         highlightedText: {
             name: 'highlightedText',
-            type: { name: 'string' },
+            type: { name: 'text' },
             description: 'Yellow highlighted text at end of final paragraph. Supports HTML.',
         },
         buttonText: {
             name: 'buttonText',
-            type: { name: 'string', required: true },
+            type: { name: 'text', required: true },
             description: 'Button label text (Button 1 in Braze)',
         },
         buttonUrl: {
@@ -52,7 +52,7 @@ export default {
         },
         reminderOption: {
             name: 'reminderOption',
-            type: { name: 'string', required: false },
+            type: { name: 'text', required: false },
             description: 'Extra data to be associated with a reminder sign-up',
         },
         showPrivacyText: {
