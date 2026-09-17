@@ -12,6 +12,7 @@ overrides:
   '@types/react': 18.3.23
   fast-uri@3: 3.1.6
   immer: 9.0.6
+  ip-address@10.3.0: 10.3.1
   js-yaml@3: 3.15.2
   js-yaml@4: 4.3.2
   minimist: 1.2.6
@@ -3406,8 +3407,8 @@ packages:
     peerDependencies:
       fp-ts: ^2.5.0
 
-  ip-address@10.2.0:
-    resolution: {integrity: sha512-/+S6j4E9AHvW9SWMSEY9Xfy66O5PWvVEJ08O0y5JGyEKQpojb0K0GKpz/v5HJ/G0vi3D2sjGK78119oXZeE0qA==}
+  ip-address@10.3.1:
+    resolution: {integrity: sha512-1e9d3kb97NHJTIJDZW9rKqW2h6+dFa50Dy0fpPSMQp2ADje5gvKsXmdiK6dwY5t76TaTt5+P5N1Y/LoToIxP6g==}
     engines: {node: '>= 12'}
 
   is-arguments@1.2.0:
@@ -9638,7 +9639,7 @@ snapshots:
     dependencies:
       fp-ts: 2.16.11
 
-  ip-address@10.2.0: {}
+  ip-address@10.3.1: {}
 
   is-arguments@1.2.0:
     dependencies:
@@ -11452,7 +11453,7 @@ snapshots:
 
   socks@2.8.9:
     dependencies:
-      ip-address: 10.2.0
+      ip-address: 10.3.1
       smart-buffer: 4.2.0
 
   source-map-js@1.2.1: {}
