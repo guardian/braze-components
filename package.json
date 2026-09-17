@@ -24,7 +24,7 @@
     "postbuild": "tsc --project tsconfig.types.json",
     "test": "jest",
     "tsc": "tsc  --noEmit",
-    "prerelease": "yarn build",
+    "prerelease": "pnpm build",
     "storybook": "./bin/storybook",
     "build-storybook": "storybook build",
     "lint": "eslint . --ext .ts,.tsx",
