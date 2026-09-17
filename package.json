@@ -115,7 +115,7 @@
     "cross-spawn": "7.0.6",
     "axios": "0.32.0",
     "follow-redirects": "1.15.9",
-    "tar": "7.5.11",
+    "tar": "7.5.19",
     "serialize-javascript": "7.0.3",
     "tmp": "0.2.7",
     "form-data": "4.0.6",
