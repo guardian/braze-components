@@ -26,7 +26,7 @@ jobs:
             - name: Use Node.js
               uses: actions/setup-node@v6
               with:
-                  node-version-file: '.nvmrc'
+                  node-version-file: '.tool-versions'
 
             - name: Install dependencies
               run: pnpm install
@@ -66,7 +66,7 @@ jobs:
             - name: Use Node.js
               uses: actions/setup-node@v6
               with:
-                  node-version-file: '.nvmrc'
+                  node-version-file: '.tool-versions'
 
             - name: Install dependencies
               run: pnpm install
@@ -118,7 +118,7 @@ jobs:
             - name: Setup Node
               uses: actions/setup-node@v6
               with:
-                  node-version-file: '.nvmrc'
+                  node-version-file: '.tool-versions'
                   registry-url: 'https://registry.npmjs.org'
 
             # Ensure npm 11 or later is installed
