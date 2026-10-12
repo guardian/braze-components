@@ -10,17 +10,22 @@ jobs:
               with:
                   fetch-depth: 0
 
+            - run: npm install --global corepack@0.31.0
+              shell: bash
+            - run: corepack enable
+              shell: bash
+
             - name: Use Node.js
-              uses: actions/setup-node@v4
+              uses: actions/setup-node@v7
               with:
-                  node-version-file: '.nvmrc'
+                  node-version-file: '.tool-versions'
 
             - name: Install dependencies
               run: |
-                  yarn install
+                  pnpm install
 
             - name: Chromatic
-              uses: chromaui/action@v11
+              uses: chromaui/action@v18
               with:
                   projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
                   token: ${{ secrets.GITHUB_TOKEN }}

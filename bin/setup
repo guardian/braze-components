@@ -9,4 +9,4 @@ brew bundle --file=${ROOT_DIR}/Brewfile
 
 dev-nginx setup-app ${ROOT_DIR}/nginx/nginx-mappings.yml
 
-yarn install
+pnpm install

@@ -1,7 +1,7 @@
 import React from 'react';
 import { css, ThemeProvider } from '@emotion/react';
 import {
-    brand,
+    palette,
     news,
     neutral,
     space,
@@ -54,10 +54,10 @@ export const NewsletterEpic: React.FC<Props> = (props: Props) => {
     }
 
     return (
-        <ThemeProvider theme={brand}>
+        <ThemeProvider theme={palette}>
             <section css={styles.epicContainer}>
                 <div>
-                    <img css={styles.image} src={imageUrl}></img>
+                    <img role="presentation" css={styles.image} src={imageUrl}></img>
                 </div>
                 <div css={styles.rightSection}>
                     <span css={styles.heading}>{header}</span>

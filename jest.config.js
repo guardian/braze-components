@@ -3,7 +3,7 @@ module.exports = {
     testEnvironment: 'jsdom',
     roots: ['<rootDir>/src'],
     modulePathIgnorePatterns: ['<rootDir>/src/factories/test.ts'],
-    transformIgnorePatterns: ['/node_modules/(?!(@guardian|@braze)/)'],
+    transformIgnorePatterns: ['/node_modules/(?!(.pnpm|@guardian|@braze)/)'],
     transform: {
         '^.+\\.tsx?$': [
             'ts-jest',
