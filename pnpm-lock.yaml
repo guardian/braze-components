@@ -101,8 +101,8 @@ importers:
         specifier: 2.3.3
         version: 2.3.3(rollup@2.80.0)
       '@storybook/addon-controls':
-        specifier: v8
-        version: 8.6.18(storybook@8.6.18(prettier@2.3.2))
+        specifier: v9
+        version: 9.0.8
       '@storybook/addon-docs':
         specifier: v8
         version: 8.6.18(@types/react@18.3.23)(storybook@8.6.18(prettier@2.3.2))
@@ -1497,10 +1497,8 @@ packages:
   '@sinonjs/fake-timers@10.3.0':
     resolution: {integrity: sha512-V4BG07kuYSUkTCSBHG8G8TNhM+F19jXFWnQtzj+we8DrkpSBCee9Z3Ms8yiGer/dlmhe35/Xdgyo3/0rQKg7YA==}
 
-  '@storybook/addon-controls@8.6.18':
-    resolution: {integrity: sha512-K09dHDCfGW3cudsfuyfu0Yi49aZ2h7VYK4IXDGo1sfmtzVh4xd3HrZQQMVUeKLcfDP/NnJowT+fLVwg04CLrxQ==}
-    peerDependencies:
-      storybook: ^8.6.18
+  '@storybook/addon-controls@9.0.8':
+    resolution: {integrity: sha512-6MY9QeBv2vNmBXH+ONmbpp/Gu/odSxriN1+BAY+il9OyXZBMq3OiDsjoH7xY5V7PGr+0XhZfOLkamvx3q+lQTg==}
 
   '@storybook/addon-docs@8.6.18':
     resolution: {integrity: sha512-55ADer0yNmmeR928Y3UAv3r4i7bJSd9LwywsQ+lRol/FNe0ZcwLEz31xL+jVsqQFNnDh/imsDIp8aYapGMtfEQ==}
@@ -5346,6 +5344,7 @@ packages:
 
   uuid@8.0.0:
     resolution: {integrity: sha512-jOXGuXZAWdsTH7eZLtyXMqUb9EcWMGZNbL9YcGBJl4MH4nrxHmZJhEHvyLFrkxo+28uLb/NYRcStH48fnD0Vzw==}
+    deprecated: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
     hasBin: true
 
   v8-compile-cache@2.4.0:
@@ -7239,12 +7238,7 @@ snapshots:
     dependencies:
       '@sinonjs/commons': 3.0.1
 
-  '@storybook/addon-controls@8.6.18(storybook@8.6.18(prettier@2.3.2))':
-    dependencies:
-      '@storybook/global': 5.0.0
-      dequal: 2.0.3
-      storybook: 8.6.18(prettier@2.3.2)
-      ts-dedent: 2.2.0
+  '@storybook/addon-controls@9.0.8': {}
 
   '@storybook/addon-docs@8.6.18(@types/react@18.3.23)(storybook@8.6.18(prettier@2.3.2))':
     dependencies:
