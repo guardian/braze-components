@@ -185,8 +185,8 @@ importers:
         specifier: 29.7.0
         version: 29.7.0
       nanoevents:
-        specifier: 5.1.10
-        version: 5.1.10
+        specifier: 10.0.0
+        version: 10.0.0
       prettier:
         specifier: 2.3.2
         version: 2.3.2
@@ -4201,9 +4201,9 @@ packages:
   mute-stream@0.0.8:
     resolution: {integrity: sha512-nnbWWOkoWyUsTjKrhgD0dcz22mdkSnpYqbEjIm2nhwhuxlSkpywJmBo8h0ZqJdkp73mb90SssHkN4rsRaBAfAA==}
 
-  nanoevents@5.1.10:
-    resolution: {integrity: sha512-QOE78g63vQ7V1JzhOLP8UNlaLOF/llDtfUhCj9GlbhQQc0YdPi5GNJKZdeWE0fvDtGF39un6uSf7RObeBm0eAg==}
-    engines: {node: '>=6.0.0'}
+  nanoevents@10.0.0:
+    resolution: {integrity: sha512-PmIJ3BNxOzgVgnS1r/Pvyj6eZx/xUV2JCPogh0brD6smDIwjRlr1KBl9yoRX323PlfaNrBDDnfCgC9SL00OjSg==}
+    engines: {node: ^22.0.0 || ^24.0.0 || >=26.0.0}
 
   nanoid@3.3.12:
     resolution: {integrity: sha512-ZB9RH/39qpq5Vu6Y+NmUaFhQR6pp+M2Xt76XBnEwDaGcVAqhlvxrl3B2bKS5D3NH3QR76v3aSrKaF/Kiy7lEtQ==}
@@ -10826,7 +10826,7 @@ snapshots:
 
   mute-stream@0.0.8: {}
 
-  nanoevents@5.1.10: {}
+  nanoevents@10.0.0: {}
 
   nanoid@3.3.12: {}
 
