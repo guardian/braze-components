@@ -59,7 +59,7 @@
     "@storybook/addon-docs": "v8",
     "@storybook/addon-toolbars": "v8",
     "@storybook/addon-viewport": "v8",
-    "@storybook/addon-webpack5-compiler-babel": "3.0.5",
+    "@storybook/addon-webpack5-compiler-babel": "4.0.1",
     "@storybook/components": "v8",
     "@storybook/react": "v8",
     "@storybook/react-webpack5": "v8",
