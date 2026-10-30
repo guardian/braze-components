@@ -59,8 +59,8 @@ importers:
         specifier: 7.22.5
         version: 7.22.5(@babel/core@7.29.7)
       '@braze/web-sdk':
-        specifier: 5.8.1
-        version: 5.8.1
+        specifier: 7.1.0
+        version: 7.1.0
       '@changesets/cli':
         specifier: 2.27.10
         version: 2.27.10
@@ -946,8 +946,8 @@ packages:
   '@bcoe/v8-coverage@0.2.3':
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
 
-  '@braze/web-sdk@5.8.1':
-    resolution: {integrity: sha512-J7op9y15tGwAKBXYT2rVryV59+YvRekWHk3lq1Z+oqsNa+BdrboiHTa3r7eBPww8TVcRtWDoreG2Sb3ELAb37w==}
+  '@braze/web-sdk@7.1.0':
+    resolution: {integrity: sha512-K+LQHSHpvNsHGDfXhYGFvD684nfzFwO1BJl9x9seoc9qMK5NEUpwN5hThlkt8zQHVLYz2TR9IW0OrZLJmzm5lg==}
 
   '@changesets/apply-release-plan@7.1.1':
     resolution: {integrity: sha512-9qPCm/rLx/xoOFXIHGB229+4GOL76S4MC+7tyOuTsR6+1jYlfFDQORdvwR5hDA6y4FL2BPt3qpbcQIS+dW85LA==}
@@ -6558,7 +6558,7 @@ snapshots:
 
   '@bcoe/v8-coverage@0.2.3': {}
 
-  '@braze/web-sdk@5.8.1': {}
+  '@braze/web-sdk@7.1.0': {}
 
   '@changesets/apply-release-plan@7.1.1':
     dependencies:
