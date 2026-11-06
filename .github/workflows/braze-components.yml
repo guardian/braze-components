@@ -134,7 +134,5 @@ jobs:
             - name: Release
               uses: changesets/action@v2
               with:
-                  publish: pnpm changeset publish
-                  setupGitUser: true
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                github-token: ${{ secrets.GITHUB_TOKEN }}
+                publish-script: pnpm changeset publish
