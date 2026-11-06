@@ -46,6 +46,7 @@ export class BrazeComponents extends GuStack {
         );
 
         const cloudFrontDist = new CloudFrontWebDistribution(this, 'braze-components-cloudfront', {
+            enabled: this.stage !== 'PROD',
             originConfigs: [
                 {
                     s3OriginSource: {
