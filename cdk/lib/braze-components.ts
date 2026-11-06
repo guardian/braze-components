@@ -67,11 +67,13 @@ export class BrazeComponents extends GuStack {
             reason: 'We are adopting the existing CloudFront dist so that we can migrate to CDK without downtime.',
         });
 
-        new GuCname(this, 'DNS entry', {
-            app: 'braze-components',
-            domainName: props.domainName,
-            resourceRecord: cloudFrontDist.distributionDomainName,
-            ttl: Duration.hours(1),
-        });
+        if (this.stage !== 'PROD') {
+            new GuCname(this, 'DNS entry', {
+                app: 'braze-components',
+                domainName: props.domainName,
+                resourceRecord: cloudFrontDist.distributionDomainName,
+                ttl: Duration.hours(1),
+            });
+        }
     }
 }
