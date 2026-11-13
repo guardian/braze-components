@@ -147,10 +147,10 @@ importers:
         version: 18.3.23
       '@typescript-eslint/eslint-plugin':
         specifier: 5.52.0
-        version: 5.52.0(@typescript-eslint/parser@5.52.0(eslint@8.0.0)(typescript@5.1.3))(eslint@8.0.0)(typescript@5.1.3)
+        version: 5.52.0(@typescript-eslint/parser@5.62.0(eslint@8.0.0)(typescript@5.1.3))(eslint@8.0.0)(typescript@5.1.3)
       '@typescript-eslint/parser':
-        specifier: 5.52.0
-        version: 5.52.0(eslint@8.0.0)(typescript@5.1.3)
+        specifier: 5.62.0
+        version: 5.62.0(eslint@8.0.0)(typescript@5.1.3)
       babel-loader:
         specifier: 9.1.2
         version: 9.1.2(@babel/core@7.29.7)(webpack@5.106.2(esbuild@0.25.12)(postcss@8.5.18))
@@ -2006,8 +2006,8 @@ packages:
       typescript:
         optional: true
 
-  '@typescript-eslint/parser@5.52.0':
-    resolution: {integrity: sha512-e2KiLQOZRo4Y0D/b+3y08i3jsekoSkOYStROYmPUnGMEoA0h+k2qOH5H6tcjIc68WDvGwH+PaOrP1XRzLJ6QlA==}
+  '@typescript-eslint/parser@5.62.0':
+    resolution: {integrity: sha512-VlJEV0fOQ7BExOsHYAGrgbEiZoi8D+Bl2+f6V2RrXerRSylnp+ZBHmPvaIa8cz0Ajx7WO7Z5RqfgYg7ED1nRhA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
@@ -3173,8 +3173,8 @@ packages:
   fast-wrap-ansi@0.2.2:
     resolution: {integrity: sha512-7F2Fl+TjRSenLqlU3UjSH0iyqopqoZIu7eZVpEirP2g1GtWa2G/ecEmBdgz31+Mxr+ELclgg6sokpSFIQiZ02Q==}
 
-  fastq@1.20.1:
-    resolution: {integrity: sha512-GGToxJ/w1x32s/D2EKND7kTil4n8OVk/9mycTc4VDza13lOvpUZTGX3mFSCtV9ksdGBVzvsyAVLM6mHFThxXxw==}
+  fastq@1.20.3:
+    resolution: {integrity: sha512-XKv5nnLs6nLF71NgiKJLIZFLkPyIEuOselLG7ujZnGrRfQK8HpvY+WqKhAJUAdLomwVHErVS4LfxFlPq0/FTAw==}
 
   fb-watchman@2.0.2:
     resolution: {integrity: sha512-p5161BqbuCaSnB8jIbzQHOlpgsPmK5rJVDfDKO91Axs5NC1uu3HRQm6wt9cd9/+GtQQIO53JdGXXoyDpTAsgYA==}
@@ -4327,6 +4327,7 @@ packages:
 
   node-abort-controller@3.1.1:
     resolution: {integrity: sha512-AGK2yQKIjRuqnc6VkX2Xj5d+QW8xZ87pa1UK6yA6ouUyuxfHuMP6umE5QK7UmTeOAymo+Zx1Fxiuw9rVx8taHQ==}
+    deprecated: This package is no longer needed on supported Node.js versions. Node.js 16+ includes AbortController and AbortSignal as built-in globals. All Node.js versions requiring this polyfill are end-of-life. Use the built-in globals instead.
 
   node-exports-info@1.6.2:
     resolution: {integrity: sha512-kXs9Go0cah0qHVV2v389IXQLdLCeE1xfFtjOAF+iobu0OIoG1pje8At2vMHyaPMiPMnG/LWP50twML21eMcAag==}
@@ -4961,6 +4962,10 @@ packages:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
     hasBin: true
 
+  semver@6.3.2:
+    resolution: {integrity: sha512-GYrCADwpu6yV5OAvchkQ27Z5wwMxWAEMg5NNWjyHh/5DboFFqbdbvYNIvZouQpxXyeMPoTOh0vdPYKlf0ZswdQ==}
+    hasBin: true
+
   semver@7.8.0:
     resolution: {integrity: sha512-AcM7dV/5ul4EekoQ29Agm5vri8JNqRyj39o0qpX6vDF2GZrtutZl5RwgD1XnZjiTAfncsJhMI48QQH3sN87YNA==}
     engines: {node: '>=10'}
@@ -4968,6 +4973,11 @@ packages:
 
   semver@7.8.5:
     resolution: {integrity: sha512-Y7/KDsb8LjooZpwaqGyulO6DQlksgCncchHGk+sZIY4SBvUocMBEFH5Ur1fI4dV+Jvl0w6cjvucaIi40puRioA==}
+    engines: {node: '>=10'}
+    hasBin: true
+
+  semver@7.8.6:
+    resolution: {integrity: sha512-9lpSSU4Mly3mrtruwLs1eLK6+gzbzqeBFwRNjIjE+9LuDpWdYctrQlQ3ej1Ilgi7gknpsTRnPoLP8DpCHqHIJw==}
     engines: {node: '>=10'}
     hasBin: true
 
@@ -5818,7 +5828,7 @@ snapshots:
       '@babel/core': 7.29.7
       '@babel/helper-annotate-as-pure': 7.29.7
       regexpu-core: 6.4.0
-      semver: 6.3.1
+      semver: 6.3.2
 
   '@babel/helper-define-polyfill-provider@0.4.4(@babel/core@7.29.7)':
     dependencies:
@@ -7323,7 +7333,7 @@ snapshots:
   '@nodelib/fs.walk@1.2.8':
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
-      fastq: 1.20.1
+      fastq: 1.20.3
 
   '@npmcli/agent@4.0.2':
     dependencies:
@@ -7338,15 +7348,15 @@ snapshots:
   '@npmcli/fs@2.1.2':
     dependencies:
       '@gar/promisify': 1.1.3
-      semver: 7.8.5
+      semver: 7.8.6
 
   '@npmcli/fs@3.1.1':
     dependencies:
-      semver: 7.8.5
+      semver: 7.8.6
 
   '@npmcli/fs@5.0.0':
     dependencies:
-      semver: 7.8.5
+      semver: 7.8.6
 
   '@npmcli/git@4.1.0':
     dependencies:
@@ -7356,7 +7366,7 @@ snapshots:
       proc-log: 3.0.0
       promise-inflight: 1.0.1
       promise-retry: 2.0.1
-      semver: 7.8.5
+      semver: 7.8.6
       which: 3.0.1
     transitivePeerDependencies:
       - bluebird
@@ -7948,9 +7958,9 @@ snapshots:
     dependencies:
       '@types/yargs-parser': 21.0.3
 
-  '@typescript-eslint/eslint-plugin@5.52.0(@typescript-eslint/parser@5.52.0(eslint@8.0.0)(typescript@5.1.3))(eslint@8.0.0)(typescript@5.1.3)':
+  '@typescript-eslint/eslint-plugin@5.52.0(@typescript-eslint/parser@5.62.0(eslint@8.0.0)(typescript@5.1.3))(eslint@8.0.0)(typescript@5.1.3)':
     dependencies:
-      '@typescript-eslint/parser': 5.52.0(eslint@8.0.0)(typescript@5.1.3)
+      '@typescript-eslint/parser': 5.62.0(eslint@8.0.0)(typescript@5.1.3)
       '@typescript-eslint/scope-manager': 5.52.0
       '@typescript-eslint/type-utils': 5.52.0(eslint@8.0.0)(typescript@5.1.3)
       '@typescript-eslint/utils': 5.52.0(eslint@8.0.0)(typescript@5.1.3)
@@ -7967,11 +7977,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/parser@5.52.0(eslint@8.0.0)(typescript@5.1.3)':
+  '@typescript-eslint/parser@5.62.0(eslint@8.0.0)(typescript@5.1.3)':
     dependencies:
-      '@typescript-eslint/scope-manager': 5.52.0
-      '@typescript-eslint/types': 5.52.0
-      '@typescript-eslint/typescript-estree': 5.52.0(typescript@5.1.3)
+      '@typescript-eslint/scope-manager': 5.62.0
+      '@typescript-eslint/types': 5.62.0
+      '@typescript-eslint/typescript-estree': 5.62.0(typescript@5.1.3)
       debug: 4.4.3
       eslint: 8.0.0
     optionalDependencies:
@@ -8012,7 +8022,7 @@ snapshots:
       debug: 4.4.3
       globby: 11.1.0
       is-glob: 4.0.3
-      semver: 7.8.5
+      semver: 7.8.6
       tsutils: 3.21.0(typescript@5.1.3)
     optionalDependencies:
       typescript: 5.1.3
@@ -8026,7 +8036,7 @@ snapshots:
       debug: 4.4.3
       globby: 11.1.0
       is-glob: 4.0.3
-      semver: 7.8.5
+      semver: 7.8.6
       tsutils: 3.21.0(typescript@5.1.3)
     optionalDependencies:
       typescript: 5.1.3
@@ -8873,7 +8883,7 @@ snapshots:
       postcss-modules-scope: 3.2.1(postcss@8.5.18)
       postcss-modules-values: 4.0.0(postcss@8.5.18)
       postcss-value-parser: 4.2.0
-      semver: 7.8.5
+      semver: 7.8.6
     optionalDependencies:
       webpack: 5.106.2(esbuild@0.25.12)(postcss@8.5.18)
 
@@ -9436,7 +9446,7 @@ snapshots:
     dependencies:
       fast-string-width: 3.0.2
 
-  fastq@1.20.1:
+  fastq@1.20.3:
     dependencies:
       reusify: 1.1.0
 
@@ -9507,7 +9517,7 @@ snapshots:
       minimatch: 3.1.5
       node-abort-controller: 3.1.1
       schema-utils: 3.3.0
-      semver: 7.8.5
+      semver: 7.8.6
       tapable: 2.3.3
       typescript: 5.1.3
       webpack: 5.106.2(esbuild@0.25.12)(postcss@8.5.18)
@@ -10024,7 +10034,7 @@ snapshots:
       '@babel/parser': 7.29.11
       '@istanbuljs/schema': 0.1.6
       istanbul-lib-coverage: 3.2.2
-      semver: 6.3.1
+      semver: 6.3.2
     transitivePeerDependencies:
       - supports-color
 
@@ -10034,7 +10044,7 @@ snapshots:
       '@babel/parser': 7.29.11
       '@istanbuljs/schema': 0.1.6
       istanbul-lib-coverage: 3.2.2
-      semver: 7.8.5
+      semver: 7.8.6
     transitivePeerDependencies:
       - supports-color
 
@@ -10361,7 +10371,7 @@ snapshots:
       jest-util: 29.7.0
       natural-compare: 1.4.0
       pretty-format: 29.7.0
-      semver: 7.8.5
+      semver: 7.8.6
     transitivePeerDependencies:
       - supports-color
 
@@ -10611,11 +10621,11 @@ snapshots:
 
   make-dir@3.1.0:
     dependencies:
-      semver: 6.3.1
+      semver: 6.3.2
 
   make-dir@4.0.0:
     dependencies:
-      semver: 7.8.5
+      semver: 7.8.6
 
   make-error@1.3.6: {}
 
@@ -10850,7 +10860,7 @@ snapshots:
       array.prototype.flatmap: 1.3.3
       es-errors: 1.3.0
       object.entries: 1.1.9
-      semver: 6.3.1
+      semver: 6.3.2
 
   node-gyp@9.4.1:
     dependencies:
@@ -10862,7 +10872,7 @@ snapshots:
       nopt: 6.0.0
       npmlog: 6.0.2
       rimraf: 3.0.2
-      semver: 7.8.5
+      semver: 7.8.6
       tar: 7.5.21
       which: 2.0.2
     transitivePeerDependencies:
@@ -10881,7 +10891,7 @@ snapshots:
     dependencies:
       hosted-git-info: 6.1.3
       is-core-module: 2.17.0
-      semver: 7.8.5
+      semver: 7.8.6
       validate-npm-package-license: 3.0.4
 
   normalize-path@3.0.0: {}
@@ -10892,7 +10902,7 @@ snapshots:
 
   npm-install-checks@6.3.0:
     dependencies:
-      semver: 7.8.5
+      semver: 7.8.6
 
   npm-normalize-package-bin@3.0.1: {}
 
@@ -10900,7 +10910,7 @@ snapshots:
     dependencies:
       hosted-git-info: 6.1.3
       proc-log: 3.0.0
-      semver: 7.8.5
+      semver: 7.8.6
       validate-npm-package-name: 5.0.1
 
   npm-packlist@7.0.4:
@@ -10912,7 +10922,7 @@ snapshots:
       npm-install-checks: 6.3.0
       npm-normalize-package-bin: 3.0.1
       npm-package-arg: 10.1.0
-      semver: 7.8.5
+      semver: 7.8.6
 
   npm-registry-fetch@14.0.5:
     dependencies:
@@ -11566,9 +11576,13 @@ snapshots:
 
   semver@6.3.1: {}
 
+  semver@6.3.2: {}
+
   semver@7.8.0: {}
 
   semver@7.8.5: {}
+
+  semver@7.8.6: {}
 
   serialize-javascript@7.0.3: {}
 
