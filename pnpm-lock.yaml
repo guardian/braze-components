@@ -152,8 +152,8 @@ importers:
         specifier: 5.62.0
         version: 5.62.0(eslint@8.0.0)(typescript@5.1.3)
       babel-loader:
-        specifier: 9.1.2
-        version: 9.1.2(@babel/core@7.29.7)(webpack@5.106.2(esbuild@0.25.12)(postcss@8.5.18))
+        specifier: 10.1.1
+        version: 10.1.1(@babel/core@7.29.7)(webpack@5.106.2(esbuild@0.25.12)(postcss@8.5.18))
       chromatic:
         specifier: 6.19.9
         version: 6.19.9
@@ -2385,13 +2385,6 @@ packages:
         optional: true
       webpack:
         optional: true
-
-  babel-loader@9.1.2:
-    resolution: {integrity: sha512-mN14niXW43tddohGl8HPu5yfQq70iUThvFL/4QzESA7GcZoC0eVOhvWdQ8+3UlSjaDE9MVtsW9mxDY07W7VpVA==}
-    engines: {node: '>= 14.15.0'}
-    peerDependencies:
-      '@babel/core': ^7.12.0
-      webpack: '>=5'
 
   babel-plugin-istanbul@6.1.1:
     resolution: {integrity: sha512-Y1IQok9821cC9onCx5otgFfRm7Lm+I+wwxOx738M/WLPZ9Q42m4IG5W0FNX8WLL2gYMZo3JkuXIH2DOpWM+qwA==}
@@ -8491,13 +8484,6 @@ snapshots:
       '@babel/core': 7.29.7
       find-up: 5.0.0
     optionalDependencies:
-      webpack: 5.106.2(esbuild@0.25.12)(postcss@8.5.18)
-
-  babel-loader@9.1.2(@babel/core@7.29.7)(webpack@5.106.2(esbuild@0.25.12)(postcss@8.5.18)):
-    dependencies:
-      '@babel/core': 7.29.7
-      find-cache-dir: 3.3.2
-      schema-utils: 4.3.3
       webpack: 5.106.2(esbuild@0.25.12)(postcss@8.5.18)
 
   babel-plugin-istanbul@6.1.1:
